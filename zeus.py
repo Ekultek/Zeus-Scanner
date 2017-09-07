@@ -37,8 +37,6 @@ if __name__ == "__main__":
                          help="Specify a singular Google dork to use for queries")
     mandatory.add_option("-l", "--dork-list", dest="dorkFileToUse", metavar="FILE-PATH",
                          help="Specify a file full of dorks to run through"),
-    mandatory.add_option("--show", dest="showSqlmapArguments", action="store_true",
-                         help="Show the arguments that the sqlmap API understands")
 
     # attack options
     attacks = optparse.OptionGroup(parser, "Attack arguments",
@@ -80,6 +78,8 @@ if __name__ == "__main__":
                     help="Attempt to automatically find sqlmap on your system")
     misc.add_option("--search-here", dest="givenSearchPath", metavar="PATH-TO-START",
                     help="Start searching for sqlmap in this given path")
+    misc.add_option("--show", dest="showSqlmapArguments", action="store_true",
+                    help="Show the arguments that the sqlmap API understands")
 
     parser.add_option_group(mandatory)
     parser.add_option_group(attacks)
