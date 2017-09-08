@@ -43,7 +43,7 @@ if __name__ == "__main__":
                                    "These arguments will give you the choice on how you want to check the websites")
     attacks.add_option("-s", "--sqli", dest="runSqliScan", action="store_true",
                        help="Run a Sqlmap SQLi scan on the discovered URL's")
-    attacks.add_option("-p", "--port-nmap_scan", dest="runPortScan", action="store_true",
+    attacks.add_option("-p", "--port-scan", dest="runPortScan", action="store_true",
                        help="Run a Nmap port scan on the discovered URL's")
 
     # search engine options
