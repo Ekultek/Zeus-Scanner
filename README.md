@@ -18,9 +18,10 @@ Calling the `-s` flag will prompt for you to start the sqlmap API server `python
 
 There are a few requirements for this:
 
- - Firefox web browser is required as of now, I will be adding the functionality of most web browsers, but first release requires firefox.
+ - Firefox web browser is required as of now, I will be adding the functionality of most web browsers.
  - If you want to run sqlmap through the URL's you will need sqlmap somewhere on your system.
  - If you want to run a port scan using nmap on the URL's IP addresses. You will need nmap on your system.
+   - _Highly advised tip_: Add sqlmap and nmap to your ENV PATH
  - Gecko web driver is required and will be installed the first time you run. It will be added to your `/usr/bin` so that it can be run in your ENV PATH.
  - You must be `sudo` for the first time running this so that you can add the driver to your PATH 
  - `selenium-webdriver` package is required to automate the web browser and bypass API calls.
@@ -32,9 +33,11 @@ There are a few requirements for this:
 ### Installing
 
 To install Zeus you simply need to do the following:
-
+ 
  - **_(optional but highly advised)_** add sqlmap and nmap to your environment PATH by moving them to `/usr/bin` or by adding them to the PATH via terminal
- - Run `pip install requirements.txt`
+ - Clone the repository `git clone https://github.com/Ekultek/Zeus-Scanner.git`
+ - `cd` into zeus-scanner 
+ - Run `pip install -r requirements.txt`
  - For your first run, run `sudo python zeus.py`
 
 This will install all the package requirements along with the gecko web driver
