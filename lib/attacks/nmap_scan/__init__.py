@@ -39,46 +39,40 @@ class NmapHook(object):
             scanned_data = json.dumps(scanned_data, indent=4, sort_keys=True)
         return scanned_data
 
-    def send_to_file(self):
+    def send_to_file(self, data):
         """
         send all the information to a JSON file for further use
         """
         create_dir(self.dir)
         full_nmap_path = "{}/{}".format(self.dir, self.file.format(self.ip))
         with open(full_nmap_path, "a+") as log:
-            log.write(self._get_all_info())
+            log.write(data)
         return full_nmap_path
 
-    def show_open_ports(self, sep="-" * 30):
+    def show_open_ports(self, json_data, sep="-" * 30):
         """
         outputs the current scan information
         """
-        logger.info(set_color("data found for IP '{}'...".format(self.ip)))
-        for host in self.NM.all_hosts():
-            if host:
-                print(
-                    "{}\nScanned: {} ({})\nHost state: {}".format(
-                        sep, self.ip, self.NM[self.ip].hostname(),
-                        self.NM[self.ip].state()
-                    )
+        logger.info(set_color("finding data for IP '{}'...".format(self.ip)))
+        json_data = json.loads(json_data)["scan"]
+        print(
+            "{}\nScanned: {} ({})\tStatus: {}\nProtocol: {}\n".format(
+                sep, self.ip,
+                json_data[self.ip]["hostnames"][0]["name"],
+                json_data[self.ip]["status"]["state"],
+                "TCP"
+            )
+        )
+        oports = json_data[self.ip]["tcp"].keys()
+        oports.sort()
+        for port in oports:
+            print(
+                "Port: {}\tStatus: {}\tType: {}".format(
+                    port, json_data[self.ip]["tcp"][port]["state"],
+                    json_data[self.ip]["tcp"][port]["name"]
                 )
-            else:
-                logger.warning(set_color(
-                    "nothing found skipping...", level=30
-                ))
-            for proto in self.NM[host].all_protocols():
-                print(
-                    "Protocol: {}".format(proto)
-                )
-                oports = self.NM[host][proto].keys()
-                oports.sort()
-                for port in oports:
-                    print(
-                        "Port: {}\tStatus: {}".format(
-                            port, self.NM[host][proto][port]["state"]
-                        )
-                    )
-            print(sep)
+            )
+        print("{}".format(sep))
 
 
 def find_nmap(item_name="nmap", given_search_path=None, verbose=False):
@@ -115,14 +109,17 @@ def perform_port_scan(url, ports=None, scanner=NmapHook, verbose=False, full_pat
         ))
         try:
             data = scanner(found_ip_address, ports=ports)
-            logger.warning(set_color(
-                "sleeping for 15 seconds to given nmap time to complete...", level=30
-            ))
-            time.sleep(15)
-            data.show_open_ports()
-            file_path = data.send_to_file()
+            json_data = data._get_all_info()
+            data.show_open_ports(json_data)
+            file_path = data.send_to_file(json_data)
             logger.info(set_color(
-                "port scan completed, saved to JSON file under '{}'...".format(file_path)
+                "port scan completed, all data saved to JSON file under '{}'...".format(file_path)
+            ))
+        except KeyError:
+            logger.fatal(set_color(
+                "no port information found for '{}({})'...".format(
+                    url, found_ip_address
+                )
             ))
         except Exception as e:
             logger.exception(set_color(
