@@ -6,6 +6,7 @@ import requests
 from selenium import webdriver
 from pyvirtualdisplay import Display
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.proxy import *
 
 from lib.settings import (
     logger,
@@ -41,33 +42,40 @@ def get_urls(query, url, verbose=False, warning=True, user_agent=None, proxy=Non
         logger.warning(set_color(
             "your web browser will be automated in order for Zeus to successfully "
             "bypass captchas and API calls. this is done in order to grab the URL "
-            "from the search and parse the results. in return this will allow the "
-            "search engine to see your current IP address and your current user "
-            "agent. after the URL has been returned; your proxy and user agent "
-            "configuration will be implemented (if applicable) before the parsing "
-            "and vulnerability checking occurs...", level=30
+            "from the search and parse the results. please give selenium time to "
+            "finish it's task...", level=30
         ))
     if verbose:
         logger.debug(set_color(
-            "running selenium-webdriver and launching browser..", level=10
+            "running selenium-webdriver and launching browser...", level=10
         ))
 
-    if user_agent is not None:
+    if verbose:
+        logger.debug(set_color(
+            "adjusting selenium-webdriver user-agent to '{}'...".format(user_agent), level=10
+        ))
+    if proxy is not None:
+        proxy_type = proxy.keys()
+        proxy_to_use = Proxy({
+            ''.join(proxy_type): proxy[''.join(proxy_type)]
+        })
         if verbose:
             logger.debug(set_color(
-                "adjusting user-agent to '{}'...".format(user_agent)
+                "setting selenium proxy to '{}'...".format(
+                    ''.join(proxy_type) + "://" + ''.join(proxy.values())
+                ), level=10
             ))
-        profile = webdriver.FirefoxProfile()
-        profile.set_preference("general.useragent.override", user_agent)
-        browser = webdriver.Firefox(profile)
     else:
-        browser = webdriver.Firefox()
+        proxy_to_use = None
+    profile = webdriver.FirefoxProfile()
+    profile.set_preference("general.useragent.override", user_agent)
+    browser = webdriver.Firefox(profile, proxy=proxy_to_use)
 
-    logger.info(set_color("browser will open shortly.."))
+    logger.info(set_color("browser will open shortly..."))
     browser.get(url)
     if verbose:
         logger.debug(set_color(
-            "searching search engine for the 'q' element (search button)..", level=10
+            "searching search engine for the 'q' element (search button)...", level=10
         ))
     search = browser.find_element_by_name('q')
     logger.info(set_color(
@@ -111,7 +119,6 @@ def parse_search_results(
         logger.debug(set_color(
             "checking for user-agent and proxy configuration...", level=10
         ))
-
     try:
         proxy_string = kwargs.get("proxy")
     except:
@@ -135,9 +142,9 @@ def parse_search_results(
     else:
         user_agent_info = user_agent_info.format("default user agent '{}'".format(DEFAULT_USER_AGENT))
 
-    proxy_string_info = "using {}..."
+    proxy_string_info = "setting proxy to {}..."
     if proxy_string is not None:
-        proxy_string_info = proxy_string_info.format(proxy_string)
+        proxy_string_info = proxy_string_info.format(''.join(proxy_string.keys()) + "://" + ''.join(proxy_string.values()))
     else:
         proxy_string_info = "no proxy configuration detected..."
 
@@ -149,7 +156,7 @@ def parse_search_results(
         "attempting to gather query URL..."
     ))
     try:
-        query_url = get_urls(query, url, verbose=verbose, user_agent=user_agent)
+        query_url = get_urls(query, url, verbose=verbose, user_agent=user_agent, proxy=proxy_string)
     except Exception as e:
         if "WebDriverException" in str(e):
             logger.exception(set_color(
