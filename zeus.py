@@ -24,6 +24,7 @@ from lib.settings import (
     AUTHORIZED_SEARCH_ENGINES,
     URL_LOG_PATH,
     replace_http,
+    prompt
 )
 
 if __name__ == "__main__":
@@ -80,6 +81,8 @@ if __name__ == "__main__":
                     help="Start searching for sqlmap in this given path")
     misc.add_option("--show", dest="showSqlmapArguments", action="store_true",
                     help="Show the arguments that the sqlmap API understands")
+    misc.add_option("--batch", dest="runInBatch", action="store_true",
+                    help="Skip the questions and run in default batch mode")
 
     parser.add_option_group(mandatory)
     parser.add_option_group(attacks)
@@ -201,6 +204,32 @@ if __name__ == "__main__":
                     ))
         return retval
 
+    def __run_attacks(url, sqlmap=False, verbose=False, nmap=False, given_path=None, auto=False, batch=False):
+        """
+        run the attacks if any are requested
+        """
+        if not batch:
+            question = prompt(
+                "would you like to process found URL: '{}'".format(url), opts=["y", "N"]
+            )
+        else:
+            question = "y"
+
+        if question.lower().startswith("y"):
+            if sqlmap:
+                return sqlmap_scan.sqlmap_scan_main(url.strip(), verbose=verbose, opts=__create_sqlmap_arguments(),
+                                                auto_search=auto, given_path=given_path)
+            elif nmap:
+                url_ip_address = replace_http(url.strip())
+                return nmap_scan.perform_port_scan(url_ip_address, verbose=verbose)
+            else:
+                pass
+        else:
+            logger.warning(set_color(
+                "skipping '{}'...".format(url)
+            ))
+
+
     proxy_to_use, agent_to_use = __config_headers()
     search_engine = __config_search_engine(verbose=opt.runInVerbose)
 
@@ -221,16 +250,12 @@ if __name__ == "__main__":
                 pass
 
             urls_to_use = get_latest_log_file(URL_LOG_PATH)
-            with open(urls_to_use) as urls:
-                for url in urls.readlines():
-                    if opt.runSqliScan:
-                        sqlmap_scan.sqlmap_scan_main(url.strip(), verbose=opt.runInVerbose,
-                                                     opts=__create_sqlmap_arguments(),
-                                                     auto_search=opt.autoStartSqlmap,
-                                                     given_path=opt.givenSearchPath)
-                    elif opt.runPortScan:
-                        url_to_use = replace_http(url.strip())
-                        nmap_scan.perform_port_scan(url_to_use, verbose=opt.runInVerbose)
+            if opt.runSqliScan or opt.runPortScan:
+                with open(urls_to_use) as urls:
+                    for url in urls.readlines():
+                        __run_attacks(url.strip(), sqlmap=opt.runSqliScan, nmap=opt.runPortScan,
+                                      given_path=opt.givenSearchPath, auto=opt.autoStartSqlmap,
+                                      batch=opt.runInBatch)
 
         elif opt.dorkFileToUse is not None:
             with open(opt.dorkFileToUse) as dorks:
@@ -251,16 +276,12 @@ if __name__ == "__main__":
                         pass
 
             urls_to_use = get_latest_log_file(URL_LOG_PATH)
-            with open(urls_to_use) as urls:
-                for url in urls.readlines():
-                    if opt.runSqliScan:
-                        sqlmap_scan.sqlmap_scan_main(url.strip(), verbose=opt.runInVerbose,
-                                                     opts=__create_sqlmap_arguments(),
-                                                     auto_search=opt.autoStartSqlmap,
-                                                     given_path=opt.givenSearchPath)
-                    elif opt.runPortScan:
-                        url_to_use = replace_http(url.strip())
-                        nmap_scan.perform_port_scan(url_to_use, verbose=opt.runInVerbose)
+            if opt.runSqliScan or opt.runPortScan:
+                with open(urls_to_use) as urls:
+                    for url in urls.readlines():
+                        __run_attacks(url.strip(), sqlmap=opt.runSqliScan, nmap=opt.runPortScan,
+                                      given_path=opt.givenSearchPath, auto=opt.autoStartSqlmap,
+                                      batch=opt.runInBatch)
         else:
             logger.critical(set_color(
                 "failed to provide a mandatory argument, you will be redirected to the help menu...", level=50
