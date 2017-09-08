@@ -19,7 +19,7 @@ from lib.settings import (
 )
 
 
-def get_urls(query, url, verbose=False, warning=True, **kwargs):
+def get_urls(query, url, verbose=False, warning=True, user_agent=None, proxy=None, **kwargs):
     """
       Bypass Google captchas and Google API by using selenium-webdriver to gather
       the Google URL. This will open a robot controlled browser window and attempt
@@ -51,7 +51,18 @@ def get_urls(query, url, verbose=False, warning=True, **kwargs):
         logger.debug(set_color(
             "running selenium-webdriver and launching browser..", level=10
         ))
-    browser = webdriver.Firefox()
+
+    if user_agent is not None:
+        if verbose:
+            logger.debug(set_color(
+                "adjusting user-agent to '{}'...".format(user_agent)
+            ))
+        profile = webdriver.FirefoxProfile()
+        profile.set_preference("general.useragent.override", user_agent)
+        browser = webdriver.Firefox(profile)
+    else:
+        browser = webdriver.Firefox()
+
     logger.info(set_color("browser will open shortly.."))
     browser.get(url)
     if verbose:
@@ -138,7 +149,7 @@ def parse_search_results(
         "attempting to gather query URL..."
     ))
     try:
-        query_url = get_urls(query, url, verbose=verbose)
+        query_url = get_urls(query, url, verbose=verbose, user_agent=user_agent)
     except Exception as e:
         if "WebDriverException" in str(e):
             logger.exception(set_color(
