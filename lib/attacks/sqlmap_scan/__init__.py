@@ -148,7 +148,7 @@ def sqlmap_scan_main(url, port=None, verbose=None, auto_search=False, opts=None,
                     "current sqlmap scan ID: '{}'...".format(api_id), level=10
                 ))
             lib.settings.logger.info(lib.settings.set_color(
-                "starting sqlmap scan..."
+                "starting sqlmap scan on url: '{}'...".format(url)
             ))
             if opts is not None:
                 if verbose:
