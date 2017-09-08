@@ -17,7 +17,7 @@ import bin.unzip_gecko
 # clone link
 CLONE = "https://github.com/ekultek/zeus-scanner.git"
 # current version <major.minor.commit.patch ID>
-VERSION = "1.0.2.e25"
+VERSION = "1.0.3.24e"
 # colors to output depending on the version
 VERSION_TYPE_COLORS = {"dev": 33, "stable": 92, "other": 30}
 # version string formatting
@@ -27,8 +27,8 @@ elif VERSION.count(".") <= 2:
     VERSION_STRING = "\033[92mv{}\033[0m(\033[{}m\033[1mdev\033[0m)".format(VERSION, VERSION_TYPE_COLORS["dev"])
 else:
     VERSION_STRING = "\033[92mv{}\033[0m(\033[{}m\033[1mrevision\033[0m)".format(VERSION, VERSION_TYPE_COLORS["other"])
-# our saying, because everyone loves Google
-SAYING = "Advanced Dork Scan..."
+# zeus-scanners saying
+SAYING = "Advanced Dork Searching..."
 # sexy banner
 BANNER = """\033[36m
     __          __________                             __   
@@ -37,7 +37,7 @@ BANNER = """\033[36m
   \ \   /_____/  /     /\  ___/|  |  /\___ \  /_____/   / / 
    \_\          /_______ \___  >____//____  >          /_/  
                        \/   \/           \/  {}
-\t{}\n\t\t{}{}\033[0m""".format(VERSION_STRING, CLONE, " " * 5, SAYING)
+\t{}\n\t\t{}\033[0m""".format(VERSION_STRING, CLONE, SAYING)
 # default user agent if another one isn't given
 DEFAULT_USER_AGENT = "Zeus-Scanner(v{})::Python->v{}.{}".format(
     VERSION, sys.version_info[0], sys.version_info[1]
