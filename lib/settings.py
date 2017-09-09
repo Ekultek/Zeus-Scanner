@@ -17,7 +17,7 @@ import bin.unzip_gecko
 # clone link
 CLONE = "https://github.com/ekultek/zeus-scanner.git"
 # current version <major.minor.commit.patch ID>
-VERSION = "1.0.3.24e"
+VERSION = "1.0.5.b0e"
 # colors to output depending on the version
 VERSION_TYPE_COLORS = {"dev": 33, "stable": 92, "other": 30}
 # version string formatting
@@ -272,3 +272,11 @@ def find_application(to_find, default_search_path="/", proc_num=25, given_search
             return list(retval)
     else:
         return whichcraft.which(to_find)
+
+
+def get_random_dork(filename="{}/etc/dorks.txt"):
+    """
+    grab a random dork from the file
+    """
+    with open(filename.format(os.getcwd())) as dorks:
+        return random.choice(dorks.readlines())
