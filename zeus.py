@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 
-import os
 import time
 import optparse
 import subprocess
@@ -26,7 +25,8 @@ from lib.settings import (
     URL_LOG_PATH,
     replace_http,
     prompt,
-    get_random_dork
+    get_random_dork,
+    update_zeus
 )
 
 if __name__ == "__main__":
@@ -87,6 +87,8 @@ if __name__ == "__main__":
                     help="Show the arguments that the sqlmap API understands")
     misc.add_option("--batch", dest="runInBatch", action="store_true",
                     help="Skip the questions and run in default batch mode")
+    misc.add_option("--update", dest="updateZeus", action="store_true",
+                    help="Update to the latest development version")
 
     parser.add_option_group(mandatory)
     parser.add_option_group(attacks)
@@ -113,6 +115,15 @@ if __name__ == "__main__":
                 "[*] {}".format(arg)
             )
         shutdown()
+
+    # update the program
+    if opt.updateZeus:
+        logger.info(set_color(
+            "update in progress..."
+        ))
+        update_zeus()
+        shutdown()
+
 
     def __find_running_opts():
         """

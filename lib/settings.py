@@ -17,7 +17,7 @@ import bin.unzip_gecko
 # clone link
 CLONE = "https://github.com/ekultek/zeus-scanner.git"
 # current version <major.minor.commit.patch ID>
-VERSION = "1.0.5.b0e"
+VERSION = "1.0.6.b0e"
 # colors to output depending on the version
 VERSION_TYPE_COLORS = {"dev": 33, "stable": 92, "other": 30}
 # version string formatting
@@ -280,3 +280,13 @@ def get_random_dork(filename="{}/etc/dorks.txt"):
     """
     with open(filename.format(os.getcwd())) as dorks:
         return random.choice(dorks.readlines())
+
+
+def update_zeus():
+    can_update = True if ".git" in os.listdir(os.getcwd()) else False
+    if can_update:
+        return os.system("git pull origin master")
+    else:
+        logger.fatal(set_color(
+            "no git repository found in directory, unable to update automatically..."
+        ))
