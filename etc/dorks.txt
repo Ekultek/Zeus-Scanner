@@ -1,0 +1,5873 @@
+.php?secao="
+inurl:/content.php?inc=
+sw_comment.php?id=
+pagina.php?tipo=
+index.php?fase= index.php?fase="
+news_content.php?CategoryID=
+"cart.asp?cart_id="
+whereami.cgi?g=id
+index2.php?sub=
+inurl:/index.php?lang=en&cat= index.php?lang="
+inurl:/index.php?lang=en&cc= index.php?lang="
+pagina.php?link=
+gery.php?phpbb_root_path=
+inurl:/yabbse:/Sources:/Packages.php?sourcedir=
+standard.php?var=
+cmd.php?arg= .php?arg=
+layout.php?path=
+.asp?order_id=
+inurl:/blank.php?filepath=
+inurl:/login.php?dir= "login.php?dir="
+inurl:/allindex.php?h=
+inurl:/support/faq/inc/pipe.php?HCL_path=
+rss.php?cat=
+index.php?pageN= .php?pageN="
+magazines/adult_magazine_single_page.php?magid=
+club.php?cid=
+.php?urlFrom="
+info.php?loader=
+inurl:/directions.php?loc=
+show.php?recipe=
+.asp?item=
+index.php?lnk= .php?lnk=
+page.php?subject=
+inurl:/index.php?slang= "index.php?slang="
+order.php?BookID=
+item.asp?prodtype=
+index.php?arg= index.php?arg=
+*.php?mode=
+front/bin/forumview.phtml?bbcode=
+inurl:/all.php?formatword=
+pagina.php?filepath=
+article.asp?id=
+inurl:/default.php?strona=
+eng.php?img= eng.php?img=
+inurl:/allindex2.php?ll=
+product.asp?bookID=
+.asp?id=
+detail.php?item_id=
+.php?mep="
+pagina.php?channel=
+pagina.php?pre=
+htmlpage.php?id=
+inurl:/all.php?function=
+inurl:"index".php?id= title:login 2015
+inurl:index2.php?pa=
+inurl:rubp.php?idr=
+index.php?id=1&lang= index.php?id=
+catalog_item.php?ID=
+global/product/product.php?gubun=
+inc.php?inc= .php?inc="
+blank.php?header=
+start.php?play=
+"item.asp?item_id="
+mod*.php?pageweb=
+intext:"styles" .php?id= title:login
+inurl:".php?categoryid=" intext:"Buy Now"
+calendar/event.php?id=
+press.php?base_dir=
+inurl:/zipndownload.php?PP_PATH= Powered by: PhotoPost PHP 4.6
+advSearch_h.php?idCategory=
+index.php?content= index.php?content=
+"pdetail.asp?item_id="
+affiliate.php?ID=
+inurl:/classified_right.php?language_dir= classified.php phpbazar
+general.php?doshow=
+dotproject/modules/projects/vw_files.php?root_dir=
+index.php?document=
+main.php?filepath=
+mod*.php?choix=
+inurl:/blank.php?goto=
+module_db.php?pivot_path=
+sub*.php?modo=
+inurl:/codebb/lang_select?phpbb_root_path= codebb
+padrao.php?sivu=
+index2.php?lnk=
+inurl:/index.php?file= site:*.dk
+topic.php?ID=
+home.asp?id=
+inurl:/blank.php?page=
+shopdisplaycategories.php
+faqs.php?id=
+.php?da="
+inurl:/wsinurl:/get_events.php?includedir= WebCalendar
+biznews.cgi?a=33&t=
+inurl:/base.php?chapter=
+base.php?path=
+shopbycategory.asp?catid=
+blank.php?pr=
+home.php?i= "home.php?i="
+index5.php?cont=
+inurl:/all.php?destino=
+inurl:".php?id=" intext"perfume" title:login
+template.php?doshow=
+index2.php?content= index2.php?cont="
+index2.php?acao=
+services.php?page=
+inurl:show_item.php?id= title:paypal
+file.php?type=
+enter.php?second=
+inurl:/base.php?second=
+show.php?l=
+index.php?filename=
+administrator/components/com_webring/admin.webring.docs.php?component_dir=
+rubrika.php?idr=
+index.php?mn= index.php?mn="
+inurl:".php?id=" intext:"telescopes" title:login 2015
+base.php?texto=
+mod*.php?pg=
+com_extended_registration
+inurl:/allcom_extended_registration
+inurl:/default.php?p=
+inurl:/templates/mangobery/footer.sample.php?Site_Path= Mangobery
+file.php?ref=
+enter.php?sivu=
+inurl:/default.php?secc=
+standard.php?pref=
+"store.asp?id="
+intext:"category" .php?cat= title:login 2015
+initdb.php?absolute_path=
+image.php?img= .php?img=
+gery.php?addr=
+inurl:/blank.php?pref=
+inurl:/default.php?x=
+"viewCart.asp?userID="
+file.php?url=
+sitio.php?rub=
+*inc*.php?open=
+browse.php?catid=
+*includes/header.php?systempath=
+"inurl:/lire.php?rub="
+inurl:collection.php?id= title:login
+customerService.php?****ID1=
+"view_detail.asp?ID="
+inurl:".php?pid="
+home.php?middlePart=
+inurl:/administrator/components/com_jcs/jcs.function.php?mosConfig_absolute_path=
+index1.php?sekce=
+sub*.php?phpbb_root_path=
+home.php?menu=
+show.php?sp=
+index.php?main= .php?main="
+gery.php?ref=
+general.php?w=
+base.php?sivu=
+product_details.php?product_id=
+detail.php?prod= detail.php?prod="
+press.php?opcion=
+standard.php?ref=
+start.php?seccion=
+bb_usage_stats/include/bb_usage_stats.php?phpbb_root_path=
+head.php?pname=
+comments.php?id=
+index5.php?do=
+gallery.php?id=
+cgi-bin/acart/acart.pl?&page=
+login.php?loca= .php?loca=
+index.php?s= index.php?s=
+down*.php?doshow=
+product.php?intProductID=
+title.php?id=
+show.php?middlePart=
+profiles/profile.php?profileid=
+en/main.php?id=
+WsPages.php?ID=noticiasDetalle.php?xid=
+intext:"payment" .php?id= title:login
+inurl:/index.php?page= site:*.dk
+mod*.php?action=
+auto.php?inc= .php?inc="
+inurl:".php?cid=" intext:"Buy Now"
+"shop.asp?bookid="
+home.php?disp=
+standard.php?*[*]*=
+product_detail.php?product_id=
+"details.asp?Press_Release_ID="
+blank.php?name=
+index.php?pg= "index.php?pg="
+shopinurl:/eventshopinurl:/product_detail.php?itemid=
+add_cart.asp?num=
+index2.php?e=
+file.php?play=
+principal.php?cont=
+reply.php?id=
+inurl:/contenido/classes/class.inuse.php
+inurl:".php?sub_id=" intext:"event" 2015
+index.php?z=
+pagina.php?OpenPage=
+inurl:/index.php?file=
+feedback.asp?title=
+page.php?p= page.php?p=
+file.php?texto=
+index1.php?str=
+roductinfo.php?id=
+inurl:".php?id=" intext:"components" title:login 2015
+default.php?TID=
+blank.php?left=
+main.php?pagina=
+index2.php?m=
+index2.php?rub=
+nota.php?link=
+myPHPCalendarinurl:/admin.php?cal_dir=
+productinfo.asp?item=
+.php?p="
+inurl:/all.php?mostra=
+inurl:/default.php?chapter=
+.php?plugin="
+page.php?doc=
+view.php?secao=
+listcategoriesandproducts.php?idCategory=
+FernandFaerieinurl:/index.php?c=
+inurl:/all.php?perm=
+product.php?bid=
+general.php?texto=
+path.php?xlink=
+inurl:/blank.php?action=
+str.php?page= str.php?page=
+"product.asp?intProdID="
+"payment.asp?CartID="
+gery.php?index=
+file.php?middle=
+board_view.php?s_board_id=
+index2.php?chapter=
+"emailproduct.asp?itemid="
+main.php?sit= .php?sit="
+"contact.asp?cartId="
+mwchat/libs/start_lobby.php?CONFIG[MWCHAT_Libs]=
+"GetItems.asp?itemid="
+index3.php?seccion=
+inurl:".php?cat="
+general.php?rub=
+template.php?opcion=
+video.php?id=
+id=&intextWarningpreg_match()
+index2.php?cont= .php?cont="
+inurl:/skininurl:/zero_voteinurl:/error.php?dir=
+news_detail.php?file=
+index.php?file=
+default.php?ki=
+show.php?page=
+press.php?seite=
+nota.php?opcion=
+padrao.php?corpo=
+"shopquery.asp?catalogid="
+index1.php?load=
+detail.php?prodID=
+Computer Science.php?id=
+.php?archive="
+26. keyword: "powered by smartblog" AND ?page=login
+index.php?p= index.php?p="
+enter.php?y=
+shopreviewadd.asp?id=
+inurl:/base.php?middle=
+.php?function="
+index.php?c= ".php?c="
+index.php3?act= .php3?act=
+press.php?i=
+answerinurl:/default.php?pollID=
+enter.php?a=
+sitio.php?e=
+"shopexd.asp?catalogid="
+products.php?cat=
+.php?item_id="
+artikelinfo.php?id=
+GradeMapinurl:/index.php?page=
+template.php?thispage=
+index2.php?pre=
+base.php?base_dir=
+inurl:people.php?id= title:login
+index.php?root_PATH=
+magazinesinurl:/adult_magazine_full_year.php?magid=
+*.php?session=&content=
+p.php?p= .php?p="
+pageinurl:/deinurl:/produkteinurl:/produkte.php?prodID=
+inurl:/all.php?corpo=
+inurl:/all.php?op=
+head.php?viewpage=
+secure_img_render.php?p=
+index.php3?lang= index.php3?lang=
+index1.php?mid= index1.php?mid=
+index.php?arq=
+index2.php?s= index2.php?s="
+inurl:/all.php?u=
+folder.php?id=
+page.php?file=
+page.php5?id= .php5?id=
+template.php?nivel=
+index.php?middle= index.php?middle=
+zboardinurl:/zboard.php
+include.php?x=
+inurl:/all.php?gorumDir=
+padrao.php?seccion=
+index3.php?sivu=
+age.php?id=
+sitio.php?pg=
+products.php?catid=
+display.php?pag= display.php?pag=
+inurl:/index.php?action=
+"checkout.asp?cartid="
+principal.php?pollname=
+16. inurl:/includesinurl:/orderSuccess.inc.php?glob=
+"shprodde.asp?SKU="
+inurl:/index.php?conteudo=
+index.php?mode=
+inurl:/blank.php?z=
+productpage.asp
+index2.php?cont=
+enter.php?path=
+inurl:/blank.php?sp=
+shop_display_products.php?cat_id=
+id=&intextWarningmysql_query()
+head.php?tipo=
+product.php?id_h=
+start.php?showpage=
+14. keyword : "powered eyeOs"
+cart_additem.asp?id=
+main.php?name=
+head.php?oldal=
+archive.php?id=
+index1.php?p= .php?page="
+loc.php?l= .php?l="
+emsgbinurl:/easymsgb.pl?print=
+principal.php?header=
+info.php?go=
+inurl:/default.php?str=
+press.php?inc=
+inurl:/default.php?loader=
+store.php?cat_id=
+index.php?s= index.php?s="
+view.php?pg=
+index.php?cPath=
+view.php?channel=
+"shopdisplaycategories.asp"
+.php?act="
+index1.php?url=
+general.php?pageweb=
+path.php?addr=
+show.php?corpo=
+padrao.php?a=
+intext:drug .php?id= title:login
+print.php?OpenPage=
+index2.php?meio= .php?meio=
+inurl:/all.php?bbs=
+down*.php?param=
+type.php?iType=
+inurl:/tutorialsinurl:/print.php?page=
+inurl:/cgi-bininurl:/hinsts.pl?
+inurl:/base.php?id=
+nota.php?home=
+base.php?phpbb_root_path=
+mod*.php?pag=
+index.php?var2= index.php?var2=
+inurl::/prodotti.php?id= title:login 2015
+contacts.php?cal_dir=
+view.php?cid=
+inurl:/html&highlight=%2527.include($_GET[a]),exit.%2527&a=
+blank.php?j=
+enter.php?play=
+main.php?vis= .php?vis="
+default.php?str=
+inurl:/allindex.php?theme=
+default.php?t=
+index5.php?inc=
+nav.php?pagina= nav.php?pagina=
+show.php?path=
+inurl:/surveysinurl:/survey.inc.php?path= surveys
+nav.php?pg= nav.php?pg=
+inurl:/base.php?sekce=
+inurl:/allindex.php?f=
+path.php?adresa=
+show.php?redirect=
+inurl:/detail.php?prod=
+emailproduct.asp?itemid=
+inurl:"inurl:/cart.php?m="
+storeinurl:/description.php?iddesc=
+op.php?id=
+enter.php?pr=
+index2.php?arg= .php?arg=
+gery.php?mid=
+nav.php?loc= nav.php?loc=
+gery.php?*[*]*=
+file.php?index=
+id=&intextWarningpg_exec()
+goods_detail.php?data=
+.php?pr="
+index.php?=
+default.php?pre=
+content.php?cID=
+shopprojectlogin.php
+index.php?loca= .php?loca=
+index3.php?pollname=
+path.php?left=
+default.php?mod=
+home.php?eval=
+.php?searchcode_id="
+inurl:"view_author".php?id= intext:login
+inurl:/allindex.php?v=
+print.php?option=
+print.php?table= .php?table=
+product.php?ItemId=
+shopexd.asp
+index.php?id=1&lang= "index.php?id="
+info.php?subject=
+intext:Copyright © 2015 .php?id= title:login
+item.php?iid=
+inurl:/all.php?file=
+*index.php?url=
+cgi-bininurl:/telnet.cgi
+view.php?get=
+head.php?lang=
+cataloginurl:/main.php?cat_id=
+29. shoutboxinurl:/expanded.php filetypep:hp
+index.php?type=
+inurl:".php?cat=" intext:"add to cart"
+padrao.php?menue=
+inurl:/base.php?base_dir=
+path.php?in=
+newsinurl:/newsletter.php?id=
+inurl:/all.php?ad=
+mod*.php?corpo=
+inurl:/zipndownload.php?PP_PATH= PhotoPost
+index.php?tipo=
+lib.inc.php?pm_path=
+inurl:".php?id=" intext"merchandise" title:login
+inurl:/allindex2.php?********=
+cgi-bininurl:/index.cgi?page=
+enter.php?r=
+index.php?mod= .php?mod="
+side.php?table= .php?table=
+index.php?var= index.php?va21=
+promotion.php?catid=
+inurl:/all.php?shard=
+general.php?cmd=
+nota.php?option=
+inurl:".php?sub_id=" intext:"products" 2015
+inurl:/allindex5.php?site=
+page.php?pname=
+layout.php?action=
+home.php?read=
+show.php?index=
+sitio.php?middlePart=
+modul.php?mod= .php?mod="
+intext:"services" .php?cat= title:login 2015
+proddetail.php?prod= .php?prod="
+products_detail.php?CategoryID=
+getbook.asp?bookid=
+sitio.php?read=
+template.php?basepath=
+product-list.php?cid=
+gery.php?viewpage=
+sinformerinurl:/ninurl:/imprimer.php?id=
+base.php?pname=
+"adminEditProductFields.asp?intProdID="
+main.php?opcion=
+content.php?inc= .php?inc="
+inurl:/index.php?seccion= inurl:/index.php?seccion=
+blank.php?destino=
+add_cart.php?num=
+main.php?ba= main.php?ba="
+index.php3?l= index.php3?l=
+include.php?option=
+rfi of this dork: encinurl:/content.php?Home_Path=
+*zentrackinurl:/index.php?configFile=
+shopremoveitem.asp?cartid=
+index3.php?p=
+index.php?hl=
+blank.php?dir=
+*.php?catch=
+inurl:category.php?id= title:login page:2015
+incinurl:/functions.inc.php?config[ppa_root_path]=
+path.php?sivu=
+index.php?fPage= .php?fPage=
+inurl:/calendar.pl?command=login&fromTemplate=
+index2.php?ln= .php?ln="
+template.php?pagina=
+inurl:/main.php?sayfa= main.php?sayfa=
+sub.php?s= sub.php?s=
+inurl:/all.php?tid=
+intext:job .php?id= title:login
+list.php?product= .php?product=
+inurl:/index.php?menu=
+shop_category.php?id=
+"id=" & intext:"Warning: session_start()
+inurl:/codebbinurl:/lang_select?phpbb_root_path= codebb 1.1b3
+kalender.php?vis= kalender.php?vis="
+default.php?to=
+"events.asp?ID="
+login.php?dir=
+nota.php?OpenPage=
+view.php?seccion=
+page.php?section=
+start.php?addr=
+product.php?ProductID=
+print.php?ID=
+inurl:/classified_right.php?language_dir= "classified.php"
+inurl:/allexpanded.php?conf=
+specials.php?id=
+shopinurl:/index.php?cPath=
+mod.php?mod= mod.php?mod="
+index.php?conteudo=
+news.php?type=
+.php?ref="
+index.php?chapter=
+bp_ncom.php?bnrep=
+index3.php?type=
+index.php?page=&lang= index.php?pg=
+inurl:/all.php?vi=
+inurl:/canal.php?meio=
+inurl:/all.php?sg=
+index.php?var= "index.php?var1="
+pagina.php?type=
+cgi-bininurl:/awstats.pl?update=1&logfile=
+announcements.php?phpraid_dir= phpraid signup
+inurl:/cgi-bininurl:/bpinurl:/bp-lib.pl?g=
+view.php?root_dir=
+atom.php5?page= .php5?id=
+index.php?RP_PATH= reviewpost
+auto.php?page= auto.php?page=
+inurl:.php?cat_id= title:login
+ogloszeniainurl:/rss.php?cat=
+releases_headlines_details.php?id=
+file.php?ki=
+shopquery.asp?catalogid=
+nav.php?nav= nav.php?nav=
+inurl:/all.php?funcao=
+pagina.php?path=
+inurl:".php?id=" intext:"add to cart"
+lmsrecords_cd.php?cdid=
+WsAncillary.asp?ID=
+lay_old.php?id=
+More_Details.php?id=
+start.php?rub=
+index.php?lg= "index.php?lg="
+"shopping_basket.asp?cartID="
+inurl:/allindex5.php?pg=
+index.php?lnk= "index.php?lnk="
+corporate/newsreleases_more.php?id=
+path_of_cpcommerceinurl:/_functions.php?prefix
+index.php?c=
+feedback.php?title=
+shop_details.php?prodid=
+contact.asp?cartId=
+inurl:top10.php?cat= title:paypal
+inurl:/all.php?includedir=
+show.php?product= .php?product=
+file.php?ev=
+sub*.php?panel=
+main.php?pname=
+inurl:".php?id="intext"hoddies"title:login
+reports.php?sub= reports.php?sub=
+.php?include="
+inurl:/all.php?join=
+index.php?k=
+boardinurl:/showthread.php?t=
+sitio.php?addr=
+.php?origem="
+view.php?middle=
+index.php3?s= index.php3?s=
+inurl:/all.php?action=
+general.php?adresa=
+inurl:/details.php?loc=
+sub*.php?body=
+head.php?*[*]*=
+inurl:/base.php?f1=
+inurl:/base.php?w=
+.php?debut="
+inurl:/default.php?tipo=
+"products.asp?keyword="
+enter.php?home=
+index.php?s=
+bycategory.asp?id=
+default.php?showpage=
+pagina.php?v=
+index.php?c= "index.php?c="
+nav.php?g= nav.php?g=
+mod*.php?home=
+sources/join.php?FORM[*]=owned&CONFIG[*]=1&CONFIG[*]=
+sources/join.php?FORM[url]=owned&CONFIG[*]=1&CONFIG[*]=
+sources/join.php?FORM[url]=owned&CONFIG[captcha]=1&CONFIG[*]=
+sources/join.php?FORM[url]=owned&CONFIG[captcha]=1&CONFIG[path]=
+sources/join.php?FORM[url]=owned&CONFIG[*]=1&CONFIG[path]=
+sources/join.php?FORM[*]=owned&CONFIG[*]=1&CONFIG[path]=
+loc.php?lang= .php?loc="
+"products_category.asp?CategoryID="
+allinurl::/cart32.exeinurl:/
+viewCart.asp?userID=
+category.php?catid=
+standard.php?channel=
+principal.php?to=
+index3.php?option=
+inurl:/embedinurl:/day.php?path= "Calendar"
+page.php?tipo=
+display.php?lang= display.php?lang=
+index2.php?lng= index.php?lng="
+inurl:/includesinurl:/kb_constants.php?module_root_path= "Base"
+inurl:/index.php?dn= .php?dn=
+classifieds/showproduct.php?product=
+inurl:/convert/mvcw.php?vwar_root=
+file.php?start=
+labels.php?id=
+emailToFriend.php?idProduct=
+inurl:/all.php?l=
+default.php?load=
+rss.php?phpraid_dir= ""$2-"
+standard.php?showpage=
+home.php?addr=
+inurl:/pollvote/pollvote.php?pollname=
+inurl:/archive.php?CONFIG[script_path]=
+default.php?l=
+sub*.php?u=
+.asp?product=
+inurl:/index.php?cms= inurl:/index.php?cms="
+down*.php?filepath=
+str.php?lang= str.php?lang=
+.php?teste="
+inurl:product_info.php?products_id= title:login
+nota.php?adresa=
+inurl:/includesinurl:/kb_constants.php?module_root_path= Knowledge
+layout.php?opcion=
+frame.php?loc= .php?loc="
+9. inurl:/Popperinurl:/index.php?
+nota.php?base_dir=
+page.php?z=
+file.php?showpage=
+inurl:/blank.php?where=
+default.php?incl=
+info.php?xlink=
+inurl:/trans/trans.php?trans=&page=.php?trans="
+inurl:/zipndownload.php?PP_PATH="Powered by: PhotoPost PHP 4.6?
+sitio.php?destino=
+php/fid985C124FBD9EF3A29BA8F40521F12D097B0E2016.aspx?s=
+pagina.php?category=
+start.php?s= start.php?s="
+principal.php?l=
+"updates.asp?ID="
+i-knowinurl:/content.php?page=
+8. inurl:/modules.php?name=myguests
+Pageid=
+home.php?sp=
+start.php?p=
+index2.php?inc=
+.asp?intCatalogID=
+head.php?pag=
+intitle:"mountaineer".php?id= title:join
+mod*.php?secao=
+index2.php?s=
+general.php?b=
+gery.php?y=
+nota.php?tipo=
+gery.php?var=
+inurl:/default.php?type=
+index2.php?strona=
+path.php?sp=
+home.php?sekce=
+gery.php?eval=
+storefront.php?id=
+inurl:".php?ID=" intext:"business" site:us 2015
+newsite/pdf_show.php?id=
+rfi to this dork: inurl:/main.php?sayfa=
+announcements.php?phpraid_dir= "phpraid"
+include.php?panel=
+*inc*.php?incl=
+book.php?ID=7
+14. powered by AshNews", AshNews atau  inurl:/ashnews.php
+knowledge_baseinurl:/detail.php?id=
+newsinurl:/latest_news.php?cat_id=
+inurl:/contenido.php?sec=
+"emailToFriend.asp?idProduct="
+.php?form="
+boardinurl:/view.php?no=
+index3.php?base_dir=
+file.php?var=
+/coin_includes/constants.php?_CCFG[_PKG_PATH_INCL]=
+index2.php?left=
+componentsinurl:/com_zoom/includes/database.php?mosConfig_absolute_path="com_zoom"
+nota.php?left=
+main.php?r=
+index.php?dsp=
+"view_cart.asp?title="
+.php?join="
+index.php?pagina=
+index.php?acao=
+index.php?act= index.php?act=
+print.php?base_dir=
+layout.php?url=
+7. Keyword : "powered by MyLinks"
+press.php?goFile=
+checkout.php?cartid=
+browseinurl:/book.php?journalID=
+.php?show="
+include.php?basepath=
+inurl:/alllib.php?root=
+nota.php?modo=
+inurl:/base.php?ki=
+"shopprojectlogin.asp"
+index.php?cat=
+word.php?id=
+inurl:/allindex2.php?q=
+big.php?pathtotemplate=
+enter.php?incl=
+articles.cgi?a=34&t=
+index.php?exec= index.php?exec=
+sem.php3?id=
+inurl:/display.php?file=
+inurl:/all_functions.php?prefix=
+inurl:".php?categoryid=" intext:"add to cart"
+inurl:/allindex2.php?i=
+nav.php?pag= "nav.php?pag="
+intext:"magazine" .php?id= title:login
+sitio.php?secao=
+avatar.php?page=
+inurl:/contribinurl:/mx_glance_sdesc.php?mx_root_path=
+misc.php?do= .php?do="
+exhibitionsinurl:/detail.php?id=
+index2.php?base_dir=
+include.php?secao=
+inurl:/allindex2.php?a=
+info.php?op=
+logininurl:/admin.asp
+inurl:/define.php?term=
+inurl:/includes/dbal.php?eqdkp_root_path=
+enter.php?mid=
+foruminurl:/showProfile.php?id=
+inurl:/allindex.php?path=
+index.php?pg=
+enter.php?w=
+index.php?d1= .php?d1="
+inurl:/default.php?l=
+gery.php?loader=
+inurl:product_details.php?product_id= title:login
+inurl:/calendar.php?p= calendar.php?p=
+inurl:/blank.php?basepath=
+blank.php?rub=
+index.php?set= .php?set="
+dork: "MobilePublisherPHP"
+padrao.php?open=
+inurl:/allindex.php?o=
+index.php?mid= .php?mid=
+nota.php?seite=
+blank.php?goFile=
+.php?pollname="
+contentinurl:/detail.php?id=
+powersearch.php?CartId=
+sitio.php?name=
+administrator/components/com_remository/admin.remository.php?mosConfig_absolute_path=com_remository
+head.php?abre=
+inurl:/skin/zero_vote/error.php?dir=
+"skin/zero_vote/error.php"
+index1.php?texto=
+base.php?disp=
+shopdc.asp?bookid=
+start.php?mod= .php?mod="
+start.php?id= .php?id="
+show_an.php?id=
+index.php?cid=
+inurl:/admin.php?page=
+general.php?chapter=
+product.asp?intProdID=
+.php?abrir="
+advSearch_h.asp?idCategory=
+print.php?pager= .php?pager=
+inurl:/sourcesinurl:/post.php?fil_config=
+start.php?s= start.php?s=
+nota.php?channel=
+?pagerequested=
+pagina.php?home=
+YZboardinurl:/view.php?id=
+acclogin.php?cartID=
+padrao.php?page=
+base.php?oldal=
+h.php?file=
+sub*.php?id=
+mai.php?loc= mai.php?loc="
+index.php?lv1=
+inurl:ancillary.asp?ID= title:shop
+img.php?loc= .php?loc="
+inurl:"php?ID=" intext:"login" site:uk 2015
+press.php?option=
+inurl:/pminurl:/lib.inc.php?pm_path=
+index.php?ln= .php?ln=
+home.php?pag= "inurl:/home.php?pag=*.php"
+start.php?seite=
+inurl:/blank.php?****=
+print.php?thispage=
+property.php?id=
+inurl:/allindex3php?aa=
+show.php?d=
+head.php?left=
+show.php?chapter=
+path.php?home=
+index2.php?x= .php?x=
+shop.php?cartID=
+standard.php?menu=
+include.php?chapter=
+item.asp?itemid=
+edatabaseinurl:/home.php?cat=
+view.php?var=
+acclogin.asp?cartID=
+index2.php?theme=
+comments_form.php?ID=
+foruminurl:/profile.php?id=
+"index1.php?choix="
+sub*.php?play=
+index3.php?phpbb_root_path=
+inurl:/allindex5.php?do=
+viewevent.php?EventID=
+template.php?cont=
+product.php?product_id=
+index.php?base_dir=
+start.php?page= .php?page="
+home.php?in=
+bb_usage_stats/include/bb_usage_stats.php?phpbb_root_path= forum
+*.php?locate=
+print.php?link=
+faq.asp?cartID=
+home.php?basepath=
+print.php?numero=
+inurl:/all.php?servico=
+download.php?sub= download.php?sub=
+sitio.php?r=
+start.php?sivu=
+Index.php?id=
+show.php?thispage=
+head.php?d=
+updates.php?ID=
+index.php?content=
+inurl:/index.php?include=
+mod*.php?path=
+inurl:/down*.php?choix=
+path.php?p=
+book.php?ID=
+blank.php?incl=
+gery.php?my=
+sitio.php?param=
+inurl:".php?ID=" intext:"join" site:us 2015
+"display_item.asp?id="
+shopquery.php?catalogid=
+index2.php?cont= index2.php?cont="
+.php?debug="
+pagina.php?choix=
+index.php?pg_ID=
+index.php?file= index.php?file="
+cardinfo.asp?card=
+index.php?ln= "index.php?ln="
+frag.php?exec= frag.php?exec="
+index3.php?dir=
+inurl:/base.php?adresa=
+index.php?way= .php?way=
+template.php?header=
+order.php?item_ID=
+index.php?ltr= index.php?ltr="
+down*.php?where=
+layout.php?page=
+info.php?l=
+"specials.asp?id="
+head.php?dir=
+inurl:/allindex5.php?include=
+"add-to-cart.asp?ID="
+init.inc.php?CPG_M_DIR=
+intext:$100 category.php?cat_id= title:login
+catalog_main.asp?catid=
+*inc*.php?body=
+viewapp.php?id=
+adminlogin.asp
+rfi to this dork: inurl:/header.php?abspath=
+base.php?t=
+static.php?id=
+gery.php?page=
+comersus_listCategoriesAndProducts.asp?idCategory=
+info.php?t=
+down*.php?x=
+Packages.php?sourcedir=
+start.php?modo=
+*inc*.php?k=
+print.php?left=
+inurl:/default.php?left=
+inurl:/allindex5.php?****=
+intext:news event.php?id= 2015
+index.php3?p= index.php3?p=
+.php?lan="
+index.php?mid= index.php?mid="
+inurl:/default.php?index=
+StoreRedirect.php?ID=
+photogallery.php?id=
+index2.php?= "index2.php?="
+nota.php?cmd=
+productlist.php?tid=
+index3.php?chapter=
+exibir.php?abre=
+padrao.php?secc=
+index.php?doc=
+info.php?ln= .php?ln="
+geryinurl:/init.php?HTTP_POST_VARS=
+file.php?param=
+nyheder.htm?show=
+index.php?view=
+base.php?k=
+inurl:/all.php?debut=
+view.php?header=
+sitio.php?redirect=
+board.php?see= board.php?see="
+inurl:/all.php?display=
+"promo.asp?id="
+content.php?PID=
+"index.php?Language="
+inurl:/default.php?mod=
+home.php?tipo=
+pagina.php?incl=
+main.php?d1= .php?d1="
+vote.pl?action=show&id=
+index.php?sel=
+base.php?opcion=
+inurl:/gnuinurl:/index.php?doc=
+path.php?eval=
+inurl:/account.php?action=
+index.php?body=
+template.php?ref=
+index1.php?filepath=
+news_item.php?id=
+nota.php?url=
+main.php?body=
+home.php?include=
+index.php?y=
+inurl:/includes/kb_constants.php?module_root_path="Knowledge Base"
+order.asp?item_ID=
+"showbook.asp?bookid="
+printcards.php?ID=
+index1.php?pg=
+freedownload.asp?bookid=
+newsinurl:/shownewsarticle.php?articleid=
+index3.php?left=
+expanded.php?conf=
+index2.php?doshow=
+inurl:/tags.php?BBCodeFile=
+.php?shard="
+.php?prefix="
+press.php?addr=
+.php?link="
+intext:"clothing" .php?id= title:"login" 2015
+index1.php?p= .php?pag="
+principal.php?q=
+"addtomylist.asp?ProdId="
+gery.php?open=
+down*.php?home=
+inurl:/config.php?fpath=
+inurl:/ashnews.php?pathtoashnews=
+.php?club_id="
+"checkout1.asp?cartid="
+template.php?e=
+press.php?subject=
+shopexd.asp?catalogid=
+Store****************************************************************.asp?ID=
+home.php?chapter=
+inurl:/blank.php?p****=
+home.php?play=
+productsByCategory.asp?intCatalogID=
+middle.php?file= .php?page=
+base.php?to=
+press.php?channel=
+sport.php?revista=
+inurl:/classified_right.php?language_dir= phpbazar
+storeinurl:/view_items.php?id=
+index2.php?r=
+head.php?index=
+inurl:/base.php?eval=
+default.php?v=
+nota.php?corpo=
+inurl:/db.php?path_local=
+album_portal.php?phpbb_root_path=
+default.php?*root*=
+inurl:/base.php?lang=
+home.php?itemnav=
+index.php?ltr= .php?ltr="
+inurl:/down*.php?disp=
+inurl:/wsinurl:/get_events.php?includedir= "WebCalendar"
+inurl:/all.php?z=
+nota.php?itemnav=
+inurl:/blank.php?get=
+inurl:".php?id=" intext:"jewelry" title:login 2015
+default.php?read=
+nota.php?showpage=
+index3.php?second=
+frag.php?exec= frag.php"
+module.php?mod= .php?mod="
+20. main.php?pagina=
+inurl:/blank.php?loader=
+inurl:/base.php?pag=
+yahoo = by Kietu? v 3.2
+reports.php?sub= "reports.php?sub="
+bookview.php?id=
+inurl:/all.php?b=
+main.php?include=
+index.php3?p= index.php3?pg="
+print.php?sekce=
+inurl:/article.php?sid=
+print.php?u=
+inurl:/all.php?theme_dir=
+file.php?doshow=
+sub*.php?header=
+index1.php?cmd=
+.brinurl:/index.php?loc=
+p.php?p= p.php?p="
+file.php?left=
+print.php?where=
+inurl:/all.php?j=
+inurl:".php?pid=" intext:"shopping"
+productinfo.php?item=
+index.php?subpage= index.php?subpage="
+FullStory.php?Id=
+inurl:/all.php?load=
+inurl:/default.php?*root*=
+inurl:/allindex5.php?cat=
+index.php?mn= .php?mn="
+index1.php?ltr= .php?ltr="
+inurl:/default.php?ir=
+index.php?where=
+inurl:/arg.php?arg=
+.asp?newsid=
+inurl:/down*.php?inc=
+inurl:/index.php?lang=en&page= .php?lang=
+shopping.php?id=
+.php?m="
+general.php?subject=
+general.php?strona=
+inurl:/templatesinurl:/headline_temp.php?nst_inc= "system"
+trainers.php?id=
+inurl:/includesinurl:/kb_constants.php?module_root_path=
+directoryinurl:/contenu.php?id_cat=
+start.php?pageweb=
+item_list.php?cat_id=
+item.php?model=
+press.php?pr=
+display.php?page= display.php?page="
+inurl:/allindex.php?server=
+content.asp?id=
+sub*.php?action=
+filetypesqlpassword
+index2.php?sekce=
+intext:buy .php?id= title:login site:uk
+sub*.php?menue=
+index.php?Language=
+mod*.php?thispage=
+inurl:/dbase.php?action=
+.php?n="
+home.php?pr=
+sub*.php?path=
+inurl:/all.php?redirect=
+down*.php?pa=
+item.asp?eid=
+index1.php?strona=
+.php?back="
+index.php?pageId=
+mod*.php?var=
+default.php?goto=
+inurl:/index.php?id=&page= .php?id="
+"order.asp?item_ID="
+25. key word : "powered by Fantastic News v2.1.2?
+index.php?pag= "index.php?pag="
+news.cgi?a=114&t=
+view_item.php?item=
+inurl:/index.php?vis= .php?vis=
+index.php?fPage= index.php?fPage="
+inurl:/ashheadlines.php?pathtoashnews=
+include.php?w=
+inurl:/base.php?page***=
+nota.php?pagina=
+shopping_basket.php?cartID=
+principal.php?index=
+index.php?templateid=
+events.asp?ID=
+inurl:/allindex.php?include=
+nota.php?pg=
+base.php?abre=
+head.php?choix=
+lib.php?root=
+shopbycategory.php?catid=
+inurl:/blank.php?destino=
+gery.php?disp=
+index.php?rage=
+index2.php?OpenPage=
+"item_list.asp?maingroup"
+"browse.asp?catid="
+base.php?eval=
+addToCart.php?idProduct=
+nota.php?ir=
+index.php?s= .php?s="
+product-list.php?category_id=
+padrao.php?loc=
+sub*.php?include=
+detail.php?ID=
+inurl:show.php?id= title:login 2015
+down*.php?addr=
+inurl:/blank.php?path=
+inurl:/default.php?opcion=
+index.php?pg_t=
+index1.php?s= index1.php?s="
+print.php?addr=
+.php?cal_dir="
+newsone.php?id=
+principal.php?choix=
+checkout1.asp?cartid=
+id=&intextWarningUnknown()
+galeri_info.php?l=
+index.php?pg= index.php?pg=
+newsinurl:/newsinurl:/title_show.php?id=
+productlist.php?grpid=
+gallerysort.php?iid=
+shopcreatorder.asp
+pagina.php?recipe=
+main.php?ltr= .php?ltr="
+.php?pageurl="
+"shopdisplayproducts.asp"
+index2.php?root_PATH=
+standard.php?cmd=
+index.php3?s= index.php3?s="
+inurl:/database.php?mosConfig_absolute_path=
+inurl:/all.php?go=
+index.php?play=
+principal.php?z=
+index.php?sub= index.php?sub=
+include.php?index=
+index.php?principal=
+index.php?site1= index.php?site1=
+index2.php?qry=
+info.asp?ID=
+default.php?arquivo= .php?arquivo=
+path.php?middlePart=
+rss.php?phpraid_dir= phpraid
+middle.php?page= "middle.php?page="
+store_bycat.php?id=
+index.php?sub= ".php?sub="
+resellers.asp?idCategory=
+side.php?vis= .php?vis=
+home.php?opcion=
+main.php?vis= main.php?vis=
+media.php?page=
+eventsinurl:/unique_event.php?ID=
+index.php?pagina= "index.php?pagina="
+index.php?page= "inurl:/index.php?page=*.php"
+principal.php?abre=
+past-event.php?id=
+press.php?panel=
+inurl:/allindex.php?u=
+enter.php?mod=
+"addItem.asp"
+sub*.php?str=
+index.php?pname=
+show.php?type=
+news.asp?id=
+base.php?doshow=
+SQuery:/lib/gore.php?libpath= "/SQuery:/"
+inurl:/allheader.php?systempath=
+template.php?texto=
+padrao.php?tipo=
+file.php?choix=
+index2.php?a=
+start.php?load=
+htmltonuke.php?filnavn=
+inurl:/default.php?choix=
+down*.php?goFile=
+index.php?offs=
+mod*.php?index=
+index1.php?qry=
+middle.php?file= ".php?file="
+index.php?menu=deti&page=
+order.asp?id=
+inurl:/addpost_newpoll.php?addpoll=preview&thispath=
+index2.php?content= index2.php?content="
+home.php?x=
+template.php?goto=
+inurl:/main.php?sayfa= "main.php?sayfa="
+press.php?strona=
+principal.php?ir=
+path.php?y=
+.php?basedir="
+index.php?RP_PATH=
+details.php?ProdID=
+intext:Buy gift certificates .php?id= title:login
+inurl:/index.php?vis= inurl:/index.php?vis=
+"downloadTrial.asp?intProdID="
+head.php?ev=
+page.php?recipe=
+info.php?rub=
+show.php?id=
+inurl:".php?cat="+intext:"Paypal"+site:us
+"type.asp?iType="
+maininurl:/index.php?uid=
+index.php?ba= index.php?ba="
+incinurl:/cmsesinurl:/aedatingCMS.php?dir[inc]= "flashchat"
+bayerinurl:/dtnews.php?id=
+default.php?nivel=
+inurl:/allgrademadeinurl:/index.php?page=
+inurl:/index.php?lang=en&page= .php?lang="
+index1.php?oldal=
+inurl:/index.php?loc=&lang= index.php?loc="
+inurl:/templatesinurl:/headline_temp.php?nst_inc= ‘fusion"
+down*.php?section=
+inurl:/base.php?home=
+index.php?id=1&lang= index.php?i=
+inurl:product.php?cat= title:login
+usbinurl:/devicesinurl:/showdev.php?id=
+.php?u="
+view_product.php?id=
+page.php?cmd=
+e107inurl:/e107_handlersinurl:/secure_img_render.php?p=
+description.asp?bookid=
+head.php?ki=
+start.php?ir=
+inurl:/base.php?disp=
+home.php?func= .php?func="
+standard.php?sivu=
+sitio.php?go=
+main.php?page= "inurl:/main.php?page=*.php"
+nota.php?mod=
+.php?gorumDir="
+index3.php?get=
+content.php?seite= content.php?seite=
+index3.php?my=
+index.php?vpagina=
+toolsinurl:/print.php?id=
+principal.php?left=
+order.php?pg= order.php?pg=
+shopinurl:/category.asp?catid= title:login 2015
+inurl:/index.php?loc=&page= index.php?loc="
+inurl:/all.php?folder=
+designcenterinurl:/item.php?id=
+downloadTrial.asp?intProdID=
+"viewCat_h.asp?idCategory="
+11. keyword : "Powered by phpBB 2.0.6?
+info.php?ev=
+press.php?pageweb=
+index3.php?url=
+base.php?ki=
+sub*.php?load=
+inurl:/down*.php?lang=
+inurl:product.php?item_id= intext:login 2015
+index1.php?body=
+info.php?incl=
+categorydisplay.php?catid=
+index.php?a= .php?a="
+index.php?template=
+section.php?id=
+index1.php?redirect=
+index2.php?content= .php?content=
+info.php?z=
+principal.php?my=
+category.php?cid=
+inurl:/base.php?opcion=
+stat.php?id=
+price.php?id=
+sub*.php?corpo=
+veranstaltungeninurl:/detail.php?id=
+*.php?pg=
+index.php?side=
+"index1.php?menu="
+padrao.php?path=
+index.php?incl=
+inurl:/index.php?slang= .php?slang=
+inurl:event_info.php?id= title:login
+path.php?*[*]*=
+inurl:"php?id=" intext:"couponcode"
+general.php?pr=
+index.php?basepath=
+*inc*.php?y=
+index1.php?menu=
+inurl:".php?pgID=" intext:"bathroom" 2015
+viewPrd.php?idcategory=
+inurl:/auktion.pl?menue=
+.php?f="
+promotion.asp?catid=
+padrao.php?OpenPage=
+sub*.php?mod=
+principal.php?menue=
+inurl:/base.php?include=
+*inc*.php?get=
+base.php?adresa=
+productDetails.php?idProduct= title:login 2015
+inurl:/default.php?nivel=
+down*.php?ev=
+.php?task="
+blank.php?phpbb_root_path=
+intext:"jewelry" .php?item= title:login 2015
+view.php?sub= "view.php?sub="
+index.php?b= index.php?b="
+index.php?pageurl= "index.php?pageurl=*.php"
+mainfile.php?MAIN_PATH=
+eventsinurl:/event_detail.php?id=
+show.php?m=
+index3.php?read=
+inurl:/base.php?l=
+********s_in_area.php?area_id=
+.php?class="
+index3.php?cmd=
+.php?url="
+details.asp?BookID=
+default.php?pr=
+inurl:/allindex5.php?pag=
+index2.php?content= .php?content="
+base.php?incl=
+press.php?itemnav=
+side.php?vis= side.php?vis=
+inurl:/index.php?x=
+"shopaddtocart.asp?catalogid="
+intitle:"store".php?id= title:paypal
+.php?S="
+intitle:"Bags".php?id= title:login
+template.php?*
+index.php?book=
+inurl:/default.php?panel=
+prodbycat.php?intCatalogID=
+inurl:/zipdownload.php?PP_PATH="PhotoPost PHP"
+path.php?*
+"item.asp?shopcd="
+inurl:/index.php?loc=&cat= index.php?loc="
+base.php?play=
+pagina.php?q=
+tran******.php?id=
+gery.php?corpo=
+path.php?goto=
+itemdetails.php?catalogid=
+pagina.php?in=
+standard.php?xlink=
+blank.php?abre=
+sub*.php?content=
+inurl:/base.php?itemnav=
+index.php?include=
+head.php?middle=
+loc.php?l= .php?loc="
+inurl:item/detail.php?num=
+display_item.asp?id=
+index.php?meio= .php?meio="
+inurl:shop/home.php?cat=
+inurl:/allindex2.php?directfile=
+"price.asp"
+trans.php?trans= .php?trans="
+template.php?pre=
+index.php4?lang= index.php4?lang="
+sub*.php?sp=
+inurl:/application.php?base_path=
+"order.asp?BookID="
+inurl:/includes/dbal.php?eqdkp_root_path= "powered by EQdkp"
+index2.php?d=
+template.php?where=
+inurl:/allindex2.php?path=
+category.asp?catid=
+displayArticleB.php?id=
+inurl:/all.php?menuID=
+intitle:"grooming".php?id= title:login
+index2.php?itemnav=
+inurl:cgi-bin/hinsts.pl?
+print.php?my=
+index.php?var= "index.php?var2="
+index2.php?open=
+index.php?id=&lang= "index.php?id="
+show.php?home=
+page.php?redirect=
+pages.php?ID=
+index2.php?l=
+pagina.php?modo=
+details.php?Product_ID=
+start.php?page= start.php?page=
+blank.php?loader=
+include.php?header=
+main1.php?ln= .php?ln=
+default.php?chapter=
+inurl:/all.php?meio=
+inurl:/tags.php?BBCodeFile= tags.php
+print.php?chapter=
+principal.php?recipe=
+display.php?p= display.php?p=
+order.php?pag= order.php?pag=
+default.php?rub=
+shopremoveitem.php?cartid=
+inurl:/display.php?lang=
+intitle:"membership".php?id= title:info
+inurl:/allinclude.php?gorumDir=
+inurl:/calendar.php?l= calendar.php?l="
+comersus_viewItem.asp?idProduct=
+show.php?oldal=
+default.php?ir=
+view_author.php?id=
+.asp?product_id=
+main.php?e=
+"productDetails.asp?idProduct="
+base.php?seite=
+info.php?recipe=
+inurl:/index.php?lang=en&cat= .php?lang="
+index.php?site= "index.php?site="
+categories.php?cat=
+principal.php?viewpage=
+index1.php?arq= .php?arq=
+view.asp?cid=
+index.php3?id= index.php3?id=
+view.php?qry=
+index.php?pilih=
+tuangou.asp?bookid=
+index1.php?param=
+show.php?pagina=
+layout.php?disp=
+"id=" & intext:"Warning: mysql_query()
+cart_additem.php?id=
+inurl:/includes/dbal.php?eqdkp_root_path=
+tek9.php?id=
+index3.php?inc=
+inurl:/all.php?cod=
+standard.php?include=
+page.php?addr=
+shoutboxinurl:/expanded.php?conf=
+start.php?tipo=
+details.php?loc= details.php?loc=
+path.php?where=
+general.php?get=
+index.php?prod= .php?product="
+inurl:/index.php?babInstPath=
+inurl:/all.php?release=
+buy.php?
+index.php?site= index.php?site=
+gery.php?seccion=
+sub*.php?viewpage=
+"add.asp?bookid="
+inurl:/allindex2.php?cont=
+events.cgi?t=
+.asp?style_id=
+shopcart.asp?title=
+rofile_view.php?id=
+categorydisplay.asp?catid=
+cryolabinurl:/content.php?cid=
+order.php?ln= order.php?ln=
+path.php?type=
+inurl:"Browse_Item_Details.asp?Store_Id=" title:login
+story.php?id=
+general.php?module=
+include.php?middle=
+inurl:/all.php?for=
+inurl:/atom.php5?page=
+smarty_config.php?root_dir=
+play_old.php?id=
+specials.php?osCsid=
+.php?my="
+inurl:".php?id=" intext:"inurl:/storeinurl:/"
+head.php?read=
+adminEditProductFields.php?intProdID=
+layout.php?pagina=
+padrao.php?addr=
+nota.php?panel=
+blank.php?menu=
+index.php?spage= index.php?spage=
+eventsinurl:/event.php?ID=
+inurl:/help_text_vars.php?dir&PGV_BASE_DIRECTORY=
+includesinurl:/header.php?systempath=
+nota.php?secc=
+pagina.php?cmd=
+page.php?ir=
+index2.php?DoAction=
+start.php?op=
+default.php?menue=
+inurl:boutique.php?id= title:login 2015
+checkout1.php?cartid=
+inurl:/index.php?show=
+county-factsinurl:/diaryinurl:/vcsgen.php?id=
+gery.php?pollname=
+start.php?pg=
+video.php?content=
+view.php?pr=
+checkout.asp?cartid=
+.asp?cart=
+head.php?loc=
+inurl:/wsinurl:/login.php?includedir= WebCalendar
+accinfo.asp?cartId=
+show.php?incl=
+sub*.php?go=
+"storeitem.asp?item="
+ov_tv.php?item=
+inurl:/display.php?p=
+libraryinurl:/editorinurl:/editor.php?root=
+cart.php?id=
+cscinurl:/news-details.php?cat=
+.asp?StyleID=
+mod*.php?goFile=
+gery.php?rub=
+inurl:/allindex.php?lv1=
+index.php?acao= index.php?acao=
+index2.php?url_page=
+nota.php?sekce=
+inurl:Services.php?ID= title:login 2015
+main.php?site=
+inurl:/allindex2.php?content=
+index.php?to=
+*.php?go=
+.asp?Sku=
+show.php?second=
+inurl:/tools/send_reminders.php?includedir="day.php?date="
+order.php?list= order.php?list=
+inurl:"info".php?product_info= intext:login
+home.php?a=
+"kb_constants.php?module_root_path="
+p.php?p= .php?p=
+inurl:/all*/newbb/print.php?forum=*topic_id=*
+inurl:/all.php?secao=
+pagina.php?panel=
+item.php?prodtype=
+?page=
+path.php?link=
+gery.php?thispage=
+?pid=
+shopaddtocart.php?catalogid=
+item_show.php?code_no=
+"prodbycat.asp?intCatalogID="
+general.php?inc=
+base.php?*
+default.asp?catID=
+inurl:/articles.cgi?a=34&t=
+phpinurl:/index.php?id=
+inurl:/all.php?return=
+allinurlroddetail.asp?prod=
+path.php?path=
+kboardinurl:/kboard.php?board=
+nota.php?lang=
+content.php?seite= .php?seite=
+port.php?content=
+articipant.php?id=
+home.php?panel=
+inurl:/all_functions.php?prefix
+ihm.php?p=
+intext:business .php?id= 2015
+[Script Path]/admin/index.php?o= admin/index.php";
+inurl:view.php?id= title:login
+sitio.php?sec=
+classesinurl:/adodbtinurl:/sql.php?classes_dir=
+"productsByCategory.asp?intCatalogID="
+include.php?eval=
+gery.php?base_dir=
+inurl:/allindex.php?directfile=
+"category.asp?catid="
+index.php?go= "index.php?go="
+"resellers.asp?idCategory="
+.php?article="
+inurl:/allexibir.php?p=
+include/editfunc.inc.php?NWCONF_SYSTEM[server_path]=
+index3.php?pageweb=
+catalog_main.php?catid=
+inurl:/avatar.php?page=
+head.php?incl=
+index3.php?abre=
+newsinurl:/temp.php?id=
+intext:shipping .php?id= title:login
+show.php?x=
+links.php?catid=
+inurl:/blank.php?poll****=
+nav.php?pag= nav.php?pag=
+band_info.php?id=
+inurl:/blank.php?pre=
+.php?sect="
+nav.php?page= nav.php?page=
+releases.php?id=
+products.php?groupid=
+print.php?menu=
+head.php?g=
+.php?dir="
+index.php?c= index.php?c="
+home.php?showpage=
+padrao.php?xlink=
+principal.php?pref=
+intitle:"Publications".php?id= title:login
+page.php?s= page.php?s="
+inurl:/all.php?from=
+file.php?qry=
+inurl::/reservations.php?id= title:login 2015
+gbinurl:/comment.php?gb_id=
+layout.php?section=
+show.php?play=
+content.php?page=
+info.php?c=
+index.php?table= index.php?table=
+latinbitz.cgi?t=
+"shop.asp?cartID="
+standard.php?w=
+inurl:/all.php?pageurl=
+intext:"men"women" .php?id= title:"login" 2015
+index.php?x=
+page.php?sivu=
+inurl:/base.php?link=
+inurl:/allcontacts.php?cal_dir=
+.php?Page_ID="
+savecart.php?CartId=
+item_details.asp?catid=
+admin.php?page=
+index1.php?modo=
+index.php?sub= index.php?sub="
+path.php?middle=
+32.  "static.php?load="
+general.php?sivu=
+inurl:"category".php?id= intext:login 2015
+intext:goods .php?id= title:login
+inurl:/all.php?thread_id=
+inurl:/allinit.inc.php?CPG_M_DIR=
+inurl:/down*.php?channel=
+al_initialize.php?alpath=
+default.php?choix=
+newsDetail.php?id=
+inurl:/read.php?fpage= inurl:/read.php?fpage=
+inurl:/appsinurl:/apps.php?app=
+index3.php?q=
+shopreviewlist.php?id=
+index3.php?channel=
+inurl:".php?ID=" intext:"customer" site:us 2015
+index.php?lng=../../include/main.inc&G_PATH=
+phpx?PageID
+Stray-Questions-View.php?num=
+general.php?to=
+down*.php?s=
+general.php?p=
+send_reminders.php?includedir=
+intitle:"project".php?id= title:join
+intext:"boot"up" .php?id= title:login
+principal.php?nivel=
+page.php?mid=
+index.php?middle=
+home.php?body=
+intitle:"news"song".php?id= title:login
+include.php?oldal=
+resourcesinurl:/detail.php?id=
+intitle:"store".php?id= title:login
+*.php?place=
+inurl:/allindex5.php?pagina=
+sitio.php?get=
+nota.php?pre=
+mod*.php?numero=
+base.php?l=
+cbmerinurl:/congresinurl:/page.php?LAN=
+.asp?intProdId=
+home.php?ev=
+galerie.php?cid=
+index.php?news=
+index.php?sec= index.php?sec=
+include.php?numero=
+page.php?url=
+productpage.php?ID=
+shopthanks.php
+start.php?xlink=
+tek9.asp?
+inurl:/default.php?seite=
+inurl:/all.php?pm_path=
+gery.php?chapter=
+main.php?str=
+.php?d="
+path.php?ev=
+index.php3?p= index.php3?p="
+inurl:/all.php?cod.tipo=
+index2.php?language=
+inurl:/blank.php?subject=
+inurl:/page.php?view=
+inurl:study.php?id= title:paypal
+.php?from="
+.php?cat="
+gery.php?go=
+"viewitem.asp?recor="
+inurl:/default.php?menu=
+newsItem.php?newsId=
+trailer.php?id=
+enter.php?menue=
+default.php?abre=
+inurl:/calendar.php?pg= calendar.php?pg="
+sub*.php?s=
+index.php?sec=
+promo.asp?id=
+index1.php?func= .php?func="
+intitle:"event"product".php?id= title:login
+inurl:/default.php?param=
+index.php?channel=
+pagina.php?basepath=
+.php?default="
+"archive.asp?id="
+product.php?productid=
+inurl:".php?cat=" intext:"Buy Now"
+template.php?op=
+voteList.php?item_ID=
+.asp?code=
+inurl:/allmainfile.php?MAIN_PATH=
+include.php?*[*]*=
+bidinurl:/topic.php?TopicID=
+inurl:/blank.php?open=
+inurl:/biznews.cgi?a=33&t=
+pagina.php?k=
+sitio.php?abre=
+index.php?b=
+print.php?pager= print.php?pager=
+inurl:/index.php?cat=
+enter.php?e=
+principal.php?n=
+index2.php?u=
+list.php?bookid=
+mod*.php?oldal=
+Select_Item.php?id=
+page.php?secao=
+inurl:".php?id=" intext:"Buy Now"
+step_one_tables.php?server_inc=
+index.php?j=
+start.php?basepath=
+addcart.asp?
+myaccount.asp?catid=
+principal.php?f=
+start.php?option=
+print.php?type=
+products.php?act=
+"book_list.asp?bookid="
+affiliates.asp?id=
+productDisplay.asp
+view_item.php?id=
+inurl:/all.php?title=
+nav.php?nav= "nav.php?nav="
+boardinurl:/read.php?tid=
+inurl:/base.php?v=
+file.php?q=
+main.php?my=
+index.php?r=
+.php?choice="
+press.php?pa=
+base.php?mid=
+emailproduct.php?itemid=
+show.php?nivel=
+brand.php?id=
+inurl:/all.php?a=
+.php?l="
+mod*.php?v=
+intext:"stores" .php?cid= title:"paypal" 2015
+page.php?read=
+base.php?home=
+inurl:/index.php?open=
+default.php?body=
+inurl:/allindex5.php?lv1=
+print.php?category=
+principal.php?url=
+file.php?y=
+inurl:/all.php?regionId=
+inurl:"articles".php?id= title:login 2015
+padrao.php?oldal=
+home.php?pa=
+home.php?section=
+inurl:/all.php?i=
+updatebasket.asp?bookid=
+print.php?r=
++union+select+from
+inurl:/all.php?para=
+page.php?eval=
+modules.php?op=
+padrao.php?sekce=
+article_preview.php?id=
+print.php?menue=
+llindex.php?sub=
+index.php?page=&lang= .php?pag=
+inurl:/all.php?filepath=
+index2.php?ir=
+default.php?e=
+index2.php?redirect=
+intitle:"20%" .php?id= intext:login 2015
+template.php?showpage=
+view.php?oldal=
+main.php?ir=
+inurl:/blank.php?abre=
+default.php?m=
+file.php?strona=
+nota.php?n=
+print.php?dir=
+main.php?section=
+page.php?s= page.php?s=
+i-minurl:/i-m.cgi?p=
+canal.php?meio= .php?meio="
+inurl:/classes/core/********.php?rootdir=
+viewgantt.php?root_dir=
+nav.php?g= "nav.php?g="
+enter.php?go=
+shopdisplayproducts.asp
+comersus_optEmailToFriendForm.asp?idProduct=
+index1.php?home=
+cartadd.asp?id=
+nota.php?v=
+messageinurl:/comment_threads.php?postID=
+padrao.php?u=
+shopwelcome.php?title=
+inurl:/allmodule_db.php?pivot_path=
+listing.php?cat=
+default.php?pageweb=
+index2.php?table= .php?table=
+pageid=
+Services.php?ID=
+index2.php?my=
+general.php?pre=
+index.php?module=
+blank.php?panel=
+page.php?mod=
+page.php?p= .php?p=
+file.php?chapter=
+inurl:/cpcommerceinurl:/_functions.php?prefix=
+inurl:/allexibir.php?abre=
+inurl:/down*.php?ir=
+display.php?f= display.php?f=
+blank.php?h=
+main.php?command= .php?command="
+inurl:showinfo.php?id= title:paypal
+path.php?loader=
+down*.php?showpage=
+path.php?sec=
+socsciinurl:/news_itemsinurl:/full_story.php?id=
+view.php?disp=
+offer.php?idf=
+general.php?ref=
+index1.php?inc= .php?inc="
+index1.php?tipo=
+inurl:/base.php?basepath=
+intext:"watches" .php?category= title:login 2015
+sitioinurl:/item.php?idcd=
+inurl:".php?cat=" intext:"inurl:/shopinurl:/"
+ancillary.asp?ID=
+inurl:/index.php?pg=
+affiliate-agreement.cfm?storeid=
+cgi-bininurl:/ikonboard.cgi
+inurl:/all.php?view=
+index.php?cont=
+inurl:/modules.php?name=
+standard.php?lang=
+print.php?choix=
+itemDesc.php?CartId=
+index.php?go1= "index.php?go1="
+down*.php?pr=
+inurl:/all.php?open=
+sitio.php?recipe=
+base.php?f1= .php?f1="
+feature.php?id=
+print.php?page=
+principal.php?pag=
+inurl:/index.php?slang= ".php?slang="
+sitio.php?oldal=
+inurl:/alltemplate.php?pagina=
+blank.php?lang=
+principal.php?ki=
+site.php?arq= .php?arq=
+sub*.php?secao=
+down*.php?read=
+general.php?seccion=
+standard.php?pagina=
+print.php?pollname=
+default.php?index=
+gery.php?showpage=
+enter.php?type=
+nav.php?go= "nav.php?go="
+shopdisplayproducts.php
+index.php?lng= "index.php?lng="
+prev_results.php?prodID=
+padrao.php?nivel=
+index.php?inc=
+view.php?redirect=
+filetypeincmysql_connectORmysql_pconnect
+layout.php?g=
+inurl:/allindex2.php?p=
+template.php?choix=
+info.php?ir=
+mod*.php?link=
+down*.php?incl=
+inurl:/allindex.php?sub=
+print.php?cont=
+inurl:/allindex2.php?h=
+reporter.cgi?t=
+detail.php?prod= .php?prod="
+id=&intextWarningis_writable()
+book.php?id=
+index3.php?mod=
+free_boardinurl:/board_view.html?page=
+blank.php?oldal=
+inurl:department.php?id= title:bussiness
+index2.php?adresa=
+pathinurl:/index.php?function=custom&custom= path
+general.php?name=
+publicationsinurl:/publication.php?id=
+index1.php?site=
+index1.php?abre=
+shopexd.php?catalogid=
+nota.php?ki=
+shippinginfo.php?CartId=
+mod.php?mod=
+"index.php?screen="
+inurl:/appi/***editor/login.cgi?user****=&command=simple&do=edit&password=&file=
+"category_list.asp?id="
+index1.php?p= .php?pg="
+index.php?id=1&lang= ".php?id="
+inurl:/down*.php?cmd=
+"video.php?content="
+eventsinurl:/index.php?id=
+page.php?seite=
+index.php?strona=
+basket.php?id=
+include.php?seccion=
+inurl:/default.php?page=
+sub*.php?destino=
+inurl:/allindex.php?n=
+general.php?type=
+index.php?mid= .php?mid="
+inurl:".php?cat=" intext:"shopping"
+inurl:/libinurl:/staticinurl:/header.php?set_menu= iPhoto Album
+index.php?goto= index.php?goto="
+index.php?configFile=
+.php?v="
+beitrag_D.php?id=
+index.php?def= index.php?def="
+show.php?product= show.php?product=
+template.php?section=
+general.php?tipo=
+enter.php?subject=
+template.php?path=
+sub*.php?oldal=
+nota.php?pollname=
+info.php?pagina=
+gery.php?mod=
+.asp?designer=
+inurl:/allindex5.php?x=
+inurl:/default.php?m=
+print.php?loc=
+accinfo.php?cartId=
+print.php?tipo=
+index.php?lk= .php?lk="
+down*.php?disp=
+index5.php?site=
+inurl:/display.php?f=
+index.php?pageid=
+path.php?my=
+down*.php?z=
+layout.php?incl=
+"id=" & intext:"Warning: Unknown()
+main2.php?ln= .php?ln=
+index.php?fn= .php?fn="
+inurl:podcast.php?id= title:login
+"cart.asp?action="
+base.php?ir=
+include.php?ki=
+mcf.php?content= "mcf.php"
+inurl:/index1.php?main=
+inurl:/all.php?place=
+down*.php?r=
+enter.php?module=
+padrao.php?*
+sub*.php?seite=
+22. application.php?base_path=
+declaration_more.php?decl_id=
+comersus_optReviewReadExec.php?idProduct=
+layout.php?addr=
+inurl:/tags.php?BBCodeFile= Tagger LE
+inurl:/convert-date.php?cal_dir=
+shopping_basket.asp?cartID=
+index1.php?incl=
+storeinurl:/home.php?cat=
+displayrange.php?rangeid=
+intext:"product" .php?id= title:login 2015 site:uk
+principal.php?pre=
+produit.php?id=
+index.php?w=
+standard.php?in=
+sub*.php?lang=
+.asp?userID=
+catalog.php?id=
+show-book.php?id=
+down*.php?phpbb_root_path=
+include.php?adresa=
+presse.php?do= presse.php?do="
+product-item.php?id=
+inurl:/gnu3inurl:/index.php?doc=
+sub*.php?category=
+print.php?ki=
+index.php?c= index.php?c=
+principal.php?filepath=
+adminEditProductFields.asp?intProdID=
+enter.php?read=
+inurl:/zipndownload.php?PP_PATH= "PhotoPostP"
+inurl:/all.php?Page_ID=
+show.php?disp=
+index.php4?lang= .php4?lang="
+index2.php?loader=
+article.php?id=
+inurl:/index1.php?ln= .php?ln=
+down*.php?corpo=
+index.php?goto=
+product_details.php?prodid=
+show.php?n=
+press.php?type=
+path.php?cmd=
+padrao.php?type=
+"browse_item_details.asp"
+"whatsnew.asp?idCategory="
+inurl:/embed/day.php?path= WebCalendar
+showbook.php?bookid=
+inurl:/index.php?loc=&cat= .php?loc="
+inurl:/base.php?k=
+inurl:/display.php?pag=
+general.php?addr=
+start.php?oldal=
+index.php?cal= ".php?cal="
+inurl:/tags.php?BBCodeFile= "Tagger LE"
+products.php?ID=
+libraryinurl:/lib.php?root=
+intext:business detail.php?id= title:login
+jobs.cgi?a=9&t=
+content.php?ID=
+inurl:/default.php?arquivo=
+shopthanks.asp
+.php?a="
+standard.php?my=
+index3.php?ev=
+default.php?x=
+base.php?v=
+*inc*.php?j=
+page.php?strona=
+.php?headline="
+inurl:/tags.php?BBCodeFile= intitle:"Tagger LE" tags.php
+inurl:/all.php?ref=
+details.php?prodId=
+index.php?menu=deti&page= index.php?menu=deti&page"
+start.php?id= start.php?id="
+fiche_spectacle.php?id=
+fullDisplay.asp?item=
+home.php?loc=
+step_one.php?server_inc=
+index1.php?x=
+nav.php?p= "nav.php?p="
+enter.php?page=
+inurl:/all.php?pr=
+index2.php?pname=
+press.php?ev=
+display_item.php?id=
+blank.php?id=
+general.php?xlink=
+news_view.php?id=
+inurl:/all.php?h=
+index.php?page1= .php?page1="
+index.php?ll=
+nav.php?go= nav.php?go=
+"list.asp?bookid="
+home.php?redirect=
+inurl:/all.php?abrir=
+order.php?l= order.php?l=
+index.php?sec= "index.php?sec="
+sitio.php?pr=
+index.php3?pg= index.php3?pg=
+index2.php?g=
+dork: mcf.php"
+template.php?t=
+Book.php?bookID=
+"id=" & intext:"Warning: getimagesize()
+inurl:".php?pid=" intext:"boutique"intitle:"human".php?id= title:education
+press.php?link=
+pharmaximinurl:/category.php?cid=
+layout.php?cont=
+index.php?lnk= index.php?lnk=
+index2.php?o=
+view.php?body=
+padrao.php?index=
+inurl:showimg.php?cid= title:shop
+principal.php?p=
+.php?site="
+press.php?path=
+"template.php?goto="
+show_item.php?id=
+.asp?cartID=
+*inc*.php?showpage=
+inurl:/allinit.php?HTTP_POST_VARS=
+include.php?ref=
+index2.php?get=
+naboardinurl:/memo.php?bd=
+gnuinurl:/?doc=
+productinurl:/product.php?product_no=
+index2.php?c= .php?c="
+principal.php?destino=
+mod*.php?incl=
+inurl:".php?cat=" intext:"View cart"
+template.php?load=
+tray-Questions-View.php?num=
+template.php?base_dir=
+.php?ad="
+intitle:"singapore" .php?id= intext:login 2015
+down*.php?pg=
+inurl:/all.php?goto=
+inurl:/alldefaultinurl:/theme.php?THEME_DIR=
+inurl:/index1.php?p=
+.php?redirect="
+admininurl:/login.asp
+BookDetails.php?ID=
+inurl:/embedinurl:/day.php?path=
+.php?option="
+index.php?select= .php?select="
+general.php?where=
+inurl:/all.php?prefix=
+main.php?addr=
+cart.php?cart_id=
+"WsAncillary.asp?ID"
+boardinurl:/kboard.php?board=
+start.php?where=
+view_cart.php?title=
+enter.php?index=
+padrao.php?strona=
+inurl:/default.php?ki=
+newsinurl:/newsitem.php?newsID=
+"shopcreatorder.asp"
+index.php?def= .php?def="
+include.php?pageweb=
+inurl:/allindex2.php?pag=
+inurl:catalog.php?cat_id= title:login 2015
+inurl:".php?cid=" intext:"add to cart"
+viewPrd.asp?idcategory=
+show.php?cmd=
+index.php?sort= .php?sort="
+prod.php?cat=
+print.php?module=
+*.php?load=
+show.php?to=
+productinfo.php?id=
+index5.php?cat=
+info.php?pname=
+intext:"buy"clothing" .php?id= title:login
+padrao.php?d=
+path.php?pname=
+inurl:/all.php?configFile=
+include.php?pag=
+impexinurl:/ImpExData.php?systempath=
+inurl:/?pg= .php5?id=
+modul.php?mod= modul.php?mod="
+press.php?dir=
+start.php?s= .php?s="
+productsinurl:/card.php?prodID=
+account.php?action= .php?action=
+inurl:/blank.php?channel=
+historialeer.php?num=
+inurl:/cmd.php?arg=
+inurl:/login.php?dir=
+inurl:/index.php?L2=
+base.php?f1= base.php?f1="
+index.php?trans= .php?trans="
+path.php?qry=
+blank.php?pollname=
+docDetail.aspx?chnum=
+inurl:/allconvert-date.php?cal_dir=
+inurl:"catalog_item".php?id= title:login
+pdetail.asp?item_id=
+sub.php?s= "sub.php?s="
+shopcafe-shop-product.php?bookId=
+inurl:/blank.php?OpenPage=
+index.php?site1= "index.php?site1="
+pagina.php?start=
+index.php?ver=
+index2.php?sub2=
+inurl:/base.php?doshow=
+inurl:/bb_libinurl:/checkdb.inc.php?libpach=
+.php?release="
+store-details.php?id=
+inurl:/allindex.php?c=
+cgi-bininurl:/quikstore.cgi?category=
+arquivo.php?data=
+rod_info.php?id=
+shopdc.php?bookid=
+inurl:/allexibir.php?page=
+principal.php?disp=
+inurl:/embeded/day.php?path=intitle:"Login to Calendar"
+intitle:"company".php?id= title:sign in
+enter.php?start=
+prodotti.php?id_cat=
+index.php?visualizar=
+index1.php?recipe=
+info.php?redirect=
+template.php?corpo=
+index1.php?read=
+gery.php?tipo=
+pagina.php?read=
+blank.php?basepath=
+inurl:/allindex.php?s=
+intitle:"market" .php?id= intext:login 2015 site:sg
+inurlinfo.php?id=
+enter.php?open=
+referralinurl:/detail.php?siteid=
+index3.php?var=
+dork: "Powered By ScozNews"
+home.php?a= home.php?a="
+index.php?modo=
+.asp?framecode=
+inurl:/help_text_vars.php?cmd=dir&PGV_BASE_DIRECTORY= PHPGedView
+default.php?loader=
+index.php?secao= ".php?secao="
+default.php?name=
+index.php?nic=
+index.php?page1= index.php?page1="
+"kids"fashion".php?id= title:loginintext:"international"delivery".php?id=title:login
+standard.php?str=
+inurl:/allindex2.php?y=
+sitio.php?category=
+inurl:".php?id=" intext:"View cart"
+*.php?sel=
+padrao.php?cont=
+init.php?HTTP_POST_VARS=
+display.php?page=&lang= display.php?page="
+index.php?ir= ".php?ir="
+"description.asp?bookid="
+standard.php?goFile=
+"showStore.asp?catID="
+"news.asp?id="
+site.php?id=
+head.php?include=
+inurl:".php?pid=" intext:"View cart"
+inurl:/all.php?default=
+general.php?ir=
+nota.php?basepath=
+index.php?mid=
+item_show.php?id=
+head.php?where=
+inurl:/allupgrade_album.php?GALLERY_BASEDIR=
+principal.php?id=
+.asp?catalogid=
+index.php?adresa=
+inurl:/main.php?x=
+index1.php?arg= .php?arg=
+index5.php?body=
+showsub.php?id=
+"learnmore.asp?cartID="
+order.php?p= order.php?p=
+.php?var="
+inurl:/index.inc.php?PATH_Includes=
+start.php?abre=
+index.php?middlePart=
+shippinginfo.asp?CartId=
+press.php?lang=
+*include/new-visitor.inc.php?lvc_include_dir=
+gery.php?pag=
+index.php?openfile=
+mai.php?act= mai.php?act=
+pagina.php?secao=
+review.php?id=
+gery.php?itemnav=
+cloudbankinurl:/detail.php?ID=
+inurl:/default.php?mid=
+more.php?sub= more.php?sub=
+*inc*.php?category=
+inurl:/allindex.php?page=
+inurl:/default.php?cmd=
+contentinurl:/index.php?id=
+intitle:"contact"us".php?page_id= title:shop
+index2.php?lv1=
+whatsnew.asp?idCategory=
+"details.asp?Service_ID="
+main.php?path=
+ls.php?id=
+index.php?Load=
+inurl:"php?ID=" intext:"login" site:us 2015
+bbsinurl:/bbsView.php?id=
+"shopremoveitem.asp?cartid="
+index.php?opcao=
+page.php?PartID=
+_functions.php?prefix=
+ShopSearch.php?CategoryID=
+store.asp?id=
+allinurl::/storeinurl:/index.cgiinurl:/page=
+exhibition_overview.php?id=
+index.php?dok= .php?dok="
+default.php?oldal=
+layout.php?category=
+index.php?fn= index.php?fn="
+layout.php?thispage=
+middle.php?page= middle.php?page=
+"List.asp?CatID="
+blank.php?ref=
+inurl:/index.php?lang=en&page= index.php?lang="
+write.php?dir=
+smarty_config.php?root_dir= "smarty"
+padrao.php?link=
+inurl:/blank.php?url=
+index.php?link=
+inurl:/cgi-bininurl:/telnet.cgi
+"shopbycategory.asp?catid="
+blank.php?corpo=
+enter.php?goto=
+inurl:/display.php?pg=
+events.php?ID=
+press.php?my=
+blank.php?url=
+inurl:".php?cat="+intext:"inurl:/Buy Nowinurl:/"+site:.net
+standard.php?go=
+inurl:/allindex.php?lnk=
+sub*.php?link=
+"Book.asp?bookID="
+fatcatinurl:/home.php?view=
+inurl:/static.php?load=
+index2.php?goto=
+index5.php?pag=
+layout.php?my=
+enter.php?id=
+home.php?my=
+bloginurl:/index.php?idBlog=
+nota.php?doshow=
+inurl:/all.php?inter=
+path.php?tipo=
+storefronts.php?title=
+material.php?id=
+showStore.asp?catID=
+main.php?middle=
+img.php?loc= img.php?loc="
+page.php?numero=
+inurl:/default.php?basepath=
+category.php
+base.php?w=
+down*.php?path=
+faqs.asp?id=
+affich.php?base=
+inurl:/allindex_table.php?root_dir=
+blank.php?pa=
+display.php?s= display.php?s=
+mod*.php?channel=
+faq_list.php?id=
+index.php?ID=
+template.php?a=
+show.php?ki=
+lc.cgi?a=
+inurl:/all.php?club_id=
+cgi-sysinurl:/guestbook.cgi?user=cpanel&template=
+sitio.php?chapter=
+sub*.php?thispage=
+start.php?name=
+gery.php?menu=
+add-to-cart.asp?ID=
+"comersus_viewItem.asp?idProduct="
+view.php?go=
+inurl:/all.php?refid=
+age.php?file=
+sitio.php?ev=
+padrao.php?mid=
+standard.php?viewpage=
+inurl:/default.php?k=
+blank.php?xlink=
+page.php?area_id=
+index.php?set= index.php?set="
+displayproducts.php
+index1.php?nivel=
+index.php?open=
+index.php?r= index.php?r="
+productsinurl:/partsinurl:/detail.php?id=
+addItem.asp
+inurl:/blank.php?phpbb_root_path=
+"comments_form.asp?ID="
+index.php?cart=
+index3:php?aa=
+pminurl:/lib.inc.php?pm_path=
+products.php?rub=
+inurl:".php?ID=" intext:"DVD" site:us 2015
+inurl:".php?ID=" intext:"checkout" site:us 2015
+base.php?basepath=
+.php?name="
+general.php?abre=
+start.php?pag= start.php?pag=
+index2.php?n=
+inurl:viewItem.php?id= title:login
+index.php?fPage= .php?fPage="
+show.php?abre=
+include.php?loc=
+product.php?intProdID=
+index.php?fPage= index.php?fPage=
+head.php?start=
+padrao.php?texto=
+incinurl:/functions.inc.php?config[ppa_root_path]= "Index – Albums" index.php
+inurl:/csv_dbinurl:/csv_db.cgi?fil
+index2.php?home=
+modulesinurl:/mod_mainmenu.php?mosConfig_absolute_path=
+principal.php?inc=
+inurl:/all.php?sect=
+inurl:/default.php?to=
+inurl:/auto.php?inc=
+inurl:content.php?id= title:login 2015
+blank.php?pre=
+.php?bbs="
+storeinurl:/default.php?cPath=
+print.php?opcion=
+inurl:/includes/dbal.php?eqdkp_root_path="powered by EQdkp"
+intitle:"jobs".php?lang=en intext:business
+index.php?id=&lang= ".php?id="
+base.php?lang=
+.php?refid="
+show.php?channel=
+padrao.php?subject=
+shopbasket.asp?bookid=
+dork:"powered by EQdkp"
+index.php?c= .php?c=
+path.php?destino=
+.php?east="
+index.php?a=
+.asp?cid=
+start.php?sp=
+mod*.php?to=
+mod*.php?strona=
+.php?visual="
+inurl:/blank.php?t=
+more_detail.php?id=
+intext:"store" .php?id= title:login 2015
+.php?date="
+index1.php?page= index1.php?page="
+"productlist.asp?ViewType=Category&CategoryID= "
+"id=" & intext:"Warning: mysql_fetch_array()
+product_ranges_view.php?ID=
+inurl:/alldisplayCategory.php?basepath=
+intext:Warning: mysql_fetch_array(): supplied argument is not a valid MySQL result resource in & "id"
+inurl:/dotprojectinurl:/modulesinurl:/tasksinurl:/viewgantt.php?root_dir=
+intext:"international"business" .php?id= title:join
+solpot.html?body=
+sitio.php?*root*=
+default.php?header=
+index.php?i=
+book_list.asp?bookid=
+view.php?recipe=
++union+select+SHOP
+include.php?url=
+sitio.php?option=
+productsinurl:/product.php?pid=
+inurl:/interna.php?meio= .php?meio="
+layout.php?pref=
+book_view.php?bookid=
+index.php?q=
+inurl:/modulesinurl:/xgeryinurl:/upgrade_album.php?GERY_BASEDIR=
+gery.php?sivu=
+index2.php?pag=
+default.php?cont=
+"tek9.asp?"
+layout.php?choix=
+.php?board_no="
+"details.asp?BookID="
+intext:business company.php?id= title:login
+page.asp?PartID=
+prodetails.php?prodid=
+inurl:article.php?page_id= title:paypal
+inurl:/base.php?ir=
+prodetails.asp?prodid=
+pagina.php?pr=
+index.php?lang=gr&file
+gery.php?oldal=
+inurl:/all.php?menu=
+inurl:/accessinurl:/login.php?path_to_root=
+ViewProduct.asp?misc=
+padrao.php?pname=
+head.php?sekce=
+inurl:".php?cid=" intext:"View cart"
+details.asp?Press_Release_ID=
+main.php?s= main.php?s=
+index.php?middle= .php?middle="
+enter.php?b=
+default.php?f=
+pagina.php?thispage=
+"aspx?PageID"
+general.php?thispage=
+inurl:/allindex.php?prefix=
+info.php?seccion=
+inurl:/blank.php?id=
+index.php?load=
+default.php?n=
+gery.php?pageweb=
+browse_item_details.asp
+inurl:/all.php?sufixo=
+newsitem.php?newsid=
+reviewinurl:/review_form.php?item_id=
+page.php?adresa=
+nota.php?m=
+index1.php?adresa=
+inurl:/componentsinurl:/com_galleriainurl:/galleria.html.php?mosConfig_absolute_path=
+inurl:/all.php?site=
+main.php?ln= .php?ln=
+blank.php?ir=
+viewinurl:/7inurl:/9628inurl:/1.html?reply=
+base.php?middle=
+print.php?sivu=
+main.html.php?seite= .php?seite=
+index3.php?adresa=
+home.php?where=
+inurl:/all.php?cvsroot=
+4. 4nAlbum site:.org
+view.php?goFile=
+upgrade_album.php?GERY_BASEDIR=
+home.php?oldal=
+mediainurl:/pr.php?id=
+info.php?ref=
+show_bug.cgi?id=
+Book.asp?bookID=
+item_book.php?CAT=
+page.php?p=
+comersus_optReviewReadExec.asp?idProduct=
+dork: surveys
+.asp?misc=
+index.php3?p= index.php3?pag="
+home.php?arg= .php?arg=
+galerie.php?do= .php?do="
+head.php?*
+browse_item_details.php
+pagina.php?goto=
+"default.asp?catID="
+componentsinurl:/com_geriainurl:/geria.html.php?mosConfig_absolute_path=
+shprodde.php?SKU=
+sub*.php?*[*]*=
+inurl:/blank.php?base_dir=
+default.php?page= "inurl:/default.php?page=*.php"
+start.php?base_dir=
+inurl:content"php=id" +site:.uk intext:paypal
+administratorinurl:/componentsinurl:/com_comprofilerinurl:/plugin.class.php?mosConfig_absolute_path= inurl:/toolsinurl:/send_reminders.php?includedir= day.php?date=
+blank.php?read=
+blank.php?link=
+sub*.php?chapter=
+"ViewProduct.asp?misc="
+index.php?pageurl= "index.php?pageurl=*.php
+main.php?where=
+allinurl::/vpaspinurl:/shopdisplayproducts.asp
+inurl:".php?id=" intext:"shopping"
+logininurl:/administrator.asp
+print.php?sid=
+administratorlogin.asp
+.php?base="
+site:uk item.asp?itemid=
+down*.php?cmd=
+inurl:/activeinurl:/componentsinurl:/xmlrpcinurl:/client.php?c[components]=
+press.php?pagina=
+sub*.php?left=
+sitio.php?nivel=
+index2.php?f=
+nota.php?get=
+index.php?var= index.php?var=
+include.php?second=
+general.php?channel=
+inurl:/all.php?var=
+inurl:/bb_usage_statsinurl:/includeinurl:/bb_usage_stats.php?phpbb_root_path=
+head.php?cmd=
+sitio.php?goFile=
+standard.php?where=
+p.php?p= p.php?p=
+inurl::/Details.asp?id= title:shop 2015
+layout.php?nivel=
+template.php?sp=
+"shopcart.asp?title="
+view.php?u=
+poem_list.php?bookID=
+.php?menu="
+downloads_info.php?id=
+page.php?chapter=
+inurl:/includesinurl:/header.php?systempath=
+publicationsinurl:/view.php?id=
+inurl:/header.php?abspath= "MobilePublisherPHP"
+.php?loc="
+"store_listing.asp?id="
+default.php?eval=
+middle.php?file= "middle.php?page="
+inurl:/classes.php?LOCAL_PATH=
+inurl:/classified_right.php?language_dir=
+inurl:/index4.php?body=
+header.php?systempath=
+skinsinurl:/advancedinurl:/advanced1.php?pluginpath[0]= "Sabdrimer CMS"
+productinurl:/list.php?pid=
+.php?new="
+inurl:/allindex5.php?********=
+index2.php?s= .php?s="
+gery.php?seite=
+encinurl:/content.php?Home_Path= "doodle cart"
+defaultinurl:/theme.php?THEME_DIR=
+main.php?pref=
+event_info.php?p=
+index.php?page= php5?page=
+blank.php?page=
+template.php?*[*]*=
+print.php?open=
+sub.php?sub= sub.php?sub=
+classifiedsinurl:/detail.php?siteid=
+"categorydisplay.asp?catid="
+index.php?lnk=
+administratorinurl:/componentsinurl:/com_remositoryinurl:/admin.remository.php?mosConfig_absolute_path= Mambo
+principal.php?goto=
+inurl:/allindex2.php?k=
+index.php?mid= index.php?mid=
+index.php?wpage= .php?wpage="
+view.php?lang=
+intitle:"career".php?lang=en title:join
+.php?nav="
+inurl:/blank.php?menu=
+layout.php?panel=
+home.php?path=
+inurl:/mylinksinurl:/includeinurl:/footer.inc.php?_AMLconfig[cfg_serverpath]=
+index1.php?go=
+path.php?subject=
+side.php?arq= .php?arq=
+inurl:".php?catid=" intext:"inurl:/shopinurl:/"
+inurl:/componentsinurl:/com_foruminurl:/download.php?phpbb_root_path= com_forum
+"shopthanks.asp"
+*pivotinurl:/modulesinurl:/module_db.php?pivot_path=
+inurl:/base.php?choix=
+becommunityinurl:/communityinurl:/index.php?pageurl=
+inurl:/modulesinurl:/postguestbookinurl:/stylesinurl:/internalinurl:/header.php?tpl_pgb_moddir= PostGuestbook 0.6.1
+skinsinurl:/advancedinurl:/advanced1.php?pluginpath[0]= "Sabdrimer"
+book_view.asp?bookid=
+start.php?index=
+nota.php?subject=
+gig.php?id=
+select_biblio.php?id=
+inurl:/contribinurl:/yabbseinurl:/poc.php?poc_root_path=
+.php?sufixo="
+main.php?item=
++union+select+admin
+view.php?*
+inurl:job.php?id= title:login
+"item.asp?itemid="
+*inc*.php?menu=
+aboutchiangmaiinurl:/details.php?id=
+inurl:/cgi-bininurl:/awstatsinurl:/awstats.pl?configdir
+inurl:/all.php?task=
+index2.php?loc=
+id=&intextWarningsession_start()
+main.php?eval=
+inurl:/zipndownload.php?PP_PATH= PhotoPost PHP 4.6
+inurl:/sourcesinurl:/template.php?CONFIG[main_path]= (Powered By ScozNews)
+inurl:/allindex5.php?main=
+cpsinurl:/rdeinurl:/xchginurl:/tminurl:/hs.xslinurl:/liens_detail.html?lnkId=
+page.php?s= .php?s=
+publications.php?id=
+inurl:buy.php?category= title:paypal
+file.php?basepath=
+view.php?sub= view.php?sub=
+category.php?c=
+inurl:/allindex.php?m=
+inurl:/class.mysql.php?path_to_bt_dir=
+index2.php?ascii_seite=
+administratorinurl:/componentsinurl:/com_remositoryinurl:/admin.remository.php?mosConfig_absolute_path= "com_remository"
+.php?o="
+content.php?page= "content.php?page=*.php"
+inurl:".php?id=" intext:"furniture" title:login 2015
+info.php?menue=
+index3.php?panel=
+inurl:/allvw_files.php?root_dir=
+blank.php?section=
+inurl:/allindex.php?e=
+inurl:/all.php?month=
+sub*.php?pre=
+index2.php?pg=
+index.php?sf= index.php?sf="
+index2.php?content=
+englishinurl:/fonctioninurl:/print.php?id=
+inurl:/main.php?page=
+inurl:/blank.php?var=
+index.php?pagina= "index.php?pagina=*.php"
+start.php?home=
+(@version,0x3a,databse)
+inurl:/index.php?id=&lang= .php?id="
+siteinurl:/?details&prodid=
+path.php?action=
+productinurl:/detail.php?id=
+include.php?sec=
+inurl:/all.php?article=
+type.asp?iType=
+pagina.php?section=
+index.php?topic=
+dork: "powered by phpCOIN 1.2.3?
+"shopaddtocart.asp"
+inurl:/GradeMapinurl:/index.php?page=
+path.php?recipe=
+gery.php?xlink=
+category.php?id_category=
+cgi-bininurl:/bpinurl:/bp-lib.pl?g=
+contentinurl:/programme.php?ID=
+shopinurl:/books_detail.php?bookID=
+start.php?in=
+index.php3?s= .php3?s=
+"id=" & intext:"Warning: preg_match()
+inurl:/template.php?pagina=
+tuangou.php?bookid=
+page.php?load=
+index3.php?sekce=
+intext:milk .php?id= title:login
+show.php?left=
+home.php?cmd=
+pageinurl:/venue.php?id=
+enter.php?content=
+index.php?show= .php?show="
+shopwelcome.asp?title=
+press.php?module=
+homepage.php?sel=
+include.php?*
+shopprojectlogin.asp
+details.asp?Product_ID=
+obioinurl:/detail.php?id=
+str.php?l= str.php?l=
+layout.php?play=
+index1.php?itemnav=
+customerinurl:/board.htm?mode=
+inurl:/sourcesinurl:/join.php?FORM[url]=owned&CONFIG[captcha]=1&CONFIG[path]= Aardvark
+searchinurl:/display.php?BookID=
+pylonesinurl:/item.php?item=
+default.php?ref=
+index.php?addr=
+default.php?channel=
+dotprojectinurl:/modulesinurl:/tasksinurl:/viewgantt.php?root_dir=
+general.php?id=
+start.php?lang=
+index.php?pagename= phpquiz
+inurl:/config.php?xcart_dir=
+faq_list.asp?id=
+cat.php?cat_id=
+inurl:".php?cid=" intext:"boutique
+start.php?id= start.php?id=
+inurl:/announcements.php?phpraid_dir=
+template.php?page= "inurl:/template.php?page=*.php"
+.php?str="
+pagina.php?loader=
+"feedback.asp?title="
+sub*.php?goFile=
+index.php?gorumdir=
+inurl:newsone.php?cid= title:shop
+*inurl:/newsinurl:/archive.php?op=*year=*month=*"
+giftDetail.php?id=
+readnews.php?id=
+gery.php?left=
+press.php?param=
+standard.php?*
+index2.php?var=
+index.php?go1= index.php?go1=
+index5.php?p=
+administratorinurl:/componentsinurl:/com_remositoryinurl:/admin.remository.php?mosConfig_absolute_path= index.php?option=com_remository
+index1.php?o=
+inurl:"store".php?ItemID= intext:login
+addevent.inc.php?agendax_path=
+index.php?lg= index.php?lg=
+index3.php?loader=
+template.php?viewpage=
+sub*.php?module=
+show.php?mid=
+down*.php?second=
+inurl:/all.php?get=
+pagina.php?chapter=
+inurl:/default.php?inc=
+.php?perm="
+inurl:/down*.php?goFile=
+main.php?link=
+inurl:eventsinurl:/index.php?id= intext:login
+about_us.php?id=
+down*.php?url=
+cats.php?cat=
+shop.plinurl:/page=
+main.php?thispage=
+inurl:/modulesinurl:/vwarinurl:/admininurl:/admin.php?vwar_root= "vwar"
+chappies.php?id=
+padrao.php?incl=
+inurl:/allindex5.php?page=
+blank.php?open=
+home.php?ltr= .php?ltr="
+info.php?j=
+base.php?body=
+"info.asp?ID="
+index1.php?= "index1.php?=*.php?
+main.php?param=
+.php?flash="
+giftDetail.asp?id=
+clanek.php4?id=
+sub*.php?sec=
+inurl:/blank.php?pagina=
+view.php?choix=
+componentsinurl:/com_phpshopinurl:/toolbar.phpshop.html.php?mosConfig_absolute_path= "com_phpshop"
+info.php?r=
+content.php?cid=
+shop.asp?a=
+*inc*.php?i=
+general.php?var=
+item.php?itemid=
+products.php?cat_id=
+inurl:/base.php?t=
+info.php?filepath=
+index.php?p=
+head.php?corpo=
+print.php?goFile=
+inurl:/allindex5.php?content=
+*inc*.php?to=
+loc.php?loc= .php?loc="
+inurl:/base.php?filepath=
+phpwcmsinurl:/includeinurl:/inc_extinurl:/spawinurl:/dialogsinurl:/table.php?spaw_root= "index.php?id="
+dork: adobt sitel
+sitio.php?sp=
+intitle:"community".php?id= title:join
+inurl:/all.php?category=
+view_cart.asp?title=
+inurl:/allindex5.php?cont=
+enter.php?ir=
+ccbillinurl:/whereami.cgi?g=ls
+"cart.asp?id="
+nota.php?second=
+index3.php?thispage=
+general.php?redirect=
+articlecategory.php?id=
+home.php?module=
+19. inurl:/folder.php?id=
+inurl:/config.inc.php?_path=
+"home.asp?id="
+encapscms_PATHinurl:/coreinurl:/core.php?root= encapscms_PATH
+layout.php?cmd=
+inurl:/blank.php?dir=
+cgi-bininurl:/probe.cgi?olddat=
+ViewProduct.php?misc=
+inurl:articles.php?id= title:login page:2015
+index2.php?option=
+down*.php?OpenPage=
+sub*.php?b=
+inurl:/all.php?o=
+.php?includedir="
+inurl:/includesinurl:/kb_constants.php?module_root_path= Knowledge Base
+include.php?mid=
+inurl:/blank.php?h=
+irbeautinainurl:/product_detail.php?product_id=
+sitio.php?content=
+lang.php?lk= .php?lk="
+listcategoriesandproducts.asp?idCategory=
+sub*.php?z=
+start.php?thispage=
+33. keyworld : inurl:/phpcoininurl:/login.php
+general.php?goto=
+inurl:".php?categoryid=" intext:"inurl:/storeinurl:/"
+down*.php?qry=
+inurl:/derniers_commentaires.php?rep=
+file.php?oldal=
+more_details.php?id=
+principal.php?s=
+inurl:/addpost_newpoll.php?addpoll=preview&thispath= "/ubbthreads/"
+view.php?pag=
+.gov.brinurl:/index.php?arquivo=
+display.php?page=&lang= .php?page="
+inurl:/default.php?sp=
+catalog.php?CatalogID=
+rss.php?phpraid_dir= php raid
+file.php?channel=
+press.php?xlink=
+template.php?qry=
+start_lobby.php?CONFIG[MWCHAT_Libs]=
+nota.php?t=
+index.php?ver= .php?ver="
+fullDisplay.php?item=
+bookinurl:/bookcover.php?bookid=
+index.php?lang=&page= .php?lang=
+head.php?pollname=
+contentinurl:/view.php?id=
+announcements.php?phpraid_dir= "phpraid signup"
+page.php?q=
+inurl:".php?cid=" intext:"shopping"
+id=&intextWarningfilesize()
+inurl:/allindex.php?t=
+file.php?to=
+standard.php?seccion=
+inurl:/all.php?S=
+inurl:/components/com_artlinks/artlinks.dispnew.php?mosConfig_absolute_path=
+.php?cod="
+ocp-103inurl:/index.php?req_path= ocPortal
+base.php?category=
+index2.php?t=
+down*.php?pag=
+inurl:admin/doeditconfig.php?thispath=./includes&config[path]=
+press.php?category=
+enter.php?cmd=
+head.php?str=
+viewphoto.php?id=
+press_release.php?id=
+main.php?page=
+info.php?start=
+default.php?pag=
+down*.php?oldal=
+event_details.php?id=
+nav.php?page= "nav.php?page="
+inurl:/all.php?root=
+rtfe.php?siteid=
+produit.php?id=+sitefr
+"index2.php?p="
+display.php?ID=
+comersus_viewItem.php?idProduct=
+.php?goto="
+inurl:/blank.php?ir=
+recruit_details.php?id=
+inurl:/main_site.php?page=
+index.php?var1= index.php?var1=
+pagina.php?sekce=
+aktuelles/veranstaltungen/detail.php?id=
+include.php?sivu=
+productlist.php?id=
+mod*.php?chapter=
+enter.php?pref=
+nota.php?destino=
+publications.php?Id=
+.php?wPage="
+frag.php?exec= .php?exec="
+inurl:/all.php?sid=
+inurl:/embed/day.php?path= "Login to Calendar"
+down*.php?to=
+press.php?nivel=
+inurl:/modules/TotalCalendar/about.php?inc_dir=
+index.php?directfile=
+print.php?s=
+base.php?filepath=
+include.php?tipo=
+padrao.php?qry=
+index5.php?visualizar=
+index.php?select= index.php?select=
+cart_validate.php?id=
+inurl:/beacon/********/1/splash.lang.php?********Path=
+order.asp?lotid=
+inurl:/libi/db/ez_sql.php?lib_path= ttCMS <= v4
+index.php?table= .php?table=
+inurl:/blank.php?pr=
+index.php?var=
+padrao.php?menu=
+cat.asp?iCat=
+pagina.php?index=
+padrao.php?name=
+shopdisplayproduct.asp?catalogid=
+new-visitor.inc.php?lvc_include_dir=
+inurl:/all.php?board_no=
+event.php?id=
+index2.php?x= index2.php?x=
+inurl:/allindex2.php?j=
+index.php?url=
+inurl:/all.php?da=
+default.php?vis= .php?vis="
+store.php?id=
+inurl:/allindex2.php?b=
+"comersus_optReviewReadExec.asp?idProduct="
+inurl:/include/new-visitor.inc.php?lvc_include_dir=
+index.php?page=&lang= .php?pg=
+press.php?OpenPage=
+index.php5?lang= index.php5?lang=
+main1.php?arg= .php?arg=
+inurl:/admin/auth.php?xcart_dir=
+enc/content.php?Home_Path= "doodle"
+blank.php?base_dir=
+productDetails.asp?idProduct=
+print.php?pag=
+default.php?play=
+template.php?menue=
+inurl:/base.php?module=
+index.php?param=
+newsdesk.cgi?t=
+index1.php?goFile=
+include.php?redirect=
+index2.php?l= .php?l="
+index3.php?redirect=
+global_projects.php?cid=
+inurl:inc/cmses/aedatingCMS.php?dir[inc]=
+padrao.php?middle=
+head.php?ref=
+show.php?get=
+page.php?inc=
+index.php?s= "index.php?s="
+include.php?u=
+include.php?nivel=
+direct.php?loc= direct.php?loc=
+page.php?where=
+principal.php?conteudo=
+main.php?a= .php?a="
+inurl:/allindex.php?l=
+include.php?content=
+inurl:/modules/postguestbook/styles/internal:/header.php?tpl_pgb_moddir= "PostGuestbook"
+head.php?filepath=
+enter.php?qry=
+inurl:/allindex.php?visualizar=
+inurl:/default.php?incl=
+layout.php?seite=
+index2.php?include=
+"Store_ViewProducts.asp?Cat="
+index2.php?corpo=
+index.php?mod= index.php?mod="
+inurl:/allindex.php?d=
+"template.asp?Action=Item&pid="
+inurl:modules/forum/index.php?topic_id=
+storefronts.asp?title=
+product.php?prodid=
+"item_show.asp?code_no="
+press.php?*
+index.php?mf= index.php?mf=
+show.php?include=
+start.php?mid=
+.php?news="
+standard.php?link=
+modline.php?id=
+.php?open="
+down*.php?pre=
+.php?g="
+inurl:/sources/template.php?CONFIG[main_path]= Powered By ScozNews
+portafolio/portafolio.php?id=
+sub*.php?qry=
+index.php?index=
+*inc/pipe.php?HCL_path=
+viewevent.asp?EventID=
+stockists_list.php?area_id=
+product_details.php?id=
+searchcat.php?search_id=
+info.php?texto=
+blank.php?o=
+inurl:staticpage.php?id= intext:paypal
+inurl:/index.php?TWC=
+view_items.php?id=
+.php?regionId="
+inurl:/default.php?channel=
+blank.php?pref=
+down*.php?lang=
+inurl:/all.php?searchcode_id=
+intitle:"action"product".php?id= title:login
+blank.php?OpenPage=
+index2.php?category=
+pagina.php?base_dir=
+"searchcat.asp?search_id="
+.php?vi="
+inurl:/base.php?panel=
+news_and_notices.php?news_id=
+index2.php?ID=
+OrderForm.php?Cart=
+home.php?middle=
+privacy.php?cartID=
+inurl:view_product.php?id= title:login paypal
+mod*.php?ev=
+mod*.php?section=
+index.php?lg=
+inurl:/calendar.php?s= calendar.php?s="
+blank.php?goto=
+principal.php?loader=
+principal.php?param=
+*.php?name=
+standard.php?subject=
+print.php?strona=
+index.php?func= .php?func="
+"Browse_Item_Details.asp?Store_Id="
+home.php?channel=
+general.php?body=
+index1.php?show= .php?show="
+show.php?pageweb=
+productlist.php?fid=
+layout.php?sekce=
+inurl:/direct.php?loc=
+inurl:/blank.php?oldal=
+sub*.php?pag=
+file.php?viewpage=
+htmlinurl:/affich.php?base=
+gery.php?strona=
+wwwinurl:/index.php?page=
+include.php?goFile=
+mod.php?mod= .php?mod="
+main.php?disp=
+nav.php?lk= .php?lk="
+inurl:"php?id=" intext:"gilets" 2015
+inurl:/popup_window.php?site_isp_root=
+hminurl:/inside.php?id=
+index.php?var= index.php?var2=
+inurl:/blank.php?incl=
+"add_cart.asp?num="
+site:.pk intext:Warning: mysql_free_result(): supplied argument is not a valid MySQL result resource in & "id"
+prodlist.asp?catid=
+boardinurl:/view_temp.php?table=
+general.php?second=
+home.php?inc= home.php?inc=
+"Select_Item.asp?id="
+index3.php?menue=
+inurl:/index.php?slang= inurl:/index.php?slang=
+index1.php?subject=
+shop.php?do=part&id=
+start.php?pg= start.php?pg=
+inurl:/default.php?t=
+sub*.php?OpenPage=
+inurl:/ebloginurl:/blog.inc.php?xoopsConfig[xoops_url]=
+inurl:".php?cid="+intext:"online+betting"
+inurl:/all*inurl:/tsepinurl:/includeinurl:/colorswitch.php?tsep_config[absPath]=*
+newsupdate.cgi?a=latest&t=
+inurl:".php?id=" intext:"toys"
+main.php?inc= .php?inc="
+page.php?pref=
+index5.php?language=
+inurl:/allinurl:/includeinurl:/init.inc.php?CPG_M_DIR=
+index1.php?v=
+index.php?pagina1= index.php?pagina1=
+index.php?pollname=
+discussionsinurl:/10inurl:/9inurl:/?CategoryID=
+inurl:".php?cid=" intext:"inurl:/storeinurl:/"
+"results.asp?cat="
+inurl:/all.php?back=
+info.php?opcion=
+gery.php?ev=
+"shopbasket.asp?bookid="
+description.php?bookid=
+goboardinurl:/frontinurl:/board_view.php?code=
+file.php?action=
+inurl:/allindex2.php?acao=
+index.php?do=
+addcart.php?
+rating.php?id=
+start.php?secao=
+show.php?page1= .php?page1="
+.php?load="
+glossary.php?term= .php?term="
+inurl:/book.php5?page=
+inurl:/myPHPCalendar/admin.php?cal_dir=
+inurl:/components/com_forum/download.php?phpbb_root_path=
+category_list.php?id=
+inurl:/all.php?mep=
+storefront.asp?id=
+inurl:/base.php?loc=
+index1.php?get=
+inurl:/default.php?cont=
+path.php?mid=
+page.php?choix=
+"pview.asp?Item="
+productsview.php?proid=
+info.php?secao=
+item.php?eid=
+principal.php?b=
+view.php?panel=
+home.php?pageweb=
+default.php?basepath=
+index2.php?y=
+prodView.asp?idProduct=
+include.php?path=
+page.php?ev=
+start.php?lang= start.php?lang="
+main.php?s= main.php?s="
+start.php?destino=
+pagina.php?load=
+include.php?name=
+index.php?v=
+ponukyinurl:/item_show.php?ID=
+"store-details.asp?id="
+inurl:/all.php?file_id=
+info.php?itemnav=
+showimg.php?id=
+index.php?pageurl= "index.php?pageurl="
+editor.php?root=
+send_reminders.php?includedir= "send_reminders.php?includedir="
+inurl:/sourcesinurl:/functions.php?CONFIG[main_path]= Powered By ScozNews
+index.php?task= index.php?task=
+inurl:".php?ID=" intext:"boutiques" site:us 2015
+productDisplay.php
+inurl:/default.php?secao=
+inurl:/includesinurl:/setup.php?phpc_root_path=
+intext:everything .php?id= title:login
+inurl:item_list.php?cat_id= title:login
+mcf.php?content= mcf.php"
+index2.php?i=
+nota.php?header=
+inurl:/all.php?debug=
+template.php?f=
+inurl:".php?id=" intext"my account" title:shop
+home.php?i= home.php?i=
+index.php?f1= .php?f1="
+nota.php?content=
+inurl:/blank.php?lang=
+index.php?command= index.php?command="
+"viewcart.asp?CartId="
+inurl:/templatesinurl:/headline_temp.php?nst_inc= "fusion"
+inurl:/all.php?nextpage=
+today.php?eventid=
+intext:jewelry .php?id= title:login
+"topic.asp?ID="
+products_category.php?CategoryID=
+mod*.php?j=
+inurl:/allindex5.php?configFile=
+mod*.php?recipe=
+index1.php?show= index1.php?show="
+page.php?middle=
+blank.php?channel=
+layout.php?chapter=
+inurl:/all.php?jojo=
+affiliate.asp?ID=
+"product_info.asp?item_id="
+sub*.php?k=
+index1.php?choix=
+inurl:products.php?id= title:login 2015
+index.php5?lang= index.php5?lang="
+layout.php?secao=
+eventsinurl:/event.php?id=
+default.php?y=
+inurl:/allindex5.php?visualizar=
+main.php?h=
+book.php?isbn=
+home.php?base_dir=
+index.php?e= index.php?e="
+pview.asp?Item=
+faq.php?cartID=
+index.php?x= index.php?mode=index.php?stranica=
+main.php?strona=
+"shippinginfo.asp?CartId="
+pdf_post.php?ID=
+gery.php?module=
+head.php?play=
+standard.php?pollname=
+standard.php?cont=
+press.php?redirect=
+standard.php?abre=
+layout.php?xlink=
+inurl:/cgi-bininurl:/awstats.pl?update=1&logfile=
+buy.php?bookid=
+show.php?filepath=
+home.php?action=
+"cart_additem.asp?id="
+head.php?inc=
+template.php?dir=
+inurl:/default.php?read=
+index.php?area_id=
+clubpage.php?id=
+.asp?category_list=
+page.php?loader=
+main.php?index=
+inurl:/blank.php?goFile=
+inurl:/incinurl:/shows.inc.php?cutepath=
+***zineinurl:/board.php?board=
+inurl:interior.php?id= title:login
+index3.php?destino=
+modulesinurl:/contentinurl:/index.php?id=
+inurl:/down*.php?in=
+index.php?sekce=
+add-to-cart.php?ID=
+inurl:/addpost_newpoll.php?addpoll=preview&thispath= inurl:/ubbthreadsinurl:/
+inurl:/display.php?table=
+inurl:/blank.php?section=
+inurl:/includeinurl:/livre_include.php?no_connect=lol&chem_absolu=
+blank.php?mod=
+"myaccount.asp?catid="
+theme.php?id=
+"search.asp?CartID="
+account.php?action= iurl:".php?action="
+inurl:Viewproduct.cfm?id= title:paypal
+inurl:/all.php?q=
+sub*.php?secc=
+print.php?doshow=
+accounts.php?command= .php?command="
+contenido.php?sec=
+inurl:/all.php?y=
+standard.php?oldal=
+page.php?left=
+inurl:/blank.php?qry=
+admininurl:/index.php?o=
+index.php?stranica=
+ibp.php?ISBN=
+storeitem.asp?item=
+"bycategory.asp?id="
+ages.php?id=
+cart_validate.asp?id=
+principal.php?opcion=
+blank.php?subject=
+inurl:/base.php?cont=
+index.php?site=
+order.php?lang= order.php?lang=
+file.php?corpo=
+"faq.asp?cartID="
+path.php?disp=
+main.php?category=
+help.php?CartId=
+getbook.php?bookid=
+fellows.php?id=
+profile.php?id=
+inurl:/all.php?show=
+enter.php?thispage=
+login.asp
+lang.php?subp= .php?sub="
+details.asp?Service_ID=
+intitle:"guitar".php?id= title:login
+default.php?module=
+page.php?*[*]*=
+index.php3?file= .php3?f="
+template.php?Action=Item&pid=
+.asp?showtopic=
+index3.php?sp=
+order.php?id=
+file.php?inc=
+6. ihm.php?p=
+path.php?load=
+start.php?include=
+.php?t="
+view.php?option=
+general.php?menue=
+index.php?ss= index.php?ss="
+layout.php?abre=
+general.php?menu=
+inurl:/all.php?lest=
+inurl:/zipndownload.php?PP_PATH=
+display.php?ln= display.php?ln=
+index3.php?secao=
+"basket.asp?id="
+nota.php?play=
+gery.php?basepath=
+inurl:/allstep_one.php?server_inc=
+view.php?adresa=
+inurl:/down*.php?incl=
+inurl:/all.php?east=
+main.php?second=
+12. keyword : "powered by CubeCart 3.0.6?
+general.php?link=
+memberInfo.php?id=
+inurl:/temp_eginurl:/phpgwapiinurl:/setupinurl:/tables_update.inc.php?appdir=
+file.php?numero=
+show.php?module=
+enter.php?sp=
+.php?corpo="
+pop.php?id=
+product-range.php?rangeID=
+view.php?pageNum_rscomp=
+page.php?id=
+intitle:"news"item".php?id= title:login
+notifyinurl:/notify_form.php?topic_id=
+inurl:/allindex.php?b=
+head.php?opcion=
+enter.php?name=
+product.php?id=
+productsinurl:/?catID=
+main.php?content=
+m2finurl:/m2f_phpbb204.php?m2f_root_path= inurl:/m2f_usercp.php?
+nav.php?loc= .php?loc=
+pagina.php?numero=
+inurl:/allindex.php?z=
+encinurl:/content.php?Home_Path= powered by doodle cart
+inurl:shop_product.php?id= title:paypal
+index.php?lnk= ".php?lnk="
+middle.php?file= .php?file=
+mod*.php?addr=
+loadpsb.php?id=
+home.php?w=
+default.php?secao=
+product.php?bookID=
+sub*.php?ir=
+blank.php?strona=
+things-to-doinurl:/detail.php?id=
+inurl:/allindex.php?r=
+ublications.php?id=
+add.php?bookid=
+enter.php?left=
+downloadsinurl:/shambler.php?id=
+inurl:/hclinurl:/incinurl:/pipe.php?HCL_path=
+game.php?id=
+onlinesalesinurl:/product.php?product_id=
+inurl:/?pag= .php5?id=
+"id=" & intext:"Warning: filesize()
+inurl:/tags.php?BBCodeFile= "tags.php"
+projectsinurl:/event.php?id=
+start.php?body=
+principal.php?pagina=
+product.php?cat=
+mod*.php?content=
+gery.php?id=
+inurl:/all.php?zo=
+inurl:/exibir.php?arquivo= .php?arquivo=
+inurl:/allindex2.php?x=
+home.php?g=
+.php?next="
+newsinurl:/detail.php?id=
+default.php?mid=
+sub.php?menu= sub.php?menu=
+path.php?category=
+show.php?xlink=
+boardinurl:/board.html?table=
+contentinurl:/conference_register.php?ID=
+updatebasket.php?bookid=
+index.php?pagename=
+*inc*.php?ki=
+principal.php?seite=
+general.php?choix=
+home.php?pollname=
+head.php?ir=
+results.php?cat=
+base.php?middlePart=
+page.php?ln= .php?ln=
+include.php?dir=
+index.php?page=&lang= .php?page=
+print.php?read=
+inurl:/componentsinurl:/com_mtreeinurl:/Savant2inurl:/Savant2_Plugin_stylesheet.php?mosConfig_absolute_p ath=
+main.php3?act= .php3?act="
+inurl:/allindex.php?middle=
+head.php?numero=
+padrao.php?body=
+template.asp?Action=Item&pid=
+padrao.php?rub=
+info.php?pref=
+inurl:/all.php?inc=
+inurl:/index.php?id=&lang= index.php?id="
+index2.php?to=
+index.php?exec= .php?exec=
+include.php?middlePart=
+item.asp?item_id=
+* *=
+eninurl:/publications.php?id=
+product.php?prd=
+inurl:/libraryinurl:/lib.php?root=
+index3.php?t=
+inurl:/index.phpinurl:/main.php?x=
+nav.php?loc= nav.php
+inurl:/base.php?str=
+inurl:/shoutboxinurl:/expanded.php?conf=
+down*.php?inc=
+*.php?layout=
+index.php?ln= ".php?ln="
+index2.php?load=
+start.php?chapter=
+inurl:/cgi-bininurl:/quikstore.cgi?category=
+"subcategories.asp?id="
+head.php?sec=
+index3.php?showpage=
+head.php?load=
+inurl:/?p= .php5?id=
+home.php?rub=
+clan_page.php?cid=
+cgi-bininurl:/awstatsinurl:/awstats.pl?configdir
+index.php?option=
+inurl:/all.php?item_id=
+inurl:/default.php?load=
+inurl:/allindex5.php?p=
+inurl:/default.php?e=
+index.php?meio.php=
+show.php?z=
+products.php?categoryID=
+template.php?pagina
+home.php?pagina=
+blank.php?sp=
+index.php?ver= .php?ver=
+inurl:/allPackages.php?sourcedir=
+.asp?code_no=
+page.php?cont=
+"index.php?body="
+padrao.php?url=
+s.php?table= .php?table=
+gery.php?pname=
+home.php?choix=
+shop.php?action=
+show.php?r=
+inurl:view.php?id= title:login page:2015
+inurl:/componentsinurl:/com_zoominurl:/includesinurl:/database.php?mosConfig_absolute_path=
+inurl:/wsinurl:/get_reminders.php?includedir= WebCalendar v0.9.45
+htmlinurl:/scoutnew.php?prodid=
+inurl:/allindex.php?ir=
+index2.php?i= inurl:/index2.php?i=
+inurl:/default.php?menue=
+start.php?lang= start.php?lang=
+*inc*.php?modo=
+index1.php?l=
+inurl:/calendar.php?pg= calendar.php?pg=
+"comersus_listCategoriesAndProducts.asp?idCategory ="
+intext:"buy" .php?id= title:"login" 2015
+print.php?str=
+down*.php?ir=
+inurl:/includeinurl:/footer.inc.php?_AMLconfig[cfg_serverpath]=
+inurl:/allindex.php?secao=
+base.php?link=
+auctioninurl:/item.php?id=
+administratorinurl:/componentsinurl:/com_cropimageinurl:/admin.cropcanvas.php?cropimagedir=
+includeinurl:/new-visitor.inc.php?lvc_include_dir=
+inurl:/alladmin.php?cal_dir=
+.asp?productid=
+[Script Path]inurl:/admininurl:/index.php?o= admininurl:/index.php"
+inurl:/administratorinurl:/componentsinurl:/com_a6mambocreditsinurl:/admin.a6mambocredits.php?mosConfig_live_site=
+standard.php?q=
+index3.php?mid=
+checkout.php?UserID=
+inurl:/default.php?ref=
+item_show.asp?code_no=
+administratorinurl:/componentsinurl:/com_remositoryinurl:/admin.remository.php?mosConfig_absolute_path= "Mambo"
+intext:"jewelry" .php?cat= title:login 2015
+index.php?set= .php?set=
+help.php?css_path=
+showproduct.php?prodid=
+index.php?g=
+inurl:/allmain.php?page=
+picgalleryinurl:/category.php?cid=
+home.php?ID=
+inurl:/blank.php?ki=
+show.php?*root*=
+inurl:/default.php?var=
+.php?menuID="
+.php?pid="
+"catalog_item.asp?ID="
+sub*.php?pname=
+.php?mid="
+nota.php?abre=
+"affiliate.asp?ID="
+nota.php?module=
+inurl:/base.php?numero=
+resourcesinurl:/index.php?cat=
+Pagesinurl:/whichArticle.php?id=
+base.php?loc=
+index.php?sub= .php?sub=
+catinurl:/?catid=
+inurl:/contacts.php?cal_dir=
+index.php?o=
+inurl:/index.php?seccion= .php?seccion=
+down*.php?action=
+down*.php?channel=
+index2.php?lang=
+browsepr.php?pr=
+inurl:/helpcenterinurl:/incinurl:/pipe.php?HCL_path=
+rub.php?idr=
+arg.php?arg= .php?arg=
+inurl:/allindex5.php?open=
+index.php?task= .php?task=
+page.php?go=
+inurl:/transinurl:/trans.php?trans=en&page= .php?trans="
+gery.php?to=
+template.php?h=
+incinurl:/step_one_tables.php?server_inc=
+index5.php?page=
+inurl:/modulesinurl:/4nAlbuminurl:/publicinurl:/displayCategory.php?basepath=
+pagina.php?z=
+17. forums.html
+sitio.php?tipo=
+.php?title="
+shop.php?a=
+index2.php?ll=
+middle.php?page= ".php?page="
+ffer.php?idf=
+padrao.php?*root*=
+base.php?itemnav=
+pubinurl:/pdsinurl:/pds_view.php?start=
+"viewPrd.asp?idcategory="
+inurl:/coin_includesinurl:/constants.php?_CCFG[_PKG_PATH_INCL]=
+index.php?term= .php?term="
+art.php?id=
+lang.php?ln= .php?ln=
+base.php?id=
+index1.php?mod=
+mai.php?act= mai.php?act="
+intitle:"promotion".php?id= title:news
+skinsinurl:/advancedinurl:/advanced1.php?pluginpath[0]= skinsinurl:/advancedinurl:/advanced1.php?pluginpath[0]= "Sabdrimer CMS"
+include.php?phpbb_root_path=
+*.php?loc=
+inurl:"php?id=" intext:"cardigans" title:login 2015
+inurl:/all.php?sel=
+.php?inc="
+.php?meio.php="
+inurl:/index1.php?link=
+inurl:/incinurl:/authform.inc.php?path_pre=
+inurl:/templatesinurl:/headline_temp.php?nst_inc= management
+view-event.php?id=
+site.php?meio= .php?meio=
+inurl:search_product.php?id= title:payment
+index3.php?choix=
+inurl:/all.php?p=
+default.php?p=
+inurl:/main.php?sayfa=
+pagina.php?left=
+sub.php?menu= "sub.php?menu="
+eninurl:/newsinurl:/fullnews.php?newsid=
+nota.php?qry=
+inurl:/administratorinurl:/componentsinurl:/com_joomlaradiov5inurl:/admin.joomlaradiov5.php?mosConfig_live_site=
+includesinurl:/search.php?GlobalSettings[templatesDirectory]=
+*inc*.php?addr=
+view.php?mod=
+16. ihm.php?p=*
+head.php?mod=
+main.php?s= .php?s="
+inurl:/allindex.php?cal=
+index.php?product= .php?prod="
+pagina.php?pagina=
+inurl:/alladdedit.php?root_dir=
+index2.php?phpbb_root_path=
+inurl:/amemberinurl:/pluginsinurl:/paymentinurl:/linkpointinurl:/linkpoint.inc.php?config[root_dir]=
+general.php?mid=
+search.php?exec= search.php?exec=
+index0.php?show=
+.asp?p=
+viewcart.php?CartId=
+base.php?rub=
+inurl:/includesinurl:/calendar.php?phpc_root_path=
+sitio.php?sivu=
+inurl:/allindex.php?seite=
+pagina.php?include=
+inurl:/base.php?phpbb_root_path=
+pagina.php?oldal=
+inurl:/default.php?id=
+index_en.php?id=
+home.php?str=
+module_db.php?pivot_path= module_db.php?pivot_path="
+page.php?pId=
+inurl:/mcf.php?content=
+default.php?include=
+index.php?theme= .php?theme=
+home.php?category=
+"shopexd.asp"
+inurl:/blank.php?o=
+inurl:/all.php?topic_id=
+file.php?pg=
+GetItems.asp?itemid=
+layout.php?z=
+inurl:/down*.php?nivel=
+intitle:"action"buy".php?id= title:login
+standard.php?base_dir=
+pagina.php?ev=
+*inc*.php?include=
+inurl:/down*.php?doshow=
+inurl:/base.php?incl=
+template.php?mid=
+administratorinurl:/componentsinurl:/com_remositoryinurl:/admin.remository.php?mosConfig_absolute_path= "com_remository
+.php?cont="
+press.php?pg=
+index.php?spage= .php?spage=
+standard.php?pr=
+pagesinurl:/video.php?id=
+mai.php?src= mai.php?src=
+inurl:/all.php?conf=
+principal.php?type=
+inurl:".php?id=" intext:"careers" title:login 2015
+shop.php?prod= .php?prod="
+shopinurl:/category.php?cat_id=
+base.php?pa=
+"checkout.asp?UserID="
+index2.php?pollname=
+main.php?v=
+software_categories.php?cat_id=
+addItem.php
+.php?prefixo="
+productlist.asp?ViewType=Category&CategoryID=
+path.php?play=
+store_listing.php?id=
+index.php?lang=en&page= .php?lang=
+file.php?pagina=
+category.php?id=
+default.php?opcion=
+inurl:/sourcesinurl:/join.php?FORM[url]=owned&CONFIG[captcha]=1&CONFIG[path]=
+include.php?b=
+index.php?subp= index.php?subp="
+index3.php?name=
+"id=" & intext:"Warning: ilesize()
+shop.asp?bookid=
+help.asp?CartId=
+info.php?header=
+inurl:/libinurl:/staticinurl:/header.php?set_menu= iPhotoAlbum v1.1
+inurl:/admin.php?cal_dir=
+index.php?dok= index.php?dok="
+shop_details.asp?prodid=
+24. inurlp:hpnuke
+voir.php?inc= .php?inc="
+inurl:/spidinurl:/langinurl:/lang.php?lang_path=
+index_en.php?ref=
+section.php?section=
+index_table.php?root_dir=
+inurl:/allindex2.php?u=
+main.php5?page= .php5?id=
+inurl:/default.php?oldal=
+grademadeinurl:/index.php?page=
+main.php?prodID=
+display.php?table= display.php?table=
+principal.php?middle=
+sub*.php?abre=
+itemDesc.asp?CartId=
+inurl:/allindex2.php?m=
+summary.php?PID=
+index2.php?choix=
+inurl::/Content.asp?id= title:login 2015
+inurl:/default.php?goto=
+sitio.php?disp=
+"shop.asp?action="
+inurl:/foruminurl:/inst.php?phpbb_root_dir=
+layout.php?var=
+inurl:/config.php?path_to_root=
+inurl:".php?id=" intext:"View cart" 2015
+inurl:/display.php?s=
+inurl:/allindex2.php?e=
+enter.php?s=
+index2.php?second=
+path.php?header=
+inurl:/allstep_one_tables.php?server_inc=
+inurl:/cgi-bininurl:/bbsinurl:/read.cgi?file=
+inurl:/blank.php?pa=
+padrao.php?abre=
+gery.php?pref=
+.php?pg="
+inurl:/esinurl:/index.php?action=
+inurl:"php?id=" intext:"capes" 2015
+.php?part="
+packages_display.php?ref=
+gery.php?abre=
+id=&intextWarningmysql_result()
+Store_ViewProducts.asp?Cat=
+*.php?naam=
+general.php?nivel=
+general.php?itemnav=
+inurl:/zentrackinurl:/index.php?configFile=
+file.php?get=
+affiliates.php?id=
+GetItems.php?itemid=
+enter.php?pg=
+inurl:/allindex.php?k=
+inurl:/modulesinurl:/agendaxinurl:/addevent.inc.php?agendax_path=
+view.php?sp=
+default.php?catID=
+top10.php?cat=
+products-display-details.php?prodid=
+inurl:/default.php?thispage=
+padrao.php?redirect=
+file.php?disp=
+inurl:/all.php?systempath=
+index.php3?s= .php3?s="
+inurl:/blank.php?category=
+index5.php?lv1=
+index.php?p= "inurl:/index.php?p=*.php"
+"inurl:/osinurl:/pointer.php?url="
+inurl:/base.php?seccion=
+print.php?rub=
+inurl:/all.php?t=
+view_newsletter.php?id=
+index.php?cal= .php?cal=
+inurl:/default.php?play=
+index.php?a= index.php?a="
+search.php?cutepath=
+inurl:/all.php?release_id=
+inurl:/default.php?eval=
+tradeCategory.php?id=
+general.php?my=
+avd_start.php?avd=
+produkt.php?prod= .php?prod="
+learnmore.php?cartID=
+inurl:/base.php?*[*]*=
+inurl:/all.php?cal_dir=
+index2.php?type=
+inurl:".php?catid=" intext:"add to cart"
+inurl:/all.php?type=
+template.php?name=
+shopreviewadd.php?id=
+inurl:/functions.php?include_path=
+.php?sec="
+includeinurl:/write.php?dir=
+.php?main="
+index.php?go=
+modulesinurl:/My_eGeryinurl:/index.php?basepath=
+prod_info.php?id=
+index.php?sit= index.php?sit="
+inurl:basket.asp?id= title:login
+SQueryinurl:/libinurl:/gore.php?libpath=
+kalender.php?vis= .php?vis="
+include.php?cont=
+shprodde.asp?SKU=
+.php?theme_dir="
+print.php?goto=
+inurl:/Popperinurl:/index.php?childwindow.inc.php?form=
+sitio.php?menue=
+viewCart.php?userID=
+kshopinurl:/product.php?productid=
+inurl:/base.php?sivu=
+content.php?id=
+"buy.asp?"
+pagina.php?sec=
+blank.php?qry=
+index.php?bas= .php?bas="
+blank.php?t=
+productsinurl:/Blitzball.htm?id=
+home.php?h=
+incinurl:/header.phpinurl:/step_one.php?server_inc=
+file.php?id=
+start.php?lang= .php?lang="
+general.php?middle=
+profile_view.php?id=
+encinurl:/content.php?Home_Path=
+file.php?eval=
+default.php?itemnav=
+index3.php?middle=
+sql.php?id=
+support_page.cgi?file_name=
+wamp_dirinurl:/setupinurl:/yesno.phtml?no_url=
+principal.php?home=
+lang.php?arq= .php?arq=
+index2.php?thispage=
+enter.php?loader=
+.php?jojo="
+nota.php?goFile=
+sitio.php?left=
+admin_login.asp
+general.php?opcion=
+index.php?var= index.php?var1=
+mb_showtopic.php?topic_id=
+index5.php?m=
+home1.php?ln= .php?ln=
+handlinger.php?vis= .php?vis="
+default.php?seite=
+start.php?go=
+path.php?opcion=
+file.php?load=
+home.php?sit= .php?sit="
+filetypeincintextmysql_connect
+*inc*.php?adresa=
+search.asp?CartID=
+press.php?menu=
+educationinurl:/content.php?page=
+file.php?pollname=
+yacht_searchinurl:/yacht_view.php?pid=
+file.php?pref=
+index3.php?pag=
+index.php?theme=
+page.php?showpage=
+*inc*.php?base_dir=
+allinurl: Lobby.asp
+index5.php?pagina=
+moduleinurl:/rangeinurl:/dutch_windmill_collection.php?rangeId=
+*inc*.php?doshow=
+main.php?arg= .php?arg=
+"promotion.asp?catid="
+*.php?f=
+down*.php?t=
+path.php?panel=
+pagina.php?middlePart=
+start.php?page= start.php?page="
+ogl_inet.php?ogl_id=
+inurl:/allindex2.php?server=
+show.php?modo=
+instinurl:/index.php?lng=..inurl:/..inurl:/includeinurl:/main.inc&G_PATH=
+press.php?middle=
+layout.php?ir=
+"details.asp?Product_ID="
+"index.asp?ID="
+index2.php?channel=
+index.php?function=custom&custom= custom
+inurl:/calendar.php?p= calendar.php?p="
+show.php?base_dir=
+padrao.php?pag=
+administrator_login.asp
+link.php?do= .php?do="
+index.php?page=&lang= index.php?page=
+.php?folder="
+general.php?f=
+main.php3?act= main.php3?act="
+file.php?seccion=
+view.php?where=
+abroadinurl:/page.php?cid=
+.php?cod.tipo="
+.php?to="
+inurl:/index.php?_REQUEST=&_REQUEST[option]=com_content&_REQUEST[Itemid]=1&GLOBALS=&mosConfig_absolute_path=
+category_list.asp?id=
+info.php?oldal=
+inurl:/blank.php?mod=
+config.php?_CCFG[_PKG_PATH_DBSE]=
+inurl:/default.php?itemnav=
+index.php?news= index.php?news="
+inurl:/coin_includesinurl:/constants.php?_CCFG[_PKG_PATH_INCL]= phpCOIN 1.2.3
+info.php?middlePart=
+sub*.php?pa=
+nota.php?nivel=
+index.php?u=
+path.php?channel=
+inurl:/all.php?to=
+enter.php?lang=
+products_detail.asp?CategoryID=
+inurl:/includesinurl:/functions_portal.php?phpbb_root_path=
+inurl:/index.php?id=&page= index.php?id="
+inurl:/allindex2.php?o=
+prod.php?prod= .php?prod="
+n_replyboard.php?typeboard=
+gery.php?h=
+newsid=
+inurl:/allindex.php?open=
+catalog.php
+news.cgi?a=latest&t=
+collectionitem.php?id=
+garden_equipmentinurl:/Fruit-Cageinurl:/product.php?pr=
+inurl:/alltheme.php?THEME_DIR=
+info.php?home=
+inurl:/default.php?showpage=
++union+select+pass
+calendar.pl?command=login&fromTemplate=
+inurl:".php?id=" intext"beauty" title:login
+template.php?lang=
+[MyAlbum_DIR]inurl:/language.inc.php?langs_dir= [MyAlbum_DIR]
+events?id=
+default.php?sivu=
+index2.php?showpage=
+.php?view="
+inurl:/down*.php?ev=
+inurl:/_functions.php?prefix=
+inurl:/sourcesinurl:/join.php?FORM[url]=owned&CONFIG[captcha]=1&CONFIG[path]= "Aardvark TopSites"
+"viewevent.asp?EventID="
+inurl:/default.php?page***=
+start.php?pollname=
+template.php?y=
+inurl:/all.php?option=
+inurl:/addpost_newpoll.php?addpoll=preview&thispath= "ubbthreads"
+intext:$100 detail.php?cat_id= title:login
+inurl:/all.php?archive=
+standard.php?secc=
+spr.php?id=
+inurl:"php?id=" intext:"boutique" title:paypal
+inurl:/templatesinurl:/mangoberyinurl:/footer.sample.php?Site_Path= Mangobery-0.5.5
+showbook.asp?bookid=
+index.php?loca= index.php?loca=
+index.php?m= index.php?m="
+enter.php?ev=
+inurl:/index.php?inc=
+*.php?secc=
+print.php?header=
+index.php?pager= index.php?pager=
+"comersus_optEmailToFriendForm.asp?idProduct="
+index2.php?v=
+inurl:/base.php?to=
+coppercopinurl:/theme.php?THEME_DIR=
+debate-detail.php?id=
+mod*.php?m=
+index.php?lang=&page= index.php?lang=
+cart.asp?action=
+standard.php?param=
+db.php?path_local=
+cgi-bininurl:/bbsinurl:/read.cgi?file=
+enter.php?base_dir=
+inurl:/all.php?teste=
+"shopdc.asp?bookid="
+roduct.php?id=
+info.php?url=
+print.php?play=
+buy.php?ID=
+edition.php?area_id=
+inurl:/default.php?****=
+inurl:".php?categoryid=" intext:"View cart"
+inurl:/alllib.inc.php?pm_path=
+print.php?pname=
+htmlinurl:/print.php?sid=
+inurl:/all.php?news=
+productDetails.php?idProduct=
+blog.php?blog=
+inurl:/classified_right.php?language_dir= classified.php
+gery.php?sec=
+base.php?module=
+includesinurl:/functions.php?phpbb_root_path=
+inurl:/allindex2.php?g=
+staffinurl:/publications.php?sn=
+pagina.php?header=
+inurl:/allindex.php?gorumdir=
+base.php?numero=
+.php?category="
+index2.php?ki=
+inurl:/alldefault.php?page=
+erson.php?id=
+intitle:"home"shipping".php?id= title:login
+index.php?goto= .php?goto="
+newsitem.php?num=
+pagina.php?str=
+detailedbook.php?isbn=
+view_detail.php?ID=
+beitrag_F.php?id=
+mod*.php?play=
+inurl:/all.php?f=
+padrao.php?filepath=
+shopaddtocart.asp?catalogid=
+viewshowdetail.php?id=
+inurl:/default.php?rub=
+storeitem.php?item=
+buy.asp?
+inurl:/allindex5.php?root=
+principal.php?addr=
+index3.php?pre=
+*.php?inf=
+item_list.asp?maingroup
+blank.php?in=
+intext:business .php?id= title:login
+inurl:/all.php?n=
+23. inurlp:hplivehelper
+wikiinurl:/pmwiki.php?page****=
+inurl:/main.php?view=
+inurl:/eyeosinurl:/desktop.php?baccio=eyeOptions.eyeapp&a=eyeOptions.eyeapp&_SESSION%5busr%5d=root&_SESSION%5bapps%5d%5beyeOptions.eyeapp%5d%5bwrapup%5d=include($_GET%5ba%5d);&a=
+.php?get="
+news.php?t=
+main.php?vis= main.php?vis="
+.php?file_id="
+nota.php?sec=
+ratinginurl:/stat.php?id=
+.php?start="
+gery.php?action=
+28. keyword:"Powered By FusionPHP"
+inurl:/sourcesinurl:/template.php?CONFIG[main_path]=
+mod*.php?cont=
+mod*.php?sekce=
+inurl:/down*.php?home=
+media.cgi?a=11&t=
+sitio.php?qry=
+index.php?def= index.php?def=
+deportes.cgi?a=latest&t=
+englishinurl:/print.php?id=
+index.php?seite=
+ideaboxinurl:/include.php?gorumDir=
+"prodetails.asp?prodid="
+inurl:/default.php?include=
+enter.php?addr=
+home.php?ln= .php?ln=
+index.php?kobr=
+more_detail.php?X_EID=
+main.php?start=
+id=&intextWarningarray_merge()
+print-story.php?id=
+inurl:/jscript.php?my_ms[root]=
+inurl:/blank.php?corpo=
+tekst.php?idt=
+show_item_details.asp?item_id=
+"BookDetails.asp?ID="
+index.php?page=&lang= index.php?p=
+inurl:/sourcesinurl:/join.php?FORM[url]=owned&CONFIG[captcha]=1&CONFIG[path]= Aardvark TopSites
+intitle:"trade".php?id= title:orders
+detail.php?prodid=
+include.php?ir=
+print.php?sp=
+administratorinurl:/componentsinurl:/com_a6mambocreditsinurl:/admin.a6mambocredits.php?mosConfig_live_site=
+standard.php?op=
+item_list.php?maingroup
+Shopinurl:/home.php?cat=
+product_info.asp?item_id=
+file.php?incl=
+inurl:/blank.php?ref=
+shop.php?bookid=
+inurl:".php?pid=" intext:"add to cart"
+template.php?tipo=
+bookpage.php?id=
+middle.php?file= middle.php?file=
+inurl:/transinurl:/trans.php?trans=eng&page= .php?trans="
+index.php?meio= .php?meio=
+item.php?id=
+inurl:/zipndownload.php?PP_PATH= "PhotoPost PHP 4.6?
+Salesinurl:/view_item.php?id=
+padrao.php?n=
+.php?body="
+product_info.php?products_id=
+inurl:"More_Details".php?id= intext:login
+view.php?to=
+general.php?read=
+inurl:/?page= .php5?id=
+prod_detail.php?id=
+start.php?str=
+cataloginurl:/product.php?pid=
+inurl:/tags.php?BBCodeFile= intitle:"Tagger LE"
+str.php?p= str.php?p=
+inurl:/all.php?choice=
+index1.php?var=
+inurl:".php?pid=" intext:"Buy Now"
+display.php?page= .php?page="
+inurl:/allindex5.php?inc=
+inurl:/index.php?loc= .php?loc=
+index.php?go= index.php?go=
+article.php?ID=
+sub*.php?name=
+id=&intextWarningmysql_fetch_assoc()
+podcastinurl:/item.php?pid=
+press.php?loader=
+head.php?goto=
+announcements.php?phpraid_dir= phpraid
+inurl:/all.php?dir=
+*inurl:/tsepinurl:/includeinurl:/colorswitch.php?tsep_config[absPath]=*"
+mallinurl:/more.php?ProdID=
+head.php?strona=
+layout.php?goto=
+index.php?way= index.php?way=
+inurl:/modulesinurl:/MyGuestsinurl:/signin.php?_AMGconfig[cfg_serverpath]=
+tasinurl:/event.php?id=
+inurl:/default.php?header=
+enter.php?pa=
+inurl:/templatesinurl:/headline_temp.php?nst_inc= intitle:fusion:news:management
+"view.asp?cid="
+.php?area="
+inurl:/all.php?plugin=
+inurl:/all.php?lan=
+ray.php?id=
+inurl:/modulesinurl:/PNphpBB2inurl:/includesinurl:/functions_admin.php?phpbb_root_path=
+news.php?ID=
+"getbook.asp?bookid="
+enginurl:/rgboardinurl:/view.php?&bbs_id=
+nota.php?filepath=
+"itemdetails.asp?catalogid="
+include.php?in=
+page.php?goto=
+"pages.php?page="
+inurl:/allindex.php?a=
+inurl:/sourcesinurl:/functions.php?CONFIG[main_path]= ScozNews
+index2.php?lg= index.php?lg="
+head.php?base_dir=
+pagina.php?lang=
+print.php?middle=
+ourblog.php?categoryid=
+announcements.php?phpraid_dir= php raid
+inurl:/coin_includesinurl:/constants.php?_CCFG[_PKG_PATH_INCL]= "phpCOIN"
+details.php?BookID=
+inurl:/allindex.php?y=
+press.php?thispage=
+ost.php?id=
+inurl:/allindex.php?sub2=
+*inc*.php?type=
+forum.php?act=
+home.php?recipe=
+.asp?idcategory=
+inurl:/all.php?cont=
+inurl:/allindex.php?q=
+index2.php?ln= index.php?ln="
+enter.php?viewpage=
+inurl:/allindex.php?i=
+include.php?filepath=
+main.php?inc=
+inurl:/down*.php?pa=
+mod*.php?OpenPage=
+inurl:/index.php?sec=
+customerinurl:/home.php?cat=
+main.php?action=
+exibir.php?p=
+home.php?doshow=
+sitio.php?pageweb=
+index3.php?path=
+modules.php?****=
+read.php?id=
+index1.php?= index1.php?=
+inurl:/all.php?headline=
+main.php?url=
+1. my_egery site:.org
+inurl:/down*.php?corpo=
+path.php?thispage=
+inurl:/modulesinurl:/coppermineinurl:/themesinurl:/defaultinurl:/theme.php?THEME_DIR=
+inurl:".php?cid="
+start.php?strona=
+view.php?ki=
+sitio.php?mid=
+inurl:/transinurl:/trans.php?trans=&p= .php?trans="
+blank.php?where=
+view.php?table= .php?table=
+inurl:/default.php?n=
+inurl:/all*inurl:/newbb_plusinurl:/*=
+blank.php?pname=
+inurl:/allindex2.php?s=
+index.php?pid=
+head.php?module=
+standard.php?ev=
+inurl:/classesinurl:/adodbtinurl:/sql.php?classes_dir= "index2.php?option=rss"
+index.php?arquivo= .php?arquivo=
+*default.php?body=
+main.php?fset= .php?fset="
+inurl:php?id= site:fr title:buy
+shopcart.php?title=
+home.php?qry=
+.php?b="
+(user,0x3a,pass)
+inurl:/default.php?v=
+index.php4?lang= .php4?lang=
+savecart.asp?CartId=
+product_info.php?id=
+index.php?sub= "index.php?sub=""
+page.php5?id= page.php5?id=
+index3.php?include=
+down*.php?subject=
+head.php?y=
+mod*.php?seccion=
+trans.php?trans= trans.php?trans="
+inurl:/includesinurl:/mx_functions_ch.php?phpbb_root_path="
+ShopSearch.asp?CategoryID=
+standard.php?numero=
+ProductList.php?id=
+"powersearch.asp?CartId="
+inurl:/all.php?subdir=
+index.php?cal=
+standard.php?index=
+inurl:/administratorinurl:/componentsinurl:/com_linkdirectoryinurl:/toolbar.linkdirectory.html.php?mosConfig_absolute_ path=
+index.php?pag= "inurl:/index.php?pag=*.php"
+hosting_info.php?id=
+frinurl:/commande-liste-categorie.php?panier=
+mai.php?src= mai.php?src="
+path.php?menue=
+productList.php?cat=
+toolsinurl:/send_reminders.php?includedir=
+modulesinurl:/xoopsgeryinurl:/upgrade_album.php?GERY_BASEDIR=
+inurl:/sideinurl:/index.php?side=
+sitio.php?secc=
+comersus_listCategoriesAndProducts.php?idCategory=
+index.php?action= index.php?action="
+.asp?storeid=
+template.php?pag=
+index3.php?ir=
+info.php?ki=
+inurl:/addmedia.php?factsfile[$********]=
+index.php?st= index.php?st="
+.php?sourcedir="
+head.php?modo=
+sub*.php?rub=
+pro.php?id=
+index.php?new= index.php?new="
+18. inurl:/default.php?page=home
+inurl:/templatesinurl:/headline_temp.php?nst_inc= fusion
+inurl::/*.php?id= title:login 2015
+nota.php?mid=
+include.php?include=
+main.php?tipo=
+print.php?in=
+item.asp?model=
+inurl:/base.php?pa=
+base.php?second=
+mod*.php?d=
+standard.php?panel=
+home.php?sec=
+info.php?content=
+inurl:/album_portal.php?phpbb_root_path=
+viewCat_h.php?idCategory=
+imagesinurl:/evil.php?owned= e107
+product-list.php?id=
+index2.php?basepath=
+iniziativa.php?in=
+info.php?phpbb_root_path=
+start.php?corpo=
+blank.php?body=
+template.php?second=
+"ShopSearch.asp?CategoryID="
+main.php?command= main.php?command="
+file.php?modo=
+store_listing.asp?id=
+lang.php?arg= .php?arg=
+index.php?middle= index.php?middle="
+inurl:"view_item".php?id= intext:login 2015
+template.php?mod=
+store_bycat.asp?id=
+"shop_details.asp?prodid="
+standard.php?z=
+base.php?pag=
+inurl:/down*.php?OpenPage=
+task.php?task= .php?task=
+book_detail.php?BookID=
+template.php?addr=
+announce.php?id=
+index.php?opcion=
+exibir.php?page=
+socsciinurl:/eventsinurl:/full_details.php?id=
+inurl:/allindex.php?funcion=
+inurl:/sourcesinurl:/template.php?CONFIG[main_path]= ScozNews
+forum.php?seite= .php?seite=
+.php?thread_id="
+id=&intextWarningilesize()
+catalog.asp?CatalogID=
+inurl:/templatesinurl:/headline_temp.php?nst_inc= news
+sitio.php?inc=
+.php?return="
+Select_Item.asp?id=
+sub*.php?mid=
+info.php?body=
+pages.php?page=
+directions.php?loc= directions.php?loc=
+file.php?ir=
+book.php?ISBN=
+inurl:business.php?cid= title:join
+index1.php?pr=
+standard.php?j=
+padrao.php?var=
+inurl:/administratorinurl:/componentsinurl:/com_uhpinurl:/uhp_config.php?mosConfig_absolute_path=
+modules.php?bookid=
+archive.asp?id=
+press.php?page=
+standard.php?name=
+shopreviewlist.asp?id=
+page.php?abre=
+.php?i="
+pagina.php?my=
+gery.php?name=
+template.php?c=
+index.php?prod= .php?prod="
+inurl:".php?catid=" intext:"Toys"
+padrao.php?base_dir=
+down*.php?left=
+inurl:/allinitdb.php?absolute_path=
+base.php?seccion=
+index.php5?lang= .php5?lang="
+intitle:"cosmetics".php?id= intext:login
+show.php?loader=
+padrao.php?basepath=
+inurl:/allinurl:/includesinurl:/mx_functions_ch.php?phpbb_root_path=
+*inc*.php?left=
+index1.php?showpage=
+incinurl:/pipe.php?HCL_path=
+template.php?k=
+"productpage.asp"
+aboutbook.php?id=
+base.php?sekce=
+pagina.php?u=
+inurl:/default.php?pr=
+inurl:/allpipe.php?HCL_path=
+index5.php?x=
+"shopreviewlist.asp?id="
+showproduct.php?cat=
+inurl:/datainurl:/compatible.php?module_****=
+*instinurl:/index.php?lng=..inurl:/..inurl:/includeinurl:/main.inc&G_PATH=
+m2finurl:/m2f_phpbb204.php?m2f_root_path=
+enter.php?itemnav=
+specials.asp?id=
+search.php?CartID=
+inurl:/allviewgantt.php?root_dir=
+view.php?*[*]*=
+sub*.php?*
+Services.asp?ID=
+.php?subject="
+inurl:/all.php?mid=
+index2.php?link=
+path.php?body=
+"productinfo.asp?item="
+nota.php?category=
+head.php?rub=
+index2.php?x=
+inurl:".php?cat="+intext:"Paypal"+site:UK
+inurl:/index.php?from_market=Y&pageurl=
+layout.php?where=
+gery.php?pg=
+"libinurl:/gore.php?libpath="
+index.php?inc= .php?inc="
+index2.php?action=
+inurl:/content.php?page=
+index1.php?type=
+.php?mostra="
+inurl:/display.php?ln=
+sub*.php?option=
+inurl:/allindex2php?aa=
+dbase.php?action= dbase.php?action=
+general.php?secao=
+index.php?lng= index.php?lng=
+inurl:/allindex2.php?gorumdir=
+products.asp?keyword=
+convert-date.php?cal_dir=
+item.php?item_id=
+inurl:/base.php?mid=
+inurl:/becommunityinurl:/communityinurl:/index.php?pageurl=
+site.php?table= .php?table=
+inurl:/calendar.php?s= calendar.php?s=
+index2.php?h=
+index1.php?pollname=
+inurl:/index.php?visualizar=
+main.php?corpo=
+intitle:"gift" .php?id= intext:login 2015
+index.php?arq= index.php?arq=
+inurl:/componentsinurl:/com_cpginurl:/cpg.php?mosConfig_absolute_path=
+down*.php?seite=
+about.asp?cartID=
+pagina.php?ref=
+melbourne_details.php?id=
+s.php?w=
+padrao.php?*[*]*=
+mod*.php?pre=
+default.php?seccion=
+inurl:/all.php?sec=
+print.php?g=
+index.php?page=&lang= index.php?pag=
+freedownload.php?bookid=
+index.php?pageurl= index.php?pageurl=*.php
+start.php?module=
+general.php?e=
+base.php?chapter=
+inurl:".php?cat=" intext:"Toys"
+mcf.php?content= mcf.php
+down*.php?u=
+inurl:/all.php?main=
+down*.php?choix=
+"store_bycat.asp?id="
+*mwchatinurl:/libsinurl:/start_lobby.php?CONFIG[MWCHAT_Libs]=
+shoptellafriend.asp?id=
+blank.php?itemnav=
+index2.php?pref=
+2. xgery site:.org
+head.php?content=
+task.php?task= task.php?task=
+inurl:/default.php?abre=
+page.php?modo=
+sub*.php?j=
+prodView.php?idProduct=
+inurl:/transinurl:/trans.php?trans=fr&page= .php?trans="
+info.php?doshow=
+inurl:join.php?id= title:business
+enter.php?seite=
+s1.php?ln= .php?ln=
+inurl:/squirrelcartinurl:/cart_content.php?cart_isp_root=
+book_list.php?bookid=
+.php?z="
+componentsinurl:/com_simpleboardinurl:/image_upload.php?sbp= com_simpleboard"
+.asp?maingroup=
+info.php?option=
+addtomylist.asp?ProdId=
+index.php?t= index.php?t="
+index2.php?incl=
+"index1.php?="
+storeinurl:/index.php?cat_id=
+gery.php?panel=
+index3.php?itemnav=
+admin.asp
+index.php?var1= "index.php?var1="
+intitle:"commodity".php?id= title:join
+index.php?page=&lang= .php?p=
+inurl:/all.php?my=
+gery.php?sp=
+inurl:".php?categoryid="
+Browse_Item_Details.php?Store_Id=
+image.php?img= image.php?img=
+index1.php?link=
+index3.php?pref=
+path_of_cpcommerceinurl:/_functions.php?prefix=
+filemanager.php?delete=
+inurl:/allindex.php?pageurl=
+show.php?pre=
+List.php?CatID=
+index1.php?pre=
+index1.php?path=
+*inc*.php?start=
+index3.php?pname=
+pagina.php?to=
+show.php?pname=
+frontendinurl:/category.php?id_category=
+intitle:"center".php?id= title:join
+rss.php?phpraid_dir= "php raid"
+index2.php?inc= .php?inc="
+5. inurlP:NphpBB2 site:.org
+27. inurl:/foruminurl:/
+inurl:"php?PID=" intext:"product" site:us 2015
+magazin.php?cid=
+publications.php?ID=
+inurl:/base.php?play=
+index.php?pagina1= "index.php?pagina1="
+index.php?page= index.php?page=
+index.php3?page= index.php3?page=
+press.php?to=
+inurl:/board.php?see=
+incinurl:/cmsesinurl:/aedating4CMS.php?dir[inc]= flashchat site:br bp_ncom.php?bnrep=
+index.php?ss= .php?ss="
+sub*.php?itemnav=
+layout.php?pageweb=
+inurl:/componentsinurl:/com_mtreeinurl:/Savant2inurl:/Savant2_Plugin_textarea.php?mosConfig_absolute_path=
+index1.php?dir=
+info.php?eval=
+inurl:/all.php?pg=
+inurl:/componentsinurl:/com_extcalendarinurl:/admin_events.php?CONFIG_EXT[********S_DIR]=
+"displayproducts.asp"
+.asp?itemID=
+inurl:/allindex.php?x=
+press.php?t=
+sub*.php?base_dir=
+padrao.php?pre=
+index.php?pre=
+.php?server="
+down*.php?strona=
+inurl:/cgi-bininurl:/ikonboard.cgi
+inurl:/down*.php?oldal=
+products.php?DepartmentID=
+blank.php?sivu=
+inurl:/allindex.php?p=
+standard.php?pre=
+h.php?page=
+browse.asp?catid=
+index.php?str=
+tecdateninurl:/showdetail.php?prodid=
+post.php?id=
+inurl:/coppercopinurl:/theme.php?THEME_DIR=
+"catalog.asp"
+inurl:/all.php?meio.php=
+index3.php?disp=
+inurl:/display.php?l=
+sitio.php?doshow=
+show.php?seccion=
+index.php?op=
+inurl:".php?id=" intext:"Drum" title:login 2015
+enter.php?numero=
+sitio.php?index=
+recipeinurl:/category.php?cid=
+checkout_confirmed.asp?order_id=
+productpage.php
+home.php?e=
+gery.php?url=
+intext:"makeup" .php?cid= title:login 2015
+index1.php?op=
+info.php?param=
+inurl:/default.php?vis=
+inurl:/index.php?dn= inurl:/index.php?dn=
+page.php?incl=
+details.php?Press_Release_ID=
+inurl:/allindex2.php?z=
+show.php?adresa=
+.php?subd="
+inurl:/base.php?****o=
+modulesinurl:/agendaxinurl:/addevent.inc.php?agendax_path=
+press.php?*[*]*=
+pipe.php?HCL_path=
+path.php?option=
+inurl:/all.php?form=
+inurl:/allindex2.php?r=
+sub*.php?basepath=
+item_show.php?lid=
+lang.php?subp= .php?subp="
+"index.asp?cart="
+sitio.php?opcion=
+itemdetail.php?item=
+view.php?id=
+file.php?nivel=
+akocomments.php?mosConfig_absolute_path=
+shoptellafriend.php?id=
+experts.php?sub= "experts.php?sub="
+shopaddtocart.asp
+main.php?doshow=
+index.php3?act= index.php3?act=
+inurl:".php?catid="
+inurl:/allindex.php?pg=
+intext:about .php?id= title:loginintext:iron .php?id= title:login
+inurl:/allindex.php?action=
+base.php?cont=
+category.php?CID=
+"affiliates.asp?id="
+channel_id=
+inurl:/classesinurl:/adodbtinurl:/sql.php?classes_dir= "adobt"
+start.php?lang= .php?lang=
+inurl:/all.php?itemid=
+.php?pm_path="
+tek9.php?
+.php?funcao="
+index.php?select= .php?select=
+rssinurl:/event.php?id=
+start.php?loader=
+enter.php?abre=
+inurl:/all.php?nav=
+mod*.php?destino=
+inurl:article.php?id= title:login 2015
+sitio.php?ir=
+mboardinurl:/replies.php?parent_id=
+sendpage.php?page=
+constructiesinurl:/product.php?id=
+index.php?plugin=
+myaccount.php?catid=
+inurl:buy.asp?bookid= title:login
+inurl:".php?categoryid=" intext:"Toys"
+mod*.php?tipo=
+"order.asp?id="
+index.php?id= index.php?id="
+nav.php?pg= "nav.php?pg="
+cart.asp?id=
+info.php?ln= info.php?ln="
+intitle:"marketing".php?id= title:join
+display.php?l= display.php?l=
+default.php?thispage=
+index1.php?second=
+file.php?include=
+include.php?corpo=
+index.php?id=
+inurl:/allindex.php?meio.php=
+index3.php?link=
+inurl:/contentinurl:/article.php?ide=
+book.php?id=9
+enter.php?chapter=
+index2.php?= index2.php?=
+inurl:/admininurl:/doeditconfig.php?thispath=..inurl:/includes&config[path]=
+My_eGeryinurl:/publicinurl:/displayCategory.php?basepath=
+mod*.php?pname=
+info.php?ln= info.php?ln=
+inurl:/wsinurl:/get_reminders.php?includedir= WebCalendar
+inurl:/administratorinurl:/componentsinurl:/com_remositoryinurl:/admin.remository.php?mosConfig_absolute_path=
+products.php?openparent=
+index1.php?b=
+?id=
+inurl:/all.php?play=
+head.php?c=
+inurl:.php?business_profile= intext:"login" 2015
+inurl:/modulesinurl:/coppermineinurl:/themesinurl:/coppercopinurl:/theme.php?THEME_DIR=
+start.php?p= start.php?p=
+order.php?wp= order.php?wp=
+"products.asp?ID="
+inurl:/main.php?body=
+toynbeestudiosinurl:/content.php?id=
+index.php?action= .php?action="
+standard.php?s=
+id=&intextWarningmysql_num_rows()
+intitle:"market" .php?id= intext:login 2015 site:us
+path.php?start=
+index1.php?loc=
+gery.php?ki=
+index3.php?go=
+"item.asp?model="
+padrao.php?choix=
+modulesinurl:/vwarinurl:/admininurl:/admin.php?vwar_root=
+"shopwelcome.asp?title="
+main.php?basepath=
+storeinurl:/product.php?productid=
+page.php?pa=
+inurl:/modulesinurl:/vwarinurl:/admininurl:/admin.php?vwar_root=
+cartinurl:/product.php?productid=
+download.php?sub= "download.php?sub="
+index.php?prefix=
+Interiorinurl:/productlist.php?id=
+nota.php?pag=
+info.php?o=
+include.php?cmd=
+include.php?to=
+principal.php?ref=
+index2.php?lk= .php?lk="
+inurl:/index.php?main=
+inurl:/administratorinurl:/componentsinurl:/com_comprofilerinurl:/plugin.class.php?mosConfig_absolute_path=
+intitle:"clothing".php?id= title:login
+inurl:/allalbum_portal.php?phpbb_root_path=
+item_id=
+show.php?qry=
+index.php?funcion=
+index5.php?content=
+index1.php?table= .php?table=
+inurl:/index.php?pagina=
+standard.php?home=
+downloadsinurl:/category.php?c=
+inurl:/modulesinurl:/postguestbookinurl:/stylesinurl:/internalinurl:/header.php?tpl_pgb_moddir= PostGuestbook"
+standard.php?qry=
+inurl:".php?cid=" intext:"Buy Now" 2015
+inurl:/all.php?basedir=
+inurl:/base.php?****=
+index2.php?texto=
+powersearch.asp?CartId=
+pagina.php?dir=
+default.php?panel=
+index5.php?main=
+inurl:/all.php?origem=
+intitle:"equipment"buy".php?id= title:login
+modulesinurl:/xgeryinurl:/upgrade_album.php?GERY_BASEDIR=
+WsAncillary.php?ID=
+featuresinurl:/view.php?id=
+index2.php?pag= "inurl:/index2.php?pag=*.php"
+inurl:/allindex2.php?pg=
+index3.php?rub=
+mai.php?loc= mai.php?loc=
+inurl:/akocomments.php?mosConfig_absolute_path=
+phpshopinurl:/index.php?base_dir=
+inurl:/squitoinurl:/photolist.inc.php?photoroot=
+shopcurrency.php?cid=
+template.php?panel=
+show.php?inc=
+home.php?seite=
+shop.plinurl:/page= shop.plinurl:/page=
+show.php?my=
+default.php?sp=
+sub*.php?g=
+"category.asp"
+.php?file="
+template.php?content=
+allinurl: inurl:/cgi-localinurl:/shopper.cgi
+"voteList.asp?item_ID="
+inurl:/embedinurl:/day.php?path= "WebCalendar"
+show.php?ir=
+inurl:/coin_includesinurl:/constants.php?_CCFG[_PKG_PATH_INCL]= phpCOIN
+principal.php?subject=
+page.php?link=
+fileseek.cgi?head=&foot=
+productsinurl:/product-list.php?id=
+"index2.php?DoAction="
+pinions.php?id=
+page.php?option=
+21. Key Word: ( Nuke ET Copyright 2004 por Truzone. ) or ( *.edu.*inurl:/modules.php?name=myguests ) or ( "powered by MyGuests")
+"itemdetail.asp?item="
+inurl:/allindex2.php?sub=
+"cartadd.asp?id="
+mod*.php?start=
+inurl:/allindex.php?root_PATH=
+componentsinurl:/com_extcalendarinurl:/admin_events.php?CONFIG_EXT[LANGUAGES_DIR]=
+press.php?where=
+sub*.php?op=
+news.php?CONFIG[script_path]=
+show.php?read=
+shop.asp?cartID=
+intext:action .php?id= title:login
+index2.php?gorumdir=
+inurl:/phoruminurl:/plugininurl:/replaceinurl:/plugin.php?PHORUM[settings_dir]=
+press.php?second=
+down*.php?pageweb=
+base.php?include=
+inurl:/allindex2.php?lnk=
+path.php?numero=
+inurl:/index.php?myContent=
+main.php?table= .php?table=
+newsdesk.cgi?a=latest&t=
+inurl:/admininurl:/index.php?o= admininurl:/index.php"
+participant.php?id=
+head.php?disp=
+displayproducts.asp
+inurl:".php?categoryid=" intext:"shopping"
+path.php?secao=
+mod*.php?middle=
+filetypedql{valuesmd5|values|password
+index.php?f= index.php?f="
+pagina.php?g=
+principal.php?module=
+index.php?var= index.php?var=*.php
+index.php?acao= .php?acao=
+id=&intextWarningrequire()
+.php?conf="
+main.php?goto=
+index2.php?arq= .php?arq=
+display.php?table= .php?table=
+inurl:/componentsinurl:/com_zoominurl:/includesinurl:/database.php?mosConfig_absolute_path= "index.php?option="com_zoom"
+"Services.asp?ID="
+includeinurl:/new-visitor
+products_category.asp?CategoryID=
+customerService.asp?TextID1=
+productsinurl:/index.php?rangeid=
+"checkout_confirmed.asp?order_id="
+inurl:/allindex5.php?lang=
+checkout_confirmed.php?order_id=
+id=&intextWarninggetimagesize()
+.php?post="
+index5.php?lang=
+intitle:"store".php?id= title:cart
+index.php?f=
+enter.php?panel=
+inurl:"php=id" +site:.uk intext:paypal
+index2.php?q=
+.php?action="
+cgi-bininurl:/jammail.pl?job=showoldmail&mail=
+standard.php?url=
+print.php?id=
+inurl:/all.php?date=
+mod*.php?b=
+inurl:library.php?id= title:login
+.php?op="
+middle.php?file= "middle.php?file="
+enter.php?pagina=
+inurl:/zipndownload.php?PP_PATH= "PhotoPost"
+index.php?meio= index.php?meio="
+.php?place="
+index.php?n=
+inurl:/all.php?new=
+inurl:".php?id=" intext:"watches" title:login 2015
+inurl:/administratorinurl:/componentsinurl:/com_cropimageinurl:/admin.cropcanvas.php?cropimagedir=
+inurl:/base.php?seite=
+products.php?type=
+inurl:/index.php?dn= index.php?dn="
+.asp?catID=
+index.php?inhalt=
+include.php?go=
+.php?tid="
+detail.php?siteid=
+myevent.php?myevent_path=
+inurl:/base.php?rub=
+default.php?page=
+index.php?pageurl=
+principal.php?corpo=
+content.php?arti_id=
+*includeinurl:/write.php?dir=
+.php?zo="
+.php?j="
+.php?formatword="
+inurl:/transinurl:/trans.php?trans=ko&page= .php?trans="
+inurl:/all.php?urlFrom=
+path.php?pre=
+index2.php?recipe=
+componentsinurl:/com_rsgeryinurl:/rsgery.html.php?mosConfig_absolute_path= rsgery
+blank.php?action=
+sitio.php?modo=
+roduct_ranges_view.php?ID=
+inurl:/incinurl:/pipe.php?HCL_path=
+head.php?loader=
+inurl:/all.php?m=
+blank.php?ki=
+powerup.cgi?a=latest&t=
+principal.php?read=
+inurl:/blank.php?j=
+inurl:/allnew-visitor.inc.php?lvc_include_dir=
+modulesinurl:/My_eGeryinurl:/publicinurl:/displayCategory.php?basepath=
+principal.php?seccion=
+.asp?CategoryID=
+index2.php?in=
+view.php?showpage=
+main.php?x=
+modulesinurl:/tasksinurl:/viewgantt.php?root_dir=
+index.phpmain.php?x=
+more.php?sub= "more.php?sub="
+press.php?destino=
+main.php?s= .php?s=
+nota.php?b=
+id=&intextWarningmysql_fetch_array()
+inurl:/arquivo.php?data=
+standard.php?body=
+inurl:/cgi-bininurl:/probe.cgi?olddat=
+inurl:/allexibir.php?lang=
+home.php?inc= "home.php?inc="
+index2.php?loca= index2.php?loca=
+index2.php?oldal=
+gery.php?secao=
+nota.php?rub=
+page.php?g=
+inurl:/extensionsinurl:/mobloginurl:/moblog_lib.php?basedir=
+base.php?subject=
+show.php?param=
+start.php?nivel=
+index.php?spage= .php?spage="
+"product.asp?bookID="
+main.php?pre=
+default.php?type=
+home.php?a= .php?a="
+index2.php?section=
+order.php?wp= .php?wp=
+.php?root="
+index2.php?module=
+inurl:/demoinurl:/includesinurl:/init.php?user_inc=
+template.php?str=
+index.php?v= index.php?v="
+eng_boardinurl:/view.php?T****=
+phpwcmsinurl:/includeinurl:/inc_extinurl:/spawinurl:/dialogsinurl:/table.php?spaw_root= "phpwcmsinurl:/index.php?id="
+gery.php?filepath=
+intext:gift card .php?id= title:login
+inurl:/all.php?url=
+content.php?categoryId=
+file.php?second=
+index.php?sivu=
+"index.php?canal="
+principal.php?in=
+addToCart.asp?idProduct=
+intext:"news"item" .php?id= title:"login" 2015
+default.php?strona=
+inurl:/index.php?dn= .php?dn="
+pagina.php?go=
+intitle:"bike".php?id= title:payment
+inurl:/allexibir.php?get=
+book.html?isbn=
+********.php?cid=
+layout.php?OpenPage=
+pagesinurl:/print.php?id=
+products.php?keyword=
+inurl:/default.php?sivu=
+inurl:/allindex2.php?sub2=
+inurl:/all.php?next=
+main.php?f1= .php?f1="
+home.php?page=
+index2.php?ref=
+principal.php?rub=
+.php?subdir="
+head.php?pageweb=
+index.php?sit= .php?sit="
+view.php?cmd=
+resourcesinurl:/vulnerabilities_list.php?id=
+old_reports.php?file=
+"links.asp?catid="
+"item_details.asp?catid="
+colourpointeducationalinurl:/more_details.php?id=
+index2.php?content= index2.php?content=
+"tuangou.asp?bookid="
+10. google = kietuinurl:/hit_js.php, kietuinurl:/hit_js.php
+WsPages.asp?ID=
+inurl:/header.php?abspath=
+index.php?lang=
+home.php?ref=
+index.php?sub2=
+index.php?lang= "index.php?lang="
+inurl:/templatesinurl:/headline_temp.php?nst_inc= "management"
+newsinurl:/news.php?id=
+layout.php?menue=
+index.php?sub= "index.php?sub="
+view.php?goto=
+promo.php?id=
+index1.php?action=
+inurl:/allaffich.php?base=
+inurl:/componentsinurl:/com_extended_registrationinurl:/registration_detailed.inc.php?mosConfig_absolute_path= com_extended_registration
+englishinurl:/publicproducts.php?groupid=
+inurl:store_item.php?id= title:paypal
+.asp?bookID=
+"id=" & intext:"Warning: pg_exec()
+index.php?screen=
+inurl:/all.php?act=
+inurl:/allphpshopinurl:/index.php?base_dir=
+buy.asp?bookid=
+inurl:".php?id=" intext:"inurl:/shopinurl:/"
+news-full.php?id=
+channelinurl:/channel-layout.php?objId=
+gery.php?redirect=
+gery.php?nivel=
+nota.php?seccion=
+layout.php?c=
+info.php?sec=
+productinurl:/product.php?cate=
+inurl:/all.php?link=
+padrao.php?section=
+catalog_item.asp?ID=
+inurl:/default.php?loc=
+index.php?bas= index.php?bas="
+index.php?h=
+home.php?k=
+board.php?see= .php?see="
+wamp_dirinurl:/setupinurl:/yesno.phtml?no_url= "setup"
+"giftDetail.asp?id="
+inurl:/allindex2.php?t=
+index.php?subp= .php?subp="
+principal.php?link=
+content.php?id
+basket.asp?id=
+index3.php?xlink=
+info.php?in=
+product.php?ItemID=
+index.php?page=
+nota.php?include=
+inurl::/category.asp?id= title:shop 2015
+principal.php?strona=
+inurl:/allindex2.php?l=
+intitle:"fashion" .php?id= intext:login
+intitle:"compay".php?id= title:login
+main.php?load=
+index.asp?ID=
+mod*.php?include=
+Productinfo.php?id=
+general.php?left=
+index.php?theme= index.php?theme=
+index.php?langc=
+base.php?*[*]*=
+principal.php?tipo=
+modline.asp?id=
+inurl:/allindex.php?acao=
+path.php?strona=
+down*.php?pollname=
+inurl:/allindex2.php?prefix=
+inurl:/allindex2.php?d=
+remixer.php?id=
+sitio.php?t=
+index2.php?filepath=
+Store_ViewProducts.php?Cat=
+index3.php?x=
+productdetail.php?id=
+view.php?ir=
+path.php?pageweb=
+35. inurl:/folder.php?id=
+index1.php?OpenPage=
+head.php?b=
+sub*.php?my=
+index.php?arq= .php?arq=
+base.php?panel=
+page.php?OpenPage=
+product.php?pid=
+index3.php?body=
+base.php?choix=
+page.php?p= .php?p="
+print.php?basepath=
+inurl:/allindex.php?configFile=
+sitio.php?body=
+principal.php?ev=
+"id=" & intext:"Warning: array_merge()
+index.php?section=
+index.php?sub=
+index2.php?cal=
+inurl:/includeinurl:/init.inc.php?CPG_M_DIR="
+inurl:/allindex.php?j=
+inurl:/allindex.php?loc=
+main.php?id= "main.php?id=*.php"
+showStore.php?catID=
+newsitem.php?newsID=
+loc.php?lang= .php?lang="
+default.php?base_dir=
+"prodView.asp?idProduct="
+index.php?dir=
+main.php?dir=
+path.php?ir=
+eng.php?img= .php?img=
+inurl:/default.php?y=
+humor.php?id=
+" inurl:".php?cat=" intext:"inurl:/storeinurl:/"
+inurl:/default.php?destino=
+inurl:release.php?id= title:login
+inurl:/kietuinurl:/index.php?kietu[url_hit]=
+inurl:/mcf.php?content= mcf.php"
+magazine.php?inc= .php?inc="
+default.php?left=
+index.php?pag= index.php?pag=
+down*.php?v=
+main.php?subject=
+payment.asp?CartID=
+page.php?qry=
+intitle:"10%" .php?id= intext:login 2015
+inurl:/all.php?str=
+show.php?go=
+gery.php?menue=
+"view.php?page="
+inurl:/all.php?start=
+inurl:/down*.php?filepath=
+info.php?read=
+cemetery.php?id=
+include.php?gorumDir=
+down*.php?in=
+index_principal.php?pagina=
+template.php?ir=
+standard.php?destino=
+standard.php?e=
+index.php?ev=
+nota.php?disp=
+projdetails.php?id=
+inurl:/display.php?page=
+default.php?pa=
+inurl:/common.php?include_path=
+index2.php?loca= .php?loca=
+index1.php?pa=
+rod_detail.php?id=
+item_details.php?catid=
+principal.php?secc=
+main.php?loc=
+path.php?chapter=
+padrao.php?op=
+mod*.php?qry=
+inurl:/blank.php?rub=
+index.php?secao=
+enter.php?get=
+"catalog_main.asp?catid="
+path.php?pref=
+"book_view.asp?bookid="
+cataloginurl:/product.php?cat_id=
+index3.php?oldal=
+include.php?loader=
+content.php?p=
+page.php?modul=
+inurl:/all.php?c=
+gery.php?param=
+inurl:client.php?id= title:login
+deinurl:/content.php?page_id=
+index.php?action=
+inurl:/all.php?visual=
+head.php?middlePart=
+"prodlist.asp?catid="
+intext:"crystal" .php?id= title:login
+index.php3?act= .php3?act="
+inurl:/down*.php?addr=
+index3.php?home=
+KMinurl:/BOARDinurl:/readboard.php?id=
+start.php?panel=
+page.php?module=
+BookDetails.asp?ID=
+mod_mainmenu.php?mosConfig_absolute_path=
+proddetails_print.php?prodid=
+info.php?mid=
+booksinurl:/book.php?proj_nr=
+"updatebasket.asp?bookid="
+view.php?sec=
+nav.php?pagina= "nav.php?pagina="
+home.php?act= home.php?act=
+show.php?j=
+standard.php?eval=
+inurl:/down*.php?open=
+pagina.php?n=
+down*.php?texto=
+inurl:/blank.php?sivu=
+inurl:/all.php?g=
+show.php?b=
+info.php?ID=
+index1.php?t=
+layout.php?oldal=
+standard.php?chapter=
+index.php?cal= "index.php?cal="
+index.php?sub=index.php?id=index.php?t=
+show_item_details.php?item_id=
+inurl:/allindex2.php?funcion=
+view.php?phpbb_root_path=
+main.php?d1= main.php?d1="
+index2.php?prefix=
+home.php?cat=
+.php?sid="
+inurl:/allmain.php?x=
+cart.php?action=
+inurl:/base.php?oldal=
+index.php?pagina= index.php?pagina=
+start.php?*root*=
+auktion.pl?menue=
+intext:deal .php?id= title:login
+inurl:".asp?ID=" intext:"housekeeping" 2015
+forum_bds.php?num=
+file.php?body=
+padrao.php?eval=
+file.php?cont=
+inurl:/index1.php?nav=
+inurl:/all.php?d=
+index1.php?d=
+"index.php?langc="
+zbinurl:/view.php?uid=
+transcript.php?id=
+index.asp?cart=
+path.php?incl=
+middle.php?file= middle.php?page=
+"shopcurrency.asp?cid="
+newsticker_info.php?idn=
+principal.php?d=
+comments_form.asp?ID=
+intext:delivery item.php?id= 2015
+vw_files.php?root_dir=
+nav.php?ln= .php?ln=
+inurl:/allindex2.php?cal=
+show.php?header=
+person.php?id=
+searchcat.asp?search_id=
+module.php?mod= module.php?mod="
+main.php?chapter=
+inurl:/default.php?pa=
+sitio.php?menu=
+"faqs.asp?id="
+cardinfo.php?card=
+inurl:products.php?cat= title:login 2015
+3. coppermine site:.org
+index2.php?c=
+template.php?play=
+inurl:/classified_right.php?language_dir= "phpbazar"
+.php?lang="
+index1.php?= "index1.php?="
+inurl:/embedinurl:/day.php?path= Calendar
+index.php?modus=
+enter.php?pname=
+index.php?meio= index.php?meio=
+view.php?load=
+principal.php?loc=
+inurl:".php?sub_id=" intext:"buy" 2015
+subcategories.php?id=
+dork: "powered by doodle cart"
+price.php
+.asp?ProdID=
+index2.php?k=
+path.php?doshow=
+home.php?content=
+path.php?var=
+gery.php?pre=
+pview.php?Item=
+index1.php?lk= .php?lk="
+inurl:".php?cid=" intext:"Toys"
+mod*.php?lang=
+"itemDesc.asp?CartId="
+main.php?type=
+encinurl:/content.php?Home_Path= doodle
+werbungFrame.php?do= .php?do="
+"article.asp?id="
+templet.php?acticle_id=
+index.php3?i= index.php3?i=
+resellers.php?idCategory=
+*inurl:/newbb/print.php?forum=*topic_id=*"
+layout.php?link=
+"item.asp?eid="
+index.php?mf= .php?mf="
+inurl:/blank.php?xlink=
+index.php?body= index.php?body=
+index3.php?start=
+15. .php?bodyfile=
+inurl:/all.php?pid=
+home.php?thispage=
+"freedownload.asp?bookid="
+print.php?l=
+file.php?where=
+index5.php?root=
+inurl:/default.php?option=
+shopcreatorder.php
+details.php?prodID=
+main.php?j=
+productlist.php?ViewType=Category&CategoryID=
+kalender.php?vis= kalender.php"
+inurl:/all.php?lang=
+inurl:"index".asp?id= title:login
+view.php?b=
+"storefronts.asp?title="
+index1.php?=
+intext:"doctor" .php?cid= title:login 2015
+head.php?adresa=
+price.asp
+viewitem.asp?recor=
+padrao.php?h=
+inurl:/help/faq/inc/pipe.php?HCL_path=
+*inc*.php?pg=
+index.php?pager= .php?pager=
+pages.php?id=
+base.php?pageweb=
+inurl:"payment".php?cat= intext:login
+List.asp?CatID=
+inurl:/allindex.php?ll=
+enter.php?phpbb_root_path=
+intitle:"management".php?id= title:business
+view.php?mid=
+inurl:/default.php?seccion=
+template.php?s=
+standard.php?phpbb_root_path=
+inurl:".php?cat=" intext:"boutique
+product_info.php?item_id=
+questions.php?questionid=
+inurl:/help_text_vars.php?cmd=dir&PGV_BASE_DIRECTORY= PHP Ged View
+index.php?command= .php?command="
+index.php?meio=
+inurl:/index.php?loc= .php?loc="
+mod*.php?ir=
+"index2.php?ascii_seite="
+details.php?Service_ID=
+blank.php?category=
+general.php?sekce=
+viewitem.php?recor=
+index2.php?directfile=
+inurl:/allindex.php?g=
+displayCategory.php?basepath=
+presse.php?do= .php?do="
+inurl:productdetail.php?id= title:login 2015
+index.php?show=
+inurl:/addpost_newpoll.php?addpoll=preview&thispath= ubbthreads
+archiveinurl:/get.php?message_id=
+base.php?name=
+inurl:".php?id=" intext:"boutique"
+ageid=
+intitle:"insurance".php?id= title:join
+info.php?*[*]*=
+mod*.php?module=
+prodlist.php?catid=
+inurl:.php?categoryID= title:login
+.php?go="
+?cat=
+inurl:".php?categoryid=" intext:"boutique"
+include.php?read=
+padrao.php?ir=
+.php?for="
+index.php?trans= index.php?trans="
+inurl:/base.php?p****=
+intext:contact us .php?id= title:login
+display_page.php?id=
+produit.php?prod= .php?prod="
+main.php?pg=
+include.php?destino=
+inurl:/ccbillinurl:/whereami.cgi?g=ls
+payment.php?CartID=
+topic.asp?ID=
+index5.php?open=
+include.php?my=
+singerinurl:/detail.php?siteid=
+default.php?loc=
+inurl:/base.php?abre=
+home.php?z=
+productsByCategory.php?intCatalogID=
+.php?display="
+down*.php?sp=
+general.php?qry=
+dork: "main.php?sayfa="
+*inurl:/newbb_plusinurl:/*="
+file.php?sp=
+enter.php?sec=
+inurl:/blank.php?header=
+home.php?link=
+index.php?s= .php?s=
+admin.php?cal_dir=
+"cart_validate.asp?id="
+start.php?param=
+inurl:/all.php?sourcedir=
+roduit.php?id=
+padrao.php?secao=
+product.php?product=
+"show.php?page="
+*coppercopinurl:/theme.php?THEME_DIR=
+inurl:/alladdevent.inc.php?agendax_path=
+inurl:/allindex5.php?m=
+31. keyword : "Powered by iUser"
+start.php?adresa=
+"page.asp?PartID="
+prodbycat.asp?intCatalogID=
+download.php?id=
+index.php?canal=
+index5.php?pg=
+privacy.asp?cartID=
+kategorie.php4?id=
+dbase.php?action= dbase.php
+view.php?str=
+principal.php?basepath=
+inurl:/all.php?la=
+.php?inter="
+index.php?lang=en&page= index.php?lang=
+siteinurl:/products.php?prodid=
+inurl:/index.php?seite= .php?seite=
+intext:size product.php?id= title:login
+file.php?sivu=
+index.php?cartID=
+"cardinfo.asp?card="
+inurl:/filesinurl:/prod_detail.php?lang= title:login
+inurl:"storefront".php?cat= intext:login
+inurl:/default.php?base_dir=
+press.php?modo=
+.php?nextpage="
+pagina.php?mid=
+experts.php?sub= experts.php?sub=
+inurl:/templatesinurl:/headline_temp.php?nst_inc= "news"
+library.php?cat=
+inurl:/index.php?inter_url=
+sitio.php?start=
+gery.php?qry=
+blank.php?pagina=
+inurl:/auto.php?page=
+inurl:"reviews".php?id= title:shop 2015
+index.asp?cartID=
+blank.php?path=
+inurl:".php?cid=" intext:"inurl:/shopinurl:/"
+"show_item_details.asp?item_id="
+theme.php?THEME_DIR=
+voteList.asp?item_ID=
+index.php?disp=
+template.php?left=
+about.php?cartID=
+product.php?****=
+base.php?str=
+print.php?pre=
+Browse_Item_Details.asp?Store_Id=
+"id=" & intext:"Warning: is_writable()
+inurl:".php?id=" intext:"membership" title:login 2015
+*inc*.php?c=
+path.php?id=
+dbase.php?action= .php?action=
+start.php?cmd=
+view.php?chapter=
+maininurl:/index.php?action=
+main.php?adresa=
+pagina.php?seccion=
+"id=" & intext:"Warning: mysql_fetch_assoc()
+product.php?shopprodid=
+press.php?ir=
+productList.php?id=
+standard.php?dir=
+events.cgi?a=155&t=
+down*.php?open=
+"cat.asp?iCat="
+checkout.asp?UserID=
+bycategory.php?id=
+shopdisplaycategories.asp
+home.php?ir=
+inurl:/content/modify_go.php?pwfile=
+buy.php?category=
+content/pages/index.php?id_cat=
+press.php?get=
+inurl:/all.php?subd=
+inurl:/allview.php?root_dir=
+sitio.php?texto=
+e_boardinurl:/modifyform.html?code=
+index.php?pag=
+inurl:/eventdetails.php?*= title:login 2015
+bookDetails.php?id=
+down*.php?nivel=
+index.php3?p= index.php3?page="
+inurl:/all.php?wPage=
+layout.php?numero=
+inurl:/index.php?z=
+item.asp?shopcd=
+"StoreRedirect.asp?ID="
+.php?storyid="
+index.php?var= "index.php?var=*.php"
+print.php?disp=
+rfi to this dork: inurl:/mcf.php?content=
+index.php3?file= .php3?file="
+inurl:/index.php?lang=en&page= index.php?lang=
+view.php?type=
+inurl:/jafinurl:/index.php?show=
+pagina.php?id=
+padrao.php?destino=
+*inc*.php?str=
+games.php?id=
+index.php?path=
+view.php?pollname=
+standard.php?action=
+.php?systempath="
+inurl:/all.php?part=
+mod*.php?dir=
+general.php?section=
+inurl:/blank.php?left=
+shop.asp?action=
+list.asp?bookid=
+info.php?base_dir=
+"id=" & intext:"Warning: require()
+padrao.php?header=
+pagina.php?loc=
+index2.php?z=
+inurl:/calendar.php?l= calendar.php?l=
+index3.php?index=
+padrao.php?seite=
+lang.php?subpage= .php?subpage="
+include.php?play=
+index1.php?pname=
+inurl:/all.php?****=
+test.php?page=
+index2.php?b=
+start.php?eval=
+press.php?pname=
+"buy.asp?bookid="
+enter.php?str=
+index3.php?ref=
+index2.php?j=
+general.php?base_dir=
+index1.php?dat=
+index.php?menu=
+default.php?menu=
+mod*.php?secc=
+.php?h="
+default.php?id=
+enter.php?include=
+home.php?pre=
+inurl:".php?ID=" intext:"members" site:us 2015
+viewthread.php?tid=
+store-details.asp?id=
+main.php?id=
+index.php?subpage= .php?subpage="
+links.asp?catid=
+gery.php?*
+file.php?n=
+add.asp?bookid=
+*inc*.php?inc=
+inurl:/all.php?f_content=
+page.php?arq= .php?arq=
+order.php?page= order.php?page=
+.php?type="
+index.php?e=
+enter.php?strona=
+faq2.php?id=
+inurl:/b2-toolsinurl:/gm-2-b2.php?b2inc=
+index1.php?chapter=
+"shopreviewadd.asp?id="
+.php?la="
+ln.php?ln= .php?ln=
+enter.php?middle=
+principal.php?phpbb_root_path=
+press.php?home=
+intext:"shop" .php?id= title:"login" 2015
+encinurl:/content.php?Home_Path= doodle cart
+view_faq.php?id=
+template.php?secao=
+start.php?pname=
+blank.php?var=
+index.php?m=
+viewCat_h.asp?idCategory=
+itemdetail.asp?item=
+inurl:/index.php?site=
+inurl:".php?id=" intext:"apple" title:login 2015
+"shoptellafriend.asp?id="
+catalog.asp
+inurl:/all.php?area=
+"advSearch_h.asp?idCategory="
+.asp?item_id=
+file.php?cmd=
+intext:"customers" .cfm?id= title:login
+layout.php?qry=
+"item.asp?prodtype="
+inurl:/allindex2.php?lang=
+"content.asp?id="
+view.php?seite=
+inurl:"php?id=" intext:"knitwear" title:login 2015
+"addcart.asp?"
+reagir.php?num=
+general.php?page=
+inurl:/index.php?cms= inurl:/index.php?cms=
+shopexd.php
+principal.php?pr=
+intext:jewel .php?id= title:login
+rfi of this dork: inurl:/embedinurl:/day.php?path=
+inurl:apartments.php?id= title:login
+view.php?second=
+layout.php?tipo=
+principal.php?middlePart=
+home.php?loader=
+principal.php?eval=
+artist_art.php?id=
+index2.php?c= index2.php?c="
+index3.php?addr=
+.php?servico="
+path.php?filepath=
+intext:seller .php?id= title:login
+inurl:/all.php?prefixo=
+print.php?name=
+shopbasket.php?bookid=
+layout.php?pollname=
+emailToFriend.asp?idProduct=
+index3.php?nivel=
+adminhome.asp
+.php?q="
+showfeature.php?id=
+gery.php?where=
+displayproducts.php?id=
+blank.php?z=
+index.php?product= .php?product="
+"index.asp?cartID="
+_functions.php?prefix
+inurl:/htmltonuke.php?filnavn=
+sub*.php?cont=
+intitle:"search".php?id= title:login
+layout.php?strona=
+index.php?server=
+index.php?body= "index.php?body="
+inurl:/all.php?v=
+libinurl:/gore.php?libpath=
+detail.php?id=
+index.php?cal= index.php?cal=
+inurl:/base.php?var=
+inurl:".php?id=" intext:"batteries" title:login 2015
+info.php?chapter=
+main.php?oldal=
+art.php?idm=
+viewcart.asp?CartId=
+account.php?action="account.php?action="
+index.php?spage= index.php?spage="
+padrao.php?read=
+helpinurl:/com_view.html?code=
+nota.php?eval=
+schuleinurl:/termine.php?view=
+indexofinurl:/admininurl:/login.asp
+mod*.php?pagina=
+cart.asp?cart_id=
+index.php?fset= .php?fset="
+.php?cvsroot="
+template.php?seite=
+comersus_optEmailToFriendForm.php?idProduct=
+include.php?channel=
+index.php?ln= index.php?ln=
+sub*.php?adresa=
+index5.php?include=
+account.php?action= account.php?action=
+mod*.php?phpbb_root_path=
+page.php?panel=
+intext:"£99" .php?id= title:"login" 2015
+.php?sel="
+subcategories.asp?id=
+press.php?abre=
+inurl:".php?ID=" intext:"collection" site:us 2015
+noticias.php?arq=
+deal_coupon.php?cat_id=
+index.php?lang= index.php?lang=
+*inc*.php?link=
+reviews.php?id=
+inurl:/default.php?module=
+start.php?b=
+"faq_list.asp?id="
+inurl:/Geryinurl:/displayCategory.php?basepath=
+inurl:/cgi-bininurl:/ubbinurl:/ubb.cgi?g=
+nav.php?p= nav.php?p=
+.php?itemid="
+press.php?pref=
+general.php?seite=
+"privacy.asp?cartID="
+inurl:/down*.php?left=
+index.php?pr=
+inurl:/base.php?category=
+page.php?p= page.php?p="
+"modline.asp?id="
+view_detail.asp?ID=
+*inc*.php?rub=
+inurl:/blank.php?panel=
+index2.php?cmd=
+index1.php?my=
+roductdetail.php?id=
+inurl:social.php?id= title:login 2015
+inurl:/all.php?poll****=
+ComputerScience.php?id=
+board_view.html?id=
+"productDisplay.asp"
+.php?y="
+inurl:"php?id=" intext:"goats" title:login 2015
+principal.php?oldal=
+index.php?set= index.php?set=
+index2.php?param=
+?action=
+sitio.php?strona=
+index.php?fase= .php?fase="
+page.php?s= .php?s="
+standard.php?goto=
+_newsinurl:/news.php?id=
+newscat.php?id=
+nota.php?in=
+args.php?arg= .php?arg=
+index3.php?d=
+show_news.php?cutepath=
+.php?topic_id="
+details.php?id=
+inurl:/help_text_vars.php?cmd=dir&PGV_BASE_DIRECTORY= PHP GedView
+inurl:/content.php?seite=
+gery.php?get=
+inurl:/blank.php?strona=
+nota.php?oldal=
+index.php?ir=
+index.php?ort=
+diganti dengan :
+"id=" & intext:"Warning: mysql_num_rows()
+look.php?ID=
+showproduct.php?productId=
+article.php?sid=
+inurl:/base.php?middlePart=
+ceiinurl:/cedbinurl:/projdetail.php?projID=
+addmedia.php?factsfile[$LANGUAGE]= phpGedView
+standard.php?open=
+inurl:".php?catid=
+inurl:/storeinurl:/
+principal.php?load=
+communique_detail.php?id=
+default.php?param=
+index.php?arquivo=
+print.php?path=
+"affiliate-agreement.cfm?storeid="
+index2:php?aa=
+info.php?strona=
+inurl:"content"index".php?id= title:login
+base.php?ev=
+.php?_REQUEST=&_REQUEST[option]=com_content&_REQUEST[Itemid]=1&GLOBALS=&mosConfig_absolute_path="
+inurl:/base.php?path=
+gery.php?cont=
+m_view.php?ps_db=
+roduct-item.php?id=
+inurl:/cgi-bininurl:/1inurl:/cmd.cgi
+inurl:/toolsinurl:/send_reminders.php?includedir=
+view.php?content=
+includeinurl:/editfunc.inc.php?NWCONF_SYSTEM[server_path]= site:.gr
+index.php?loc=
+inurl:/sourcesinurl:/functions.php?CONFIG[main_path]= (Powered By ScozNews)
+addtomylist.php?ProdId=
+inurl:/index.php?page=
+path.php?nivel=
+press.php?incl=
+"show_item.asp?id="
+.php?sg="
+main.php?ba= .php?ba="
+index.php?pref=
+.php?lest="
+inurl:Item"php=id" +site:.uk intext:login
+index.php?filepath=
+products.php?prod= .php?prod="
+home2.php?ln= .php?ln=
+default.php?secc=
+sub*.php?where=
+inurl:/base.php?ev=
+website.php?id=
+blog_detail.php?id=
+inurl:/all.php?flash=
+padrao.php?str=
+blank.php?filepath=
+*index.php?arquivo=
+inurl:/allindex2.php?lv1=
+cgi-bininurl:/1inurl:/cmd.cgi
+print.php?param=
+*inc*.php?sivu=
+info.php?var=
+productsinurl:/product.php?id=
+inurl:/all.php?subject=
+index1.php?seite=
+base.php?var=
+padrao.php?c=
+staff_id=
+cat.php?iCat=
+inurl:main/magpreview.php?id=
+INURL OR INURL WITH:
+page.php?base_dir=
+opinions.php?id=
+inurl:/all.php?storyid=
+"shop.asp?a="
+info.php?*
+content.php?cont_title=
+inurl:/default.php?pag=
+page.php?oldal=
+sitio.php?incl=
+view.php?loader=
+inurl:/index.php?loc=start&page= index.php?loc="
+default.php?inc=
+idlechatinurl:/message.php?id=
+index1.php?*
+inurl:/al_initialize.php?alpath=
+standard.php?section=
+main.php?itemnav=
+inurl:/blank.php?link=
+results.asp?cat=
+inurl:/all.php?server=
+intext:2015 .php?id= title:login
+index.php?ver= index.php?ver=
+press.php?id=
+pdetail.php?item_id=
+template.php?page=
+index1.php?p= .php?p="
+page.php?phpbb_root_path=
+cartinurl:/addToCart.php?cid=
+enter.php?body=
+inurl:song.php?id= title:login
+general.php?content=
+item.php?shopcd=
+home.php?id=
+home.php?act= "home.php?act="
+news.cgi?t=
+inurl:/default.php?f=
+print.php?middlePart=
+file.php?loader=
+index.php?arg= .php?arg=
+index1.php?*root*=
+view.php?page=
+intext:support .php?id= title:login
+main.php?xlink=
+index5.php?configFile=
+inurl:/alleditor.php?root=
+inurl:".php?catid=" intext:"shopping"
+page.php?action=
+inurl:".php?sub_cat=" intext:"equipment"
+index2.php?= "index2.php?=*.php?"
+index1.php?c=
+layout.php?basepath=
+"listcategoriesandproducts.asp?idCategory="
+index.php?ver= index.php?ver="
+index.php?secao= .php?secao=
+.php?filepath="
+"products_detail.asp?CategoryID="
+sub*.php?channel=
+boardView.php?bbs=
+inurl:".php?catid=" intext:"boutique"
+display.php?pg= display.php?pg=
+layout.php?modo=
+"catalog.asp?CatalogID="
+.php?meio="
+default.php?cmd=
+shopcurrency.asp?cid=
+"id=" & intext:"Warning: mysql_result()
+include.php?module=
+print.php?inc=
+inurl:/all.php?post=
+info.php?f=
+.php?destino="
+enter.php?link=
+index.php?d=
+item.php?sub_id=
+pagina.php?nivel=
+enter.php?ref=
+product.php?sku=
+head.php?sivu=
+index2.php?path= AKI
+middle.php?file= ".php?page="
+general.php?header=
+page.php?*
+sitio.php?section=
+products.asp?ID=
+galleryinurl:/detail.php?ID=
+index.php?l=
+sub*.php?recipe=
+category.asp
+home.php?secao=
+index.php?mf= .php?mf=
+general.php?pollname=
+*inc*.php?m=
+main.php?ref=
+default.php?option=
+inurl:/all.php?include=
+*.php?include=
+books.php?id=
+index.php?t=
+learnmore.asp?cartID=
+inurl:/allwrite.php?dir=
+inurl:/index.php?level=
+nota.php?pr=
+print.php?itemnav=
+shopdisplayproduct.php?catalogid=
+.php?c="
+phpinurl:/event.php?id=
+"savecart.asp?CartId="
+index.php?secao= index.php?secao=
+loc.php?loc= loc.php?loc="
+template.php?sekce=
+properties.php?id_cat=
+inurl:/includeinurl:/write.php?dir=
+info.php?adresa=
+itemdetails.asp?catalogid=
+.php?release_id="
+index.php?place=
+inurl:/all.php?class=
+inurl:/big.php?pathtotemplate=
+index.php?secao= "index.php?secao="
+inurl:".php?categoryid="
+home.php?table= .php?table=
+index.php?wpage= index.php?wpage="
+default.php?var=
+default.php?k=
+pagina.php?ir=
+show_item.asp?id=
+middle.php?page= .php?page=
+layout.php?loader=
+inurl:/all.php?cat=
+define.php?term= .php?term="
+.asp?idproduct=
+index3.php?secc=
+press.php?mid=
+addedit.php?root_dir=
+page.php?e=
+shredder-categories.php?id=
+principal.php?w=
+downloads.php?id=
+nota.php?h=
+include.php?goto=
+index.php?textfield=
+field.php?textfield=
+.php?textfield="
+exibir.php?lang=
+"index.php?go="
+nota.php?chapter=
+.php?para="
+info.php?pageweb=
+press.php?*root*=
+p.php?p= "p.php?p="
+start.php?o=
+curriculum.php?id=
+"fullDisplay.asp?item="
+profile_print.php?id=
+default.php?cPath=
+sub*.php?open=
+*default.php?page=
+preview.php?id=
+map.php?loc= map.php?loc=
+inurl:/default.php?pre=
+inurl:/products/products.php?p=
+press.php?include=
+.php?play="
+index2.php?funcion=
+view.php?incl=
+inurl:events.php?id= title:login 2015
+"ancillary.asp?ID="
+inurl:/blank.php?in=
+"customerService.asp?TextID1="
+news.php?id=
+index.php?act= "index.php?act="
+nota.php?inc=
+inurl:staff_id= title:login 2015
+"addToCart.asp?idProduct="
+index2.php?p=
+index.php?oldal=
+index3.php?open=
+articles.php?id=
+contact.php?cartId=
+rss.php?phpraid_dir= phpraid"
+shop+php?id+sitefr
+csv_dbinurl:/csv_db.cgi?fil e=file.extention
+press.php?rub=
+index.php?recipe=
+inurl:/down*.php?action=
+inurl:/all.php?loc=
+*inc*.php?ev=
+start.php?header=
+cartadd.php?id=
+str.php?ln= str.php?ln=
+authorDetails.php?bookID=
+general.php?include=
+inurl:/blank.php?read=
+.php?month="
+.asp?pid=
+downloadTrial.php?intProdID=
+inurl:/accounts.php?command=
+index1.php?*[*]*=
+index2.php?server=
+.php?configFile="
+eventsinurl:/detail.php?ID=
+OrderForm.asp?Cart=
+sub*.php?*root*=
+sub.php?sub= "sub.php?sub="
+details.php?loc= .php?loc=
+inurl:/deportes.cgi?a=latest&t=
+general.php?modo=
+news_display.php?getid=
+fshstatistic/index.php?PID=
+index.php?content= .php?content=
+updates.asp?ID=
+home.php?index=
+order.asp?BookID=
+inurl:/blank.php?itemnav=
+inurl:/allmod_mainmenu.php?mosConfig_absolute_path=
+inurl:/index.php?ln= .php?ln=
+Category.php?cid=
+print.php?*root*=
+intext:booking .php?id= title:login
+whatsnew.php?idCategory=
+inurl:/allindex2.php?v=
+inurl:Art.php?id= title:login
+inurl:/args.php?arg=
+inurl:/admin/index.php?o= admin/index.php";
+"folder.php?id="
+inurl:/index.php?loc=&lang= .php?loc="
+standard.php?middle=
+aspx?PageID
+sub*.php?middle=
+shopaddtocart.php
+inurl:/allindex2.php?n=
+inurl:/allsecure_img_render.php?p=
+inurl:/down*.php?include=
+down*.php?include=
+inurl:/base.php?subject=
+bbsinurl:/view.php?no=
+display.php?file= display.php?file=
+dork: "Login to Calendar"
+.php?f_content="
+13. keyword : "powered by paBugs 2.0 Beta 3?
+inurl:/common/func.php?CommonAbsDir=
+dbinurl:/CART/product_details.php?product_id=
+main.php?mod=
+default.php?tipo=
+index.php3?pag= index.php3?pag=
+default.php?destino=
+ancillary.php?ID=
+inurl:/allindex2.php?f=
+inurl:/display.php?page=&lang=
+include.php?left=
+products.php?p=
+inurl:news-event.php?id= title:login
+index.php?cmd=
+exibir.php?get=
+list.php?table= .php?table=
+enter.php?texto=
+template.php?param=
+rounds-detail.php?id=
+blank.php?get=
+inurl:main.php?id= title:login 2015
+index.php?dept=

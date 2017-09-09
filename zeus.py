@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+import os
 import time
 import optparse
 import subprocess
@@ -24,7 +25,8 @@ from lib.settings import (
     AUTHORIZED_SEARCH_ENGINES,
     URL_LOG_PATH,
     replace_http,
-    prompt
+    prompt,
+    get_random_dork
 )
 
 if __name__ == "__main__":
@@ -38,6 +40,8 @@ if __name__ == "__main__":
                          help="Specify a singular Google dork to use for queries")
     mandatory.add_option("-l", "--dork-list", dest="dorkFileToUse", metavar="FILE-PATH",
                          help="Specify a file full of dorks to run through"),
+    mandatory.add_option("-r", "--rand-dork", dest="useRandomDork", action="store_true",
+                         help="Use a random dork from the etc/dorks.txt file to perform the scan")
 
     # attack options
     attacks = optparse.OptionGroup(parser, "Attack arguments",
@@ -234,6 +238,7 @@ if __name__ == "__main__":
     search_engine = __config_search_engine(verbose=opt.runInVerbose)
 
     try:
+        # use a personal dork as the query
         if opt.dorkToUse is not None:
             logger.info(set_color(
                 "starting dork scan with query '{}'...".format(opt.dorkToUse)
@@ -257,6 +262,7 @@ if __name__ == "__main__":
                                       given_path=opt.givenSearchPath, auto=opt.autoStartSqlmap,
                                       batch=opt.runInBatch)
 
+        # use a file full of dorks as the queries
         elif opt.dorkFileToUse is not None:
             with open(opt.dorkFileToUse) as dorks:
                 for dork in dorks.readlines():
@@ -282,6 +288,36 @@ if __name__ == "__main__":
                         __run_attacks(url.strip(), sqlmap=opt.runSqliScan, nmap=opt.runPortScan,
                                       given_path=opt.givenSearchPath, auto=opt.autoStartSqlmap,
                                       batch=opt.runInBatch)
+
+        # use a random dork as the query
+        elif opt.useRandomDork:
+            random_dork = get_random_dork().strip()
+            if opt.runInVerbose:
+                logger.debug(set_color(
+                    "choosing random dork from etc/dorks.txt...", level=10
+                ))
+            logger.info(set_color(
+                "using random dork '{}' as the search query...".format(random_dork)
+            ))
+            try:
+                search.parse_search_results(
+                    random_dork, search_engine, verbose=opt.runInVerbose,
+                    proxy=proxy_to_use, agent=agent_to_use
+                )
+                urls_to_use = get_latest_log_file(URL_LOG_PATH)
+                if opt.runSqliScan or opt.runPortScan:
+                    with open(urls_to_use) as urls:
+                        for url in urls.readlines():
+                            __run_attacks(url.strip(), sqlmap=opt.runSqliScan, nmap=opt.runPortScan,
+                                          given_path=opt.givenSearchPath, auto=opt.autoStartSqlmap,
+                                          batch=opt.runInBatch)
+            except Exception as e:
+                logger.exception(set_color(
+                    "ran into exception '{}' and cannot continue, saved to current log file...".format(e),
+                    level=50
+                ))
+
+
         else:
             logger.critical(set_color(
                 "failed to provide a mandatory argument, you will be redirected to the help menu...", level=50
