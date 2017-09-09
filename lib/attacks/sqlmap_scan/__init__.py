@@ -83,7 +83,7 @@ class SqlmapHook(object):
             log_json = json.loads(log_req.content)
             for i in range(0, len(log_json["log"])):
                 if log_json["log"][i]["message"] in already_displayed:
-                    time.sleep(1)
+                    time.sleep(0.5)
                     pass
                 else:
                     print(
@@ -159,13 +159,15 @@ def sqlmap_scan_main(url, port=None, verbose=None, auto_search=False, opts=None,
                     "adding arguments to sqlmap API..."
                 ))
             lib.settings.logger.warning(lib.settings.set_color(
-                "please keep in mind that this is the API, it might take a little "
-                "longer to do the full scan on the given URL... launching...", level=30
+                "please keep in mind that this is the API, output will "
+                "not be saved to log file, it may take a little longer "
+                "to finish processing, and you will need to restart the sqlmap "
+                "API server after each iteration, launching sqlmap...", level=30
             ))
             sqlmap_scan.start_scan(api_id, opts=opts)
-            print("-" * 20)
+            print("-" * 30)
             sqlmap_scan.show_sqlmap_log(api_id)
-            print("-" * 20)
+            print("-" * 30)
         except requests.exceptions.HTTPError as e:
             lib.settings.logger.exception(lib.settings.set_color(
                 "ran into error '{}', seems you didn't start the server, check "
