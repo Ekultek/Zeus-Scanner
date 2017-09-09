@@ -2,4 +2,4 @@ log/
 geckodriver.log
 *.pyc
 .idea/
-bin/executed
+bin/executed.txt

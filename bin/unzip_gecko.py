@@ -7,9 +7,9 @@ import whichcraft
 import lib.settings
 
 
-def check_if_run(file_check="{}/bin/executed"):
+def check_if_run(file_check="{}/bin/executed.txt"):
     """
-    check if the application has been run before by reading the executed file
+    check if the application has been run before by reading the executed.txt file
     """
     with open(file_check.format(os.getcwd())) as exc:
         if "FALSE" in exc.read():
@@ -71,7 +71,7 @@ def ensure_placed(item="geckodriver", verbose=False):
         return True
 
 
-def main(rewrite="{}/bin/executed", verbose=False):
+def main(rewrite="{}/bin/executed.txt", verbose=False):
     """
     main method
     """
