@@ -53,6 +53,8 @@ class NmapHook(object):
         """
         outputs the current scan information
         """
+        # have to create a spacer or the output comes out funky..
+        spacer_data = {4: " " * 8, 6: " " * 6, 8: " " * 4}
         logger.info(set_color("finding data for IP '{}'...".format(self.ip)))
         json_data = json.loads(json_data)["scan"]
         print(
@@ -66,9 +68,12 @@ class NmapHook(object):
         oports = json_data[self.ip]["tcp"].keys()
         oports.sort()
         for port in oports:
+            port_status = json_data[self.ip]["tcp"][port]["state"]
+            # output the found port information..
             print(
-                "Port: {}\tStatus: {}\tType: {}".format(
+                "Port: {}\tStatus: {}{}Type: {}".format(
                     port, json_data[self.ip]["tcp"][port]["state"],
+                    spacer_data[len(port_status)],
                     json_data[self.ip]["tcp"][port]["name"]
                 )
             )
