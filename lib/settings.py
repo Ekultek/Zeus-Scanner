@@ -17,7 +17,7 @@ import bin.unzip_gecko
 # clone link
 CLONE = "https://github.com/ekultek/zeus-scanner.git"
 # current version <major.minor.commit.patch ID>
-VERSION = "1.0.6.b0e"
+VERSION = "1.0.7.d41"
 # colors to output depending on the version
 VERSION_TYPE_COLORS = {"dev": 33, "stable": 92, "other": 30}
 # version string formatting
@@ -206,7 +206,8 @@ def grab_random_agent(agent_path="{}/etc/agents.txt", verbose=False):
             "grabbing random user-agent from '{}'...".format(agent_path.format(os.getcwd())), level=10
         ))
     with open(agent_path.format(os.getcwd())) as agents:
-        return random.choice(agents.readlines())
+        retval = random.choice(agents.readlines())
+        return retval.strip()
 
 
 def prompt(question, opts=None):
