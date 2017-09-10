@@ -83,7 +83,6 @@ class SqlmapHook(object):
             log_json = json.loads(log_req.content)
             for i in range(0, len(log_json["log"])):
                 if log_json["log"][i]["message"] in already_displayed:
-                    time.sleep(0.5)
                     pass
                 else:
                     print(
@@ -94,7 +93,6 @@ class SqlmapHook(object):
                         )
                     )
                 already_displayed.add(log_json["log"][i]["message"])
-                time.sleep(0.2)
 
 
 def find_sqlmap(given_search_path=None, to_find="sqlmapapi.py", verbose=False):
