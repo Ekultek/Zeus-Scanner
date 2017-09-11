@@ -57,7 +57,11 @@ def get_urls(query, url, verbose=False, warning=True, user_agent=None, proxy=Non
     if proxy is not None:
         proxy_type = proxy.keys()
         proxy_to_use = Proxy({
-            ''.join(proxy_type): proxy[''.join(proxy_type)]
+            "proxyType": ProxyType.MANUAL,
+            "httpProxy": proxy,
+            "ftpProxy": proxy,
+            "sslProxy": proxy,
+            "noProxy": ""
         })
         if verbose:
             logger.debug(set_color(
@@ -67,10 +71,10 @@ def get_urls(query, url, verbose=False, warning=True, user_agent=None, proxy=Non
             ))
     else:
         proxy_to_use = None
+
     profile = webdriver.FirefoxProfile()
     profile.set_preference("general.useragent.override", user_agent)
     browser = webdriver.Firefox(profile, proxy=proxy_to_use)
-
     logger.info(set_color("browser will open shortly..."))
     browser.get(url)
     if verbose:
@@ -115,18 +119,25 @@ def parse_search_results(
         ))) + 1)
     )
 
+    def __get_headers():
+        try:
+            proxy_string = kwargs.get("proxy")
+        except:
+            pass
+
+        try:
+            user_agent = kwargs.get("agent")
+        except:
+            pass
+
+        return proxy_string, user_agent
+
     if verbose:
         logger.debug(set_color(
             "checking for user-agent and proxy configuration...", level=10
         ))
-    try:
-        proxy_string = kwargs.get("proxy")
-    except:
-        pass
-    try:
-        user_agent = kwargs.get("agent")
-    except:
-        pass
+    proxy_string, user_agent = __get_headers()
+
     if proxy_string is None:
         proxy_string = None
     else:
