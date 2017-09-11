@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+import os
 import time
 import optparse
 import subprocess
@@ -7,7 +8,9 @@ import random
 import httplib as http_client
 
 from var.google_search import search
+from var import blackwidow
 from lib.attacks.sqlmap_scan.sqlmap_opts import SQLMAP_API_OPTIONS
+from lib.errors import InvalidInputProvided
 from lib.attacks import (
     nmap_scan,
     sqlmap_scan
@@ -24,15 +27,21 @@ from lib.settings import (
     CURRENT_LOG_FILE_PATH,
     AUTHORIZED_SEARCH_ENGINES,
     URL_LOG_PATH,
+    SPIDER_LOG_PATH,
     replace_http,
     prompt,
     get_random_dork,
-    update_zeus
+    update_zeus,
+    VERSION_STRING,
+    URL_REGEX, URL_QUERY_REGEX
 )
+
 
 if __name__ == "__main__":
 
-    parser = optparse.OptionParser(usage="zeus.py -[d|l] [OPTIONS]")
+    parser = optparse.OptionParser(usage="{} -d|l|r DORK|FILE [-s|p [--OPTS]] [-D|B|A] [--OPTS]".format(
+        os.path.basename(__file__)
+    ))
 
     # mandatory options
     mandatory = optparse.OptionGroup(parser, "Mandatory Options",
@@ -43,6 +52,8 @@ if __name__ == "__main__":
                          help="Specify a file full of dorks to run through"),
     mandatory.add_option("-r", "--rand-dork", dest="useRandomDork", action="store_true",
                          help="Use a random dork from the etc/dorks.txt file to perform the scan")
+    mandatory.add_option("-b", "--blackwidow", dest="spiderWebSite", metavar="URL DEPTH",
+                         help="Spider a single webpage for all available URL's")
 
     # attack options
     attacks = optparse.OptionGroup(parser, "Attack arguments",
@@ -51,6 +62,15 @@ if __name__ == "__main__":
                        help="Run a Sqlmap SQLi scan on the discovered URL's")
     attacks.add_option("-p", "--port-scan", dest="runPortScan", action="store_true",
                        help="Run a Nmap port scan on the discovered URL's")
+    attacks.add_option("--sqlmap-args", dest="sqlmapArguments", metavar="SQLMAP-ARGS",
+                       help="Pass the arguments to send to the sqlmap API within quotes & "
+                            "separated by a comma. IE 'dbms mysql, verbose 3, level 5'")
+    attacks.add_option("--auto-start", dest="autoStartSqlmap", action="store_true",
+                       help="Attempt to automatically find sqlmap on your system")
+    attacks.add_option("--search-here", dest="givenSearchPath", metavar="PATH-TO-START",
+                       help="Start searching for sqlmap in this given path")
+    attacks.add_option("--show", dest="showSqlmapArguments", action="store_true",
+                       help="Show the arguments that the sqlmap API understands")
 
     # search engine options
     engines = optparse.OptionGroup(parser, "Search engine arguments",
@@ -62,48 +82,51 @@ if __name__ == "__main__":
     engines.add_option("-A", "--search-engine-aol", dest="useAOL", action="store_true",
                        help="Use AOL as the search engine")
 
+    # obfuscation options
+    anon = optparse.OptionGroup(parser, "Anonymity arguments",
+                                "Arguments that help with anonymity and hiding identity")
+    anon.add_option("--proxy", dest="proxyConfig", metavar="PROXY-STRING",
+                    help="Use a proxy to do the scraping, will not auto configure to the API's")
+    anon.add_option("--proxy-file", dest="proxyFileRand", metavar="FILE-PATH",
+                    help="Grab a random proxy from a given file of proxies")
+    anon.add_option("--random-agent", dest="useRandomAgent", action="store_true",
+                    help="Use a random user-agent from the etc/agents.txt file")
+    anon.add_option("--agent", dest="usePersonalAgent", metavar="USER-AGENT",
+                    help="Use your own personal user-agent")
+
     # miscellaneous options
     misc = optparse.OptionGroup(parser, "Misc Options",
                                 "These options affect how the program will run")
     misc.add_option("--verbose", dest="runInVerbose", action="store_true",
                     help="Run the application in verbose mode (more output)")
-    misc.add_option("--proxy", dest="proxyConfig", metavar="PROXY-STRING",
-                    help="Use a proxy to do the scraping, will not auto configure "
-                         "to the API's")
-    misc.add_option("--proxy-file", dest="proxyFileRand", metavar="FILE-PATH",
-                    help="Grab a random proxy from a given file of proxies")
-    misc.add_option("--random-agent", dest="useRandomAgent", action="store_true",
-                    help="Use a random user-agent from the etc/agents.txt file")
-    misc.add_option("--agent", dest="usePersonalAgent", metavar="USER-AGENT",
-                    help="Use your own personal user-agent")
     misc.add_option("--show-requests", dest="showRequestInfo", action="store_true",
-                    help="Show your request information (more verbose output) this "
-                         "will also show all requests made to the API's used")
-    misc.add_option("--sqlmap-args", dest="sqlmapArguments", metavar="SQLMAP-ARGS",
-                    help="Pass the arguments to send to the sqlmap API within quotes & "
-                         "separated by a comma. IE 'dbms mysql, verbose 3, level 5'")
-    misc.add_option("--auto-start", dest="autoStartSqlmap", action="store_true",
-                    help="Attempt to automatically find sqlmap on your system")
-    misc.add_option("--search-here", dest="givenSearchPath", metavar="PATH-TO-START",
-                    help="Start searching for sqlmap in this given path")
-    misc.add_option("--show", dest="showSqlmapArguments", action="store_true",
-                    help="Show the arguments that the sqlmap API understands")
+                    help="Show all HTTP requests made by the application")
     misc.add_option("--batch", dest="runInBatch", action="store_true",
                     help="Skip the questions and run in default batch mode")
     misc.add_option("--update", dest="updateZeus", action="store_true",
                     help="Update to the latest development version")
+    misc.add_option("--hide", dest="hideBanner", action="store_true",
+                    help="Hide the banner during running")
+    misc.add_option("--version", dest="showCurrentVersion", action="store_true",
+                    help="Show the current version and exit")
 
     parser.add_option_group(mandatory)
     parser.add_option_group(attacks)
+    parser.add_option_group(anon)
     parser.add_option_group(engines)
     parser.add_option_group(misc)
 
     opt, _ = parser.parse_args()
 
+    if opt.showCurrentVersion:
+        print(VERSION_STRING)
+        exit(0)
+
     # run the setup on the program
     setup(verbose=opt.runInVerbose)
 
-    print(BANNER)
+    if not opt.hideBanner:
+        print(BANNER)
 
     start_up()
 
@@ -138,6 +161,7 @@ if __name__ == "__main__":
                 opts_being_used.append((o, v))
         return dict(opts_being_used)
 
+
     if opt.runInVerbose:
         being_run = __find_running_opts()
         logger.debug(set_color(
@@ -153,6 +177,7 @@ if __name__ == "__main__":
             "showing all HTTP requests because --show-requests flag was used...", level=10
         ))
         http_client.HTTPConnection.debuglevel = 1
+
 
     def __config_headers():
         """
@@ -177,6 +202,7 @@ if __name__ == "__main__":
         else:
             agent = None
         return proxy, agent
+
 
     def __config_search_engine(verbose=False):
         """
@@ -212,6 +238,7 @@ if __name__ == "__main__":
             se = AUTHORIZED_SEARCH_ENGINES["google"]
         return se
 
+
     def __create_sqlmap_arguments():
         """
         create the sqlmap arguments (a list of tuples) that will be passed to the API
@@ -229,6 +256,7 @@ if __name__ == "__main__":
                         level=30
                     ))
         return retval
+
 
     def __run_attacks(url, sqlmap=False, verbose=False, nmap=False, given_path=None, auto=False, batch=False):
         """
@@ -339,6 +367,31 @@ if __name__ == "__main__":
                     level=50
                 ))
 
+        elif opt.spiderWebSite:
+            if not URL_REGEX.match(opt.spiderWebSite):
+                raise InvalidInputProvided(
+                    "provided URL did not match to a true URL, check the URL and try again..."
+                )
+            else:
+                if URL_QUERY_REGEX.match(opt.spiderWebSite):
+                    is_sure = prompt(
+                        "it is recomened to not use a URL that has a GET(query) parameter in it, "
+                        "would you like to continue", "yN"
+                    )
+                    if is_sure.lower().startswith("y"):
+                        pass
+                    else:
+                        shutdown()
+
+            blackwidow.blackwidow_main(opt.spiderWebSite, agent=agent_to_use, proxy=proxy_to_use, verbose=opt.runInVerbose)
+
+            urls_to_use = get_latest_log_file(SPIDER_LOG_PATH)
+            if opt.runSqliScan or opt.runPortScan:
+                with open(urls_to_use) as urls:
+                    for url in urls.readlines():
+                        __run_attacks(url.strip(), sqlmap=opt.runSqliScan, nmap=opt.runPortScan,
+                                      given_path=opt.givenSearchPath, auto=opt.autoStartSqlmap,
+                                      batch=opt.runInBatch)
 
         else:
             logger.critical(set_color(
