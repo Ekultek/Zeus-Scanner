@@ -39,7 +39,7 @@ from lib.settings import (
 
 if __name__ == "__main__":
 
-    parser = optparse.OptionParser(usage="{} -d|l|r DORK|FILE [-s|p [--OPTS]] [-D|B|A] [--OPTS]".format(
+    parser = optparse.OptionParser(usage="{} -d|l|s|r DORK|FILE|URL [-s|p [--OPTS]] [-D|B|A] [--OPTS]".format(
         os.path.basename(__file__)
     ))
 
@@ -280,7 +280,7 @@ if __name__ == "__main__":
                 pass
         else:
             logger.warning(set_color(
-                "skipping '{}'...".format(url)
+                "skipping '{}'...".format(url), level=30
             ))
 
 
