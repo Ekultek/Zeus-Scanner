@@ -3,6 +3,7 @@
 import time
 import optparse
 import subprocess
+import random
 import httplib as http_client
 
 from var.google_search import search
@@ -69,6 +70,8 @@ if __name__ == "__main__":
     misc.add_option("--proxy", dest="proxyConfig", metavar="PROXY-STRING",
                     help="Use a proxy to do the scraping, will not auto configure "
                          "to the API's")
+    misc.add_option("--proxy-file", dest="proxyFileRand", metavar="FILE-PATH",
+                    help="Grab a random proxy from a given file of proxies")
     misc.add_option("--random-agent", dest="useRandomAgent", action="store_true",
                     help="Use a random user-agent from the etc/agents.txt file")
     misc.add_option("--agent", dest="usePersonalAgent", metavar="USER-AGENT",
@@ -157,6 +160,14 @@ if __name__ == "__main__":
         """
         if opt.proxyConfig is not None:
             proxy = opt.proxyConfig
+        elif opt.proxyFileRand is not None:
+            if opt.runInVerbose:
+                logger.debug(set_color(
+                    "loading random proxy from '{}'...".format(opt.proxyFileRand), level=10
+                ))
+            with open(opt.proxyFileRand) as proxies:
+                possible = proxies.readlines()
+                proxy = random.choice(possible).strip()
         else:
             proxy = None
         if opt.usePersonalAgent is not None:
@@ -233,7 +244,7 @@ if __name__ == "__main__":
         if question.lower().startswith("y"):
             if sqlmap:
                 return sqlmap_scan.sqlmap_scan_main(url.strip(), verbose=verbose, opts=__create_sqlmap_arguments(),
-                                                auto_search=auto, given_path=given_path)
+                                                    auto_search=auto, given_path=given_path)
             elif nmap:
                 url_ip_address = replace_http(url.strip())
                 return nmap_scan.perform_port_scan(url_ip_address, verbose=verbose)
