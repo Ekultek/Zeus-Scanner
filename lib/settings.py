@@ -17,7 +17,7 @@ import bin.unzip_gecko
 # clone link
 CLONE = "https://github.com/ekultek/zeus-scanner.git"
 # current version <major.minor.commit.patch ID>
-VERSION = "1.0.8"
+VERSION = "1.0.9"
 # colors to output depending on the version
 VERSION_TYPE_COLORS = {"dev": 33, "stable": 92, "other": 30}
 # version string formatting
@@ -50,6 +50,8 @@ URL_REGEX = re.compile(r"((https?):((//)|(\\\\))+([\w\d:#@%/;$()~_?\+-=\\\.&](#!
 URL_LOG_PATH = "{}/log/url-log".format(os.getcwd())
 # log path for port scans
 PORT_SCAN_LOG_PATH = "{}/log/scanner-log".format(os.getcwd())
+# blackwidow log path
+SPIDER_LOG_PATH = "{}/log/blackwidow-log".format(os.getcwd())
 # the current log file being used
 CURRENT_LOG_FILE_PATH = "{}/log".format(os.getcwd())
 # search engines that the application can use
@@ -59,6 +61,37 @@ AUTHORIZED_SEARCH_ENGINES = {
     "duckduckgo": "http://duckduckgo.com",
     "google": "http://google.com"
 }
+SPIDER_EXT_EXCLUDE = (
+    "3ds", "3g2", "3gp", "7z", "DS_Store",
+    "a", "aac", "adp", "ai", "aif", "aiff",
+    "apk", "ar", "asf", "au", "avi", "bak",
+    "bin", "bk", "bmp", "btif", "bz2", "cab",
+    "caf", "cgm", "cmx", "cpio", "cr2", "dat",
+    "deb", "djvu", "dll", "dmg", "dmp", "dng",
+    "doc", "docx", "dot", "dotx", "dra", "dsk",
+    "dts", "dtshd", "dvb", "dwg", "dxf", "ear",
+    "ecelp4800", "ecelp7470", "ecelp9600", "egg",
+    "eol", "eot", "epub", "exe", "f4v", "fbs", "fh",
+    "fla", "flac", "fli", "flv", "fpx", "fst", "fvt",
+    "g3", "gif", "gz", "h261", "h263", "h264", "ico",
+    "ief", "image", "img", "ipa", "iso", "jar", "jpeg",
+    "jpg", "jpgv", "jpm", "jxr", "ktx", "lvp", "lz",
+    "lzma", "lzo", "m3u", "m4a", "m4v", "mar", "mdi",
+    "mid", "mj2", "mka", "mkv", "mmr", "mng", "mov",
+    "movie", "mp3", "mp4", "mp4a", "mpeg", "mpg",
+    "mpga", "mxu", "nef", "npx", "o", "oga", "ogg",
+    "ogv", "otf", "pbm", "pcx", "pdf", "pea", "pgm",
+    "pic", "png", "pnm", "ppm", "pps", "ppt", "pptx",
+    "ps", "psd", "pya", "pyc", "pyo", "pyv", "qt", "rar",
+    "ras", "raw", "rgb", "rip", "rlc", "rz", "s3m", "s7z",
+    "scm", "scpt", "sgi", "shar", "sil", "smv", "so", "sub",
+    "swf", "tar", "tbz2", "tga", "tgz", "tif", "tiff", "tlz",
+    "ts", "ttf", "uvh", "uvi", "uvm", "uvp", "uvs", "uvu",
+    "viv", "vob", "war", "wav", "wax", "wbmp", "wdp", "weba",
+    "webm", "webp", "whl", "wm", "wma", "wmv", "wmx", "woff",
+    "woff2", "wvx", "xbm", "xif", "xls", "xlsx", "xlt", "xm",
+    "xpi", "xpm", "xwd", "xz", "z", "zip", "zipx"
+)
 
 
 # this has to be the first function so that I can use it in the logger settings below
