@@ -17,7 +17,7 @@ import bin.unzip_gecko
 # clone link
 CLONE = "https://github.com/ekultek/zeus-scanner.git"
 # current version <major.minor.commit.patch ID>
-VERSION = "1.0.9.0dd"
+VERSION = "1.0.10"
 # colors to output depending on the version
 VERSION_TYPE_COLORS = {"dev": 33, "stable": 92, "other": 30}
 # version string formatting
@@ -46,6 +46,21 @@ DEFAULT_USER_AGENT = "Zeus-Scanner(v{})::Python->v{}.{}".format(
 URL_QUERY_REGEX = re.compile(r"(.*)[?|#](.*){1}\=(.*)")
 # regex to recognize a URL
 URL_REGEX = re.compile(r"((https?):((//)|(\\\\))+([\w\d:#@%/;$()~_?\+-=\\\.&](#!)?)*)")
+AMT_SERVER_REGEX = re.compile("Server: Intel\(R\) Active Management Technology")
+AMT_BANNER_REGEX = re.compile(
+    "((11\.(6\.(2(7\.(3(2(6[0-3]|[0-5][0-9])|[01][0-9]{2})|"
+    "[0-2]?[0-9]?[0-9]?[0-9])|[0-6])|[01]?[0-9])|5|0\.(2(5\."
+    "(3000|[0-2]?[0-9]?[0-9]?[0-9])|[0-4])|[01]?[0-9]))|10\.0\."
+    "(5(5\.[0-2]?[0-9]?[0-9]?[0-9]|[0-4])|[0-4]?[0-9])|9\.(5"
+    "\.(6(1\.(30(1[01]|0?[0-9])|[0-2]?[0-9]?[0-9]?[0-9])|0)|"
+    "[0-5]?[0-9])|1\.(4(1\.(30(2[0-3]|[01][0-9])|[0-2]?[0-9]?"
+    "[0-9]?[0-9])|0)|[0-3]?[0-9])|0)|8\.(1\.(7(1\.(3(60[0-7]|"
+    "[0-5][0-9]{2})|[0-2]?[0-9]?[0-9]?[0-9])|0)|[0-6]?[0-9])|0)"
+    "|7\.(1\.(9(1\.(3(2(7[01]|[0-6][0-9])|[01][0-9]{2})|[0-2]?"
+    "[0-9]?[0-9]?[0-9])|0)|[0-8]?[0-9])|0)|6\.(2\.(6(1\.(3(5(3[0-4]|"
+    "[0-2][[0-9])|[0-4][0-9]{2})|[0-2]?[0-9]?[0-9]?[0-9])|0)|[0-5]?"
+    "[0-9])|[01])))"
+)
 # log path for the URL's that are found
 URL_LOG_PATH = "{}/log/url-log".format(os.getcwd())
 # log path for port scans
@@ -54,6 +69,8 @@ PORT_SCAN_LOG_PATH = "{}/log/scanner-log".format(os.getcwd())
 SPIDER_LOG_PATH = "{}/log/blackwidow-log".format(os.getcwd())
 # the current log file being used
 CURRENT_LOG_FILE_PATH = "{}/log".format(os.getcwd())
+# intel me amt ports
+AMT_PORTS = (16992, 16993, 16994, 16995, 623, 664)
 # search engines that the application can use
 AUTHORIZED_SEARCH_ENGINES = {
     "aol": "http://aol.com",

@@ -13,7 +13,8 @@ from lib.attacks.sqlmap_scan.sqlmap_opts import SQLMAP_API_OPTIONS
 from lib.errors import InvalidInputProvided
 from lib.attacks import (
     nmap_scan,
-    sqlmap_scan
+    sqlmap_scan,
+    intel_me
 )
 from lib.settings import (
     setup,
@@ -62,6 +63,8 @@ if __name__ == "__main__":
                        help="Run a Sqlmap SQLi scan on the discovered URL's")
     attacks.add_option("-p", "--port-scan", dest="runPortScan", action="store_true",
                        help="Run a Nmap port scan on the discovered URL's")
+    attacks.add_option("-i", "--intel-check", dest="intelCheck", action="store_true",
+                       help="Check if a URL's host is exploitable via Intel ME AMT (CVE-2017-5689)")
     attacks.add_option("--sqlmap-args", dest="sqlmapArguments", metavar="SQLMAP-ARGS",
                        help="Pass the arguments to send to the sqlmap API within quotes & "
                             "separated by a comma. IE 'dbms mysql, verbose 3, level 5'")
@@ -258,7 +261,10 @@ if __name__ == "__main__":
         return retval
 
 
-    def __run_attacks(url, sqlmap=False, verbose=False, nmap=False, given_path=None, auto=False, batch=False):
+    def __run_attacks(
+            url, sqlmap=False, verbose=False, nmap=False,
+            intel=False, given_path=None, auto=False, batch=False
+    ):
         """
         run the attacks if any are requested
         """
@@ -276,6 +282,9 @@ if __name__ == "__main__":
             elif nmap:
                 url_ip_address = replace_http(url.strip())
                 return nmap_scan.perform_port_scan(url_ip_address, verbose=verbose)
+            elif intel:
+                url_ip_address = replace_http(url.strip())
+                return intel_me.intel_amt_main(url_ip_address, proxy=proxy_to_use, verbose=verbose)
             else:
                 pass
         else:
@@ -305,11 +314,11 @@ if __name__ == "__main__":
                 pass
 
             urls_to_use = get_latest_log_file(URL_LOG_PATH)
-            if opt.runSqliScan or opt.runPortScan:
+            if opt.runSqliScan or opt.runPortScan or opt.intelCheck:
                 with open(urls_to_use) as urls:
                     for url in urls.readlines():
-                        __run_attacks(url.strip(), sqlmap=opt.runSqliScan, nmap=opt.runPortScan,
-                                      given_path=opt.givenSearchPath, auto=opt.autoStartSqlmap,
+                        __run_attacks(url.strip(), sqlmap=opt.runSqliScan, nmap=opt.runPortScan, intel=opt.intelCheck,
+                                      given_path=opt.givenSearchPath, auto=opt.autoStartSqlmap, verbose=opt.runInVerbose,
                                       batch=opt.runInBatch)
 
         # use a file full of dorks as the queries
@@ -332,11 +341,11 @@ if __name__ == "__main__":
                         pass
 
             urls_to_use = get_latest_log_file(URL_LOG_PATH)
-            if opt.runSqliScan or opt.runPortScan:
+            if opt.runSqliScan or opt.runPortScan or opt.intelCheck:
                 with open(urls_to_use) as urls:
                     for url in urls.readlines():
-                        __run_attacks(url.strip(), sqlmap=opt.runSqliScan, nmap=opt.runPortScan,
-                                      given_path=opt.givenSearchPath, auto=opt.autoStartSqlmap,
+                        __run_attacks(url.strip(), sqlmap=opt.runSqliScan, nmap=opt.runPortScan, intel=opt.intelCheck,
+                                      given_path=opt.givenSearchPath, auto=opt.autoStartSqlmap, verbose=opt.runInVerbose,
                                       batch=opt.runInBatch)
 
         # use a random dork as the query
@@ -355,11 +364,11 @@ if __name__ == "__main__":
                     proxy=proxy_to_use, agent=agent_to_use
                 )
                 urls_to_use = get_latest_log_file(URL_LOG_PATH)
-                if opt.runSqliScan or opt.runPortScan:
+                if opt.runSqliScan or opt.runPortScan or opt.intelCheck:
                     with open(urls_to_use) as urls:
                         for url in urls.readlines():
-                            __run_attacks(url.strip(), sqlmap=opt.runSqliScan, nmap=opt.runPortScan,
-                                          given_path=opt.givenSearchPath, auto=opt.autoStartSqlmap,
+                            __run_attacks(url.strip(), sqlmap=opt.runSqliScan, nmap=opt.runPortScan, intel=opt.intelCheck,
+                                          given_path=opt.givenSearchPath, auto=opt.autoStartSqlmap, verbose=opt.runInVerbose,
                                           batch=opt.runInBatch)
             except Exception as e:
                 logger.exception(set_color(
@@ -386,11 +395,11 @@ if __name__ == "__main__":
             blackwidow.blackwidow_main(opt.spiderWebSite, agent=agent_to_use, proxy=proxy_to_use, verbose=opt.runInVerbose)
 
             urls_to_use = get_latest_log_file(SPIDER_LOG_PATH)
-            if opt.runSqliScan or opt.runPortScan:
+            if opt.runSqliScan or opt.runPortScan or opt.intelCheck:
                 with open(urls_to_use) as urls:
                     for url in urls.readlines():
-                        __run_attacks(url.strip(), sqlmap=opt.runSqliScan, nmap=opt.runPortScan,
-                                      given_path=opt.givenSearchPath, auto=opt.autoStartSqlmap,
+                        __run_attacks(url.strip(), sqlmap=opt.runSqliScan, nmap=opt.runPortScan, intel=opt.intelCheck,
+                                      given_path=opt.givenSearchPath, auto=opt.autoStartSqlmap, verbose=opt.runInVerbose,
                                       batch=opt.runInBatch)
 
         else:
