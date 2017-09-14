@@ -217,4 +217,5 @@ def parse_search_results(
             "did not find any usable URL's with the given query '{}' "
             "using search engine '{}'...".format(query, url), level=50
         ))
+        shutdown()
     return list(retval) if len(retval) != 0 else None
