@@ -22,19 +22,23 @@ class NmapHook(object):
 
     def __init__(self, ip, verbose=False, pretty=True,
                  dirname="{}/log/scanner-log".format(os.getcwd()), filename="nmap_scan-results-{}.json",
-                 ports=None):
+                 ports=None, opts=None):
         self.ip = ip
         self.verbose = verbose
         self.pretty = pretty
         self.dir = dirname
         self.file = filename
         self.ports = ports
+        if opts is None:
+            self.opts = ""
+        else:
+            self.opts = " ".join(opts)
 
     def _get_all_info(self):
         """
         get all the information from the scan
         """
-        scanned_data = self.NM.scan(self.ip, ports=self.ports)
+        scanned_data = self.NM.scan(self.ip, ports=self.ports, arguments=self.opts)
         if self.pretty:
             scanned_data = json.dumps(scanned_data, indent=4, sort_keys=True)
         return scanned_data
@@ -87,7 +91,7 @@ def find_nmap(item_name="nmap", given_search_path=None, verbose=False):
     return find_application(item_name, given_search_path=given_search_path, verbose=verbose)
 
 
-def perform_port_scan(url, ports=None, scanner=NmapHook, verbose=False, full_path=None, **kwargs):
+def perform_port_scan(url, ports=None, scanner=NmapHook, verbose=False, opts=None, **kwargs):
     """
     main function that will initalize the port scanning
     """
@@ -113,7 +117,7 @@ def perform_port_scan(url, ports=None, scanner=NmapHook, verbose=False, full_pat
             "starting port scan on IP address '{}'...".format(found_ip_address)
         ))
         try:
-            data = scanner(found_ip_address, ports=ports)
+            data = scanner(found_ip_address, ports=ports, opts=opts)
             json_data = data._get_all_info()
             data.show_open_ports(json_data)
             file_path = data.send_to_file(json_data)

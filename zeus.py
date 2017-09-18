@@ -7,10 +7,12 @@ import subprocess
 import random
 import httplib as http_client
 
-from var.google_search import search
 from var import blackwidow
-from lib.attacks.sqlmap_scan.sqlmap_opts import SQLMAP_API_OPTIONS
+from var.google_search import search
 from lib.errors import InvalidInputProvided
+from lib.attacks.nmap_scan.nmap_opts import NMAP_API_OPTS
+from lib.attacks.sqlmap_scan.sqlmap_opts import SQLMAP_API_OPTIONS
+
 from lib.attacks import (
     nmap_scan,
     sqlmap_scan,
@@ -68,6 +70,9 @@ if __name__ == "__main__":
     attacks.add_option("--sqlmap-args", dest="sqlmapArguments", metavar="SQLMAP-ARGS",
                        help="Pass the arguments to send to the sqlmap API within quotes & "
                             "separated by a comma. IE 'dbms mysql, verbose 3, level 5'")
+    attacks.add_option("--nmap-args", dest="nmapArguments", metavar="NMAP-ARGS",
+                       help="Pass the arguments to send to the nmap API within quotes & "
+                            "separated by a pipe. IE '-O|-p 445, 1080'")
     attacks.add_option("--auto-start", dest="autoStartSqlmap", action="store_true",
                        help="Attempt to automatically find sqlmap on your system")
     attacks.add_option("--search-here", dest="givenSearchPath", metavar="PATH-TO-START",
@@ -242,22 +247,51 @@ if __name__ == "__main__":
         return se
 
 
-    def __create_sqlmap_arguments():
+    def __create_arguments(sqlmap=False, nmap=False):
         """
         create the sqlmap arguments (a list of tuples) that will be passed to the API
         """
+        logger.info(set_color(
+            "creating arguments for {}...".format("sqlmap" if sqlmap else "nmap")
+        ))
         retval = []
-        if opt.sqlmapArguments is not None:
-            for line in opt.sqlmapArguments.split(","):
-                to_use = line.strip().split(" ")
-                option = (to_use[0], to_use[1])
-                if to_use[0] in SQLMAP_API_OPTIONS:
-                    retval.append(option)
-                else:
-                    logger.warning(set_color(
-                        "option '{}' is not recognized by sqlmap API, skipping...".format(option[0]),
-                        level=30
-                    ))
+        splitter = {"sqlmap": ",", "nmap": "|"}
+        if sqlmap:
+            if opt.sqlmapArguments is not None:
+                for line in opt.sqlmapArguments.split(splitter["sqlmap"]):
+                    to_use = line.strip().split(" ")
+                    option = (to_use[0], to_use[1])
+                    if to_use[0] in SQLMAP_API_OPTIONS:
+                        retval.append(option)
+                    else:
+                        logger.warning(set_color(
+                            "option '{}' is not recognized by sqlmap API, skipping...".format(option[0]),
+                            level=30
+                        ))
+        elif nmap:
+            warning_msg = "option {} is not known by the nmap api, skipping..."
+            if opt.nmapArguments is not None:
+                for line in opt.nmapArguments.split(splitter["nmap"]):
+                    try:
+                        data = line.index(" ")
+                    except:
+                        data = None
+                        pass
+                    if data is not None:
+                        argument = line[0:data]
+                        if argument in NMAP_API_OPTS:
+                            retval.append(line)
+                        else:
+                            logger.warning(set_color(
+                                warning_msg.format(argument), level=30
+                            ))
+                    else:
+                        if line in NMAP_API_OPTS:
+                            retval.append(line)
+                        else:
+                            logger.warning(set_color(
+                                warning_msg.format(line), level=30
+                            ))
         return retval
 
 
@@ -277,11 +311,11 @@ if __name__ == "__main__":
 
         if question.lower().startswith("y"):
             if sqlmap:
-                return sqlmap_scan.sqlmap_scan_main(url.strip(), verbose=verbose, opts=__create_sqlmap_arguments(),
+                return sqlmap_scan.sqlmap_scan_main(url.strip(), verbose=verbose, opts=__create_arguments(sqlmap=True),
                                                     auto_search=auto, given_path=given_path)
             elif nmap:
                 url_ip_address = replace_http(url.strip())
-                return nmap_scan.perform_port_scan(url_ip_address, verbose=verbose)
+                return nmap_scan.perform_port_scan(url_ip_address, verbose=verbose, opts=__create_arguments(nmap=True))
             elif intel:
                 url_ip_address = replace_http(url.strip())
                 return intel_me.intel_amt_main(url_ip_address, proxy=proxy_to_use, verbose=verbose)
