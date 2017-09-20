@@ -17,7 +17,7 @@ import bin.unzip_gecko
 # clone link
 CLONE = "https://github.com/ekultek/zeus-scanner.git"
 # current version <major.minor.commit.patch ID>
-VERSION = "1.0.12"
+VERSION = "1.0.13"
 # colors to output depending on the version
 VERSION_TYPE_COLORS = {"dev": 33, "stable": 92, "other": 30}
 # version string formatting
@@ -241,10 +241,12 @@ def replace_http(url):
         delete the queries from the URL
         """
         return data.split("/")[0]
-
-    url_list = url.split("//")
-    new_url = url_list[1]
-    return __remove_queries(new_url)
+    try:
+        url_list = url.split("//")
+        new_url = url_list[1]
+        return __remove_queries(new_url)
+    except IndexError:
+        return url
 
 
 def grab_random_agent(agent_path="{}/etc/agents.txt", verbose=False):
@@ -341,3 +343,14 @@ def update_zeus():
         logger.fatal(set_color(
             "no git repository found in directory, unable to update automatically..."
         ))
+
+
+def create_tree(start, conns, down="|", over="-", sep="-" * 40):
+    print("{}\nStarting URL: {}\n\nConnections:".format(sep, start))
+    for con in conns:
+        print(
+            "{}{}{}".format(
+                down, over, con
+            )
+        )
+    print(sep)

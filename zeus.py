@@ -10,6 +10,7 @@ import httplib as http_client
 from var import blackwidow
 from var.google_search import search
 from lib.errors import InvalidInputProvided
+from lib.attacks.admin_panel_finder import main
 from lib.attacks.nmap_scan.nmap_opts import NMAP_API_OPTS
 from lib.attacks.sqlmap_scan.sqlmap_opts import SQLMAP_API_OPTIONS
 
@@ -67,6 +68,8 @@ if __name__ == "__main__":
                        help="Run a Nmap port scan on the discovered URL's")
     attacks.add_option("-i", "--intel-check", dest="intelCheck", action="store_true",
                        help="Check if a URL's host is exploitable via Intel ME AMT (CVE-2017-5689)")
+    attacks.add_option("-a", "--admin-panel", dest="adminPanelFinder", action="store_true",
+                       help="Search for the websites admin panel")
     attacks.add_option("--sqlmap-args", dest="sqlmapArguments", metavar="SQLMAP-ARGS",
                        help="Pass the arguments to send to the sqlmap API within quotes & "
                             "separated by a comma. IE 'dbms mysql, verbose 3, level 5'")
@@ -77,8 +80,12 @@ if __name__ == "__main__":
                        help="Attempt to automatically find sqlmap on your system")
     attacks.add_option("--search-here", dest="givenSearchPath", metavar="PATH-TO-START",
                        help="Start searching for sqlmap in this given path")
-    attacks.add_option("--show", dest="showSqlmapArguments", action="store_true",
+    attacks.add_option("--show-sqlmap", dest="showSqlmapArguments", action="store_true",
                        help="Show the arguments that the sqlmap API understands")
+    attacks.add_option("--show-nmap", dest="showNmapArgs", action="store_true",
+                       help="Show the arguments that nmap understands")
+    attacks.add_option("-P", "--show-possibles", dest="showAllConnections", action="store_true",
+                       help="Show all connections made during the admin panel search")
 
     # search engine options
     engines = optparse.OptionGroup(parser, "Search engine arguments",
@@ -297,7 +304,7 @@ if __name__ == "__main__":
 
     def __run_attacks(
             url, sqlmap=False, verbose=False, nmap=False,
-            intel=False, given_path=None, auto=False, batch=False
+            intel=False, admin=False, given_path=None, auto=False, batch=False
     ):
         """
         run the attacks if any are requested
@@ -319,6 +326,8 @@ if __name__ == "__main__":
             elif intel:
                 url_ip_address = replace_http(url.strip())
                 return intel_me.intel_amt_main(url_ip_address, proxy=proxy_to_use, verbose=verbose)
+            elif admin:
+                main(url, show=opt.showAllConnections, verbose=verbose)
             else:
                 pass
         else:
@@ -348,12 +357,12 @@ if __name__ == "__main__":
                 pass
 
             urls_to_use = get_latest_log_file(URL_LOG_PATH)
-            if opt.runSqliScan or opt.runPortScan or opt.intelCheck:
+            if opt.runSqliScan or opt.runPortScan or opt.intelCheck or opt.adminPanelFinder:
                 with open(urls_to_use) as urls:
                     for url in urls.readlines():
                         __run_attacks(url.strip(), sqlmap=opt.runSqliScan, nmap=opt.runPortScan, intel=opt.intelCheck,
-                                      given_path=opt.givenSearchPath, auto=opt.autoStartSqlmap, verbose=opt.runInVerbose,
-                                      batch=opt.runInBatch)
+                                      admin=opt.adminPanelFinder, given_path=opt.givenSearchPath,
+                                      auto=opt.autoStartSqlmap, verbose=opt.runInVerbose, batch=opt.runInBatch)
 
         # use a file full of dorks as the queries
         elif opt.dorkFileToUse is not None:
@@ -375,12 +384,12 @@ if __name__ == "__main__":
                         pass
 
             urls_to_use = get_latest_log_file(URL_LOG_PATH)
-            if opt.runSqliScan or opt.runPortScan or opt.intelCheck:
+            if opt.runSqliScan or opt.runPortScan or opt.intelCheck or opt.adminPanelFinder:
                 with open(urls_to_use) as urls:
                     for url in urls.readlines():
                         __run_attacks(url.strip(), sqlmap=opt.runSqliScan, nmap=opt.runPortScan, intel=opt.intelCheck,
-                                      given_path=opt.givenSearchPath, auto=opt.autoStartSqlmap, verbose=opt.runInVerbose,
-                                      batch=opt.runInBatch)
+                                      admin=opt.adminPanelFinder, given_path=opt.givenSearchPath,
+                                      auto=opt.autoStartSqlmap, verbose=opt.runInVerbose, batch=opt.runInBatch)
 
         # use a random dork as the query
         elif opt.useRandomDork:
@@ -398,12 +407,14 @@ if __name__ == "__main__":
                     proxy=proxy_to_use, agent=agent_to_use
                 )
                 urls_to_use = get_latest_log_file(URL_LOG_PATH)
-                if opt.runSqliScan or opt.runPortScan or opt.intelCheck:
+                if opt.runSqliScan or opt.runPortScan or opt.intelCheck or opt.adminPanelFinder:
                     with open(urls_to_use) as urls:
                         for url in urls.readlines():
-                            __run_attacks(url.strip(), sqlmap=opt.runSqliScan, nmap=opt.runPortScan, intel=opt.intelCheck,
-                                          given_path=opt.givenSearchPath, auto=opt.autoStartSqlmap, verbose=opt.runInVerbose,
-                                          batch=opt.runInBatch)
+                            __run_attacks(url.strip(), sqlmap=opt.runSqliScan, nmap=opt.runPortScan,
+                                          intel=opt.intelCheck,
+                                          admin=opt.adminPanelFinder, given_path=opt.givenSearchPath,
+                                          auto=opt.autoStartSqlmap, verbose=opt.runInVerbose, batch=opt.runInBatch)
+
             except Exception as e:
                 logger.exception(set_color(
                     "ran into exception '{}' and cannot continue, saved to current log file...".format(e),
@@ -429,12 +440,12 @@ if __name__ == "__main__":
             blackwidow.blackwidow_main(opt.spiderWebSite, agent=agent_to_use, proxy=proxy_to_use, verbose=opt.runInVerbose)
 
             urls_to_use = get_latest_log_file(SPIDER_LOG_PATH)
-            if opt.runSqliScan or opt.runPortScan or opt.intelCheck:
+            if opt.runSqliScan or opt.runPortScan or opt.intelCheck or opt.adminPanelFinder:
                 with open(urls_to_use) as urls:
                     for url in urls.readlines():
                         __run_attacks(url.strip(), sqlmap=opt.runSqliScan, nmap=opt.runPortScan, intel=opt.intelCheck,
-                                      given_path=opt.givenSearchPath, auto=opt.autoStartSqlmap, verbose=opt.runInVerbose,
-                                      batch=opt.runInBatch)
+                                      admin=opt.adminPanelFinder, given_path=opt.givenSearchPath,
+                                      auto=opt.autoStartSqlmap, verbose=opt.runInVerbose, batch=opt.runInBatch)
 
         else:
             logger.critical(set_color(
