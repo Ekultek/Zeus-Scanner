@@ -58,9 +58,9 @@ def get_urls(query, url, verbose=False, warning=True, user_agent=None, proxy=Non
         proxy_type = proxy.keys()
         proxy_to_use = Proxy({
             "proxyType": ProxyType.MANUAL,
-            "httpProxy": proxy,
-            "ftpProxy": proxy,
-            "sslProxy": proxy,
+            "httpProxy": proxy[proxy_type[0]],
+            "ftpProxy": proxy[proxy_type[0]],
+            "sslProxy": proxy[proxy_type[0]],
             "noProxy": ""
         })
         if verbose:
