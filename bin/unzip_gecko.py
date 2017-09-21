@@ -11,10 +11,15 @@ def check_if_run(file_check="{}/bin/executed.txt"):
     """
     check if the application has been run before by reading the executed.txt file
     """
-    with open(file_check.format(os.getcwd())) as exc:
-        if "FALSE" in exc.read():
+    if os.path.isfile(file_check.format(os.getcwd())):
+        with open(file_check.format(os.getcwd())) as exc:
+            if "FALSE" in exc.read():
+                return True
+            return False
+    else:
+        with open(file_check.format(os.getcwd()), "a+") as exc:
+            exc.write("FALSE")
             return True
-        return False
 
 
 def untar_gecko(filename="{}/bin/geckodriver-v0.18.0-linux{}.tar.gz", verbose=False):
@@ -76,9 +81,19 @@ def main(rewrite="{}/bin/executed.txt", verbose=False):
     main method
     """
     if check_if_run():
+        lib.settings.logger.info(lib.settings.set_color(
+            "seems this is your first time running the appication, "
+            "doing setup please wait..."
+        ))
         untar_gecko(verbose=verbose)
         if ensure_placed(verbose=verbose):
             with open(rewrite.format(os.getcwd()), "w") as rw:
                 rw.write("TRUE")
+        lib.settings.logger.info(lib.settings.set_color(
+            "done, continuing process..."
+        ))
     else:
-        pass
+        if verbose:
+            lib.settings.logger.debug(lib.settings.set_color(
+                "already ran, skipping...", level=10
+            ))
