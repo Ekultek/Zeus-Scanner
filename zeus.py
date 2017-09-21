@@ -43,7 +43,7 @@ from lib.settings import (
 
 if __name__ == "__main__":
 
-    parser = optparse.OptionParser(usage="{} -d|l|s|r DORK|FILE|URL [-s|p [--OPTS]] [-D|B|A] [--OPTS]".format(
+    parser = optparse.OptionParser(usage="{} -d|l|s|b DORK|FILE|URL [ATTACKS] [S-E] [--OPTS]".format(
         os.path.basename(__file__)
     ))
 
@@ -56,7 +56,7 @@ if __name__ == "__main__":
                          help="Specify a file full of dorks to run through"),
     mandatory.add_option("-r", "--rand-dork", dest="useRandomDork", action="store_true",
                          help="Use a random dork from the etc/dorks.txt file to perform the scan")
-    mandatory.add_option("-b", "--blackwidow", dest="spiderWebSite", metavar="URL DEPTH",
+    mandatory.add_option("-b", "--blackwidow", dest="spiderWebSite", metavar="URL",
                          help="Spider a single webpage for all available URL's")
 
     # attack options
@@ -423,8 +423,14 @@ if __name__ == "__main__":
 
         elif opt.spiderWebSite:
             if not URL_REGEX.match(opt.spiderWebSite):
+                err_msg = "URL did not match a true URL{}..."
+                if "www" in opt.spiderWebSite:
+                    err_msg = err_msg.format(" issue seems to be that 'www' is in the URL, "
+                                             "replace with http(s)://")
+                else:
+                    err_msg = err_msg.format("")
                 raise InvalidInputProvided(
-                    "provided URL did not match to a true URL, check the URL and try again..."
+                    err_msg
                 )
             else:
                 if URL_QUERY_REGEX.match(opt.spiderWebSite):
@@ -465,7 +471,7 @@ if __name__ == "__main__":
         ))
     except Exception as e:
         logger.exception(set_color(
-            "ran into exception '{}' exception has been saved to log file...".format(e)
+            "ran into exception '{}' exception has been saved to log file...".format(e), level=50
         ))
 
 shutdown()
