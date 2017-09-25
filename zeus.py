@@ -37,7 +37,9 @@ from lib.settings import (
     get_random_dork,
     update_zeus,
     VERSION_STRING,
-    URL_REGEX, URL_QUERY_REGEX
+    URL_REGEX, URL_QUERY_REGEX,
+    NMAP_MAN_PAGE_URL,
+    SQLMAP_MAN_PAGE_URL
 )
 
 
@@ -155,6 +157,31 @@ if __name__ == "__main__":
             print(
                 "[*] {}".format(arg)
             )
+        print("\n")
+        logger.info(set_color(
+            "for more information about sqlmap arguments, see here '{}'...".format(
+                SQLMAP_MAN_PAGE_URL
+            )
+        ))
+        shutdown()
+
+    if opt.showNmapArgs:
+        logger.info(set_color(
+            "there are a total of {} arguments understood by nmap, they include:".format(
+                len(NMAP_API_OPTS)
+            )
+        ))
+        print("\n")
+        for arg in NMAP_API_OPTS:
+            print(
+                "[*] {}".format(arg)
+            )
+        print("\n")
+        logger.info(set_color(
+            "for more information on what the arguments do please see here '{}'...".format(
+                NMAP_MAN_PAGE_URL
+            )
+        ))
         shutdown()
 
     # update the program

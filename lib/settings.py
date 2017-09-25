@@ -22,7 +22,7 @@ except NameError:
 # clone link
 CLONE = "https://github.com/ekultek/zeus-scanner.git"
 # current version <major.minor.commit.patch ID>
-VERSION = "1.0.15.676c"
+VERSION = "1.0.16"
 # colors to output depending on the version
 VERSION_TYPE_COLORS = {"dev": 33, "stable": 92, "other": 30}
 # version string formatting
@@ -76,6 +76,10 @@ SPIDER_LOG_PATH = "{}/log/blackwidow-log".format(os.getcwd())
 CURRENT_LOG_FILE_PATH = "{}/log".format(os.getcwd())
 # intel me amt ports
 AMT_PORTS = (16992, 16993, 16994, 16995, 623, 664)
+# nmap's manual page for their options
+NMAP_MAN_PAGE_URL = "https://nmap.org/book/man-briefoptions.html"
+# sqlmap's manual page for their options
+SQLMAP_MAN_PAGE_URL = "https://github.com/sqlmapproject/sqlmap/wiki/Usage"
 # search engines that the application can use
 AUTHORIZED_SEARCH_ENGINES = {
     "aol": "http://aol.com",
