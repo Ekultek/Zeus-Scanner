@@ -8,6 +8,26 @@ import whichcraft
 import lib.settings
 
 
+def disclaimer():
+    question = raw_input(
+        "\033[91mAttacking targets without consent is not only illegal, but it "
+        "is unethical and frowned upon in most countries. By installing this "
+        "program you are agreeing that you are responsible for your own actions, "
+        "you are over the age of 18 or legally considered an adult in your "
+        "place of origin, and that you will obey all laws, regulations, and "
+        "rules set forth by your place of origin. You will only see this disclaimer "
+        "once. If you agree to the conditions type 'yes'...\033[0m"
+    )
+    if question.upper() == "YES":
+        return True
+    else:
+        lib.settings.logger.fatal(lib.settings.set_color(
+            "you have not agreed with the terms of service, so "
+            "Zeus will shut down now...", level=50
+        ))
+        return False
+
+
 def check_os(current=platform.platform()):
     """
     check the users operating system..
@@ -114,6 +134,8 @@ def main(rewrite="{}/bin/executed.txt", verbose=False):
             "yet...".format(platform.platform()), level=50
         ))
     if check_if_run():
+        if not disclaimer():
+            exit(1)
         lib.settings.logger.info(lib.settings.set_color(
             "seems this is your first time running the appication, "
             "doing setup please wait..."
