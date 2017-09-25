@@ -5,10 +5,7 @@ import time
 import optparse
 import subprocess
 import random
-try:
-    import http.client as http_client  # Python 3
-except ImportError:
-    import httplib as http_client      # Python 2
+import httplib as http_client
 
 from var import blackwidow
 from var.google_search import search
