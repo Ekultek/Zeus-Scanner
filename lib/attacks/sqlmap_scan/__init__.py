@@ -17,10 +17,7 @@ class SqlmapHook(object):
 
     def __init__(self, to_scan, port=None, api_con="http://127.0.0.1:{}", default_port=8775):
         self.to_scan = to_scan
-        if port is None:
-            self.port = default_port
-        else:
-            self.port = port
+        self.port = port or default_port
         self.headers = {"Content-Type": "application/json"}
         self.connection = api_con.format(self.port)
         self.commands = {
@@ -110,10 +107,7 @@ def sqlmap_scan_main(url, port=None, verbose=None, auto_search=False, opts=None,
         """
         create argument tuples for the sqlmap arguments passed by the user
         """
-        retval = {}
-        for (arg, val) in opts:
-            retval[arg] = val
-        return retval
+        return {key: value for key, value in opts}
 
     if auto_search:
         lib.settings.logger.info(lib.settings.set_color(
