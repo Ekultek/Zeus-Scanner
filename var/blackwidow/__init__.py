@@ -14,14 +14,8 @@ class Blackwidow(object):
 
     def __init__(self, url, user_agent=None, proxy=None):
         self.url = url
-        if proxy is not None:
-            self.proxy = proxy
-        else:
-            self.proxy = None
-        if user_agent is None:
-            self.user_agent = lib.settings.DEFAULT_USER_AGENT
-        else:
-            self.user_agent = user_agent
+        self.proxy = proxy or None
+        self.user_agent = user_agent or lib.settings.DEFAULT_USER_AGENT
 
     @staticmethod
     def get_url_ext(url):
@@ -30,9 +24,7 @@ class Blackwidow(object):
         """
         try:
             data = url.split(".")
-            if data[-1] in lib.settings.SPIDER_EXT_EXCLUDE:
-                return True
-            return False
+            return data[-1] in lib.settings.SPIDER_EXT_EXCLUDE
         except Exception:
             pass
 
@@ -44,12 +36,11 @@ class Blackwidow(object):
             attempt = requests.get(self.url, params={"user-agent": self.user_agent}, proxies=self.proxy)
             if attempt.status_code == 200:
                 return "ok"
-            else:
-                raise lib.errors.SpiderTestFailure(
-                    "failed to connect to '{}', received status code: {}".format(
-                        self.url, attempt.status_code
-                    )
+            raise lib.errors.SpiderTestFailure(
+                "failed to connect to '{}', received status code: {}".format(
+                    self.url, attempt.status_code
                 )
+            )
         except Exception as e:
             lib.settings.logger.exception(lib.settings.set_color(
                 "failed to connect to '{}' received error '{}'...".format(
@@ -69,8 +60,6 @@ class Blackwidow(object):
             for link in list(found_links):
                 if lib.settings.URL_QUERY_REGEX.match(link[0]) and not Blackwidow.get_url_ext(link[0]):
                     unique_links.add(link)
-                else:
-                    pass
             break
         return list(unique_links)
 
