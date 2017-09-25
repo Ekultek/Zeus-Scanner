@@ -29,6 +29,7 @@ There are a few requirements for this:
  - `python-nmap` package is required to run nmap on the URL's IP addresses
  - `whichcraft` package is required to check if nmap and sqlmap are on your system if you want to use them
  - `pyvirtualdisplay` package is required to hide the browser display while finding the search URL
+ - `xvfb` is required by pyvirtualdisplay, it will be installed if not installed on your first run
 
 ### Installing
 

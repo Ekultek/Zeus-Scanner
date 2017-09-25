@@ -1,10 +1,33 @@
 import os
 import platform
 import tarfile
+import subprocess
 
 import whichcraft
 
 import lib.settings
+
+
+def check_os(current=platform.platform()):
+    """
+    check the users operating system..
+    """
+    if "linux" in str(current).lower():
+        return True
+    return False
+
+
+def check_xvfb(exc="Xvfb"):
+    """
+    test for xvfb on the users system
+    """
+    if whichcraft.which(exc) is None:
+        lib.settings.logger.info(lib.settings.set_color(
+            "installing Xvfb, required by pyvirutaldisplay..."
+        ))
+        subprocess.call(["sudo", "apt-get", "install", "xvfb"])
+    else:
+        return True
 
 
 def check_if_run(file_check="{}/bin/executed.txt"):
@@ -80,11 +103,26 @@ def main(rewrite="{}/bin/executed.txt", verbose=False):
     """
     main method
     """
+    if verbose:
+        lib.settings.logger.debug(lib.settings.set_color(
+            "verifying operating system...", level=10
+        ))
+    if not check_os():
+        raise NotImplementedError(lib.settings.set_color(
+            "as of now, Zeus requires Linux to run successfully "
+            "your current operating system '{}' is not implemented "
+            "yet...".format(platform.platform()), level=50
+        ))
     if check_if_run():
         lib.settings.logger.info(lib.settings.set_color(
             "seems this is your first time running the appication, "
             "doing setup please wait..."
         ))
+        if verbose:
+            lib.settings.logger.debug(lib.settings.set_color(
+                "checking if xvfb is on your system...", level=10
+            ))
+        check_xvfb()
         untar_gecko(verbose=verbose)
         if ensure_placed(verbose=verbose):
             with open(rewrite.format(os.getcwd()), "w") as rw:
