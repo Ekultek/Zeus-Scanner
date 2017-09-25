@@ -1,5 +1,10 @@
 import os
-import urllib2
+
+try:                 # Python 2
+    from urllib.request import urlopen
+    from urllib.error import HTTPError
+except ImportError:  # Python 3
+    from urllib2 import urlopen, HTTPError
 
 from lib.settings import (
     logger,
@@ -20,12 +25,12 @@ def check_for_admin_page(url, exts, protocol="http://", show_possibles=False, ve
                 "trying '{}'...".format(true_url), level=10
             ))
         try:
-            urllib2.urlopen(true_url, timeout=5)
+            urlopen(true_url, timeout=5)
             logger.info(set_color(
                 "connected successfully to '{}'...".format(true_url)
             ))
             connections.add(true_url)
-        except urllib2.HTTPError as e:
+        except HTTPError as e:
             data = str(e).split(" ")
             if verbose:
                 if "Access Denied" in str(e):
@@ -42,8 +47,6 @@ def check_for_admin_page(url, exts, protocol="http://", show_possibles=False, ve
                             data[2]
                         ), level=40
                     ))
-            else:
-                pass
         except Exception as e:
             if verbose:
                 if "<urlopen error timed out>" or "timeout: timed out" in str(e):
@@ -55,8 +58,6 @@ def check_for_admin_page(url, exts, protocol="http://", show_possibles=False, ve
                     logger.exception(set_color(
                         "failed to connect with unexpected error '{}'...".format(str(e)), level=50
                     ))
-            else:
-                pass
     possible_connections, connections = list(possible_connections), list(connections)
     data_msg = "found {} possible connections(s) and {} successful connection(s)..."
     logger.info(set_color(
