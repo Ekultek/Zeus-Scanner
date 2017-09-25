@@ -14,6 +14,11 @@ import whichcraft
 import lib.errors
 import bin.unzip_gecko
 
+try:
+    raw_input          # Python 2
+except NameError:
+    raw_input = input  # Python 3
+
 # clone link
 CLONE = "https://github.com/ekultek/zeus-scanner.git"
 # current version <major.minor.commit.patch ID>
