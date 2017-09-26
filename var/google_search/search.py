@@ -125,9 +125,11 @@ def get_urls(query, url, verbose=False, warning=True, user_agent=None, proxy=Non
         try:
             retval = bypass_ip_block(retval)
         except IndexError:
+            browser.close()  # stop all the random rogue processes
+            ff_display.stop()
             logger.warning(set_color(
                 "for now the IP ban bypass will only work for queries that have Google's search syntax "
-                "in them. (IE inurl:, incontext:, incontent:)"
+                "in them. (IE inurl:, incontext:, incontent:)", level=30
             ))
             raise NotImplementedError(
                 "bypass for query '{}' is not implemented yet, try again with a different dork, "
