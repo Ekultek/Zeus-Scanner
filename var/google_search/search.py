@@ -1,4 +1,5 @@
 import os
+import re
 import time
 import urllib
 
@@ -17,7 +18,31 @@ from lib.settings import (
     URL_REGEX,
     shutdown,
     create_dir,
+    add_https
 )
+
+
+def bypass_ip_block(url, content_sep=("continue=", "Fid", "%")):
+    """
+    bypass Google's IP blocking by extracting the true URL from the ban URL.
+    """
+    if isinstance(url, unicode):
+        url = str(url)
+    index_list = []
+    index_list_2 = []
+    if content_sep[0] in url:
+        data_list = url.split(content_sep[0])
+        url_to_use = data_list[1]
+    else:
+        url_to_use = url
+
+    for m in re.finditer(content_sep[1], url_to_use):
+        index_list.append((m.start(), m.end()))
+    splice_to_use = index_list[-1][-1]
+
+    for m2 in re.finditer(content_sep[2], url[0:splice_to_use]):
+        index_list_2.append((m2.start(), m2.end()))
+    return add_https(url[0:index_list_2[-1][-1] - 1])
 
 
 def get_urls(query, url, verbose=False, warning=True, user_agent=None, proxy=None, **kwargs):
@@ -93,6 +118,21 @@ def get_urls(query, url, verbose=False, warning=True, user_agent=None, proxy=Non
             "obtaining URL from selenium..."
         ))
     retval = browser.current_url
+    if "http://ipv6.google.com" or "http://ipv4.google.com" in retval:
+        logger.warning(set_color(
+            "it appears that Google is attempting to block your IP address, attempting bypass...", level=30
+        ))
+        try:
+            retval = bypass_ip_block(retval)
+        except IndexError:
+            logger.warning(set_color(
+                "for now the IP ban bypass will only work for queries that have Google's search syntax "
+                "in them. (IE inurl:, incontext:, incontent:)"
+            ))
+            raise NotImplementedError(
+                "bypass for query '{}' is not implemented yet, try again with a different dork, "
+                "or change your IP address...".format(query)
+            )
     if verbose:
         logger.debug(set_color(
             "found current URL from selenium browser '{}'...".format(retval), level=10

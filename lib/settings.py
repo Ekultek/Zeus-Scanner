@@ -22,7 +22,7 @@ except NameError:
 # clone link
 CLONE = "https://github.com/ekultek/zeus-scanner.git"
 # current version <major.minor.commit.patch ID>
-VERSION = "1.0.18"
+VERSION = "1.0.18.94c6"
 # colors to output depending on the version
 VERSION_TYPE_COLORS = {"dev": 33, "stable": 92, "other": 30}
 # version string formatting
@@ -381,3 +381,13 @@ def create_tree(start, conns, down="|", over="-", sep="-" * 40):
             )
         )
     print(sep)
+
+
+def add_https(url):
+    """
+    add https:// to a url
+    """
+    if "https://" in url:
+        return url
+    else:
+        return "https://{}".format(url.split("://")[-1])
