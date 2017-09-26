@@ -22,7 +22,7 @@ except NameError:
 # clone link
 CLONE = "https://github.com/ekultek/zeus-scanner.git"
 # current version <major.minor.commit.patch ID>
-VERSION = "1.0.17"
+VERSION = "1.0.18"
 # colors to output depending on the version
 VERSION_TYPE_COLORS = {"dev": 33, "stable": 92, "other": 30}
 # version string formatting
@@ -118,6 +118,22 @@ SPIDER_EXT_EXCLUDE = (
     "woff2", "wvx", "xbm", "xif", "xls", "xlsx", "xlt", "xm",
     "xpi", "xpm", "xwd", "xz", "z", "zip", "zipx"
 )
+DBMS_ERRORS = {  # regular expressions used for DBMS recognition based on error message response
+    "MySQL": (r"SQL syntax.*MySQL", r"Warning.*mysql_.*", r"valid MySQL result", r"MySqlClient\."),
+    "PostgreSQL": (r"PostgreSQL.*ERROR", r"Warning.*\Wpg_.*", r"valid PostgreSQL result", r"Npgsql\."),
+    "Microsoft SQL Server": (r"Driver.* SQL[\-\_\ ]*Server", r"OLE DB.* SQL Server",
+                             r"(\W|\A)SQL Server.*Driver", r"Warning.*mssql_.*",
+                             r"(\W|\A)SQL Server.*[0-9a-fA-F]{8}",
+                             r"(?s)Exception.*\WSystem\.Data\.SqlClient\.", r"(?s)Exception.*\WRoadhouse\.Cms\."),
+    "Microsoft Access": (r"Microsoft Access Driver", r"JET Database Engine", r"Access Database Engine"),
+    "Oracle": (r"\bORA-[0-9][0-9][0-9][0-9]", r"Oracle error", r"Oracle.*Driver",
+               r"Warning.*\Woci_.*", r"Warning.*\Wora_.*"),
+    "IBM DB2": (r"CLI Driver.*DB2", r"DB2 SQL error", r"\bdb2_\w+\("),
+    "SQLite": (r"SQLite/JDBCDriver", r"SQLite.Exception",
+               r"System.Data.SQLite.SQLiteException", r"Warning.*sqlite_.*",
+               r"Warning.*SQLite3::", r"\[SQLITE_ERROR\]"),
+    "Sybase": (r"(?i)Warning.*sybase.*", r"Sybase message", r"Sybase.*Server message.*"),
+}
 
 
 # this has to be the first function so that I can use it in the logger settings below
@@ -196,6 +212,8 @@ def proxy_string_to_dict(proxy_string):
     """
     send the proxy string to a dict -> http://127.0.0.1:8080 -> {'http': '127.0.0.1:8080'}
     """
+    if proxy_string is None:
+        return None
     proxy_data = get_proxy_type(proxy_string)
     retval = {proxy_data[0]: proxy_data[1]}
     return retval
