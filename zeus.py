@@ -8,8 +8,7 @@ import random
 try:
     import http.client as http_client  # Python 3
 except ImportError:
-    import httplib as http_client      # Python 2
-
+    import httplib as http_client  # Python 2
 from var import blackwidow
 from var.google_search import search
 from lib.errors import InvalidInputProvided
@@ -63,6 +62,8 @@ if __name__ == "__main__":
                          help="Use a random dork from the etc/dorks.txt file to perform the scan")
     mandatory.add_option("-b", "--blackwidow", dest="spiderWebSite", metavar="URL",
                          help="Spider a single webpage for all available URL's")
+    mandatory.add_option("-f", "--url-file", dest="fileToEnumerate", metavar="FILE-PATH",
+                         help="Run an attack on URL's in a given file")
 
     # attack options
     attacks = optparse.OptionGroup(parser, "Attack arguments",
@@ -225,6 +226,15 @@ if __name__ == "__main__":
         ))
         http_client.HTTPConnection.debuglevel = 1
 
+    def __choose_attack(choice, attacks):
+        while True:
+            if int(choice) in range(len(attacks)):
+                return int(choice)
+            else:
+                logger.warning(set_color(
+                    "{} is not a valid choice...".format(choice)
+                ))
+
 
     def __config_headers():
         """
@@ -281,7 +291,7 @@ if __name__ == "__main__":
                 ))
             logger.info(set_color(
                 "using default search engine..."
-            ))
+            )) if opt.fileToEnumerate is None else ""
             se = AUTHORIZED_SEARCH_ENGINES["google"]
         return se
 
@@ -485,7 +495,8 @@ if __name__ == "__main__":
                     else:
                         shutdown()
 
-            blackwidow.blackwidow_main(opt.spiderWebSite, agent=agent_to_use, proxy=proxy_to_use, verbose=opt.runInVerbose)
+            blackwidow.blackwidow_main(opt.spiderWebSite, agent=agent_to_use, proxy=proxy_to_use,
+                                       verbose=opt.runInVerbose)
 
             urls_to_use = get_latest_log_file(SPIDER_LOG_PATH)
             if opt.runSqliScan or opt.runPortScan or opt.intelCheck or opt.adminPanelFinder or opt.runXssScan:
@@ -497,6 +508,23 @@ if __name__ == "__main__":
                             admin=opt.adminPanelFinder, given_path=opt.givenSearchPath,
                             auto=opt.autoStartSqlmap, verbose=opt.runInVerbose, batch=opt.runInBatch
                         )
+
+        elif opt.fileToEnumerate is not None:
+            with open(opt.fileToEnumerate) as urls:
+                if opt.runSqliScan or opt.runPortScan or opt.intelCheck or opt.adminPanelFinder or opt.runXssScan:
+                    for url in urls.readlines():
+                        url = url.strip()
+                        __run_attacks(
+                            url,
+                            sqlmap=opt.runSqliScan, nmap=opt.runPortScan, intel=opt.intelCheck, xss=opt.runXssScan,
+                            admin=opt.adminPanelFinder, given_path=opt.givenSearchPath,
+                            auto=opt.autoStartSqlmap, verbose=opt.runInVerbose, batch=opt.runInBatch
+                        )
+                else:
+                    logger.fatal(set_color(
+                        "failed to provide an attack argument, attack argument must be provided "
+                        "for Zeus to attack the provided URL's", level=50
+                    ))
 
         else:
             logger.critical(set_color(

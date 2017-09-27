@@ -128,7 +128,7 @@ def perform_port_scan(url, ports=None, scanner=NmapHook, verbose=False, opts=Non
             logger.fatal(set_color(
                 "no port information found for '{}({})'...".format(
                     url, found_ip_address
-                )
+                ), level=50
             ))
         except Exception as e:
             logger.exception(set_color(
