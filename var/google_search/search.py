@@ -18,7 +18,6 @@ from lib.settings import (
     URL_REGEX,
     shutdown,
     create_dir,
-    add_https
 )
 
 
@@ -26,23 +25,30 @@ def bypass_ip_block(url, content_sep=("continue=", "Fid", "%")):
     """
     bypass Google's IP blocking by extracting the true URL from the ban URL.
     """
+
+    def __add_https(data):
+        if "https://" in data:
+            return data
+        else:
+            return "https://{}".format(url.split("://")[-1])
+
     if isinstance(url, unicode):
         url = str(url)
-    index_list = []
-    index_list_2 = []
+    content_list_start = []
+    content_list_end = []
     if content_sep[0] in url:
         data_list = url.split(content_sep[0])
         url_to_use = data_list[1]
     else:
         url_to_use = url
 
-    for m in re.finditer(content_sep[1], url_to_use):
-        index_list.append((m.start(), m.end()))
-    splice_to_use = index_list[-1][-1]
+    for match in re.finditer(content_sep[1], url_to_use):
+        content_list_start.append((match.start(), match.end()))
+    splice_to_use = content_list_start[-1][-1]
 
-    for m2 in re.finditer(content_sep[2], url[0:splice_to_use]):
-        index_list_2.append((m2.start(), m2.end()))
-    return add_https(url[0:index_list_2[-1][-1] - 1])
+    for match in re.finditer(content_sep[2], url[0:splice_to_use]):
+        content_list_end.append((match.start(), match.end()))
+    return __add_https(url[0:content_list_end[-1][-1] - 1])
 
 
 def get_urls(query, url, verbose=False, warning=True, user_agent=None, proxy=None, **kwargs):
@@ -118,7 +124,8 @@ def get_urls(query, url, verbose=False, warning=True, user_agent=None, proxy=Non
             "obtaining URL from selenium..."
         ))
     retval = browser.current_url
-    if "http://ipv6.google.com" or "http://ipv4.google.com" in retval:
+    ban_url_schema = ["http://ipv6.google.com", "http://ipv4.google.com"]
+    if any(u in retval for u in ban_url_schema):  # if you got IP banned
         logger.warning(set_color(
             "it appears that Google is attempting to block your IP address, attempting bypass...", level=30
         ))

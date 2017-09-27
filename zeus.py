@@ -93,8 +93,6 @@ if __name__ == "__main__":
                        help="Show the arguments that nmap understands")
     attacks.add_option("-P", "--show-possibles", dest="showAllConnections", action="store_true",
                        help="Show all connections made during the admin panel search")
-    attacks.add_option("--run-all", dest="runAllXssPayloads", action="store_true",
-                       help="Run every loaded XSS payload")
 
     # search engine options
     engines = optparse.OptionGroup(parser, "Search engine arguments",
@@ -363,7 +361,7 @@ if __name__ == "__main__":
             elif admin:
                 main(url, show=opt.showAllConnections, verbose=verbose)
             elif xss:
-                main_xss(url, verbose=verbose, proxy=proxy_to_use, agent=agent_to_use, try_all=opt.runAllXssPayloads)
+                main_xss(url, verbose=verbose, proxy=proxy_to_use, agent=agent_to_use)
             else:
                 pass
         else:

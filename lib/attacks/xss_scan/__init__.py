@@ -10,7 +10,8 @@ from lib.settings import (
     set_color,
     DEFAULT_USER_AGENT,
     proxy_string_to_dict,
-    DBMS_ERRORS
+    DBMS_ERRORS,
+    create_tree,
 )
 
 
@@ -28,9 +29,12 @@ def create_urls(url, payload_list):
     return tf_name
 
 
-def find_xss_script(url, query=4):
+def find_xss_script(url, query=4, fragment=5):
     data = urlparse.urlparse(url)
-    return data[query]
+    if data[fragment] is not "" or None:
+        return "{}{}".format(data[query], data[fragment])
+    else:
+        return data[query]
 
 
 def scan_xss(url, agent=None, proxy=None):
@@ -51,7 +55,7 @@ def scan_xss(url, agent=None, proxy=None):
     return False
 
 
-def main_xss(start_url, verbose=False, proxy=None, agent=DEFAULT_USER_AGENT, try_all=False):
+def main_xss(start_url, verbose=False, proxy=None, agent=None):
     find_xss_script(start_url)
     logger.info(set_color(
         "loading payloads..."
@@ -67,31 +71,30 @@ def main_xss(start_url, verbose=False, proxy=None, agent=DEFAULT_USER_AGENT, try
     filename = create_urls(start_url, payloads)
     if verbose:
         logger.debug(set_color(
-            "loaded URL's have been saved to '{}'...".format(filename)
+            "loaded URL's have been saved to '{}'...".format(filename), level=10
         ))
     logger.info(set_color(
         "testing for XSS vulnerabilities on host '{}'...".format(start_url)
-    ))
-    logger.info(set_color(
-        "adjusting user agent to '{}'...".format(agent)
     ))
     if proxy is not None:
         logger.info(set_color(
             "using proxy '{}'...".format(proxy)
         ))
+    success = set()
     with open(filename) as urls:
-        for url in urls:
+        for url in urls.readlines():
             url = url.strip()
             result = scan_xss(url, proxy=proxy, agent=agent)
             payload = find_xss_script(url)
+            logger.info(set_color(
+                "trying payload '{}'...".format(payload)
+            ))
             if result:
-                logger.info(set_color(
-                    "host '{}' appears to be vulnerable to XSS attacks using payload '{}'...".format(
-                        start_url, payload
-                    )
-                ))
-                if not try_all:
-                    return
+                success.add(url)
+                if verbose:
+                    logger.debug(set_color(
+                        "payload '{}' appears to be usable...".format(payload), level=10
+                    ))
             elif result is "sqli":
                 logger.error(set_color(
                     "loaded URL '{}' threw a DBMS error and appears to be SQLi vulnerable, test for SQL injection".format(
@@ -105,3 +108,4 @@ def main_xss(start_url, verbose=False, proxy=None, agent=DEFAULT_USER_AGENT, try
                             start_url, payload
                         ), level=10
                     ))
+    create_tree(start_url, list(success))
