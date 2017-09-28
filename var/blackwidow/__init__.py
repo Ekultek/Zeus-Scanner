@@ -69,7 +69,7 @@ class Blackwidow(object):
         write to the log file
         """
         full_path = "{}/{}".format(dir_path.format(os.getcwd()),
-                                   log_file.format(len(os.listdir(dir_path.format(os.getcwd())))))
+                                   log_file.format(len(os.listdir(dir_path.format(os.getcwd()))) + 1))
         lib.settings.create_dir(dir_path.format(os.getcwd()))
         with open(full_path, "a+") as log:
             for url in urls:
