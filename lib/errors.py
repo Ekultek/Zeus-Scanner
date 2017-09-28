@@ -14,3 +14,6 @@ class SpiderTestFailure(Exception): pass
 
 
 class InvalidInputProvided(Exception): pass
+
+
+class InvalidTamperProvided(Exception): pass

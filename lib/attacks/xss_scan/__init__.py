@@ -5,6 +5,12 @@ import tempfile
 
 import requests
 
+from lib.errors import InvalidTamperProvided
+from lib.attacks.tamper_scripts import (
+    unicode_encode,
+    base64_encode,
+    hex_encode
+)
 from lib.settings import (
     logger,
     set_color,
@@ -15,16 +21,46 @@ from lib.settings import (
 )
 
 
+def list_tamper_scripts(path="{}/lib/attacks/tamper_scripts"):
+    retval = set()
+    exclude = ["__init__.py", ".pyc"]
+    for item in os.listdir(path.format(os.getcwd())):
+        if not any(f in item for f in exclude):
+            item = item.split(".")[0]
+            item = item.split("_")[0]
+            retval.add(item)
+    return retval
+
+
+def __tamper_payload(payload, tamper_type):
+    acceptable = list_tamper_scripts()
+    if tamper_type in acceptable:
+        if tamper_type == "unicode":
+            return unicode_encode.tamper(payload)
+        elif tamper_type == "hex":
+            return hex_encode.tamper(payload)
+        else:
+            return base64_encode.tamper(payload)
+    else:
+        raise InvalidTamperProvided(
+            "sent tamper type '{}' is not a valid type, acceptable are {}...".format(
+                tamper_type, ", ".join(list(acceptable))
+            )
+        )
+
+
 def __load_payloads(filename="{}/etc/xss_payloads.txt"):
     with open(filename.format(os.getcwd())) as payloads: return payloads.readlines()
 
 
-def create_urls(url, payload_list):
+def create_urls(url, payload_list, tamper=None):
     tf = tempfile.NamedTemporaryFile(delete=False)
     tf_name = tf.name
     with tf as tmp:
         for payload in payload_list:
-            loaded_url = "{}{}".format(url, payload)
+            if tamper:
+                payload = __tamper_payload(payload, tamper_type=tamper)
+            loaded_url = "{}{}\n".format(url, payload)
             tmp.write(loaded_url)
     return tf_name
 
@@ -53,7 +89,11 @@ def scan_xss(url, agent=None, proxy=None):
     return False, None
 
 
-def main_xss(start_url, verbose=False, proxy=None, agent=None):
+def main_xss(start_url, verbose=False, proxy=None, agent=None, tamper=None):
+    if tamper:
+        logger.info(set_color(
+            "tampering payloads with '{}'...".format(tamper)
+        ))
     find_xss_script(start_url)
     logger.info(set_color(
         "loading payloads..."
@@ -66,7 +106,7 @@ def main_xss(start_url, verbose=False, proxy=None, agent=None):
     logger.info(set_color(
         "payloads will be written to a temporary file and read from there..."
     ))
-    filename = create_urls(start_url, payloads)
+    filename = create_urls(start_url, payloads, tamper=tamper)
     logger.info(set_color(
             "loaded URL's have been saved to '{}'...".format(filename)
         ))

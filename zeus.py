@@ -94,6 +94,8 @@ if __name__ == "__main__":
                        help="Show the arguments that nmap understands")
     attacks.add_option("-P", "--show-possibles", dest="showAllConnections", action="store_true",
                        help="Show all connections made during the admin panel search")
+    attacks.add_option("--tamper", dest="tamperXssPayloads", metavar="TAMPER-SCRIPT",
+                       help="Send the XSS payloads through tampering before sending to the target")
 
     # search engine options
     engines = optparse.OptionGroup(parser, "Search engine arguments",
@@ -371,7 +373,7 @@ if __name__ == "__main__":
             elif admin:
                 main(url, show=opt.showAllConnections, verbose=verbose)
             elif xss:
-                main_xss(url, verbose=verbose, proxy=proxy_to_use, agent=agent_to_use)
+                main_xss(url, verbose=verbose, proxy=proxy_to_use, agent=agent_to_use, tamper=opt.tamperXssPayloads)
             else:
                 pass
         else:
