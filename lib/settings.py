@@ -22,7 +22,7 @@ except NameError:
 # clone link
 CLONE = "https://github.com/ekultek/zeus-scanner.git"
 # current version <major.minor.commit.patch ID>
-VERSION = "1.0.22"
+VERSION = "1.0.22.b34b"
 # colors to output depending on the version
 VERSION_TYPE_COLORS = {"dev": 33, "stable": 92, "other": 30}
 # version string formatting
@@ -369,3 +369,15 @@ def create_tree(start, conns, down="|", over="-", sep="-" * 40):
 def get_true_url(url):
     data = url.split("/")
     return "{}//{}".format(data[0], data[2])
+
+
+def fix_log_file(logfile=get_latest_log_file(CURRENT_LOG_FILE_PATH)):
+    retval = ""
+    escape_seq_regex = re.compile("\033\[\d+[*m]")
+    with open(logfile, "r+") as to_fix:
+            for line in to_fix.readlines():
+                retval += escape_seq_regex.sub("", line)
+    open(logfile, "w").close()
+    with open(logfile, "a+") as fixed:
+            for line in retval.split("\n"):
+                fixed.write(line + "\n")

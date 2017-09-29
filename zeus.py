@@ -44,7 +44,8 @@ from lib.settings import (
     URL_REGEX, URL_QUERY_REGEX,
     NMAP_MAN_PAGE_URL,
     SQLMAP_MAN_PAGE_URL,
-    get_true_url
+    get_true_url,
+    fix_log_file
 )
 
 if __name__ == "__main__":
@@ -551,4 +552,5 @@ if __name__ == "__main__":
             "ran into exception '{}' exception has been saved to log file...".format(e), level=50
         ))
 
+    fix_log_file()
 shutdown()
