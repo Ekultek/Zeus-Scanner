@@ -9,7 +9,8 @@ from lib.errors import InvalidTamperProvided
 from lib.attacks.tamper_scripts import (
     unicode_encode,
     base64_encode,
-    hex_encode
+    hex_encode,
+    url_encode
 )
 from lib.settings import (
     logger,
@@ -18,7 +19,21 @@ from lib.settings import (
     proxy_string_to_dict,
     DBMS_ERRORS,
     create_tree,
+    prompt
 )
+
+
+def __tamper_warnings(script):
+    warn_msg = ""
+    if script == "hex":
+        warn_msg += "hex tamper script may increase risk of false positives..."
+    elif script == " base64":
+        warn_msg += "base64 tamper script may increase risk of not finding a vulnerability..."
+    else:
+        pass
+    logger.warning(set_color(
+        warn_msg, level=30
+    ))
 
 
 def list_tamper_scripts(path="{}/lib/attacks/tamper_scripts"):
@@ -39,6 +54,8 @@ def __tamper_payload(payload, tamper_type):
             return unicode_encode.tamper(payload)
         elif tamper_type == "hex":
             return hex_encode.tamper(payload)
+        elif tamper_type == "url":
+            return url_encode.tamper(payload)
         else:
             return base64_encode.tamper(payload)
     else:
@@ -60,7 +77,7 @@ def create_urls(url, payload_list, tamper=None):
         for payload in payload_list:
             if tamper:
                 payload = __tamper_payload(payload, tamper_type=tamper)
-            loaded_url = "{}{}\n".format(url, payload)
+            loaded_url = "{}{}\n".format(url.strip(), payload.strip())
             tmp.write(loaded_url)
     return tf_name
 
@@ -94,6 +111,7 @@ def main_xss(start_url, verbose=False, proxy=None, agent=None, tamper=None):
         logger.info(set_color(
             "tampering payloads with '{}'...".format(tamper)
         ))
+        __tamper_warnings(tamper)
     find_xss_script(start_url)
     logger.info(set_color(
         "loading payloads..."
@@ -157,3 +175,8 @@ def main_xss(start_url, verbose=False, proxy=None, agent=None, tamper=None):
         logger.error(set_color(
             "host '{}' does not appear to be vulnerable to XSS attacks...".format(start_url)
         ))
+    save = prompt(
+        "would you like to keep the URL's saved for further testing", opts="yN"
+    )
+    if save.lower().startswith("n"):
+        os.remove(filename)

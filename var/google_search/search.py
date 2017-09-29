@@ -56,9 +56,6 @@ def get_urls(query, url, verbose=False, warning=True, user_agent=None, proxy=Non
       Bypass Google captchas and Google API by using selenium-webdriver to gather
       the Google URL. This will open a robot controlled browser window and attempt
       to get a URL from Google that will be used for scraping afterwards.
-
-      Only downside to this method is that your IP and user agent will be visible
-      until the application pulls the URL.
     """
     if verbose:
         logger.debug(set_color(
@@ -144,7 +141,7 @@ def get_urls(query, url, verbose=False, warning=True, user_agent=None, proxy=Non
             )
     if verbose:
         logger.debug(set_color(
-            "found current URL from selenium browser '{}'...".format(retval), level=10
+            "found current URL from selenium browser...", level=10
         ))
     logger.info(set_color(
         "closing the browser and continuing process.."
@@ -248,7 +245,7 @@ def parse_search_results(
                     url = str(url).encode("utf-8")
                 if verbose:
                     logger.debug(set_color(
-                        "found '{}'...".format(url), level=10
+                        "found '{}'...".format(url.split("&amp;")[0]), level=10
                     ))
                 retval.add(url.split("&amp;")[0])
     logger.info(set_color(
