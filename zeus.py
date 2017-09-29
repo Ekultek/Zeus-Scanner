@@ -42,7 +42,8 @@ from lib.settings import (
     VERSION_STRING,
     URL_REGEX, URL_QUERY_REGEX,
     NMAP_MAN_PAGE_URL,
-    SQLMAP_MAN_PAGE_URL
+    SQLMAP_MAN_PAGE_URL,
+    get_true_url
 )
 
 if __name__ == "__main__":
@@ -368,8 +369,8 @@ if __name__ == "__main__":
                 url_ip_address = replace_http(url.strip())
                 return nmap_scan.perform_port_scan(url_ip_address, verbose=verbose, opts=__create_arguments(nmap=True))
             elif intel:
-                url_ip_address = replace_http(url.strip())
-                return intel_me.intel_amt_main(url_ip_address, proxy=proxy_to_use, verbose=verbose)
+                url = get_true_url(url)
+                return intel_me.main_intel_amt(url, agent=agent_to_use, proxy=proxy_to_use)
             elif admin:
                 main(url, show=opt.showAllConnections, verbose=verbose)
             elif xss:
