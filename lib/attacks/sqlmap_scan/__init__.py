@@ -1,6 +1,9 @@
 import re
 import json
-import urllib2
+try:
+    import urllib2  # python 2
+except ImportError:
+    import urllib as urllib2  # python 3
 import subprocess
 
 import requests

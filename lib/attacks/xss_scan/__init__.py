@@ -1,6 +1,9 @@
 import os
 import re
-import urlparse
+try:
+    import urlparse  # python 2
+except ImportError:
+    import urllib.parse as urlparse  # python 3
 import tempfile
 
 import requests

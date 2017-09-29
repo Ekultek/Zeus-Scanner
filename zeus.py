@@ -9,6 +9,7 @@ try:
     import http.client as http_client  # Python 3
 except ImportError:
     import httplib as http_client  # Python 2
+
 from var import blackwidow
 from var.google_search import search
 from lib.errors import InvalidInputProvided

@@ -1,7 +1,10 @@
 import os
 import re
 import time
-import urllib
+try:
+    from urllib import unquote
+except ImportError:
+    from urllib.parse import unquote
 
 import requests
 from selenium import webdriver
@@ -19,6 +22,11 @@ from lib.settings import (
     shutdown,
     create_dir,
 )
+
+try:
+    unicode
+except NameError:
+    unicode = str
 
 
 def bypass_ip_block(url, content_sep=("continue=", "Fid", "%")):
@@ -157,6 +165,7 @@ def parse_search_results(
       Parse a webpage from Google for URL's with a GET(query) parameter
     """
     exclude = "google" or "webcache" or "youtube"
+    splitter = "&amp;"
 
     create_dir(dirname.format(os.getcwd()))
     full_file_path = "{}/{}".format(
@@ -201,7 +210,8 @@ def parse_search_results(
 
     proxy_string_info = "setting proxy to {}..."
     if proxy_string is not None:
-        proxy_string_info = proxy_string_info.format(''.join(proxy_string.keys()) + "://" + ''.join(proxy_string.values()))
+        proxy_string_info = proxy_string_info.format(
+            ''.join(proxy_string.keys()) + "://" + ''.join(proxy_string.values()))
     else:
         proxy_string_info = "no proxy configuration detected..."
 
@@ -239,14 +249,19 @@ def parse_search_results(
     retval = set()
     for urls in list(found_urls):
         for url in list(urls):
-            url = urllib.unquote(url)
+            url = unquote(url)
             if URL_QUERY_REGEX.match(url) and exclude not in url:
-                if type(url) is unicode:
+                if isinstance(url, unicode):
                     url = str(url).encode("utf-8")
                 if verbose:
-                    logger.debug(set_color(
-                        "found '{}'...".format(url.split("&amp;")[0]), level=10
-                    ))
+                    try:
+                        logger.debug(set_color(
+                            "found '{}'...".format(url.split(splitter)[0]), level=10
+                        ))
+                    except TypeError:
+                        logger.debug(set_color(
+                            "found '{}'...".format(str(url).split(splitter)[0]), level=10
+                        ))
                 retval.add(url.split("&amp;")[0])
     logger.info(set_color(
         "found a total of {} URL's with a GET parameter...".format(len(retval))
