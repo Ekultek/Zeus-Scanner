@@ -11,6 +11,8 @@ import requests
 import lib.settings
 import lib.errors
 
+from var.auto_issue.github import request_issue_creation
+
 
 class SqlmapHook(object):
 
@@ -169,9 +171,19 @@ def sqlmap_scan_main(url, port=None, verbose=None, auto_search=False, opts=None,
             ))
             pass
         except Exception as e:
-            lib.settings.logger.exception(lib.settings.set_color(
-                "ran into error '{}', seems something went wrong, error has "
-                "been saved to current log file. Please make an issue to get "
-                "this addressed...".format(e), level=50
-            ))
-            pass
+            if "HTTPConnectionPool(host='127.0.0.1'" in str(e):
+                lib.settings.logger.error(lib.settings.set_color(
+                    "sqlmap API is not started, did you forget to start it? "
+                    "You will need to open a new terminal, cd into sqlmap, and "
+                    "run `python sqlmapapi.py -s` otherwise pass the correct flags "
+                    "to auto start the API...", level=40
+                ))
+                pass
+            else:
+                lib.settings.logger.exception(lib.settings.set_color(
+                    "ran into error '{}', seems something went wrong, error has "
+                    "been saved to current log file.".format(e), level=50
+                ))
+                lib.settings.fix_log_file()
+                request_issue_creation()
+                pass

@@ -1,14 +1,15 @@
 import os
 import nmap
 import json
-import time
 import socket
 
+from var.auto_issue.github import request_issue_creation
 from lib.settings import (
     logger,
     set_color,
     create_dir,
-    find_application
+    find_application,
+    fix_log_file
 )
 
 
@@ -134,6 +135,8 @@ def perform_port_scan(url, ports=None, scanner=NmapHook, verbose=False, opts=Non
             logger.exception(set_color(
                 "ran into exception '{}', cannot continue quitting...".format(e), level=50
             ))
+            fix_log_file()
+            request_issue_creation()
             pass
     else:
         logger.fatal(set_color(

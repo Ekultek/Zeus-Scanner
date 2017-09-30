@@ -4,10 +4,12 @@ import json
 import requests
 from lxml import html
 
+from var.auto_issue.github import request_issue_creation
 from lib.settings import (
     proxy_string_to_dict,
     logger, set_color,
-    DEFAULT_USER_AGENT
+    DEFAULT_USER_AGENT,
+    fix_log_file
 )
 
 
@@ -120,3 +122,5 @@ def main_intel_amt(url, agent=None, proxy=None):
             logger.exception(set_color(
                 "ran into exception '{}', cannot continue...".format(e)
             ))
+            fix_log_file()
+            request_issue_creation()

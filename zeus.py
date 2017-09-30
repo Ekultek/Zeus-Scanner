@@ -12,6 +12,7 @@ except ImportError:
 
 from var import blackwidow
 from var.google_search import search
+from var.auto_issue.github import request_issue_creation
 from lib.errors import InvalidInputProvided
 from lib.attacks.admin_panel_finder import main
 from lib.attacks.xss_scan import main_xss
@@ -403,6 +404,8 @@ if __name__ == "__main__":
                 logger.exception(set_color(
                     "ran into exception '{}'...".format(e), level=50
                 ))
+                fix_log_file()
+                request_issue_creation()
                 pass
 
             urls_to_use = get_latest_log_file(URL_LOG_PATH)
@@ -433,6 +436,8 @@ if __name__ == "__main__":
                         logger.exception(set_color(
                             "ran into exception '{}'...".format(e), level=50
                         ))
+                        fix_log_file()
+                        request_issue_creation()
                         pass
 
             urls_to_use = get_latest_log_file(URL_LOG_PATH)
@@ -477,6 +482,8 @@ if __name__ == "__main__":
                     "ran into exception '{}' and cannot continue, saved to current log file...".format(e),
                     level=50
                 ))
+                fix_log_file()
+                request_issue_creation()
 
         elif opt.spiderWebSite:
             if not URL_REGEX.match(opt.spiderWebSite):
@@ -551,6 +558,8 @@ if __name__ == "__main__":
         logger.exception(set_color(
             "ran into exception '{}' exception has been saved to log file...".format(e), level=50
         ))
+        fix_log_file()
+        request_issue_creation()
 
     fix_log_file()
 shutdown()

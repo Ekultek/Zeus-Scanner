@@ -6,11 +6,13 @@ try:                 # Python 2
 except ImportError:  # Python 3
     from urllib2 import urlopen, HTTPError
 
+from var.auto_issue.github import request_issue_creation
 from lib.settings import (
     logger,
     replace_http,
     set_color,
-    create_tree
+    create_tree,
+    fix_log_file
 )
 
 
@@ -58,6 +60,8 @@ def check_for_admin_page(url, exts, protocol="http://", show_possibles=False, ve
                     logger.exception(set_color(
                         "failed to connect with unexpected error '{}'...".format(str(e)), level=50
                     ))
+                    fix_log_file()
+                    request_issue_creation()
     possible_connections, connections = list(possible_connections), list(connections)
     data_msg = "found {} possible connections(s) and {} successful connection(s)..."
     logger.info(set_color(
