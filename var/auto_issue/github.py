@@ -1,5 +1,6 @@
 import os
 import sys
+
 try:
     import urllib2
 except ImportError:
@@ -32,7 +33,6 @@ def decode(n, token):
 
 
 def request_issue_creation():
-
     logger.info(set_color(
         "Zeus got an unexpected error and will automatically create an issue for this error, please wait..."
     ))
@@ -70,9 +70,15 @@ def request_issue_creation():
 
     issue_data = {
         "title": issue_title,
-        "body": "Error info:\n```{}````\n\nRunning details:\n`{}`\n\nCommands used:\n`{}`".format(
-            str(stacktrace), str(platform.platform()), " ".join(sys.argv)
-        ),
+        "body": "Error info:\n```{}````\n\n"
+                "Running details:\n`{}`\n\n"
+                "Commands used:\n`{}`\n\n"
+                "Log file info:\n```{}```".format(
+                     str(stacktrace),
+                     str(platform.platform()),
+                     " ".join(sys.argv),
+                     open(current_log_file).read()
+                ),
     }
 
     try:
