@@ -1,19 +1,24 @@
 import os
 import sys
-
 try:
-    import urllib2
+    import urllib2  # python 2
 except ImportError:
-    import urllib as urllib2
+    import urllib.request as urllib2  # python 3
 import json
 import platform
+
+from base64 import b64decode
 
 from lib.settings import (
     logger,
     set_color,
     get_latest_log_file,
-    CURRENT_LOG_FILE_PATH
+    CURRENT_LOG_FILE_PATH,
 )
+
+
+def __mask_sensitive(data, arguments):
+    pass
 
 
 def __get_encoded_string(filename="{}/var/auto_issue/oauth"):
@@ -28,7 +33,7 @@ def get_decode_num(data):
 def decode(n, token):
     token = token.split(":")[0]
     for _ in range(int(n)):
-        token = token.decode("base64")
+        token = b64decode(token)
     return token
 
 
@@ -81,9 +86,13 @@ def request_issue_creation():
                 ),
     }
 
+    _json_data = json.dumps(issue_data)
+    if sys.version_info > (3,):
+        _json_data = _json_data.encode("utf-8")
+
     try:
         req = urllib2.Request(
-            url="https://api.github.com/repos/ekultek/zeus-scanner/issues", data=json.dumps(issue_data),
+            url="https://api.github.com/repos/ekultek/zeus-scanner/issues", data=_json_data,
             headers={"Authorization": "token {}".format(token)}
         )
         urllib2.urlopen(req, timeout=10).read()
