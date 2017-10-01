@@ -486,11 +486,12 @@ if __name__ == "__main__":
                 request_issue_creation()
 
         elif opt.spiderWebSite:
+            problem_identifiers = ["http://", "https://"]
             if not URL_REGEX.match(opt.spiderWebSite):
                 err_msg = "URL did not match a true URL{}..."
-                if "www" in opt.spiderWebSite:
-                    err_msg = err_msg.format(" issue seems to be that 'www' is in the URL, "
-                                             "replace with http(s)://")
+                if not any(m in opt.spiderWebSite for m in problem_identifiers):
+                    err_msg = err_msg.format(" issue seems to be that http:// "
+                                             "or https:// is not present in the URL")
                 else:
                     err_msg = err_msg.format("")
                 raise InvalidInputProvided(
@@ -555,11 +556,20 @@ if __name__ == "__main__":
             "it will cause Zeus to crash...", level=30
         ))
     except Exception as e:
-        logger.exception(set_color(
-            "ran into exception '{}' exception has been saved to log file...".format(e), level=50
-        ))
-        fix_log_file()
-        request_issue_creation()
+        if "url did not match a true url" in str(e).lower():
+            logger.error(set_color(
+                "you did not provide a URL that is capable of being processed, "
+                "the URL provided to the spider needs to contain protocol as well "
+                "ie. 'http://google.com' (it is advised not to add the GET parameter), "
+                "fix the URL you want to scan and try again...", level=40
+            ))
+            shutdown()
+        else:
+            logger.exception(set_color(
+                "ran into exception '{}' exception has been saved to log file...".format(e), level=50
+            ))
+            fix_log_file()
+            request_issue_creation()
 
     fix_log_file()
 shutdown()
