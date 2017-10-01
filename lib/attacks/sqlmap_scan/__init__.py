@@ -146,7 +146,7 @@ def sqlmap_scan_main(url, port=None, verbose=None, auto_search=False, opts=None,
             lib.settings.logger.info(lib.settings.set_color(
                 "starting sqlmap scan on url: '{}'...".format(url)
             ))
-            if opts is not None:
+            if opts:
                 if verbose:
                     lib.settings.logger.debug(lib.settings.set_color(
                         "using arguments: '{}'...".format(___dict_args()), level=10
@@ -154,6 +154,11 @@ def sqlmap_scan_main(url, port=None, verbose=None, auto_search=False, opts=None,
                 lib.settings.logger.info(lib.settings.set_color(
                     "adding arguments to sqlmap API..."
                 ))
+            else:
+                if verbose:
+                    lib.settings.logger.debug(lib.settings.set_color(
+                        "no arguments passed, skipping...", level=10
+                    ))
             lib.settings.logger.warning(lib.settings.set_color(
                 "please keep in mind that this is the API, output will "
                 "not be saved to log file, it may take a little longer "
