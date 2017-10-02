@@ -404,8 +404,12 @@ if __name__ == "__main__":
                 logger.exception(set_color(
                     "ran into exception '{}'...".format(e), level=50
                 ))
-                fix_log_file()
-                request_issue_creation()
+                issue = prompt(
+                    "would you like to create an anonymous issue on Zeus's Github page", opts="yN"
+                )
+                if issue.lower().startswith("y"):
+                    fix_log_file()
+                    request_issue_creation()
                 pass
 
             urls_to_use = get_latest_log_file(URL_LOG_PATH)
@@ -436,8 +440,12 @@ if __name__ == "__main__":
                         logger.exception(set_color(
                             "ran into exception '{}'...".format(e), level=50
                         ))
-                        fix_log_file()
-                        request_issue_creation()
+                        issue = prompt(
+                            "would you like to create an anonymous issue on Zeus's Github page", opts="yN"
+                        )
+                        if issue.lower().startswith("y"):
+                            fix_log_file()
+                            request_issue_creation()
                         pass
 
             urls_to_use = get_latest_log_file(URL_LOG_PATH)
@@ -482,8 +490,12 @@ if __name__ == "__main__":
                     "ran into exception '{}' and cannot continue, saved to current log file...".format(e),
                     level=50
                 ))
-                fix_log_file()
-                request_issue_creation()
+                issue = prompt(
+                    "would you like to create an anonymous issue on Zeus's Github page", opts="yN"
+                )
+                if issue.lower().startswith("y"):
+                    fix_log_file()
+                    request_issue_creation()
 
         elif opt.spiderWebSite:
             problem_identifiers = ["http://", "https://"]
@@ -545,7 +557,10 @@ if __name__ == "__main__":
             ))
             time.sleep(2)
             subprocess.call("python zeus.py --help", shell=True)
-
+    except IOError:
+        logger.fatal(set_color(
+            "provided file does not exist, make sure you have the full path...", level=50
+        ))
     except KeyboardInterrupt:
         logger.error(set_color(
             "user aborted process...", level=40
@@ -568,8 +583,12 @@ if __name__ == "__main__":
             logger.exception(set_color(
                 "ran into exception '{}' exception has been saved to log file...".format(e), level=50
             ))
-            fix_log_file()
-            request_issue_creation()
+            issue = prompt(
+                "would you like to create an anonymous issue on Zeus's Github page", opts="yN"
+            )
+            if issue.lower().startswith("y"):
+                fix_log_file()
+                request_issue_creation()
 
     fix_log_file()
 shutdown()

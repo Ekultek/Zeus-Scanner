@@ -17,10 +17,6 @@ from lib.settings import (
 )
 
 
-def __mask_sensitive(data, arguments):
-    pass
-
-
 def __get_encoded_string(filename="{}/var/auto_issue/oauth"):
     with open(filename.format(os.getcwd())) as data:
         return data.read()
