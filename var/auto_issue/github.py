@@ -14,6 +14,7 @@ from lib.settings import (
     set_color,
     get_latest_log_file,
     CURRENT_LOG_FILE_PATH,
+    VERSION
 )
 
 
@@ -71,10 +72,12 @@ def request_issue_creation():
 
     issue_data = {
         "title": issue_title,
-        "body": "Error info:\n```{}````\n\n"
+        "body": "Zeus version:\n`{}`\n\n"
+                "Error info:\n```{}````\n\n"
                 "Running details:\n`{}`\n\n"
                 "Commands used:\n`{}`\n\n"
                 "Log file info:\n```{}```".format(
+                     VERSION,
                      str(stacktrace),
                      str(platform.platform()),
                      " ".join(sys.argv),
