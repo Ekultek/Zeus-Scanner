@@ -47,6 +47,7 @@ from lib.settings import (
     SQLMAP_MAN_PAGE_URL,
     get_true_url,
     fix_log_file,
+    DEFAULT_USER_AGENT
 )
 
 if __name__ == "__main__":
@@ -271,7 +272,7 @@ if __name__ == "__main__":
         elif opt.useRandomAgent:
             agent = grab_random_agent(verbose=opt.runInVerbose)
         else:
-            agent = None
+            agent = DEFAULT_USER_AGENT
         return proxy, agent
 
 
@@ -442,12 +443,9 @@ if __name__ == "__main__":
             logger.info(set_color(
                 "searching Google using dork '{}' for a total of {} links...".format(opt.dorkToUse, opt.amountToSearch)
             ))
-            if proxy_to_use:
-                logger.warning(set_color(
-                    "proxy not implemented for multiple page searching...", level=30
-                ))
             try:
-                search.search_multiple_pages(opt.dorkToUse, link_amount_to_search, verbose=opt.runInVerbose)
+                search.search_multiple_pages(opt.dorkToUse, link_amount_to_search, proxy=proxy_to_use,
+                                             agent=agent_to_use, verbose=opt.runInVerbose)
             except Exception as e:
                 if "Error 400" in str(e):
                     logger.fatal(set_color(
