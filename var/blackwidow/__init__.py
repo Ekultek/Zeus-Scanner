@@ -63,21 +63,6 @@ class Blackwidow(object):
             break
         return list(unique_links)
 
-    @staticmethod
-    def write_to_file(urls, dir_path="{}/log/blackwidow-log", log_file="blackwidow-log-{}.log"):
-        """
-        write to the log file
-        """
-        full_path = "{}/{}".format(dir_path.format(os.getcwd()),
-                                   log_file.format(len(os.listdir(dir_path.format(os.getcwd()))) + 1))
-        lib.settings.create_dir(dir_path.format(os.getcwd()))
-        with open(full_path, "a+") as log:
-            for url in urls:
-                log.write(url + "\n")
-        lib.settings.logger.info(lib.settings.set_color(
-            "found a total of {} unique usable URL's, saved to '{}'...".format(len(urls), full_path)
-        ))
-
 
 def blackwidow_main(url, proxy=None, agent=None, verbose=False):
     """
@@ -99,4 +84,4 @@ def blackwidow_main(url, proxy=None, agent=None, verbose=False):
         ))
     found = crawler.scrape_page_for_links(url)
     to_use = [data[0] for data in found]
-    crawler.write_to_file(to_use)
+    lib.settings.write_to_log_file(to_use, path=lib.settings.SPIDER_LOG_PATH, filename="blackwidow-log-{}.log")
