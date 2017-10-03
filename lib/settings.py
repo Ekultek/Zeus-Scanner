@@ -22,7 +22,7 @@ except NameError:
 # clone link
 CLONE = "https://github.com/ekultek/zeus-scanner.git"
 # current version <major.minor.commit.patch ID>
-VERSION = "1.0.27"
+VERSION = "1.0.27.de68"
 # colors to output depending on the version
 VERSION_TYPE_COLORS = {"dev": 33, "stable": 92, "other": 30}
 # version string formatting
@@ -395,8 +395,9 @@ def write_to_log_file(data_to_write, path, filename):
             for item in data_to_write:
                 item = item.strip()
                 log.write(str(item) + "\n")
-            logger.info(set_color(
-                "successfully wrote found items to '{}'...".format(full_file_path)
-            ))
         else:
             log.write(data_to_write + "\n")
+    logger.info(set_color(
+        "successfully wrote found items to '{}'...".format(full_file_path)
+    ))
+    return full_file_path
