@@ -46,7 +46,7 @@ from lib.settings import (
     NMAP_MAN_PAGE_URL,
     SQLMAP_MAN_PAGE_URL,
     get_true_url,
-    fix_log_file
+    fix_log_file,
 )
 
 if __name__ == "__main__":
@@ -111,6 +111,13 @@ if __name__ == "__main__":
     engines.add_option("-A", "--search-engine-aol", dest="useAOL", action="store_true",
                        help="Use AOL as the search engine")
 
+    search_items = optparse.OptionGroup(parser, "Search options",
+                                        "Arguments that will control the search criteria")
+    search_items.add_option("-L", "--links", dest="amountToSearch", type=int, metavar="HOW-MANY-LINKS",
+                            help="Specify how many links to try and search on Google")
+    search_items.add_option("-M", "--multi", dest="searchMultiplePages", action="store_true",
+                            help="Search multiple pages of Google")
+
     # obfuscation options
     anon = optparse.OptionGroup(parser, "Anonymity arguments",
                                 "Arguments that help with anonymity and hiding identity")
@@ -141,6 +148,7 @@ if __name__ == "__main__":
 
     parser.add_option_group(mandatory)
     parser.add_option_group(attacks)
+    parser.add_option_group(search_items)
     parser.add_option_group(anon)
     parser.add_option_group(engines)
     parser.add_option_group(misc)
@@ -391,7 +399,7 @@ if __name__ == "__main__":
 
     try:
         # use a personal dork as the query
-        if opt.dorkToUse is not None:
+        if opt.dorkToUse is not None and not opt.searchMultiplePages:
             logger.info(set_color(
                 "starting dork scan with query '{}'...".format(opt.dorkToUse)
             ))
@@ -411,6 +419,50 @@ if __name__ == "__main__":
                     fix_log_file()
                     request_issue_creation()
                 pass
+
+            urls_to_use = get_latest_log_file(URL_LOG_PATH)
+            if opt.runSqliScan or opt.runPortScan or opt.intelCheck or opt.adminPanelFinder or opt.runXssScan:
+                with open(urls_to_use) as urls:
+                    for url in urls.readlines():
+                        __run_attacks(
+                            url.strip(),
+                            sqlmap=opt.runSqliScan, nmap=opt.runPortScan, intel=opt.intelCheck, xss=opt.runXssScan,
+                            admin=opt.adminPanelFinder, given_path=opt.givenSearchPath,
+                            auto=opt.autoStartSqlmap, verbose=opt.runInVerbose, batch=opt.runInBatch
+                        )
+
+        # search multiple pages of Google
+        elif opt.dorkToUse is not None and opt.searchMultiplePages:
+            if opt.amountToSearch is None:
+                logger.fatal(set_color(
+                    "did not specify amount of links to find...", level=50
+                ))
+                shutdown()
+            link_amount_to_search = opt.amountToSearch
+            logger.info(set_color(
+                "searching Google using dork '{}' for a total of {} links...".format(opt.dorkToUse, opt.amountToSearch)
+            ))
+            if proxy_to_use:
+                logger.warning(set_color(
+                    "proxy not implemented for multiple page searching...", level=30
+                ))
+            try:
+                search.search_multiple_pages(opt.dorkToUse, link_amount_to_search, verbose=opt.runInVerbose)
+            except Exception as e:
+                if "Error 400" in str(e):
+                    logger.fatal(set_color(
+                        "failed to connect to search engine...".format(e), level=50
+                    ))
+                elif "Error 503" in str(e):
+                    logger.fatal(set_color(
+                        "Google has blocked your IP address from doing anymore searches via API, "
+                        "you can still search using headless browsers (-d <DORK>)...", level=50
+                    ))
+                else:
+                    logger.exception(set_color(
+                        "failed with unexpected error '{}'...".format(e), level=50
+                    ))
+                shutdown()
 
             urls_to_use = get_latest_log_file(URL_LOG_PATH)
             if opt.runSqliScan or opt.runPortScan or opt.intelCheck or opt.adminPanelFinder or opt.runXssScan:

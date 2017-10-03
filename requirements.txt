@@ -4,3 +4,4 @@ python-nmap==0.6.1
 whichcraft==0.4.1
 pyvirtualdisplay==0.2.1
 lxml==3.7.3
+google-api-python-client==1.6.4

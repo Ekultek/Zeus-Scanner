@@ -2,11 +2,23 @@ import os
 import re
 import time
 try:
-    from urllib import unquote
+    import urllib2
 except ImportError:
-    from urllib.parse import unquote
+    import urllib as urllib2
+
+try:
+    from urllib import (
+        unquote,
+        quote
+    )
+except ImportError:
+    from urllib.parse import (
+        unquote,
+        quote
+    )
 
 import requests
+import google as google_api
 from selenium import webdriver
 from pyvirtualdisplay import Display
 from selenium.webdriver.common.keys import Keys
@@ -20,7 +32,8 @@ from lib.settings import (
     URL_QUERY_REGEX,
     URL_REGEX,
     shutdown,
-    create_dir,
+    URL_LOG_PATH,
+    write_to_log_file,
 )
 
 try:
@@ -160,21 +173,17 @@ def get_urls(query, url, verbose=False, warning=True, user_agent=None, proxy=Non
 
 
 def parse_search_results(
-        query, url, verbose=False, dirname="{}/log/url-log", filename="url-log-{}.log", **kwargs):
+        query, url_to_search, verbose=False, **kwargs):
     """
       Parse a webpage from Google for URL's with a GET(query) parameter
     """
     exclude = "google" or "webcache" or "youtube"
     splitter = "&amp;"
-
-    create_dir(dirname.format(os.getcwd()))
-    full_file_path = "{}/{}".format(
-        dirname.format(os.getcwd()), filename.format(len(os.listdir(dirname.format(
-            os.getcwd()
-        ))) + 1)
-    )
+    retval = set()
+    query_url = None
 
     def __get_headers():
+        proxy_string, user_agent = None, None
         try:
             proxy_string = kwargs.get("proxy")
         except:
@@ -223,7 +232,7 @@ def parse_search_results(
         "attempting to gather query URL..."
     ))
     try:
-        query_url = get_urls(query, url, verbose=verbose, user_agent=user_agent, proxy=proxy_string)
+        query_url = get_urls(query, url_to_search, verbose=verbose, user_agent=user_agent, proxy=proxy_string)
     except Exception as e:
         if "WebDriverException" in str(e):
             logger.exception(set_color(
@@ -241,12 +250,12 @@ def parse_search_results(
     logger.info(set_color(
         "URL successfully gathered, searching for GET parameters..."
     ))
+
     logger.info(set_color(proxy_string_info))
     req = requests.get(query_url, proxies=proxy_string)
     logger.info(set_color(user_agent_info))
     req.headers.update(headers)
     found_urls = URL_REGEX.findall(req.text)
-    retval = set()
     for urls in list(found_urls):
         for url in list(urls):
             url = unquote(url)
@@ -267,16 +276,45 @@ def parse_search_results(
         "found a total of {} URL's with a GET parameter...".format(len(retval))
     ))
     if len(retval) != 0:
+        file_path = write_to_log_file(retval, URL_LOG_PATH, "url-log-{}.log")
         logger.info(set_color(
-            "saving found URL's under '{}'...".format(full_file_path)
+            "found URL's have been saved to '{}'...".format(file_path)
         ))
-        with open(full_file_path, "a+") as log:
-            for url in list(retval):
-                log.write(url + "\n")
     else:
         logger.critical(set_color(
             "did not find any usable URL's with the given query '{}' "
-            "using search engine '{}'...".format(query, url), level=50
+            "using search engine '{}'...".format(query, url_to_search), level=50
         ))
         shutdown()
     return list(retval) if len(retval) != 0 else None
+
+
+def search_multiple_pages(query, link_amount, verbose=False):
+    logger.warning(set_color(
+        "multiple pages will be searched using Google's API client, searches may be blocked after a certain "
+        "amount of time...", level=30
+    ))
+    results, limit, found, index = set(), link_amount, 0, google_api.search(query)
+    while limit > 0:
+        results.add(next(index))
+        limit -= 1
+        found += 1
+
+    retval = set()
+    for url in results:
+        if URL_REGEX.match(url) and URL_QUERY_REGEX.match(url):
+            if verbose:
+                logger.debug(set_color(
+                    "found '{}'...".format(url), level=10
+                ))
+            retval.add(url)
+
+    logger.info(set_color(
+        "a total of {} links found out of requested {}...".format(
+            len(retval), link_amount
+        )
+    ))
+
+    write_to_log_file(list(retval), URL_LOG_PATH, "url-log-{}.log")
+
+
