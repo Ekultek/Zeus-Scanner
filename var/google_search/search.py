@@ -2,22 +2,16 @@ import os
 import re
 import time
 try:
-    import urllib2
-except ImportError:
-    import urllib as urllib2
-
-try:
     from urllib import (
         unquote,
-        quote
     )
 except ImportError:
     from urllib.parse import (
         unquote,
-        quote
     )
 
 import requests
+import httplib2
 import google as google_api
 from selenium import webdriver
 from pyvirtualdisplay import Display
@@ -34,6 +28,7 @@ from lib.settings import (
     shutdown,
     URL_LOG_PATH,
     write_to_log_file,
+    get_proxy_type
 )
 
 try:
@@ -276,10 +271,7 @@ def parse_search_results(
         "found a total of {} URL's with a GET parameter...".format(len(retval))
     ))
     if len(retval) != 0:
-        file_path = write_to_log_file(retval, URL_LOG_PATH, "url-log-{}.log")
-        logger.info(set_color(
-            "found URL's have been saved to '{}'...".format(file_path)
-        ))
+        write_to_log_file(retval, URL_LOG_PATH, "url-log-{}.log")
     else:
         logger.critical(set_color(
             "did not find any usable URL's with the given query '{}' "
@@ -289,16 +281,53 @@ def parse_search_results(
     return list(retval) if len(retval) != 0 else None
 
 
-def search_multiple_pages(query, link_amount, verbose=False):
+def search_multiple_pages(query, link_amount, proxy=None, agent=None, verbose=False):
+
+    def __config_proxy(proxy_string):
+        proxy_type_schema = {
+            "http": httplib2.socks.PROXY_TYPE_HTTP,
+            "socks4": httplib2.socks.PROXY_TYPE_SOCKS4,
+            "socks5": httplib2.socks.PROXY_TYPE_SOCKS5
+        }
+        proxy_type = get_proxy_type(proxy_string)[0]
+        proxy_dict = proxy_string_to_dict(proxy_string)
+        proxy_config = httplib2.ProxyInfo(
+            proxy_type=proxy_type_schema[proxy_type],
+            proxy_host="".join(proxy_dict.keys()),
+            proxy_port="".join(proxy_dict.values())
+        )
+        return proxy_config
+
+    if proxy is not None:
+        if verbose:
+            logger.debug(set_color(
+                "configuring to use proxy '{}'...".format(proxy), level=10
+            ))
+        __config_proxy(proxy)
+
+    if agent is not None:
+        if verbose:
+            logger.debug(set_color(
+                "settings user-agent to '{}'...".format(agent), level=10
+            ))
+
     logger.warning(set_color(
         "multiple pages will be searched using Google's API client, searches may be blocked after a certain "
         "amount of time...", level=30
     ))
-    results, limit, found, index = set(), link_amount, 0, google_api.search(query)
-    while limit > 0:
-        results.add(next(index))
-        limit -= 1
-        found += 1
+    results, limit, found, index = set(), link_amount, 0, google_api.search(query, user_agent=agent, safe="on")
+    try:
+        while limit > 0:
+            results.add(next(index))
+            limit -= 1
+            found += 1
+    except Exception as e:
+        if "Error 503" in str(e):
+            logger.fatal(set_color(
+                "Google is blocking the current IP address, dumping already found URL's...", level=50
+            ))
+            results = results
+            pass
 
     retval = set()
     for url in results:
@@ -309,12 +338,14 @@ def search_multiple_pages(query, link_amount, verbose=False):
                 ))
             retval.add(url)
 
-    logger.info(set_color(
-        "a total of {} links found out of requested {}...".format(
-            len(retval), link_amount
-        )
-    ))
-
-    write_to_log_file(list(retval), URL_LOG_PATH, "url-log-{}.log")
-
-
+    if len(retval) != 0:
+        logger.info(set_color(
+            "a total of {} links found out of requested {}...".format(
+                len(retval), link_amount
+            )
+        ))
+        write_to_log_file(list(retval), URL_LOG_PATH, "url-log-{}.log")
+    else:
+        logger.error(set_color(
+            "unable to extract URL's from results...", level=40
+        ))
