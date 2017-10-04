@@ -83,6 +83,13 @@ def untar_gecko(filename="{}/bin/geckodriver-v0.18.0-linux{}.tar.gz", verbose=Fa
                 "driver extracted into /usr/bin (you may change this, but ensure that it "
                 "is in your PATH)...", level=10
             ))
+    except IOError as e:
+        if "Text file busy" in str(e):
+            lib.settings.logger.info(lib.settings.set_color(
+                "the driver is already installed..."
+            ))
+            tar.close()
+            pass
     except Exception as e:
         if "[Errno 13] Permission denied: '/usr/bin/geckodriver'" in str(e):
             lib.settings.logger.exception(lib.settings.set_color(
