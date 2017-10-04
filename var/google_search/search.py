@@ -67,6 +67,13 @@ def bypass_ip_block(url, content_sep=("continue=", "Fid", "%")):
     return __add_https(url[0:content_list_end[-1][-1] - 1])
 
 
+def extract_webcache_url(webcache_url, splitter=("%2Bext", ":")):
+    webcache_regex = re.compile(r"(?<=q=).*?(?=[&\"])")
+    data = "".join(webcache_regex.findall(webcache_url))
+    to_extract = data.split(splitter[0])[0]
+    return "http:" + to_extract.split(splitter[1])[3]
+
+
 def get_urls(query, url, verbose=False, warning=True, user_agent=None, proxy=None, **kwargs):
     """
       Bypass Google captchas and Google API by using selenium-webdriver to gather
@@ -172,7 +179,10 @@ def parse_search_results(
     """
       Parse a webpage from Google for URL's with a GET(query) parameter
     """
-    exclude = "google" or "webcache" or "youtube"
+    exclude = (
+        "www.google.com", "map.google.com", "mail.google.com", "drive.google.com",
+        "news.google.com", "accounts.google.com"
+    )
     splitter = "&amp;"
     retval = set()
     query_url = None
@@ -254,9 +264,14 @@ def parse_search_results(
     for urls in list(found_urls):
         for url in list(urls):
             url = unquote(url)
-            if URL_QUERY_REGEX.match(url) and exclude not in url:
+            if URL_QUERY_REGEX.match(url) and not any(l in url for l in exclude):
                 if isinstance(url, unicode):
                     url = str(url).encode("utf-8")
+                if "webcache" in url:
+                    logger.info(set_color(
+                        "received webcache URL, extracting URL from webcache..."
+                    ))
+                    url = extract_webcache_url(url)
                 if verbose:
                     try:
                         logger.debug(set_color(
@@ -265,6 +280,10 @@ def parse_search_results(
                     except TypeError:
                         logger.debug(set_color(
                             "found '{}'...".format(str(url).split(splitter)[0]), level=10
+                        ))
+                    except AttributeError:
+                        logger.debug(set_color(
+                            "found '{}...".format(str(url)), level=10
                         ))
                 retval.add(url.split("&amp;")[0])
     logger.info(set_color(
