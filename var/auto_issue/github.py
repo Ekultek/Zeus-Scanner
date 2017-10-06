@@ -14,7 +14,10 @@ from lib.settings import (
     set_color,
     get_latest_log_file,
     CURRENT_LOG_FILE_PATH,
-    VERSION
+    VERSION,
+    shutdown,
+    prompt,
+    fix_log_file
 )
 
 
@@ -35,6 +38,16 @@ def decode(n, token):
 
 
 def request_issue_creation():
+    question = prompt(
+        "would you like to create an anonymous issue and post it to Zeus's Github", opts="yN"
+    )
+    if question.lower().startswith("n"):
+        logger.error(set_color(
+            "Zeus has experienced an internal error and cannot continue, shutting down...", level=40
+        ))
+        shutdown()
+
+    fix_log_file()
     logger.info(set_color(
         "Zeus got an unexpected error and will automatically create an issue for this error, please wait..."
     ))

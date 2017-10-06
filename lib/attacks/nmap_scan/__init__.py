@@ -9,7 +9,6 @@ from lib.settings import (
     set_color,
     create_dir,
     find_application,
-    fix_log_file
 )
 
 
@@ -135,7 +134,6 @@ def perform_port_scan(url, ports=None, scanner=NmapHook, verbose=False, opts=Non
             logger.exception(set_color(
                 "ran into exception '{}', cannot continue quitting...".format(e), level=50
             ))
-            fix_log_file()
             request_issue_creation()
             pass
     else:

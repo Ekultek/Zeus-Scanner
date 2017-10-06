@@ -40,7 +40,7 @@ class SqlmapHook(object):
         new_scan_url = "{}{}".format(self.connection, self.commands["init"])
         return requests.get(new_scan_url, params=self.headers)
 
-    def get_scan_id(self):
+    def get_scan_id(self, split_by=16):
         """
         get the ID of the current API scan
         """
@@ -48,7 +48,8 @@ class SqlmapHook(object):
         api_id_url = "{}{}".format(self.connection, self.commands["id"])
         req = requests.get(api_id_url)
         to_check = str(json.loads(req.content)["tasks"]).lower()
-        return ''.join(id_re.findall(to_check))
+        current_scan_id = ''.join(id_re.findall(to_check))
+        return current_scan_id
 
     def start_scan(self, api_id, opts=None):
         """
@@ -189,6 +190,5 @@ def sqlmap_scan_main(url, port=None, verbose=None, auto_search=False, opts=None,
                     "ran into error '{}', seems something went wrong, error has "
                     "been saved to current log file.".format(e), level=50
                 ))
-                lib.settings.fix_log_file()
                 request_issue_creation()
                 pass

@@ -413,12 +413,7 @@ if __name__ == "__main__":
                 logger.exception(set_color(
                     "ran into exception '{}'...".format(e), level=50
                 ))
-                issue = prompt(
-                    "would you like to create an anonymous issue on Zeus's Github page", opts="yN"
-                )
-                if issue.lower().startswith("y"):
-                    fix_log_file()
-                    request_issue_creation()
+                request_issue_creation()
                 pass
 
             urls_to_use = get_latest_log_file(URL_LOG_PATH)
@@ -490,12 +485,7 @@ if __name__ == "__main__":
                         logger.exception(set_color(
                             "ran into exception '{}'...".format(e), level=50
                         ))
-                        issue = prompt(
-                            "would you like to create an anonymous issue on Zeus's Github page", opts="yN"
-                        )
-                        if issue.lower().startswith("y"):
-                            fix_log_file()
-                            request_issue_creation()
+                        request_issue_creation()
                         pass
 
             urls_to_use = get_latest_log_file(URL_LOG_PATH)
@@ -540,12 +530,8 @@ if __name__ == "__main__":
                     "ran into exception '{}' and cannot continue, saved to current log file...".format(e),
                     level=50
                 ))
-                issue = prompt(
-                    "would you like to create an anonymous issue on Zeus's Github page", opts="yN"
-                )
-                if issue.lower().startswith("y"):
-                    fix_log_file()
-                    request_issue_creation()
+                request_issue_creation()
+                pass
 
         elif opt.spiderWebSite:
             problem_identifiers = ["http://", "https://"]
@@ -633,12 +619,7 @@ if __name__ == "__main__":
             logger.exception(set_color(
                 "ran into exception '{}' exception has been saved to log file...".format(e), level=50
             ))
-            issue = prompt(
-                "would you like to create an anonymous issue on Zeus's Github page", opts="yN"
-            )
-            if issue.lower().startswith("y"):
-                fix_log_file()
-                request_issue_creation()
+            request_issue_creation()
 
     fix_log_file()
 shutdown()
