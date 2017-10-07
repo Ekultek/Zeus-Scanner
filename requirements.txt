@@ -1,8 +1,0 @@
-selenium==3.5.0
-requests==2.12.2
-python-nmap==0.6.1
-whichcraft==0.4.1
-pyvirtualdisplay==0.2.1
-lxml==3.7.3
-google-api-python-client==1.6.4
-httplib2==0.10.3

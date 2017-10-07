@@ -1,5 +1,0 @@
-log/
-geckodriver.log
-*.pyc
-.idea/
-bin/executed.txt
