@@ -18,6 +18,7 @@ from pyvirtualdisplay import Display
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.proxy import *
 
+from var.auto_issue.github import request_issue_creation
 from lib.settings import (
     logger,
     set_color,
@@ -251,6 +252,7 @@ def parse_search_results(
                 "exception has been logged to current log file...".format(
                     os.path.basename(__file__), str(e).strip()), level=50)
             )
+            request_issue_creation()
         shutdown()
     logger.info(set_color(
         "URL successfully gathered, searching for GET parameters..."
