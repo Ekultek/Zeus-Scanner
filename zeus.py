@@ -372,6 +372,27 @@ if __name__ == "__main__":
         """
         run the attacks if any are requested
         """
+        __enabled_attacks = {
+            "sqlmap": opt.runSqliScan,
+            "port": opt.runPortScan,
+            "xss": opt.runXssScan,
+            "admin": opt.adminPanelFinder,
+            "intel": opt.intelCheck
+        }
+
+        enabled = set()
+        for key in __enabled_attacks.keys():
+            if __enabled_attacks[key] is True:
+                enabled.add(key)
+            if len(enabled) > 1:
+                logger.error(set_color(
+                    "it appears that you have enabled multiple attack types, "
+                    "as of now only 1 attack is supported at a time, choose "
+                    "your attack and try again. You can use the -f flag if "
+                    "you do not want to complete an entire search again...", level=40
+                ))
+                shutdown()
+
         if not batch:
             question = prompt(
                 "would you like to process found URL: '{}'".format(url), opts=["y", "N"]
@@ -401,6 +422,23 @@ if __name__ == "__main__":
             ))
 
 
+    def __run_attacks_main():
+        urls_to_use = get_latest_log_file(URL_LOG_PATH)
+        if urls_to_use is None:
+            logger.error(set_color(
+                "unable to run attacks appears that no file was created for the retrieved data...", level=40
+            ))
+        if opt.runSqliScan or opt.runPortScan or opt.intelCheck or opt.adminPanelFinder or opt.runXssScan:
+            with open(urls_to_use) as urls:
+                for url in urls.readlines():
+                    __run_attacks(
+                        url.strip(),
+                        sqlmap=opt.runSqliScan, nmap=opt.runPortScan, intel=opt.intelCheck, xss=opt.runXssScan,
+                        admin=opt.adminPanelFinder, given_path=opt.givenSearchPath,
+                        auto=opt.autoStartSqlmap, verbose=opt.runInVerbose, batch=opt.runInBatch
+                    )
+
+
     proxy_to_use, agent_to_use = __config_headers()
     search_engine = __config_search_engine(verbose=opt.runInVerbose)
 
@@ -422,16 +460,7 @@ if __name__ == "__main__":
                 request_issue_creation()
                 pass
 
-            urls_to_use = get_latest_log_file(URL_LOG_PATH)
-            if opt.runSqliScan or opt.runPortScan or opt.intelCheck or opt.adminPanelFinder or opt.runXssScan:
-                with open(urls_to_use) as urls:
-                    for url in urls.readlines():
-                        __run_attacks(
-                            url.strip(),
-                            sqlmap=opt.runSqliScan, nmap=opt.runPortScan, intel=opt.intelCheck, xss=opt.runXssScan,
-                            admin=opt.adminPanelFinder, given_path=opt.givenSearchPath,
-                            auto=opt.autoStartSqlmap, verbose=opt.runInVerbose, batch=opt.runInBatch
-                        )
+            __run_attacks_main()
 
         # search multiple pages of Google
         elif opt.dorkToUse is not None and opt.searchMultiplePages:
@@ -463,16 +492,7 @@ if __name__ == "__main__":
                     ))
                 shutdown()
 
-            urls_to_use = get_latest_log_file(URL_LOG_PATH)
-            if opt.runSqliScan or opt.runPortScan or opt.intelCheck or opt.adminPanelFinder or opt.runXssScan:
-                with open(urls_to_use) as urls:
-                    for url in urls.readlines():
-                        __run_attacks(
-                            url.strip(),
-                            sqlmap=opt.runSqliScan, nmap=opt.runPortScan, intel=opt.intelCheck, xss=opt.runXssScan,
-                            admin=opt.adminPanelFinder, given_path=opt.givenSearchPath,
-                            auto=opt.autoStartSqlmap, verbose=opt.runInVerbose, batch=opt.runInBatch
-                        )
+            __run_attacks_main()
 
         # use a file full of dorks as the queries
         elif opt.dorkFileToUse is not None:
@@ -494,16 +514,7 @@ if __name__ == "__main__":
                         request_issue_creation()
                         pass
 
-            urls_to_use = get_latest_log_file(URL_LOG_PATH)
-            if opt.runSqliScan or opt.runPortScan or opt.intelCheck or opt.adminPanelFinder or opt.runXssScan:
-                with open(urls_to_use) as urls:
-                    for url in urls.readlines():
-                        __run_attacks(
-                            url.strip(),
-                            sqlmap=opt.runSqliScan, nmap=opt.runPortScan, intel=opt.intelCheck, xss=opt.runXssScan,
-                            admin=opt.adminPanelFinder, given_path=opt.givenSearchPath,
-                            auto=opt.autoStartSqlmap, verbose=opt.runInVerbose, batch=opt.runInBatch
-                        )
+            __run_attacks_main()
 
         # use a random dork as the query
         elif opt.useRandomDork:
@@ -520,16 +531,7 @@ if __name__ == "__main__":
                     random_dork, search_engine, verbose=opt.runInVerbose,
                     proxy=proxy_to_use, agent=agent_to_use
                 )
-                urls_to_use = get_latest_log_file(URL_LOG_PATH)
-                if opt.runSqliScan or opt.runPortScan or opt.intelCheck or opt.adminPanelFinder or opt.runXssScan:
-                    with open(urls_to_use) as urls:
-                        for url in urls.readlines():
-                            __run_attacks(
-                                url.strip(),
-                                sqlmap=opt.runSqliScan, nmap=opt.runPortScan, intel=opt.intelCheck, xss=opt.runXssScan,
-                                admin=opt.adminPanelFinder, given_path=opt.givenSearchPath,
-                                auto=opt.autoStartSqlmap, verbose=opt.runInVerbose, batch=opt.runInBatch
-                            )
+                __run_attacks_main()
 
             except Exception as e:
                 logger.exception(set_color(
@@ -565,16 +567,7 @@ if __name__ == "__main__":
             blackwidow.blackwidow_main(opt.spiderWebSite, agent=agent_to_use, proxy=proxy_to_use,
                                        verbose=opt.runInVerbose)
 
-            urls_to_use = get_latest_log_file(SPIDER_LOG_PATH)
-            if opt.runSqliScan or opt.runPortScan or opt.intelCheck or opt.adminPanelFinder or opt.runXssScan:
-                with open(urls_to_use) as urls:
-                    for url in urls.readlines():
-                        __run_attacks(
-                            url.strip(),
-                            sqlmap=opt.runSqliScan, nmap=opt.runPortScan, intel=opt.intelCheck, xss=opt.runXssScan,
-                            admin=opt.adminPanelFinder, given_path=opt.givenSearchPath,
-                            auto=opt.autoStartSqlmap, verbose=opt.runInVerbose, batch=opt.runInBatch
-                        )
+            __run_attacks_main()
 
         elif opt.fileToEnumerate is not None:
             with open(opt.fileToEnumerate) as urls:
