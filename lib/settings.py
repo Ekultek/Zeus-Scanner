@@ -22,7 +22,7 @@ except NameError:
 # clone link
 CLONE = "https://github.com/ekultek/zeus-scanner.git"
 # current version <major.minor.commit.patch ID>
-VERSION = "1.0.29.1f59"
+VERSION = "1.0.30.133a"
 # colors to output depending on the version
 VERSION_TYPE_COLORS = {"dev": 33, "stable": 92, "other": 30}
 # version string formatting
@@ -63,6 +63,8 @@ CURRENT_LOG_FILE_PATH = "{}/log".format(os.getcwd())
 NMAP_MAN_PAGE_URL = "https://nmap.org/book/man-briefoptions.html"
 # sqlmap's manual page for their options
 SQLMAP_MAN_PAGE_URL = "https://github.com/sqlmapproject/sqlmap/wiki/Usage"
+# holder for sqlmap API ID hashes, makes it so that they are all unique
+ALREADY_USED = set()
 # search engines that the application can use
 AUTHORIZED_SEARCH_ENGINES = {
     "aol": "http://aol.com",

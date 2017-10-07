@@ -112,6 +112,7 @@ if __name__ == "__main__":
     engines.add_option("-A", "--search-engine-aol", dest="useAOL", action="store_true",
                        help="Use AOL as the search engine")
 
+    # arguments to edit your search patterns
     search_items = optparse.OptionGroup(parser, "Search options",
                                         "Arguments that will control the search criteria")
     search_items.add_option("-L", "--links", dest="amountToSearch", type=int, metavar="HOW-MANY-LINKS",
@@ -167,6 +168,11 @@ if __name__ == "__main__":
         print(BANNER)
 
     start_up()
+
+    if opt.runSqliScan:
+        prompt(
+            "make sure you have started the sqlmap API, press enter when ready to continue..."
+        )
 
     if opt.showSqlmapArguments:
         logger.info(set_color(

@@ -44,11 +44,21 @@ class SqlmapHook(object):
         """
         get the ID of the current API scan
         """
+        current_scan_id = None
         id_re = re.compile(r"[a-fA-F0-9]{16}")
         api_id_url = "{}{}".format(self.connection, self.commands["id"])
         req = requests.get(api_id_url)
         to_check = str(json.loads(req.content)["tasks"]).lower()
-        current_scan_id = ''.join(id_re.findall(to_check))
+        found = ''.join(id_re.findall(to_check))
+        if len(found) > 16:
+            data_found = [found[i:i+split_by] for i in range(0, len(found), split_by)]
+            for item in data_found:
+                if item not in lib.settings.ALREADY_USED:
+                    lib.settings.ALREADY_USED.add(item)
+                    current_scan_id = item
+        else:
+            lib.settings.ALREADY_USED.add(found)
+            current_scan_id = found
         return current_scan_id
 
     def start_scan(self, api_id, opts=None):
@@ -123,9 +133,6 @@ def sqlmap_scan_main(url, port=None, verbose=None, auto_search=False, opts=None,
         if path:
             subprocess.check_output(["python", path, "-s"])
     else:
-        lib.settings.prompt(
-            "start the sqlmap API server and press enter when ready..."
-        )
         try:
             sqlmap_scan = SqlmapHook(url, port=port)
             lib.settings.logger.info(lib.settings.set_color(
@@ -163,8 +170,7 @@ def sqlmap_scan_main(url, port=None, verbose=None, auto_search=False, opts=None,
             lib.settings.logger.warning(lib.settings.set_color(
                 "please keep in mind that this is the API, output will "
                 "not be saved to log file, it may take a little longer "
-                "to finish processing, and you will need to restart the sqlmap "
-                "API server after each iteration, launching sqlmap...", level=30
+                "to finish processing, launching sqlmap...", level=30
             ))
             sqlmap_scan.start_scan(api_id, opts=opts)
             print("-" * 30)
