@@ -22,7 +22,7 @@ except NameError:
 # clone link
 CLONE = "https://github.com/ekultek/zeus-scanner.git"
 # current version <major.minor.commit.patch ID>
-VERSION = "1.0.30.133a"
+VERSION = "1.0.31"
 # colors to output depending on the version
 VERSION_TYPE_COLORS = {"dev": 33, "stable": 92, "other": 30}
 # version string formatting
@@ -239,8 +239,11 @@ def get_latest_log_file(log_path):
     get the latest log file being used from the given path
     """
     file_list = glob.glob(log_path + "/*")
-    latest = max(file_list, key=os.path.getctime)
-    return latest
+    try:
+        latest = max(file_list, key=os.path.getctime)
+        return latest
+    except ValueError:
+        return None
 
 
 def replace_http(url):

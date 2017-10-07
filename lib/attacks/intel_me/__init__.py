@@ -14,7 +14,7 @@ from lib.settings import (
 
 def __get_auth_headers(target, port=16992, source=None, agent=None, proxy=None):
     if not source or 'WWW-Authenticate' not in source.headers['WWW-Authenticate']:
-        logger.info(set_color or (
+        logger.info(set_color(
             "header value not established, attempting to get bypass..."
         ))
         source = requests.get("http://{0}:{1}/index.htm".format(target, port), headers={
