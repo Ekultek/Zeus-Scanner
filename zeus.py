@@ -36,7 +36,6 @@ from lib.settings import (
     CURRENT_LOG_FILE_PATH,
     AUTHORIZED_SEARCH_ENGINES,
     URL_LOG_PATH,
-    SPIDER_LOG_PATH,
     replace_http,
     prompt,
     get_random_dork,
