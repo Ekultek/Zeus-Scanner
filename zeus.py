@@ -46,7 +46,8 @@ from lib.settings import (
     SQLMAP_MAN_PAGE_URL,
     get_true_url,
     fix_log_file,
-    DEFAULT_USER_AGENT
+    DEFAULT_USER_AGENT,
+    SPIDER_LOG_PATH
 )
 
 if __name__ == "__main__":
@@ -422,8 +423,17 @@ if __name__ == "__main__":
 
 
     def __run_attacks_main():
+        which_log_to_use = {
+            "dork": URL_LOG_PATH,
+            "spider": SPIDER_LOG_PATH
+        }
+
+        options = (opt.useRandomDork, opt.dorkToUse, opt.dorkFileToUse)
+
+        to_use = which_log_to_use["dork"] if any(options) is True else which_log_to_use["spider"]
+
         try:
-            urls_to_use = get_latest_log_file(URL_LOG_PATH)
+            urls_to_use = get_latest_log_file(to_use)
         except TypeError:
             urls_to_use = None
 
