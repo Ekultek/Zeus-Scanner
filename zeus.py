@@ -422,11 +422,16 @@ if __name__ == "__main__":
 
 
     def __run_attacks_main():
-        urls_to_use = get_latest_log_file(URL_LOG_PATH)
+        try:
+            urls_to_use = get_latest_log_file(URL_LOG_PATH)
+        except TypeError:
+            urls_to_use = None
+
         if urls_to_use is None:
             logger.error(set_color(
                 "unable to run attacks appears that no file was created for the retrieved data...", level=40
             ))
+            shutdown()
         if opt.runSqliScan or opt.runPortScan or opt.intelCheck or opt.adminPanelFinder or opt.runXssScan:
             with open(urls_to_use) as urls:
                 for url in urls.readlines():
