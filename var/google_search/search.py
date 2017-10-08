@@ -246,6 +246,12 @@ def parse_search_results(
                 "to complete it's run so that Zeus can bypass captchas and API "
                 "calls", level=50
             ))
+        elif "'/usr/lib/firefoxdriver/webdriver.xpi'" in str(e):
+            logger.fatal(set_color(
+                "firefox was not found in the default location on your system, "
+                "check your installation and make sure it is in /usr/lib, if you "
+                "find it there, restart your system and try again...", level=50
+            ))
         else:
             logger.exception(set_color(
                 "{} failed to gather the URL from search engine, caught exception '{}' "
