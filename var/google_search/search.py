@@ -65,14 +65,17 @@ def bypass_ip_block(url, content_sep=("continue=", "Fid", "%")):
 
     for match in re.finditer(content_sep[2], url[0:splice_to_use]):
         content_list_end.append((match.start(), match.end()))
-    return __add_https(url[0:content_list_end[-1][-1] - 1])
+    try:
+        return __add_https(url[0:content_list_end[-1][-1] - 1])
+    except:
+        return url
 
 
 def extract_webcache_url(webcache_url, splitter="+"):
     webcache_url = unquote(webcache_url)
-    webcache_regex = re.compile(r":\w+:")
+    webcache_regex = re.compile(r"cache:(.{,16})?:")
     data = webcache_regex.split(webcache_url)
-    to_extract = data[1].split(splitter)
+    to_extract = data[2].split(splitter)
     extracted_to_test = to_extract[0]
     if URL_REGEX.match(extracted_to_test):
         return extracted_to_test
@@ -156,17 +159,16 @@ def get_urls(query, url, verbose=False, warning=True, user_agent=None, proxy=Non
         ))
         try:
             retval = bypass_ip_block(retval)
-        except IndexError:
+        except Exception as e:
             browser.close()  # stop all the random rogue processes
             ff_display.stop()
-            logger.warning(set_color(
-                "for now the IP ban bypass will only work for queries that have Google's search syntax "
-                "in them. (IE inurl:, incontext:, incontent:)", level=30
+            logger.exception(set_color(
+                "zeus was unable to extract the correct URL from the ban URL '{}'...".format(
+                    unquote(retval)
+                ), level=50
             ))
-            raise NotImplementedError(
-                "bypass for query '{}' is not implemented yet, try again with a different dork, "
-                "or change your IP address...".format(query)
-            )
+            request_issue_creation()
+            shutdown()
     if verbose:
         logger.debug(set_color(
             "found current URL from selenium browser...", level=10
