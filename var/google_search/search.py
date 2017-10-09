@@ -72,7 +72,8 @@ def extract_webcache_url(webcache_url, splitter=("%2Bext", ":")):
     webcache_regex = re.compile(r"(?<=q=).*?(?=[&\"])")
     data = "".join(webcache_regex.findall(webcache_url))
     to_extract = data.split(splitter[0])[0]
-    return "http:" + to_extract.split(splitter[1])[3]
+    found = "http:" + to_extract.split(splitter[1])[3]
+    return unquote(found)
 
 
 def get_urls(query, url, verbose=False, warning=True, user_agent=None, proxy=None, **kwargs):
