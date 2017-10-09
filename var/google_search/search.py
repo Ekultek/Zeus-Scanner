@@ -68,12 +68,15 @@ def bypass_ip_block(url, content_sep=("continue=", "Fid", "%")):
     return __add_https(url[0:content_list_end[-1][-1] - 1])
 
 
-def extract_webcache_url(webcache_url, splitter=("%2Bext", ":")):
-    webcache_regex = re.compile(r"(?<=q=).*?(?=[&\"])")
-    data = "".join(webcache_regex.findall(webcache_url))
-    to_extract = data.split(splitter[0])[0]
-    found = "http:" + to_extract.split(splitter[1])[3]
-    return unquote(found)
+def extract_webcache_url(webcache_url, splitter="+"):
+    webcache_url = unquote(webcache_url)
+    webcache_regex = re.compile(r":\w+:")
+    data = webcache_regex.split(webcache_url)
+    to_extract = data[1].split(splitter)
+    extracted_to_test = to_extract[0]
+    if URL_REGEX.match(extracted_to_test):
+        return extracted_to_test
+    return None
 
 
 def get_urls(query, url, verbose=False, warning=True, user_agent=None, proxy=None, **kwargs):
@@ -270,31 +273,41 @@ def parse_search_results(
     logger.info(set_color(user_agent_info))
     req.headers.update(headers)
     found_urls = URL_REGEX.findall(req.text)
+    url_skip_schema = ("maps.google", "play.google", "youtube")
     for urls in list(found_urls):
         for url in list(urls):
             url = unquote(url)
-            if URL_QUERY_REGEX.match(url) and not any(l in url for l in exclude):
-                if isinstance(url, unicode):
-                    url = str(url).encode("utf-8")
-                if "webcache" in url:
-                    logger.info(set_color(
-                        "received webcache URL, extracting URL from webcache..."
-                    ))
-                    url = extract_webcache_url(url)
-                if verbose:
-                    try:
-                        logger.debug(set_color(
-                            "found '{}'...".format(url.split(splitter)[0]), level=10
+            if not any(u in url for u in url_skip_schema):
+                if URL_QUERY_REGEX.match(url) and not any(l in url for l in exclude):
+                    if isinstance(url, unicode):
+                        url = str(url).encode("utf-8")
+                    if "webcache" in url:
+                        logger.info(set_color(
+                            "received webcache URL, extracting URL from webcache..."
                         ))
-                    except TypeError:
-                        logger.debug(set_color(
-                            "found '{}'...".format(str(url).split(splitter)[0]), level=10
-                        ))
-                    except AttributeError:
-                        logger.debug(set_color(
-                            "found '{}...".format(str(url)), level=10
-                        ))
-                retval.add(url.split("&amp;")[0])
+                        webcache_url = url
+                        url = extract_webcache_url(webcache_url)
+                        if url is None:
+                            logger.warning(set_color(
+                                "unable to extract url from given webcache URL '{}'...".format(
+                                    webcache_url
+                                ), level=30
+                            ))
+                    if verbose:
+                        try:
+                            logger.debug(set_color(
+                                "found '{}'...".format(url.split(splitter)[0]), level=10
+                            ))
+                        except TypeError:
+                            logger.debug(set_color(
+                                "found '{}'...".format(str(url).split(splitter)[0]), level=10
+                            ))
+                        except AttributeError:
+                            logger.debug(set_color(
+                                "found '{}...".format(str(url)), level=10
+                            ))
+                    if url is not None:
+                        retval.add(url.split("&amp;")[0])
     logger.info(set_color(
         "found a total of {} URL's with a GET parameter...".format(len(retval))
     ))
