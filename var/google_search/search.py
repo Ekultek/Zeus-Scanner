@@ -29,7 +29,9 @@ from lib.settings import (
     shutdown,
     URL_LOG_PATH,
     write_to_log_file,
-    get_proxy_type
+    get_proxy_type,
+    prompt,
+    EXTRACTED_URL_LOG
 )
 
 try:
@@ -38,37 +40,22 @@ except NameError:
     unicode = str
 
 
-def bypass_ip_block(url, content_sep=("continue=", "Fid", "%")):
+def bypass_ip_block(url):
     """
     bypass Google's IP blocking by extracting the true URL from the ban URL.
     """
-
-    def __add_https(data):
-        if "https://" in data:
-            return data
-        else:
-            return "https://{}".format(url.split("://")[-1])
-
-    if isinstance(url, unicode):
-        url = str(url)
-    content_list_start = []
-    content_list_end = []
-    if content_sep[0] in url:
-        data_list = url.split(content_sep[0])
-        url_to_use = data_list[1]
-    else:
-        url_to_use = url
-
-    for match in re.finditer(content_sep[1], url_to_use):
-        content_list_start.append((match.start(), match.end()))
-    splice_to_use = content_list_start[-1][-1]
-
-    for match in re.finditer(content_sep[2], url[0:splice_to_use]):
-        content_list_end.append((match.start(), match.end()))
-    try:
-        return __add_https(url[0:content_list_end[-1][-1] - 1])
-    except:
-        return url
+    url = unquote(url)
+    constant_splitter = "continue="
+    content_separators = ("Fid", "&gs_")
+    to_use_separator = None
+    retval = None
+    url_data_list = url.split(constant_splitter)
+    for item in url_data_list:
+        for sep in content_separators:
+            if sep in item:
+                to_use_separator = sep
+        retval = item.split(to_use_separator)[0]
+    return unquote(retval)
 
 
 def extract_webcache_url(webcache_url, splitter="+"):
@@ -159,12 +146,26 @@ def get_urls(query, url, verbose=False, warning=True, user_agent=None, proxy=Non
         ))
         try:
             retval = bypass_ip_block(retval)
+            do_continue = prompt(
+                "zeus was able to successfully extract the URL from Google's ban URL "
+                "it is advised to shutdown zeus and attempt to extract the URL's manually. "
+                "failing to do so will most likely result in no results being found by zeus. "
+                "would you like to shutdown", opts="yN"
+            )
+            if not str(do_continue).lower().startswith("n"):  # shutdown and write the URL to a file
+                write_to_log_file(retval, EXTRACTED_URL_LOG, "extracted-url-{}.log")
+                logger.info(set_color(
+                    "it is advised to use the built in blackwidow crawler with the extracted URL "
+                    "(IE -b '{}')".format(retval)
+                ))
+                shutdown()
         except Exception as e:
             browser.close()  # stop all the random rogue processes
             ff_display.stop()
             logger.exception(set_color(
-                "zeus was unable to extract the correct URL from the ban URL '{}'...".format(
-                    unquote(retval)
+                "zeus was unable to extract the correct URL from the ban URL '{}', "
+                "got exception '{}'...".format(
+                    unquote(retval), e
                 ), level=50
             ))
             request_issue_creation()
