@@ -2,7 +2,7 @@
 [![GitHub forks](https://img.shields.io/github/forks/ekultek/zeus-scanner.svg?style=flat-square)](https://github.com/ekultek/zeus-scanner/network) 
 [![GitHub issues](https://img.shields.io/github/issues/ekultek/zeus-scanner.svg?style=flat-square)](https://github.com/ekultek/zeus-scanner/issues) 
 [![GitHub license](https://img.shields.io/badge/license-GPL-blue.svg?style=flat-square)](https://raw.githubusercontent.com/ekultek/zeus-scanner/master/LICENSE.md)
-[![Twitter](https://img.shields.io/twitter/url/https/github.com/ekultek/zeus-scanner.svg?style=social)](https://twitter.com/intent/tweet?text=https://github.com/ekultek/zeus-scanner&url=%5Bobject%20Object%5D)
+[![Twitter](https://img.shields.io/twitter/url/https/github.com/ekultek/zeus-scanner.svg?style=social)](https://twitter.com/intent/tweet?text="Check out https://github.com/ekultek/zeus-scanner and follow @Zeus_Scanner"&url=%5Bobject%20Object%5D)
 
 # Zeus-Scanner
 
