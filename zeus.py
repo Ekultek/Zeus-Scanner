@@ -607,10 +607,17 @@ if __name__ == "__main__":
             ))
             time.sleep(2)
             subprocess.call("python zeus.py --help", shell=True)
-    except IOError:
-        logger.fatal(set_color(
-            "provided file does not exist, make sure you have the full path...", level=50
-        ))
+    except IOError as e:
+        if "Invalid URL" in str(e):
+            logger.exception(set_color(
+                "URL provided is not valid, schema appears to be missing...", level=50
+            ))
+            request_issue_creation()
+            shutdown()
+        else:
+            logger.fatal(set_color(
+                "provided file does not exist, make sure you have the full path...", level=50
+            ))
     except KeyboardInterrupt:
         logger.error(set_color(
             "user aborted process...", level=40
