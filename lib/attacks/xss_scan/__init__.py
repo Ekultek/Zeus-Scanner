@@ -9,8 +9,8 @@ import importlib
 
 import requests
 
-from lib.errors import InvalidTamperProvided
-from lib.settings import (
+from lib.core.errors import InvalidTamperProvided
+from lib.core.settings import (
     logger,
     set_color,
     DEFAULT_USER_AGENT,
@@ -18,11 +18,11 @@ from lib.settings import (
     DBMS_ERRORS,
     create_tree,
     prompt,
-    shutdown
+    shutdown,
 )
 
 
-def list_tamper_scripts(path="{}/lib/attacks/tamper_scripts"):
+def list_tamper_scripts(path="{}/lib/tamper_scripts"):
     retval = set()
     exclude = ["__init__.py", ".pyc"]
     for item in os.listdir(path.format(os.getcwd())):
@@ -35,8 +35,8 @@ def list_tamper_scripts(path="{}/lib/attacks/tamper_scripts"):
 
 def __tamper_payload(payload, tamper_type, warning=True, **kwargs):
     acceptable = list_tamper_scripts()
-    tamper_name = "lib.attacks.tamper_scripts.{}_encode"
     if tamper_type in acceptable:
+        tamper_name = "lib.tamper_scripts.{}_encode"
         tamper_script = importlib.import_module(tamper_name.format(tamper_type))
         return tamper_script.tamper(payload, warning=warning)
     else:
@@ -70,12 +70,20 @@ def create_urls(url, payload_list, tamper=None):
     return tf_name
 
 
-def find_xss_script(url, query=4, fragment=5):
+def find_xss_script(url, **kwargs):
     data = urlparse.urlparse(url)
-    if data[fragment] is not "" or None:
-        return "{}{}".format(data[query], data[fragment])
+    payload_parser = {"path": 2, "query": 4, "fragment": 5}
+    if data[payload_parser["fragment"]] is not "" or None:
+        retval = "{}{}".format(
+            data[payload_parser["query"]], data[payload_parser["fragment"]]
+        )
     else:
-        return data[query]
+        retval = data[payload_parser["query"]]
+
+    # just double checking...
+    if retval == "" or None:
+        retval = data[payload_parser["path"]]
+    return retval
 
 
 def scan_xss(url, agent=None, proxy=None):

@@ -1,5 +1,6 @@
-import re
 import json
+import re
+
 try:
     import urllib2  # python 2
 except ImportError:
@@ -8,8 +9,8 @@ import subprocess
 
 import requests
 
-import lib.settings
-import lib.errors
+import lib.core.settings
+import lib.core.errors
 
 from var.auto_issue.github import request_issue_creation
 
@@ -53,11 +54,11 @@ class SqlmapHook(object):
         if len(found) > 16:
             data_found = [found[i:i+split_by] for i in range(0, len(found), split_by)]
             for item in data_found:
-                if item not in lib.settings.ALREADY_USED:
-                    lib.settings.ALREADY_USED.add(item)
+                if item not in lib.core.settings.ALREADY_USED:
+                    lib.core.settings.ALREADY_USED.add(item)
                     current_scan_id = item
         else:
-            lib.settings.ALREADY_USED.add(found)
+            lib.core.settings.ALREADY_USED.add(found)
             current_scan_id = found
         return current_scan_id
 
@@ -84,7 +85,7 @@ class SqlmapHook(object):
         status_json = json.loads(status_req.content)
         current_status = status_json["status"]
         if current_status != "running":
-            raise lib.errors.SqlmapFailedStart(
+            raise lib.core.errors.SqlmapFailedStart(
                 "sqlmap API failed to start the run, check the client and see what "
                 "the problem is and try again..."
             )
@@ -111,7 +112,7 @@ def find_sqlmap(given_search_path=None, to_find="sqlmapapi.py", verbose=False):
     """
     find sqlmap on the users system
     """
-    return lib.settings.find_application(to_find, verbose=verbose, given_search_path=given_search_path)
+    return lib.core.settings.find_application(to_find, verbose=verbose, given_search_path=given_search_path)
 
 
 def sqlmap_scan_main(url, port=None, verbose=None, auto_search=False, opts=None, given_path=None, full_path=None):
@@ -126,7 +127,7 @@ def sqlmap_scan_main(url, port=None, verbose=None, auto_search=False, opts=None,
         return {key: value for key, value in opts}
 
     if auto_search:
-        lib.settings.logger.info(lib.settings.set_color(
+        lib.core.settings.logger.info(lib.core.settings.set_color(
             "attempting to find sqlmap on your system..."
         ))
         path = ''.join(find_sqlmap(verbose=verbose, given_search_path=given_path))
@@ -135,39 +136,39 @@ def sqlmap_scan_main(url, port=None, verbose=None, auto_search=False, opts=None,
     else:
         try:
             sqlmap_scan = SqlmapHook(url, port=port)
-            lib.settings.logger.info(lib.settings.set_color(
+            lib.core.settings.logger.info(lib.core.settings.set_color(
                 "initializing new sqlmap scan with given URL '{}'...".format(url)
             ))
             sqlmap_scan.init_new_scan()
             if verbose:
-                lib.settings.logger.debug(lib.settings.set_color(
+                lib.core.settings.logger.debug(lib.core.settings.set_color(
                     "scan initialized...", level=10
                 ))
-            lib.settings.logger.info(lib.settings.set_color(
+            lib.core.settings.logger.info(lib.core.settings.set_color(
                 "gathering sqlmap API scan ID..."
             ))
             api_id = sqlmap_scan.get_scan_id()
             if verbose:
-                lib.settings.logger.debug(lib.settings.set_color(
+                lib.core.settings.logger.debug(lib.core.settings.set_color(
                     "current sqlmap scan ID: '{}'...".format(api_id), level=10
                 ))
-            lib.settings.logger.info(lib.settings.set_color(
+            lib.core.settings.logger.info(lib.core.settings.set_color(
                 "starting sqlmap scan on url: '{}'...".format(url)
             ))
             if opts:
                 if verbose:
-                    lib.settings.logger.debug(lib.settings.set_color(
+                    lib.core.settings.logger.debug(lib.core.settings.set_color(
                         "using arguments: '{}'...".format(___dict_args()), level=10
                     ))
-                lib.settings.logger.info(lib.settings.set_color(
+                lib.core.settings.logger.info(lib.core.settings.set_color(
                     "adding arguments to sqlmap API..."
                 ))
             else:
                 if verbose:
-                    lib.settings.logger.debug(lib.settings.set_color(
+                    lib.core.settings.logger.debug(lib.core.settings.set_color(
                         "no arguments passed, skipping...", level=10
                     ))
-            lib.settings.logger.warning(lib.settings.set_color(
+            lib.core.settings.logger.warning(lib.core.settings.set_color(
                 "please keep in mind that this is the API, output will "
                 "not be saved to log file, it may take a little longer "
                 "to finish processing, launching sqlmap...", level=30
@@ -177,14 +178,14 @@ def sqlmap_scan_main(url, port=None, verbose=None, auto_search=False, opts=None,
             sqlmap_scan.show_sqlmap_log(api_id)
             print("-" * 30)
         except requests.exceptions.HTTPError as e:
-            lib.settings.logger.exception(lib.settings.set_color(
+            lib.core.settings.logger.exception(lib.core.settings.set_color(
                 "ran into error '{}', seems you didn't start the server, check "
                 "the server port and try again...".format(e), level=50
             ))
             pass
         except Exception as e:
             if "HTTPConnectionPool(host='127.0.0.1'" in str(e):
-                lib.settings.logger.error(lib.settings.set_color(
+                lib.core.settings.logger.error(lib.core.settings.set_color(
                     "sqlmap API is not started, did you forget to start it? "
                     "You will need to open a new terminal, cd into sqlmap, and "
                     "run `python sqlmapapi.py -s` otherwise pass the correct flags "
@@ -192,7 +193,7 @@ def sqlmap_scan_main(url, port=None, verbose=None, auto_search=False, opts=None,
                 ))
                 pass
             else:
-                lib.settings.logger.exception(lib.settings.set_color(
+                lib.core.settings.logger.exception(lib.core.settings.set_color(
                     "ran into error '{}', seems something went wrong, error has "
                     "been saved to current log file.".format(e), level=50
                 ))

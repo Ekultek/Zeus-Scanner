@@ -9,7 +9,7 @@ import platform
 
 from base64 import b64decode
 
-from lib.settings import (
+from lib.core.settings import (
     logger,
     set_color,
     get_latest_log_file,

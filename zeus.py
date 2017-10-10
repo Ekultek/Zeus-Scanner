@@ -1,10 +1,11 @@
 #!/usr/bin/env python
 
-import os
-import time
 import optparse
-import subprocess
+import os
 import random
+import subprocess
+import time
+
 try:
     import http.client as http_client  # Python 3
 except ImportError:
@@ -13,7 +14,7 @@ except ImportError:
 from var import blackwidow
 from var.google_search import search
 from var.auto_issue.github import request_issue_creation
-from lib.errors import InvalidInputProvided
+from lib.core.errors import InvalidInputProvided
 from lib.attacks.admin_panel_finder import main
 from lib.attacks.xss_scan import main_xss
 from lib.attacks.nmap_scan.nmap_opts import NMAP_API_OPTS
@@ -24,7 +25,7 @@ from lib.attacks import (
     sqlmap_scan,
     intel_me
 )
-from lib.settings import (
+from lib.core.settings import (
     setup,
     BANNER,
     start_up,

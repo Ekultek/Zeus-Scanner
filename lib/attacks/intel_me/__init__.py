@@ -1,15 +1,15 @@
-import re
 import json
+import re
 
 import requests
 from lxml import html
 
-from var.auto_issue.github import request_issue_creation
-from lib.settings import (
+from lib.core.settings import (
     proxy_string_to_dict,
     logger, set_color,
     DEFAULT_USER_AGENT,
 )
+from var.auto_issue.github import request_issue_creation
 
 
 def __get_auth_headers(target, port=16992, source=None, agent=None, proxy=None):

@@ -19,7 +19,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.proxy import *
 
 from var.auto_issue.github import request_issue_creation
-from lib.settings import (
+from lib.core.settings import (
     logger,
     set_color,
     proxy_string_to_dict,

@@ -7,7 +7,7 @@ except ImportError:  # Python 3
     from urllib2 import urlopen, HTTPError
 
 from var.auto_issue.github import request_issue_creation
-from lib.settings import (
+from lib.core.settings import (
     logger,
     replace_http,
     set_color,

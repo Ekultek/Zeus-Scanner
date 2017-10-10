@@ -1,15 +1,16 @@
-import os
-import nmap
 import json
+import os
 import socket
 
-from var.auto_issue.github import request_issue_creation
-from lib.settings import (
+import nmap
+
+from lib.core.settings import (
     logger,
     set_color,
     create_dir,
     find_application,
 )
+from var.auto_issue.github import request_issue_creation
 
 
 class NmapHook(object):
