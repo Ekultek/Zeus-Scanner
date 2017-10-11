@@ -99,7 +99,7 @@ if __name__ == "__main__":
     attacks.add_option("--tamper", dest="tamperXssPayloads", metavar="TAMPER-SCRIPT",
                        help="Send the XSS payloads through tampering before sending to the target")
     attacks.add_option("--auto", dest="autoStartSqlmap", action="store_true",
-                       help="Attempt to automatically start sqlmap")
+                       help=optparse.SUPPRESS_HELP)
 
     # search engine options
     engines = optparse.OptionGroup(parser, "Search engine arguments",
