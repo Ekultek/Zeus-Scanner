@@ -288,24 +288,37 @@ if __name__ == "__main__":
         configure the search engine if a one different from google is given
         """
         non_default_msg = "specified to use non-default search engine..."
+        se_message = "using '{}' as the search engine..."
         if opt.useDDG:
             if verbose:
                 logger.debug(set_color(
-                    "using DuckDuckGo as the search engine...", level=10
+                    se_message.format("DuckDuckGo"), level=10
                 ))
             logger.info(set_color(
                 non_default_msg
             ))
             se = AUTHORIZED_SEARCH_ENGINES["duckduckgo"]
         elif opt.useAOL:
+            logger.warning(set_color(
+                "AOL will take a little longer due to pop-ups...", level=30
+            ))
             if verbose:
                 logger.debug(set_color(
-                    "using AOL as the search engine...", level=10
+                    se_message.format("AOL"), level=10
                 ))
             logger.info(set_color(
                 non_default_msg
             ))
             se = AUTHORIZED_SEARCH_ENGINES["aol"]
+        elif opt.useBing:
+            if verbose:
+                logger.debug(set_color(
+                    se_message.format("Bing"), level=10
+                ))
+            logger.info(set_color(
+                non_default_msg
+            ))
+            se = AUTHORIZED_SEARCH_ENGINES["bing"]
         else:
             if verbose:
                 logger.debug(set_color(
@@ -456,6 +469,7 @@ if __name__ == "__main__":
 
     proxy_to_use, agent_to_use = __config_headers()
     search_engine = __config_search_engine(verbose=opt.runInVerbose)
+    print search_engine
 
     try:
         # use a personal dork as the query
