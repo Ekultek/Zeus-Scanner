@@ -85,11 +85,11 @@ class NmapHook(object):
         print("{}".format(sep))
 
 
-def find_nmap(item_name="nmap", given_search_path=None, verbose=False):
+def find_nmap(item_name="nmap", verbose=False):
     """
     find nmap on the users system if they do not specify a path for it or it is not in their PATH
     """
-    return find_application(item_name, given_search_path=given_search_path, verbose=verbose)
+    return find_application(item_name, verbose=verbose)
 
 
 def perform_port_scan(url, ports=None, scanner=NmapHook, verbose=False, opts=None, **kwargs):
@@ -108,7 +108,7 @@ def perform_port_scan(url, ports=None, scanner=NmapHook, verbose=False, opts=Non
         logger.debug(set_color(
             "checking for nmap on your system...", level=10
         ))
-    nmap_exists = find_nmap(verbose=verbose)
+    nmap_exists = "".join(find_nmap(verbose=verbose))
     if nmap_exists:
         if verbose:
             logger.debug(set_color(

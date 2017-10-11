@@ -2,6 +2,7 @@ import os
 import platform
 import subprocess
 import tarfile
+import ConfigParser
 
 import whichcraft
 
@@ -26,6 +27,34 @@ def disclaimer():
             "Zeus will shut down now...", level=50
         ))
         return False
+
+
+def find_tools(to_search=("sqlmap", "nmap"), directory="{}/bin/paths", filename="path_config.ini"):
+    lib.core.settings.create_dir(directory.format(os.getcwd()))
+    full_path = "{}/{}".format(
+        directory.format(os.getcwd()),
+        filename
+    )
+    cfgfile = open(full_path, "a+")
+    parser = ConfigParser.ConfigParser()
+    path_schema = {}
+    for item in to_search:
+        path_obj = whichcraft.which(item)
+        if path_obj is not None:
+            path_schema[item] = path_obj
+        else:
+            path_schema[item] = None
+    for key, value in path_schema.iteritems():
+        if value is None:
+            provided_path = lib.core.settings.prompt(
+                "what is the full path to {} on your system".format(key)
+            )
+            path_schema[key] = provided_path
+    for program, path in path_schema.iteritems():
+        parser.add_section(program)
+        parser.set(program, "path", path)
+    parser.write(cfgfile)
+    cfgfile.close()
 
 
 def check_os(current=platform.platform()):
@@ -151,6 +180,7 @@ def main(rewrite="{}/bin/executed.txt", verbose=False):
             lib.core.settings.logger.debug(lib.core.settings.set_color(
                 "checking if xvfb is on your system...", level=10
             ))
+        find_tools()
         check_xvfb()
         untar_gecko(verbose=verbose)
         if ensure_placed(verbose=verbose):

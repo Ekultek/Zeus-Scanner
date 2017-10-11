@@ -1,15 +1,15 @@
 import difflib
 import glob
-import itertools
 import logging
-import multiprocessing
 import os
+import io
 import random
 import re
 import sys
 import time
+import ConfigParser
 
-import whichcraft
+import psutil
 
 import bin.unzip_gecko
 import lib.core.errors
@@ -22,7 +22,7 @@ except NameError:
 # clone link
 CLONE = "https://github.com/ekultek/zeus-scanner.git"
 # current version <major.minor.commit.patch ID>
-VERSION = "1.0.36.6a42"
+VERSION = "1.0.37"
 # colors to output depending on the version
 VERSION_TYPE_COLORS = {"dev": 33, "stable": 92, "other": 30}
 # version string formatting
@@ -51,6 +51,8 @@ DEFAULT_USER_AGENT = "Zeus-Scanner(v{})::Python->v{}.{}".format(
 URL_QUERY_REGEX = re.compile(r"(.*)[?|#](.*){1}\=(.*)")
 # regex to recognize a URL
 URL_REGEX = re.compile(r"((https?):((//)|(\\\\))+([\w\d:#@%/;$()~_?\+-=\\\.&](#!)?)*)")
+# paths to sqlmap and nmap
+TOOL_PATHS = "{}/bin/paths/path_config.ini".format(os.getcwd())
 # URL's that are extracted from Google's ban URL
 EXTRACTED_URL_LOG = "{}/log/extracted-url-log".format(os.getcwd())
 # log path for the URL's that are found
@@ -299,49 +301,16 @@ def prompt(question, opts=None):
         )
 
 
-def worker(filename, item):
-    """
-    worker for multiprocessing
-    """
-    if item in filename or filename == item or filename is item:
-        return filename
-
-
-def find_application(to_find, default_search_path="/", proc_num=25, given_search_path=None, verbose=False):
-    """
-    find an application on the users system if it is not in their PATH or no path is given
-    """
-    retval = set()
-    if whichcraft.which(to_find) is None:
-        logger.error(set_color(
-            "{} not in your PATH, what kind of hacker are you?! "
-            "defaulting to root search, this can take awhile...".format(to_find), level=40
-        ))
-
-        if verbose:
-            logger.debug(set_color(
-                "starting {} processes to search for '{}' starting at '{}'...".format(
-                    proc_num, to_find, default_search_path if given_search_path is None else given_search_path
-                ), level=10
-            ))
-        pool = multiprocessing.Pool(proc_num)
-        walker = os.walk(default_search_path)
-        file_data_gen = itertools.chain.from_iterable(
-            (os.path.join(root, f) for f in files)
-            for root, sub, files in walker
-        )
-        results = pool.map(worker, file_data_gen)
-        for data in results:
-            if data is not None:
-                retval.add(data)
-        if len(retval) == 0:
-            raise lib.core.errors.ApplicationNotFound(
-                "unable to find '{}' on your system, install it first...".format(to_find)
-            )
-        else:
-            return list(retval)
-    else:
-        return whichcraft.which(to_find)
+def find_application(application, opt="path", verbose=False):
+    retval = []
+    with open(TOOL_PATHS) as config:
+        read_conf = config.read()
+    conf_parser = ConfigParser.RawConfigParser(allow_no_value=True)
+    conf_parser.readfp(io.BytesIO(read_conf))
+    for section in conf_parser.sections():
+        if str(section).lower() == str(application).lower():
+            retval.append(conf_parser.get(section, opt))
+    return retval
 
 
 def get_random_dork(filename="{}/etc/dorks.txt"):
@@ -412,3 +381,13 @@ def write_to_log_file(data_to_write, path, filename):
         "successfully wrote found items to '{}'...".format(full_file_path)
     ))
     return full_file_path
+
+
+def search_for_process(name):
+    all_process_names = set()
+    for pid in psutil.pids():
+        process = psutil.Process(pid)
+        all_process_names.add(" ".join(process.cmdline()).strip())
+    if not any(name in proc for proc in list(all_process_names)):
+        return False
+    return True

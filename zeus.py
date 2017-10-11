@@ -90,10 +90,6 @@ if __name__ == "__main__":
     attacks.add_option("--nmap-args", dest="nmapArguments", metavar="NMAP-ARGS",
                        help="Pass the arguments to send to the nmap API within quotes & "
                             "separated by a pipe. IE '-O|-p 445, 1080'")
-    attacks.add_option("--auto-start", dest="autoStartSqlmap", action="store_true",
-                       help="Attempt to automatically find sqlmap on your system")
-    attacks.add_option("--search-here", dest="givenSearchPath", metavar="PATH-TO-START",
-                       help="Start searching for sqlmap in this given path")
     attacks.add_option("--show-sqlmap", dest="showSqlmapArguments", action="store_true",
                        help="Show the arguments that the sqlmap API understands")
     attacks.add_option("--show-nmap", dest="showNmapArgs", action="store_true",
@@ -102,6 +98,8 @@ if __name__ == "__main__":
                        help="Show all connections made during the admin panel search")
     attacks.add_option("--tamper", dest="tamperXssPayloads", metavar="TAMPER-SCRIPT",
                        help="Send the XSS payloads through tampering before sending to the target")
+    attacks.add_option("--auto", dest="autoStartSqlmap", action="store_true",
+                       help="Attempt to automatically start sqlmap")
 
     # search engine options
     engines = optparse.OptionGroup(parser, "Search engine arguments",
@@ -169,11 +167,6 @@ if __name__ == "__main__":
         print(BANNER)
 
     start_up()
-
-    if opt.runSqliScan:
-        prompt(
-            "make sure you have started the sqlmap API, press enter when ready to continue..."
-        )
 
     if opt.showSqlmapArguments:
         logger.info(set_color(
@@ -381,7 +374,7 @@ if __name__ == "__main__":
 
     def __run_attacks(
             url, sqlmap=False, nmap=False, intel=False, xss=False,
-            verbose=False, admin=False, given_path=None, auto=False, batch=False
+            verbose=False, admin=False, batch=False, auto_start=False
     ):
         """
         run the attacks if any are requested
@@ -417,7 +410,7 @@ if __name__ == "__main__":
         if question.lower().startswith("y"):
             if sqlmap:
                 return sqlmap_scan.sqlmap_scan_main(url.strip(), verbose=verbose, opts=__create_arguments(sqlmap=True),
-                                                    auto_search=auto, given_path=given_path)
+                                                    auto_start=auto_start)
             elif nmap:
                 url_ip_address = replace_http(url.strip())
                 return nmap_scan.perform_port_scan(url_ip_address, verbose=verbose, opts=__create_arguments(nmap=True))
@@ -462,14 +455,13 @@ if __name__ == "__main__":
                     __run_attacks(
                         url.strip(),
                         sqlmap=opt.runSqliScan, nmap=opt.runPortScan, intel=opt.intelCheck, xss=opt.runXssScan,
-                        admin=opt.adminPanelFinder, given_path=opt.givenSearchPath,
-                        auto=opt.autoStartSqlmap, verbose=opt.runInVerbose, batch=opt.runInBatch
+                        admin=opt.adminPanelFinder, verbose=opt.runInVerbose, batch=opt.runInBatch,
+                        auto_start=opt.autoStartSqlmap
                     )
 
 
     proxy_to_use, agent_to_use = __config_headers()
     search_engine = __config_search_engine(verbose=opt.runInVerbose)
-    print search_engine
 
     try:
         # use a personal dork as the query
@@ -606,8 +598,7 @@ if __name__ == "__main__":
                         __run_attacks(
                             url,
                             sqlmap=opt.runSqliScan, nmap=opt.runPortScan, intel=opt.intelCheck, xss=opt.runXssScan,
-                            admin=opt.adminPanelFinder, given_path=opt.givenSearchPath,
-                            auto=opt.autoStartSqlmap, verbose=opt.runInVerbose, batch=opt.runInBatch
+                            admin=opt.adminPanelFinder, verbose=opt.runInVerbose, batch=opt.runInBatch
                         )
                 else:
                     logger.fatal(set_color(
