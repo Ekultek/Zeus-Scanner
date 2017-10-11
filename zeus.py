@@ -98,6 +98,8 @@ if __name__ == "__main__":
                        help="Show all connections made during the admin panel search")
     attacks.add_option("--tamper", dest="tamperXssPayloads", metavar="TAMPER-SCRIPT",
                        help="Send the XSS payloads through tampering before sending to the target")
+    attacks.add_option("--thread", dest="threadPanels", action="store_true",
+                       help="Thread the admin panel finder, will start 10 threads")
     attacks.add_option("--auto", dest="autoStartSqlmap", action="store_true",
                        help=optparse.SUPPRESS_HELP)
 
@@ -418,7 +420,7 @@ if __name__ == "__main__":
                 url = get_true_url(url)
                 return intel_me.main_intel_amt(url, agent=agent_to_use, proxy=proxy_to_use)
             elif admin:
-                main(url, show=opt.showAllConnections, verbose=verbose)
+                main(url, show=opt.showAllConnections, verbose=verbose, do_threading=opt.threadPanels)
             elif xss:
                 main_xss(url, verbose=verbose, proxy=proxy_to_use, agent=agent_to_use, tamper=opt.tamperXssPayloads)
             else:

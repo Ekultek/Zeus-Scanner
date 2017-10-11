@@ -1,4 +1,5 @@
 import os
+import threading
 
 try:                 # Python 2
     from urllib.request import urlopen
@@ -6,18 +7,55 @@ try:                 # Python 2
 except ImportError:  # Python 3
     from urllib2 import urlopen, HTTPError
 
+import requests
+
 from var.auto_issue.github import request_issue_creation
 from lib.core.settings import (
     logger,
     replace_http,
     set_color,
     create_tree,
+    prompt,
+    write_to_log_file,
+    ROBOTS_PAGE_PATH
 )
 
 
-def check_for_admin_page(url, exts, protocol="http://", show_possibles=False, verbose=False):
+def check_for_robots(url, ext="/robots.txt", data_sep="-" * 30):
+    url = replace_http(url)
+    interesting = set()
+    full_url = "{}{}{}".format("http://", url, ext)
+    conn = requests.get(full_url)
+    data = conn.content
+    code = conn.status_code
+    if code == 404:
+        return False
+    for line in data.split("\n"):
+        if "Allow" in line:
+            interesting.add(line.strip())
+    if len(interesting) > 0:
+        create_tree(full_url, list(interesting))
+    else:
+        to_display = prompt(
+            "nothing interesting found in robots.txt would you like to display the entire page", opts="yN"
+        )
+        if to_display.lower().startswith("y"):
+            print(
+                "{}\n{}\n{}".format(
+                    data_sep, data, data_sep
+                )
+            )
+    logger.info(set_color(
+        "robots.txt page will be saved into a file..."
+    ))
+    write_to_log_file(data, ROBOTS_PAGE_PATH, "robots-{}.log".format(url))
+
+
+def check_for_admin_page(url, exts, protocol="http://", **kwargs):
+    verbose = kwargs.get("verbose", False)
+    show_possibles = kwargs.get("show_possibles", False)
     possible_connections, connections = set(), set()
-    stripped_url = replace_http(url.strip())
+    stripped_url = replace_http(str(url).strip())
     for ext in exts:
         ext = ext.strip()
         true_url = "{}{}{}".format(protocol, stripped_url, ext)
@@ -93,7 +131,15 @@ def __load_extensions(filename="{}/etc/link_ext.txt"):
         return ext.readlines()
 
 
-def main(url, show=False, verbose=False):
+def main(url, show=False, verbose=False, do_threading=False, threads=10):
+    logger.info(set_color(
+        "parsing robots.txt..."
+    ))
+    results = check_for_robots(url)
+    if not results:
+        logger.warning(set_color(
+            "seems like this page doesn't have a robots.txt...", level=30
+        ))
     logger.info(set_color(
         "loading extensions..."
     ))
@@ -105,4 +151,19 @@ def main(url, show=False, verbose=False):
     logger.info(set_color(
         "attempting to bruteforce admin panel..."
     ))
-    check_for_admin_page(url, extensions, show_possibles=show, verbose=verbose)
+    if do_threading:
+        if verbose:
+            logger.debug(set_color(
+                "starting {} threads...".format(threads), level=10
+            ))
+        for _ in range(0, threads):
+            t = threading.Thread(target=check_for_admin_page, args=(url, extensions), kwargs={
+                "show_possibles": show,
+                "verbose": verbose
+
+            })
+            t.daemon = True
+            t.start()
+            t.join()
+    else:
+        check_for_admin_page(url, extensions, show_possibles=show, verbose=verbose)
