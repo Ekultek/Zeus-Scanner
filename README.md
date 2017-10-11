@@ -47,3 +47,8 @@ To install Zeus you simply need to do the following:
  - For your first run, run `sudo python zeus.py`
 
 This will install all the package requirements along with the gecko web driver
+
+
+### Donations
+
+If you like Zeus and feel like buying me a coffee or a beer, donations are gladly accepted via BTC `3QAD7D85XPxDuQhtw8N3yr2sVXyNfGquWg` no pressure but I really like beer..
