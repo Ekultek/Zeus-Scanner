@@ -2,6 +2,7 @@
 [![GitHub forks](https://img.shields.io/github/forks/ekultek/zeus-scanner.svg?style=flat-square)](https://github.com/ekultek/zeus-scanner/network) 
 [![GitHub issues](https://img.shields.io/github/issues/ekultek/zeus-scanner.svg?style=flat-square)](https://github.com/ekultek/zeus-scanner/issues) 
 [![GitHub license](https://img.shields.io/badge/license-GPL-blue.svg?style=flat-square)](https://raw.githubusercontent.com/ekultek/zeus-scanner/master/LICENSE.md)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/a379f49ccc624c2a9abbd8809f4d1cb7)](https://www.codacy.com/app/Ekultek/Zeus-Scanner?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Ekultek/Zeus-Scanner&amp;utm_campaign=Badge_Grade)
 [![Twitter](https://img.shields.io/twitter/url/https/github.com/ekultek/zeus-scanner.svg?style=social)](https://twitter.com/intent/tweet?text=https://github.com/ekultek/zeus-scanner&url=%5Bobject%20Object%5D)
 
 # Zeus-Scanner
