@@ -19,6 +19,11 @@ A basic dork scan with the `-d` flag, from the given dork will launch an automat
 Calling the `-s` flag will prompt for you to start the sqlmap API server `python sqlmapapi.py -s` from sqlmap, it will then connect to the API and perform a sqlmap scan on the found URL's.
 ![zeus-sqlmap-api](https://user-images.githubusercontent.com/14183473/30176259-6657b304-93c7-11e7-81f8-0ed09a6c0268.png)
 
+### Demo
+
+[![to_video](https://user-images.githubusercontent.com/14183473/31474224-feb8c022-aebe-11e7-9684-1ba83f4fd7ff.png)
+](https://vimeo.com/237838681)
+
 ### Requirements
 
 There are a few requirements for this:
