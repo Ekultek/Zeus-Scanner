@@ -2,6 +2,7 @@
 
 import optparse
 import os
+import sys
 import random
 import subprocess
 import time
@@ -456,10 +457,8 @@ if __name__ == "__main__":
             "spider": SPIDER_LOG_PATH
         }
 
-        options = (opt.useRandomDork, opt.dorkToUse, opt.dorkFileToUse)
-
-        to_use = which_log_to_use["dork"] if any(options) is True else which_log_to_use["spider"]
-
+        options = (opt.useRandomDork, opt.dorkToUse, opt.dorkFileToUse, opt.fileToEnumerate)
+        to_use = which_log_to_use["dork"] if any(arg for arg in options) is True else which_log_to_use["spider"]
         try:
             urls_to_use = get_latest_log_file(to_use)
         except TypeError:
