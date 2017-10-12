@@ -17,6 +17,7 @@ from selenium import webdriver
 from pyvirtualdisplay import Display
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.proxy import *
+from selenium.webdriver.remote.errorhandler import UnexpectedAlertPresentException
 
 from var.auto_issue.github import request_issue_creation
 from lib.core.settings import (
@@ -140,7 +141,15 @@ def get_urls(query, url, verbose=False, warning=True, **kwargs):
         logger.debug(set_color(
             "obtaining URL from selenium..."
         ))
-    retval = browser.current_url
+    try:
+        retval = browser.current_url
+    except UnexpectedAlertPresentException:
+        logger.warning(set_color(
+            "alert present, closing...", level=30
+        ))
+        alert = browser.switch_to.alert
+        alert.accept()
+        retval = browser.current_url
     ban_url_schema = ["http://ipv6.google.com", "http://ipv4.google.com"]
     if any(u in retval for u in ban_url_schema):  # if you got IP banned
         logger.warning(set_color(
