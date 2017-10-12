@@ -99,7 +99,7 @@ if __name__ == "__main__":
     attacks.add_option("--tamper", dest="tamperXssPayloads", metavar="TAMPER-SCRIPT",
                        help="Send the XSS payloads through tampering before sending to the target")
     attacks.add_option("--thread", dest="threadPanels", action="store_true",
-                       help="Thread the admin panel finder, will start 10 threads")
+                       help=optparse.SUPPRESS_HELP)
     attacks.add_option("--auto", dest="autoStartSqlmap", action="store_true",
                        help=optparse.SUPPRESS_HELP)
 

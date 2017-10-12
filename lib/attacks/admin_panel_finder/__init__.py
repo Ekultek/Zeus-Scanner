@@ -1,5 +1,5 @@
 import os
-import threading
+import multiprocessing
 
 try:                 # Python 2
     from urllib.request import urlopen
@@ -131,7 +131,7 @@ def __load_extensions(filename="{}/etc/link_ext.txt"):
         return ext.readlines()
 
 
-def main(url, show=False, verbose=False, do_threading=False, threads=10):
+def main(url, show=False, verbose=False, do_threading=False, proc_num=3):
     logger.info(set_color(
         "parsing robots.txt..."
     ))
@@ -152,18 +152,19 @@ def main(url, show=False, verbose=False, do_threading=False, threads=10):
         "attempting to bruteforce admin panel..."
     ))
     if do_threading:
-        if verbose:
-            logger.debug(set_color(
-                "starting {} threads...".format(threads), level=10
-            ))
-        for _ in range(0, threads):
-            t = threading.Thread(target=check_for_admin_page, args=(url, extensions), kwargs={
+        logger.warning(set_color(
+            "starting parallel processing with {} processes, this "
+            "will depend on your GPU speed...".format(proc_num), level=30
+        ))
+        tasks = []
+        for _ in range(0, proc_num):
+            p = multiprocessing.Process(target=check_for_admin_page, args=(url, extensions), kwargs={
                 "show_possibles": show,
                 "verbose": verbose
-
             })
-            t.daemon = True
-            t.start()
-            t.join()
+            p.start()
+            tasks.append(p)
+        for proc in tasks:
+            proc.join()
     else:
         check_for_admin_page(url, extensions, show_possibles=show, verbose=verbose)
