@@ -110,8 +110,8 @@ def check_for_admin_page(url, exts, protocol="http://", **kwargs):
         create_tree(url, connections)
     else:
         logger.fatal(set_color(
-            "did not find any successful connections to {}'s "
-            "admin page", level=50
+            "did not receive any successful connections to the admin page of "
+            "{}...".format(url), level=50
         ))
     if show_possibles:
         if len(possible_connections) != 0:
@@ -131,14 +131,16 @@ def __load_extensions(filename="{}/etc/link_ext.txt"):
         return ext.readlines()
 
 
-def main(url, show=False, verbose=False, do_threading=False, proc_num=3):
+def main(url, show=False, verbose=False, **kwargs):
+    do_threading = kwargs.get("do_threading", False)
+    proc_num = kwargs.get("proc_num", 3)
     logger.info(set_color(
         "parsing robots.txt..."
     ))
     results = check_for_robots(url)
     if not results:
         logger.warning(set_color(
-            "seems like this page doesn't have a robots.txt...", level=30
+            "seems like this page is blocking access to robots.txt...", level=30
         ))
     logger.info(set_color(
         "loading extensions..."

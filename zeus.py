@@ -353,7 +353,7 @@ if __name__ == "__main__":
                 for line in opt.nmapArguments.split(splitter["nmap"]):
                     try:
                         data = line.index(" ")
-                    except:
+                    except Exception:
                         data = None
                         pass
                     if data is not None:
@@ -374,13 +374,19 @@ if __name__ == "__main__":
         return retval
 
 
-    def __run_attacks(
-            url, sqlmap=False, nmap=False, intel=False, xss=False,
-            verbose=False, admin=False, batch=False, auto_start=False
-    ):
+    def __run_attacks(url, **kwargs):
         """
         run the attacks if any are requested
         """
+        nmap = kwargs.get("nmap", False)
+        sqlmap = kwargs.get("sqlmap", False)
+        intel = kwargs.get("intel", False)
+        xss = kwargs.get("xss", False)
+        admin = kwargs.get("admin", False)
+        verbose = kwargs.get("verbose", False)
+        batch = kwargs.get("batch", False)
+        auto_start = kwargs.get("auto_start", False)
+
         __enabled_attacks = {
             "sqlmap": opt.runSqliScan,
             "port": opt.runPortScan,
@@ -411,18 +417,31 @@ if __name__ == "__main__":
 
         if question.lower().startswith("y"):
             if sqlmap:
-                return sqlmap_scan.sqlmap_scan_main(url.strip(), verbose=verbose, opts=__create_arguments(sqlmap=True),
-                                                    auto_start=auto_start)
+                return sqlmap_scan.sqlmap_scan_main(
+                    url.strip(), verbose=verbose,
+                    opts=__create_arguments(sqlmap=True), auto_start=auto_start)
             elif nmap:
                 url_ip_address = replace_http(url.strip())
-                return nmap_scan.perform_port_scan(url_ip_address, verbose=verbose, opts=__create_arguments(nmap=True))
+                return nmap_scan.perform_port_scan(
+                    url_ip_address, verbose=verbose,
+                    opts=__create_arguments(nmap=True)
+                )
             elif intel:
                 url = get_true_url(url)
-                return intel_me.main_intel_amt(url, agent=agent_to_use, proxy=proxy_to_use)
+                return intel_me.main_intel_amt(
+                    url, agent=agent_to_use,
+                    proxy=proxy_to_use
+                )
             elif admin:
-                main(url, show=opt.showAllConnections, verbose=verbose, do_threading=opt.threadPanels)
+                main(
+                    url, show=opt.showAllConnections,
+                    verbose=verbose, do_threading=opt.threadPanels
+                )
             elif xss:
-                main_xss(url, verbose=verbose, proxy=proxy_to_use, agent=agent_to_use, tamper=opt.tamperXssPayloads)
+                main_xss(
+                    url, verbose=verbose, proxy=proxy_to_use,
+                    agent=agent_to_use, tamper=opt.tamperXssPayloads
+                )
             else:
                 pass
         else:
@@ -451,14 +470,20 @@ if __name__ == "__main__":
                 "unable to run attacks appears that no file was created for the retrieved data...", level=40
             ))
             shutdown()
-        if opt.runSqliScan or opt.runPortScan or opt.intelCheck or opt.adminPanelFinder or opt.runXssScan:
+        options = [
+            opt.runSqliScan, opt.runPortScan,
+            opt.intelCheck, opt.adminPanelFinder,
+            opt.runXssScan
+        ]
+        if any(options):
             with open(urls_to_use) as urls:
                 for url in urls.readlines():
                     __run_attacks(
                         url.strip(),
-                        sqlmap=opt.runSqliScan, nmap=opt.runPortScan, intel=opt.intelCheck, xss=opt.runXssScan,
-                        admin=opt.adminPanelFinder, verbose=opt.runInVerbose, batch=opt.runInBatch,
-                        auto_start=opt.autoStartSqlmap
+                        sqlmap=opt.runSqliScan, nmap=opt.runPortScan,
+                        intel=opt.intelCheck, xss=opt.runXssScan,
+                        admin=opt.adminPanelFinder, verbose=opt.runInVerbose,
+                        batch=opt.runInBatch, auto_start=opt.autoStartSqlmap
                     )
 
 
@@ -593,20 +618,7 @@ if __name__ == "__main__":
             __run_attacks_main()
 
         elif opt.fileToEnumerate is not None:
-            with open(opt.fileToEnumerate) as urls:
-                if opt.runSqliScan or opt.runPortScan or opt.intelCheck or opt.adminPanelFinder or opt.runXssScan:
-                    for url in urls.readlines():
-                        url = url.strip()
-                        __run_attacks(
-                            url,
-                            sqlmap=opt.runSqliScan, nmap=opt.runPortScan, intel=opt.intelCheck, xss=opt.runXssScan,
-                            admin=opt.adminPanelFinder, verbose=opt.runInVerbose, batch=opt.runInBatch
-                        )
-                else:
-                    logger.fatal(set_color(
-                        "failed to provide an attack argument, attack argument must be provided "
-                        "for Zeus to attack the provided URL's", level=50
-                    ))
+            __run_attacks_main()
 
         else:
             logger.critical(set_color(

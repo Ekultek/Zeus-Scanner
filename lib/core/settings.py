@@ -22,7 +22,7 @@ except NameError:
 # clone link
 CLONE = "https://github.com/ekultek/zeus-scanner.git"
 # current version <major.minor.commit.patch ID>
-VERSION = "1.0.40.9d4b"
+VERSION = "1.0.41"
 # colors to output depending on the version
 VERSION_TYPE_COLORS = {"dev": 33, "stable": 92, "other": 30}
 # version string formatting
@@ -107,6 +107,11 @@ SPIDER_EXT_EXCLUDE = (
     "webm", "webp", "whl", "wm", "wma", "wmv", "wmx", "woff",
     "woff2", "wvx", "xbm", "xif", "xls", "xlsx", "xlt", "xm",
     "xpi", "xpm", "xwd", "xz", "z", "zip", "zipx"
+)
+# urls to exclude from being grabbed during the searching
+URL_EXCLUDES = (
+    "www.google.com", "map.google.com", "mail.google.com", "drive.google.com",
+    "news.google.com", "accounts.google.com", "books.google.com"
 )
 DBMS_ERRORS = {  # regular expressions used for DBMS recognition based on error message response
     "MySQL": (r"SQL syntax.*MySQL", r"Warning.*mysql_.*", r"valid MySQL result", r"MySqlClient\."),
@@ -389,6 +394,4 @@ def search_for_process(name):
     for pid in psutil.pids():
         process = psutil.Process(pid)
         all_process_names.add(" ".join(process.cmdline()).strip())
-    if not any(name in proc for proc in list(all_process_names)):
-        return False
-    return True
+    return False if not any(name in proc for proc in list(all_process_names)) else True

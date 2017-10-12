@@ -167,8 +167,6 @@
 /admin/login.html
 /admin/initialadmin.php
 /webadmin/admin.asp
-:2083
-:2082
 /pureadmin/
 /login_out%EXT%
 /administr8.html
@@ -379,7 +377,6 @@
 /moderator/
 /acceso.%EXT%
 /admin/pages/home_admin.php
-:82
 /administrator/index.asp
 /wplogin/
 /adminLogin.asp
@@ -594,7 +591,6 @@
 /admin/dashboard.php
 /blogindex/
 /administratorlogin/
-:23
 /bb-admin/index.php
 /administrator/account.php
 /admin1.php

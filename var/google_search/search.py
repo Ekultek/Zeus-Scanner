@@ -31,7 +31,8 @@ from lib.core.settings import (
     write_to_log_file,
     get_proxy_type,
     prompt,
-    EXTRACTED_URL_LOG
+    EXTRACTED_URL_LOG,
+    URL_EXCLUDES
 )
 
 try:
@@ -69,12 +70,13 @@ def extract_webcache_url(webcache_url, splitter="+"):
     return None
 
 
-def get_urls(query, url, verbose=False, warning=True, user_agent=None, proxy=None, **kwargs):
+def get_urls(query, url, verbose=False, warning=True, **kwargs):
     """
       Bypass Google captchas and Google API by using selenium-webdriver to gather
       the Google URL. This will open a robot controlled browser window and attempt
       to get a URL from Google that will be used for scraping afterwards.
     """
+    proxy, user_agent = kwargs.get("proxy", None), kwargs.get("user_agent", None)
     if verbose:
         logger.debug(set_color(
             "setting up the virtual display to hide the browser...", level=10
@@ -187,42 +189,16 @@ def parse_search_results(
     """
       Parse a webpage from Google for URL's with a GET(query) parameter
     """
-    exclude = (
-        "www.google.com", "map.google.com", "mail.google.com", "drive.google.com",
-        "news.google.com", "accounts.google.com"
-    )
     splitter = "&amp;"
     retval = set()
     query_url = None
 
-    def __get_headers():
-        proxy_string, user_agent = None, None
-        try:
-            proxy_string = kwargs.get("proxy")
-        except:
-            pass
-
-        try:
-            user_agent = kwargs.get("agent")
-        except:
-            pass
-
-        return proxy_string, user_agent
+    proxy_string, user_agent = kwargs.get("proxy", None), kwargs.get("agent", None)
 
     if verbose:
         logger.debug(set_color(
             "checking for user-agent and proxy configuration...", level=10
         ))
-    proxy_string, user_agent = __get_headers()
-
-    if proxy_string is None:
-        proxy_string = None
-    else:
-        proxy_string = proxy_string_to_dict(proxy_string)
-    if user_agent is None:
-        user_agent = DEFAULT_USER_AGENT
-    else:
-        user_agent = user_agent
 
     user_agent_info = "adjusting user-agent header to {}..."
     if user_agent is not DEFAULT_USER_AGENT:
@@ -281,7 +257,7 @@ def parse_search_results(
         for url in list(urls):
             url = unquote(url)
             if not any(u in url for u in url_skip_schema):
-                if URL_QUERY_REGEX.match(url) and not any(l in url for l in exclude):
+                if URL_QUERY_REGEX.match(url) and not any(l in url for l in URL_EXCLUDES):
                     if isinstance(url, unicode):
                         url = str(url).encode("utf-8")
                     if "webcache" in url:
@@ -325,7 +301,7 @@ def parse_search_results(
     return list(retval) if len(retval) != 0 else None
 
 
-def search_multiple_pages(query, link_amount, proxy=None, agent=None, verbose=False):
+def search_multiple_pages(query, link_amount, verbose=False, **kwargs):
 
     def __config_proxy(proxy_string):
         proxy_type_schema = {
@@ -341,6 +317,8 @@ def search_multiple_pages(query, link_amount, proxy=None, agent=None, verbose=Fa
             proxy_port="".join(proxy_dict.values())
         )
         return proxy_config
+
+    proxy, agent = kwargs.get("proxy", None), kwargs.get("agent", None)
 
     if proxy is not None:
         if verbose:
