@@ -2,7 +2,6 @@
 
 import optparse
 import os
-import sys
 import random
 import subprocess
 import time
@@ -652,6 +651,13 @@ if __name__ == "__main__":
                 "the URL provided to the spider needs to contain protocol as well "
                 "ie. 'http://google.com' (it is advised not to add the GET parameter), "
                 "fix the URL you want to scan and try again...", level=40
+            ))
+            shutdown()
+        elif "Max retries exceeded with url" in str(e):
+            logger.fatal(set_color(
+                "you have hit the max retries, to continue using Zeus "
+                "it is recommended to use a proxy (--proxy/--proxy-file) "
+                "along with a new user-agent (--random-agent/--agent).", level=50
             ))
             shutdown()
         else:
