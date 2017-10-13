@@ -22,7 +22,7 @@ except NameError:
 # clone link
 CLONE = "https://github.com/ekultek/zeus-scanner.git"
 # current version <major.minor.commit.patch ID>
-VERSION = "1.0.42.49ab"
+VERSION = "1.0.42.6ad5"
 # colors to output depending on the version
 VERSION_TYPE_COLORS = {"dev": 33, "stable": 92, "other": 30}
 # version string formatting
@@ -51,8 +51,11 @@ DEFAULT_USER_AGENT = "Zeus-Scanner(v{})::Python->v{}.{}".format(
 URL_QUERY_REGEX = re.compile(r"(.*)[?|#](.*){1}\=(.*)")
 # regex to recognize a URL
 URL_REGEX = re.compile(r"((https?):((//)|(\\\\))+([\w\d:#@%/;$()~_?\+-=\\\.&](#!)?)*)")
+# path to the auto clean tool
+CLEANUP_TOOL_PATH = "{}/etc/scripts/cleanup.sh".format(os.getcwd())
 # paths to sqlmap and nmap
 TOOL_PATHS = "{}/bin/paths/path_config.ini".format(os.getcwd())
+# path to store robot.txt page in
 ROBOTS_PAGE_PATH = "{}/log/robots".format(os.getcwd())
 # URL's that are extracted from Google's ban URL
 EXTRACTED_URL_LOG = "{}/log/extracted-url-log".format(os.getcwd())

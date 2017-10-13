@@ -1,4 +1,5 @@
 import os
+import re
 import sys
 try:
     import urllib2  # python 2
@@ -6,6 +7,7 @@ except ImportError:
     import urllib.request as urllib2  # python 3
 import json
 import platform
+import subprocess
 
 from base64 import b64decode
 
@@ -19,6 +21,24 @@ from lib.core.settings import (
     prompt,
     fix_log_file
 )
+
+
+def get_browser_version():
+    try:
+        output = subprocess.check_output(['firefox', '--version'])
+    except Exception:
+        logger.error(set_color(
+            "failed to run forefox...", level=50
+        ))
+        return "failed to start"
+    try:
+        major, minor = map(int, re.search(r"(\d+).(\d+)", output).groups())
+    except Exception:
+        logger.error(set_color(
+            "failed to parse '{}' for version number...".format(output), level=50
+        ))
+        return "failed to gather"
+    return "Version: ({}.{})".format(major, minor)
 
 
 def __get_encoded_string(filename="{}/var/auto_issue/oauth"):
@@ -86,11 +106,13 @@ def request_issue_creation():
     issue_data = {
         "title": issue_title,
         "body": "Zeus version:\n`{}`\n\n"
+                "Firefox version:\n`{}`\n\n"
                 "Error info:\n```{}````\n\n"
                 "Running details:\n`{}`\n\n"
                 "Commands used:\n`{}`\n\n"
                 "Log file info:\n```{}```".format(
                      VERSION,
+                     get_browser_version(),
                      str(stacktrace),
                      str(platform.platform()),
                      " ".join(sys.argv),

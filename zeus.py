@@ -10,6 +10,7 @@ try:
     import http.client as http_client  # Python 3
 except ImportError:
     import httplib as http_client  # Python 2
+from selenium.webdriver.remote.errorhandler import WebDriverException
 
 from var import blackwidow
 from var.google_search import search
@@ -48,7 +49,8 @@ from lib.core.settings import (
     get_true_url,
     fix_log_file,
     DEFAULT_USER_AGENT,
-    SPIDER_LOG_PATH
+    SPIDER_LOG_PATH,
+    CLEANUP_TOOL_PATH
 )
 
 if __name__ == "__main__":
@@ -644,6 +646,35 @@ if __name__ == "__main__":
             "do not interrupt the browser when selenium is running, "
             "it will cause Zeus to crash...", level=30
         ))
+    except WebDriverException as e:
+        if "connection refused" in str(e):
+            logger.fatal(set_color(
+                "there are to many sessions of firefox opened and selenium cannot "
+                "create a new one...", level=50
+            ))
+            do_autoclean = prompt(
+                "would you like to attempt auto clean", opts="yN"
+            )
+            if do_autoclean.lower().startswith("y"):
+                logger.warning(set_color(
+                    "this will kill all instances of the firefox web browser...", level=30
+                ))
+                subprocess.call(["sudo", "sh", CLEANUP_TOOL_PATH])
+                logger.info(set_color(
+                    "all open sessions of firefox killed, it should be safe to re-run "
+                    "Zeus..."
+                ))
+            else:
+                logger.info(set_color(
+                    "kill off the open sessions of firefox and re-run Zeus..."
+                ))
+            shutdown()
+        else:
+            logger.exception(set_color(
+                "Zeus has run into an unexpected error from selenium webdriver and cannot continue "
+                "error info '{}'...".format(str(e))
+            ))
+            request_issue_creation()
     except Exception as e:
         if "url did not match a true url" in str(e).lower():
             logger.error(set_color(
