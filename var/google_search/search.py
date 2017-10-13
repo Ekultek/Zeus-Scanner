@@ -17,7 +17,10 @@ from selenium import webdriver
 from pyvirtualdisplay import Display
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.proxy import *
-from selenium.webdriver.remote.errorhandler import UnexpectedAlertPresentException
+from selenium.webdriver.remote.errorhandler import (
+    UnexpectedAlertPresentException,
+    ElementNotInteractableException
+)
 
 from var.auto_issue.github import request_issue_creation
 from lib.core.settings import (
@@ -134,9 +137,15 @@ def get_urls(query, url, verbose=False, warning=True, **kwargs):
     logger.info(set_color(
         "searching '{}' using query '{}'...".format(url, query)
     ))
-    search.send_keys(query)
-    search.send_keys(Keys.RETURN)  # hit return after you enter search text
-    time.sleep(3)
+    try:
+        search.send_keys(query)
+        search.send_keys(Keys.RETURN)  # hit return after you enter search text
+        time.sleep(3)
+    except ElementNotInteractableException:
+        browser.execute_script("document.querySelectorAll('label.boxed')[1].click()")
+        search.send_keys(query)
+        search.send_keys(Keys.RETURN)  # hit return after you enter search text
+        time.sleep(3)
     if verbose:
         logger.debug(set_color(
             "obtaining URL from selenium..."
