@@ -11,33 +11,24 @@ import subprocess
 
 from base64 import b64decode
 
-from lib.core.settings import (
-    logger,
-    set_color,
-    get_latest_log_file,
-    CURRENT_LOG_FILE_PATH,
-    VERSION,
-    shutdown,
-    prompt,
-    fix_log_file
-)
+import lib.core.settings
 
 
 def get_browser_version():
-    logger.info(set_color(
+    lib.core.settings.logger.info(lib.core.settings.set_color(
         "attempting to get firefox browser version..."
     ))
     try:
         output = subprocess.check_output(['firefox', '--version'])
     except Exception:
-        logger.error(set_color(
+        lib.core.settings.logger.error(lib.core.settings.set_color(
             "failed to run firefox...", level=50
         ))
         return "failed to start"
     try:
         major, minor = map(int, re.search(r"(\d+).(\d+)", output).groups())
     except Exception:
-        logger.error(set_color(
+        lib.core.settings.logger.error(lib.core.settings.set_color(
             "failed to parse '{}' for version number...".format(output), level=50
         ))
         return "failed to gather"
@@ -61,22 +52,22 @@ def decode(n, token):
 
 
 def request_issue_creation():
-    question = prompt(
+    question = lib.core.settings.prompt(
         "would you like to create an anonymous issue and post it to Zeus's Github", opts="yN"
     )
     if question.lower().startswith("n"):
-        logger.error(set_color(
+        lib.core.settings.logger.error(lib.core.settings.set_color(
             "Zeus has experienced an internal error and cannot continue, shutting down...", level=40
         ))
-        shutdown()
+        lib.core.settings.shutdown()
 
-    fix_log_file()
-    logger.info(set_color(
+    lib.core.settings.fix_log_file()
+    lib.core.settings.logger.info(lib.core.settings.set_color(
         "Zeus got an unexpected error and will automatically create an issue for this error, please wait..."
     ))
 
     def __extract_stacktrace(file_data):
-        logger.info(set_color(
+        lib.core.settings.logger.info(lib.core.settings.set_color(
             "extracting traceback from log file..."
         ))
         retval, buff_mode, _buffer = [], False, ""
@@ -94,7 +85,7 @@ def request_issue_creation():
                     _buffer += line
         return "".join(retval)
 
-    logger.info(set_color(
+    lib.core.settings.logger.info(lib.core.settings.set_color(
         "getting authorization..."
     ))
 
@@ -102,7 +93,7 @@ def request_issue_creation():
     n = get_decode_num(encoded)
     token = decode(n, encoded)
 
-    current_log_file = get_latest_log_file(CURRENT_LOG_FILE_PATH)
+    current_log_file = lib.core.settings.get_latest_log_file(lib.core.settings.CURRENT_LOG_FILE_PATH)
     stacktrace = __extract_stacktrace(current_log_file)
     issue_title = stacktrace.split("\n")[-2]
     ff_version = get_browser_version()
@@ -115,7 +106,7 @@ def request_issue_creation():
                 "Running details:\n`{}`\n\n"
                 "Commands used:\n`{}`\n\n"
                 "Log file info:\n```{}```".format(
-                     VERSION,
+                     lib.core.settings.VERSION,
                      "",
                      str(stacktrace),
                      str(platform.platform()),
@@ -134,11 +125,11 @@ def request_issue_creation():
             headers={"Authorization": "token {}".format(token)}
         )
         urllib2.urlopen(req, timeout=10).read()
-        logger.info(set_color(
+        lib.core.settings.logger.info(lib.core.settings.set_color(
             "issue has been created successfully with the following name '{}'...".format(issue_title)
         ))
     except Exception as e:
-        logger.exception(set_color(
+        lib.core.settings.logger.exception(lib.core.settings.set_color(
             "failed to auto create the issue, got exception '{}', "
             "you may manually create an issue...".format(e), level=50
         ))

@@ -7,6 +7,7 @@ import ConfigParser
 import whichcraft
 
 import lib.core.settings
+import var.auto_issue.github
 
 
 def disclaimer():
@@ -94,16 +95,25 @@ def check_if_run(file_check="{}/bin/executed.txt"):
             return True
 
 
-def untar_gecko(filename="{}/bin/geckodriver-v0.18.0-linux{}.tar.gz", verbose=False):
+def untar_gecko(filename="{}/bin/drivers/geckodriver-v0.{}.0-linux{}.tar.gz", verbose=False):
     """
     untar the correct gecko driver for your computer architecture
     """
     arch_info = {"64bit": "64", "32bit": "32"}
     file_arch = arch_info[platform.architecture()[0]]
-    tar = tarfile.open(filename.format(os.getcwd(), file_arch), "r:gz")
+    ff_version = var.auto_issue.github.get_browser_version()
+    if ff_version == "failed to start":
+        gecko_version = 18
+    elif ff_version == "failed to gather":
+        gecko_version = 18
+    else:
+        gecko_version = 19
+    tar = tarfile.open(filename.format(os.getcwd(), gecko_version, file_arch), "r:gz")
     if verbose:
         lib.core.settings.logger.debug(lib.core.settings.set_color(
-            "extracting the correct driver for your architecture...", level=10
+            "extracting the correct driver version '{}' for your architecture '{}'...".format(
+                gecko_version, file_arch
+            ), level=10
         ))
     try:
         tar.extractall("/usr/bin")

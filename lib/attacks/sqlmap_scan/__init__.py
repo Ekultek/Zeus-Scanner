@@ -131,7 +131,14 @@ def sqlmap_scan_main(url, port=None, verbose=None, opts=None, auto_start=False):
     is_started = lib.core.settings.search_for_process("sqlmapapi.py")
 
     if auto_start:
-        lib.core.settings.logger.info(lib.core.settings.set_color(
+        lib.core.settings.logger.error(lib.core.settings.set_color(
+            "auto starting sqlmap is not implemented yet, you will need to start "
+            "the API manually for now...", level=40
+        ))
+        lib.core.settings.prompt(
+            "press enter when ready to continue..."
+        )
+        '''lib.core.settings.logger.info(lib.core.settings.set_color(
             "attempting to find sqlmap on your system..."
         ))
         try:
@@ -158,7 +165,7 @@ def sqlmap_scan_main(url, port=None, verbose=None, opts=None, auto_start=False):
             ))
             lib.core.settings.prompt(
                 "press enter when ready to start..."
-            )
+            )'''
     else:
         if not is_started:
             lib.core.settings.prompt(
