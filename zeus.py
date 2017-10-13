@@ -664,6 +664,12 @@ if __name__ == "__main__":
                     "all open sessions of firefox killed, it should be safe to re-run "
                     "Zeus..."
                 ))
+            elif "Service geckodriver unexpectedly exited" in str(e):
+                logger.fatal(set_color(
+                    "it seems that your firefox version is not compatible with the geckodriver "
+                    "version. please update firefox and try again...", level=50
+                ))
+                shutdown()
             else:
                 logger.info(set_color(
                     "kill off the open sessions of firefox and re-run Zeus..."

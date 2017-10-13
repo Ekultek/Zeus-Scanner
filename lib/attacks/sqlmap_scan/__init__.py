@@ -1,7 +1,7 @@
 import json
-import os
 import time
 import re
+import subprocess
 
 try:
     import urllib2  # python 2
@@ -128,6 +128,8 @@ def sqlmap_scan_main(url, port=None, verbose=None, opts=None, auto_start=False):
         """
         return {key: value for key, value in opts}
 
+    is_started = lib.core.settings.search_for_process("sqlmapapi.py")
+
     if auto_start:
         lib.core.settings.logger.info(lib.core.settings.set_color(
             "attempting to find sqlmap on your system..."
@@ -137,12 +139,18 @@ def sqlmap_scan_main(url, port=None, verbose=None, opts=None, auto_start=False):
             lib.core.settings.logger.info(lib.core.settings.set_color(
                 "attempting to call sqlmap API..."
             ))
-            os.spawnl(os.P_NOWAIT, "python {} -s".format(os.path.join(path, "sqlmapapi.py")))
+            subprocess.Popen(["python {}/{} -s".format(path, "sqlmapapi.py")], shell=True,
+                             close_fds=True, stdout=subprocess.PIPE)
             lib.core.settings.logger.info(lib.core.settings.set_color(
                 "API started, continuing process..."
                 )
             )
             time.sleep(3)
+            if not is_started:
+                lib.core.settings.prompt(
+                    "appears that sqlmap's API was not started successfully, start it manually and press"
+                    " enter..."
+                )
         except Exception as e:
             print e
             lib.core.settings.logger.error(lib.core.settings.set_color(
@@ -152,7 +160,6 @@ def sqlmap_scan_main(url, port=None, verbose=None, opts=None, auto_start=False):
                 "press enter when ready to start..."
             )
     else:
-        is_started = lib.core.settings.search_for_process("sqlmapapi.py")
         if not is_started:
             lib.core.settings.prompt(
                 "sqlmap API is not started, start it and press enter to continue..."

@@ -24,11 +24,14 @@ from lib.core.settings import (
 
 
 def get_browser_version():
+    logger.info(set_color(
+        "attempting to get firefox browser version..."
+    ))
     try:
         output = subprocess.check_output(['firefox', '--version'])
     except Exception:
         logger.error(set_color(
-            "failed to run forefox...", level=50
+            "failed to run firefox...", level=50
         ))
         return "failed to start"
     try:
@@ -102,6 +105,7 @@ def request_issue_creation():
     current_log_file = get_latest_log_file(CURRENT_LOG_FILE_PATH)
     stacktrace = __extract_stacktrace(current_log_file)
     issue_title = stacktrace.split("\n")[-2]
+    ff_version = get_browser_version()
 
     issue_data = {
         "title": issue_title,
@@ -112,7 +116,7 @@ def request_issue_creation():
                 "Commands used:\n`{}`\n\n"
                 "Log file info:\n```{}```".format(
                      VERSION,
-                     get_browser_version(),
+                     "",
                      str(stacktrace),
                      str(platform.platform()),
                      " ".join(sys.argv),
