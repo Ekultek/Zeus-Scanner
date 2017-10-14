@@ -102,12 +102,14 @@ def request_issue_creation():
         "title": issue_title,
         "body": "Zeus version:\n`{}`\n\n"
                 "Firefox version:\n`{}`\n\n"
+                "Geckodriver version:\n`{}`\n\n"
                 "Error info:\n```{}````\n\n"
                 "Running details:\n`{}`\n\n"
                 "Commands used:\n`{}`\n\n"
                 "Log file info:\n```{}```".format(
                      lib.core.settings.VERSION,
                      ff_version,
+                     open(lib.core.settings.GECKO_VERSION_INFO_PATH).read(),
                      str(stacktrace),
                      str(platform.platform()),
                      " ".join(sys.argv),

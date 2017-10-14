@@ -4,3 +4,4 @@ geckodriver.log
 .idea/
 bin/executed.txt
 bin/paths
+bin/version_info

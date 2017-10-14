@@ -102,18 +102,19 @@ def untar_gecko(filename="{}/bin/drivers/geckodriver-v0.{}.0-linux{}.tar.gz", ve
     arch_info = {"64bit": "64", "32bit": "32"}
     file_arch = arch_info[platform.architecture()[0]]
     ff_version = var.auto_issue.github.get_browser_version()
-    if ff_version == "failed to start":
+    if ff_version > (54,):  # ff version between 53-55
         gecko_version = 18
-    elif ff_version == "failed to gather":
-        gecko_version = 18
-    else:
+    elif ff_version < (55,):  # ff version between 56 and anything greater (will probably cause problems later on)
         gecko_version = 19
+    else:
+        gecko_version = 17  # anything else
+    gecko_full_filename = filename.format(os.getcwd(), gecko_version, file_arch)
+    with open(lib.core.settings.GECKO_VERSION_INFO_PATH, "a+") as log:
+        log.write(gecko_full_filename.split("/")[-1])
     tar = tarfile.open(filename.format(os.getcwd(), gecko_version, file_arch), "r:gz")
     if verbose:
         lib.core.settings.logger.debug(lib.core.settings.set_color(
-            "extracting the correct driver version '{}' for your architecture '{}'...".format(
-                gecko_version, file_arch
-            ), level=10
+            "extracting the correct driver for your architecture '{}...", level=10
         ))
     try:
         tar.extractall("/usr/bin")
