@@ -107,7 +107,7 @@ def request_issue_creation():
                 "Commands used:\n`{}`\n\n"
                 "Log file info:\n```{}```".format(
                      lib.core.settings.VERSION,
-                     "",
+                     ff_version,
                      str(stacktrace),
                      str(platform.platform()),
                      " ".join(sys.argv),
