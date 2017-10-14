@@ -1,4 +1,5 @@
 import json
+import socket
 import re
 
 import requests
@@ -8,6 +9,7 @@ from lib.core.settings import (
     proxy_string_to_dict,
     logger, set_color,
     DEFAULT_USER_AGENT,
+    replace_http
 )
 from var.auto_issue.github import request_issue_creation
 
@@ -17,7 +19,7 @@ def __get_auth_headers(target, port=16992, source=None, agent=None, proxy=None):
         logger.info(set_color(
             "header value not established, attempting to get bypass..."
         ))
-        source = requests.get("http://{0}:{1}/index.htm".format(target, port), headers={
+        source = requests.get("http://{0}:{1}/index.htm".format(target, port), timeout=10, headers={
             'connection': 'close', 'user-agent': agent
         }, proxies=proxy)
         return source
@@ -91,9 +93,29 @@ def __get_hardware(target, agent=None, proxy=None):
     return json.dumps(data)
 
 
-def main_intel_amt(url, agent=None, proxy=None):
+def main_intel_amt(url, agent=None, proxy=None, **kwargs):
+    do_ip_address = kwargs.get("do_ip", False)
     proxy = proxy_string_to_dict(proxy) or None
     agent = agent or DEFAULT_USER_AGENT
+    if do_ip_address:
+        logger.warning(set_color(
+            "running against IP addresses may result in the targets refusing the connection...", level=30
+        ))
+        logger.info(set_color(
+            "will run against IP address instead of hostname..."
+        ))
+        try:
+            url = replace_http(url)
+            url = socket.gethostbyname(url)
+            logger.info(set_color(
+                "discovered IP address {}...".format(url)
+            ))
+        except Exception as e:
+            logger.error(set_color(
+                "failed to gather IP address from hostname '{}', received an error '{}'. "
+                "will just run against hostname...".format(url, e), level=40
+            ))
+            url = url
     logger.info(set_color(
         "attempting to connect to '{}' and get hardware info...".format(url)
     ))
@@ -111,6 +133,17 @@ def main_intel_amt(url, agent=None, proxy=None):
                 for item in json_data[key]:
                     print(" - {}: {}".format(item.capitalize(), json_data[key][item]))
             print("-" * 40)
+    except requests.exceptions.ConnectionError as e:
+        if "Max retries exceeded with url" in str(e):
+            logger.error(set_color(
+                "failed connection, target machine is actively refusing the connection, skipping...", level=40
+            ))
+            pass
+        else:
+            logger.error(set_color(
+                "failed connection with '{}', skipping...", level=40
+            ))
+            pass
     except Exception as e:
         if "Temporary failure in name resolution" in str(e):
             logger.error(set_color(

@@ -100,6 +100,8 @@ if __name__ == "__main__":
                        help="Show all connections made during the admin panel search")
     attacks.add_option("--tamper", dest="tamperXssPayloads", metavar="TAMPER-SCRIPT",
                        help="Send the XSS payloads through tampering before sending to the target")
+    attacks.add_option("--run-ip-address", dest="runAgainstIpAddress", action="store_true",
+                       help="Run the Intel ME AMT exploit against the found host IP address instead of the hostname")
     attacks.add_option("--thread", dest="threadPanels", action="store_true",
                        help=optparse.SUPPRESS_HELP)
     attacks.add_option("--auto", dest="autoStartSqlmap", action="store_true",
@@ -432,7 +434,7 @@ if __name__ == "__main__":
                 url = get_true_url(url)
                 return intel_me.main_intel_amt(
                     url, agent=agent_to_use,
-                    proxy=proxy_to_use
+                    proxy=proxy_to_use, do_ip=opt.runAgainstIpAddress
                 )
             elif admin:
                 main(
@@ -669,7 +671,6 @@ if __name__ == "__main__":
                     "it seems that your firefox version is not compatible with the geckodriver "
                     "version. please update firefox and try again...", level=50
                 ))
-                shutdown()
             else:
                 logger.info(set_color(
                     "kill off the open sessions of firefox and re-run Zeus..."
