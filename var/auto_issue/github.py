@@ -1,5 +1,4 @@
 import os
-import re
 import sys
 try:
     import urllib2  # python 2
@@ -7,32 +6,10 @@ except ImportError:
     import urllib.request as urllib2  # python 3
 import json
 import platform
-import subprocess
 
 from base64 import b64decode
 
 import lib.core.settings
-
-
-def get_browser_version():
-    lib.core.settings.logger.info(lib.core.settings.set_color(
-        "attempting to get firefox browser version..."
-    ))
-    try:
-        output = subprocess.check_output(['firefox', '--version'])
-    except Exception:
-        lib.core.settings.logger.error(lib.core.settings.set_color(
-            "failed to run firefox...", level=50
-        ))
-        return "failed to start"
-    try:
-        major, minor = map(int, re.search(r"(\d+).(\d+)", output).groups())
-    except Exception:
-        lib.core.settings.logger.error(lib.core.settings.set_color(
-            "failed to parse '{}' for version number...".format(output), level=50
-        ))
-        return "failed to gather"
-    return "Version: ({}.{})".format(major, minor)
 
 
 def __get_encoded_string(filename="{}/var/auto_issue/oauth"):
@@ -96,7 +73,7 @@ def request_issue_creation():
     current_log_file = lib.core.settings.get_latest_log_file(lib.core.settings.CURRENT_LOG_FILE_PATH)
     stacktrace = __extract_stacktrace(current_log_file)
     issue_title = stacktrace.split("\n")[-2]
-    ff_version = get_browser_version()
+    ff_version = lib.core.settings.get_browser_version()
 
     issue_data = {
         "title": issue_title,
@@ -108,7 +85,7 @@ def request_issue_creation():
                 "Commands used:\n`{}`\n\n"
                 "Log file info:\n```{}```".format(
                      lib.core.settings.VERSION,
-                     ff_version,
+                     "({})".format(ff_version),
                      open(lib.core.settings.GECKO_VERSION_INFO_PATH).read(),
                      str(stacktrace),
                      str(platform.platform()),

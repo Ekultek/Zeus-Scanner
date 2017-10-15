@@ -7,7 +7,6 @@ import ConfigParser
 import whichcraft
 
 import lib.core.settings
-import var.auto_issue.github
 
 
 def disclaimer():
@@ -58,6 +57,18 @@ def find_tools(to_search=("sqlmap", "nmap"), directory="{}/bin/paths", filename=
     cfgfile.close()
 
 
+def config_gecko_version(browser_version):
+    """
+    figure out which gecko version you need
+    """
+    if (55,) > browser_version > (53,):
+        return 17
+    elif (56,) > browser_version > (55,):
+        return 18
+    else:
+        return 19
+
+
 def check_os(current=platform.platform()):
     """
     check the users operating system..
@@ -101,13 +112,8 @@ def untar_gecko(filename="{}/bin/drivers/geckodriver-v0.{}.0-linux{}.tar.gz", ve
     """
     arch_info = {"64bit": "64", "32bit": "32"}
     file_arch = arch_info[platform.architecture()[0]]
-    ff_version = var.auto_issue.github.get_browser_version()
-    if ff_version > (54,):  # ff version between 53-55
-        gecko_version = 18
-    elif ff_version < (55,):  # ff version between 56 and anything greater (will probably cause problems later on)
-        gecko_version = 19
-    else:
-        gecko_version = 17  # anything else
+    ff_version = lib.core.settings.get_browser_version()
+    gecko_version = config_gecko_version(ff_version)
     gecko_full_filename = filename.format(os.getcwd(), gecko_version, file_arch)
     with open(lib.core.settings.GECKO_VERSION_INFO_PATH, "a+") as log:
         log.write(gecko_full_filename.split("/")[-1])

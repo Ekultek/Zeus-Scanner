@@ -1,12 +1,13 @@
-import difflib
-import glob
-import logging
 import os
 import io
-import random
 import re
 import sys
+import glob
 import time
+import difflib
+import logging
+import random
+import subprocess
 import ConfigParser
 
 import psutil
@@ -22,7 +23,7 @@ except NameError:
 # clone link
 CLONE = "https://github.com/ekultek/zeus-scanner.git"
 # current version <major.minor.commit.patch ID>
-VERSION = "1.0.48"
+VERSION = "1.0.49.ced6"
 # colors to output depending on the version
 VERSION_TYPE_COLORS = {"dev": 33, "stable": 92, "other": 30}
 # version string formatting
@@ -400,3 +401,24 @@ def search_for_process(name):
         process = psutil.Process(pid)
         all_process_names.add(" ".join(process.cmdline()).strip())
     return False if not any(name in proc for proc in list(all_process_names)) else True
+
+
+def get_browser_version():
+    logger.info(set_color(
+        "attempting to get firefox browser version..."
+    ))
+    try:
+        output = subprocess.check_output(['firefox', '--version'])
+    except Exception:
+        logger.error(set_color(
+            "failed to run firefox...", level=50
+        ))
+        return "failed to start"
+    try:
+        major, minor = map(int, re.search(r"(\d+).(\d+)", output).groups())
+    except Exception:
+        logger.error(set_color(
+            "failed to parse '{}' for version number...".format(output), level=50
+        ))
+        return "failed to gather"
+    return major, minor
