@@ -15,6 +15,9 @@ from var.auto_issue.github import request_issue_creation
 
 
 def __get_auth_headers(target, port=16992, source=None, agent=None, proxy=None):
+    """
+    get the authorization headers from the URL
+    """
     if not source or 'WWW-Authenticate' not in source.headers['WWW-Authenticate']:
         logger.info(set_color(
             "header value not established, attempting to get bypass..."
@@ -44,6 +47,9 @@ def __get_auth_headers(target, port=16992, source=None, agent=None, proxy=None):
 
 
 def __get_raw_data(target, page, agent=None, proxy=None):
+    """
+    collect all the information from an exploitable target
+    """
     logger.info(set_color(
         "getting raw information..."
     ))
@@ -58,6 +64,9 @@ def __get_raw_data(target, page, agent=None, proxy=None):
 
 
 def __get_hardware(target, agent=None, proxy=None):
+    """
+    collect all the hardware information from an exploitable target
+    """
     req = __get_raw_data(target, 'hw-sys', agent=agent, proxy=proxy)
     if not req.status_code == 200:
         return None
@@ -94,6 +103,9 @@ def __get_hardware(target, agent=None, proxy=None):
 
 
 def main_intel_amt(url, agent=None, proxy=None, **kwargs):
+    """
+    main attack method to be called
+    """
     do_ip_address = kwargs.get("do_ip", False)
     proxy = proxy_string_to_dict(proxy) or None
     agent = agent or DEFAULT_USER_AGENT

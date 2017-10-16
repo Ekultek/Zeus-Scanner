@@ -22,6 +22,10 @@ from lib.core.settings import (
 
 
 def check_for_robots(url, ext="/robots.txt", data_sep="-" * 30):
+    """
+    check if the URL has a robots.txt in it and collect `interesting` information
+    out of the page
+    """
     url = replace_http(url)
     interesting = set()
     full_url = "{}{}{}".format("http://", url, ext)
@@ -52,6 +56,9 @@ def check_for_robots(url, ext="/robots.txt", data_sep="-" * 30):
 
 
 def check_for_admin_page(url, exts, protocol="http://", **kwargs):
+    """
+    bruteforce the admin page of given URL
+    """
     verbose = kwargs.get("verbose", False)
     show_possibles = kwargs.get("show_possibles", False)
     possible_connections, connections = set(), set()
@@ -127,11 +134,17 @@ def check_for_admin_page(url, exts, protocol="http://", **kwargs):
 
 
 def __load_extensions(filename="{}/etc/link_ext.txt"):
+    """
+    load the extenstions to use from the etc/link_ext file
+    """
     with open(filename.format(os.getcwd())) as ext:
         return ext.readlines()
 
 
 def main(url, show=False, verbose=False, **kwargs):
+    """
+    main method to be called
+    """
     do_threading = kwargs.get("do_threading", False)
     proc_num = kwargs.get("proc_num", 3)
     logger.info(set_color(

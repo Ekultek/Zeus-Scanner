@@ -23,7 +23,7 @@ except NameError:
 # clone link
 CLONE = "https://github.com/ekultek/zeus-scanner.git"
 # current version <major.minor.commit.patch ID>
-VERSION = "1.0.49.feea"
+VERSION = "1.0.50"
 # colors to output depending on the version
 VERSION_TYPE_COLORS = {"dev": 33, "stable": 92, "other": 30}
 # version string formatting
@@ -83,6 +83,7 @@ AUTHORIZED_SEARCH_ENGINES = {
     "duckduckgo": "http://duckduckgo.com",
     "google": "http://google.com"
 }
+# extensions to exclude from the spider
 SPIDER_EXT_EXCLUDE = (
     "3ds", "3g2", "3gp", "7z", "DS_Store",
     "a", "aac", "adp", "ai", "aif", "aiff",
@@ -314,6 +315,9 @@ def prompt(question, opts=None):
 
 
 def find_application(application, opt="path", verbose=False):
+    """
+    find the given application on the users system by parsing the given configuration file
+    """
     retval = []
     with open(TOOL_PATHS) as config:
         read_conf = config.read()
@@ -334,6 +338,9 @@ def get_random_dork(filename="{}/etc/dorks.txt"):
 
 
 def update_zeus():
+    """
+    update zeus to the newest version
+    """
     can_update = True if ".git" in os.listdir(os.getcwd()) else False
     if can_update:
         return os.system("git pull origin master")
@@ -344,6 +351,9 @@ def update_zeus():
 
 
 def create_tree(start, conns, down="|", over="-", sep="-" * 40):
+    """
+    create a tree of connections made, will be used for things like XSS and admin pages
+    """
     print("{}\nStarting URL: {}\n\nConnections:".format(sep, start))
     for con in conns:
         print(
@@ -355,11 +365,18 @@ def create_tree(start, conns, down="|", over="-", sep="-" * 40):
 
 
 def get_true_url(url):
+    """
+    get the true URL of an otherwise messy URL
+    """
     data = url.split("/")
     return "{}//{}".format(data[0], data[2])
 
 
 def fix_log_file(logfile=get_latest_log_file(CURRENT_LOG_FILE_PATH)):
+    """
+    fix the log file, the way the color is set causes the log file to get code escapes (\033),
+    this will delete them out of the file
+    """
     retval = ""
     escape_seq_regex = re.compile("\033\[\d+[*m]")
     with open(logfile, "r+") as to_fix:
@@ -372,6 +389,9 @@ def fix_log_file(logfile=get_latest_log_file(CURRENT_LOG_FILE_PATH)):
 
 
 def write_to_log_file(data_to_write, path, filename):
+    """
+    write all found data to a log file
+    """
     create_dir(path.format(os.getcwd()))
     full_file_path = "{}/{}".format(
         path.format(os.getcwd()), filename.format(len(os.listdir(path.format(
@@ -396,6 +416,9 @@ def write_to_log_file(data_to_write, path, filename):
 
 
 def search_for_process(name):
+    """
+    search for a given process to see if it's started or not
+    """
     all_process_names = set()
     for pid in psutil.pids():
         process = psutil.Process(pid)
@@ -404,6 +427,9 @@ def search_for_process(name):
 
 
 def get_browser_version():
+    """
+    obtain the firefox browser version, this is necessary because zeus can only handle certain versions.
+    """
     logger.info(set_color(
         "attempting to get firefox browser version..."
     ))

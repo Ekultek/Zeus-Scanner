@@ -64,6 +64,9 @@ def bypass_ip_block(url):
 
 
 def extract_webcache_url(webcache_url, splitter="+"):
+    """
+    extract the true URL from Google's webcache URL's
+    """
     webcache_url = unquote(webcache_url)
     webcache_regex = re.compile(r"cache:(.{,16})?:")
     data = webcache_regex.split(webcache_url)

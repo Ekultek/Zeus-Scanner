@@ -23,6 +23,9 @@ from lib.core.settings import (
 
 
 def list_tamper_scripts(path="{}/lib/tamper_scripts"):
+    """
+    create a list of available tamper scripts from the tamper script directory
+    """
     retval = set()
     exclude = ["__init__.py", ".pyc"]
     for item in os.listdir(path.format(os.getcwd())):
@@ -34,6 +37,9 @@ def list_tamper_scripts(path="{}/lib/tamper_scripts"):
 
 
 def __tamper_payload(payload, tamper_type, warning=True, **kwargs):
+    """
+    add the tamper to the payload from the given tamper type
+    """
     acceptable = list_tamper_scripts()
     if tamper_type in acceptable:
         tamper_name = "lib.tamper_scripts.{}_encode"
@@ -44,10 +50,16 @@ def __tamper_payload(payload, tamper_type, warning=True, **kwargs):
 
 
 def __load_payloads(filename="{}/etc/xss_payloads.txt"):
+    """
+    load the tamper payloads from the etc/xss_payloads file
+    """
     with open(filename.format(os.getcwd())) as payloads: return payloads.readlines()
 
 
 def create_urls(url, payload_list, tamper=None):
+    """
+    create the tampered URL's, write them to a temporary file and read them from there
+    """
     tf = tempfile.NamedTemporaryFile(delete=False)
     tf_name = tf.name
     with tf as tmp:
@@ -71,6 +83,9 @@ def create_urls(url, payload_list, tamper=None):
 
 
 def find_xss_script(url, **kwargs):
+    """
+    parse the URL for the given XSS payload
+    """
     data = urlparse.urlparse(url)
     payload_parser = {"path": 2, "query": 4, "fragment": 5}
     if data[payload_parser["fragment"]] is not "" or None:
@@ -87,6 +102,11 @@ def find_xss_script(url, **kwargs):
 
 
 def scan_xss(url, agent=None, proxy=None):
+    """
+    scan the payload to see if the XSS is still present in the HTML, if it is there's a very good
+    chance that the URL is vulnerable to XSS attacks. Usually what will happen is the payload will
+    be tampered or encoded if the site is not vulnerable
+    """
     user_agent = agent or DEFAULT_USER_AGENT
     config_proxy = proxy_string_to_dict(proxy)
     config_headers = {"connection": "close", "user-agent": user_agent}
@@ -103,6 +123,9 @@ def scan_xss(url, agent=None, proxy=None):
 
 
 def main_xss(start_url, verbose=False, proxy=None, agent=None, tamper=None):
+    """
+    main attack method to be called
+    """
     if tamper:
         logger.info(set_color(
             "tampering payloads with '{}'...".format(tamper)

@@ -455,6 +455,9 @@ if __name__ == "__main__":
 
 
     def __run_attacks_main():
+        """
+        main method to run the attacks
+        """
         which_log_to_use = {
             "dork": URL_LOG_PATH,
             "spider": SPIDER_LOG_PATH
@@ -591,6 +594,7 @@ if __name__ == "__main__":
                 request_issue_creation()
                 pass
 
+        # spider a given webpage for all available URL's
         elif opt.spiderWebSite:
             problem_identifiers = ["http://", "https://"]
             if not URL_REGEX.match(opt.spiderWebSite):
@@ -619,6 +623,7 @@ if __name__ == "__main__":
 
             __run_attacks_main()
 
+        # enumerate a file and run attacks on the URL's provided
         elif opt.fileToEnumerate is not None:
             __run_attacks_main()
 
@@ -704,5 +709,6 @@ if __name__ == "__main__":
             ))
             request_issue_creation()
 
+    # fix the log file before shutting down incase you want to look at it
     fix_log_file()
 shutdown()
