@@ -85,7 +85,7 @@ def request_issue_creation():
                 "Commands used:\n`{}`\n\n"
                 "Log file info:\n```{}```".format(
                      lib.core.settings.VERSION,
-                     "({})".format(ff_version),
+                     "{}".format(ff_version),
                      open(lib.core.settings.GECKO_VERSION_INFO_PATH).read(),
                      str(stacktrace),
                      str(platform.platform()),

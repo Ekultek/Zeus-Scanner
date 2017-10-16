@@ -61,12 +61,15 @@ def config_gecko_version(browser_version):
     """
     figure out which gecko version you need
     """
-    if (55,) > browser_version > (53,):
-        return 17
-    elif (56,) > browser_version > (55,):
-        return 18
-    else:
-        return 19
+    version_specs = {
+        (56,): 19,
+        (55, 54): 18,
+        (53, 52, 51): 17
+    }
+    major = browser_version[0]
+    for key in version_specs.keys():
+        if any(k == major for k in key):
+            return version_specs[key]
 
 
 def check_os(current=platform.platform()):
@@ -114,6 +117,11 @@ def untar_gecko(filename="{}/bin/drivers/geckodriver-v0.{}.0-linux{}.tar.gz", ve
     file_arch = arch_info[platform.architecture()[0]]
     ff_version = lib.core.settings.get_browser_version()
     gecko_version = config_gecko_version(ff_version)
+    if gecko_version is None:
+        lib.core.settings.logger.fatal(lib.core.settings.set_color(
+            "your current firefox version is not supported by Zeus...", level=50
+        ))
+        lib.core.settings.shutdown()
     gecko_full_filename = filename.format(os.getcwd(), gecko_version, file_arch)
     with open(lib.core.settings.GECKO_VERSION_INFO_PATH, "a+") as log:
         log.write(gecko_full_filename.split("/")[-1])
