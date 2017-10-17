@@ -5,3 +5,4 @@ geckodriver.log
 bin/executed.txt
 bin/paths
 bin/version_info
+checksum.txt

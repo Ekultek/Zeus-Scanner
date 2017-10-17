@@ -11,6 +11,7 @@ import subprocess
 import ConfigParser
 
 import psutil
+import requests
 
 import bin.unzip_gecko
 import lib.core.errors
