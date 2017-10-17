@@ -24,7 +24,7 @@ except NameError:
 # clone link
 CLONE = "https://github.com/ekultek/zeus-scanner.git"
 # current version <major.minor.commit.patch ID>
-VERSION = "1.0.52"
+VERSION = "1.0.53"
 # colors to output depending on the version
 VERSION_TYPE_COLORS = {"dev": 33, "stable": 92, "other": 30}
 # version string formatting
@@ -53,6 +53,8 @@ DEFAULT_USER_AGENT = "Zeus-Scanner(v{})::Python->v{}.{}".format(
 URL_QUERY_REGEX = re.compile(r"(.*)[?|#](.*){1}\=(.*)")
 # regex to recognize a URL
 URL_REGEX = re.compile(r"((https?):((//)|(\\\\))+([\w\d:#@%/;$()~_?\+-=\\\.&](#!)?)*)")
+# path to the checksum
+CHECKSUM_PATH = "{}/etc/checksum/md5sum.md5".format(os.getcwd())
 # geckodriver version information path, grabs the file that was installed on your system
 GECKO_VERSION_INFO_PATH = "{}/bin/version_info".format(os.getcwd())
 # attempt to fix the program install error
@@ -484,3 +486,13 @@ def config_headers(**kwargs):
     else:
         agent = DEFAULT_USER_AGENT
     return proxy_retval, agent
+
+
+def get_md5sum(url="https://raw.githubusercontent.com/Ekultek/Zeus-Scanner/master/etc/checksum/md5sum.md5"):
+    """
+    compare the checksums to post an issue
+    """
+    current_checksum = open(CHECKSUM_PATH).read()
+    posted_checksum = requests.get(url).content
+    if current_checksum == posted_checksum:
+        return True

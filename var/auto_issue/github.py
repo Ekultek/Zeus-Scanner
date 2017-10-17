@@ -29,6 +29,13 @@ def decode(n, token):
 
 
 def request_issue_creation():
+    if not lib.core.settings.get_md5sum():
+        lib.core.settings.logger.fatal(lib.core.settings.set_color(
+            "it appears that your checksums did not match, therefore it is assumed "
+            "that you have edited some of the code, issue request denied...", level=50
+        ))
+        lib.core.settings.shutdown()
+
     question = lib.core.settings.prompt(
         "would you like to create an anonymous issue and post it to Zeus's Github", opts="yN"
     )
