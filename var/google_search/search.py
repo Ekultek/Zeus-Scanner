@@ -1,6 +1,7 @@
 import os
 import re
 import time
+import subprocess
 try:
     from urllib import (
         unquote,
@@ -36,7 +37,8 @@ from lib.core.settings import (
     get_proxy_type,
     prompt,
     EXTRACTED_URL_LOG,
-    URL_EXCLUDES
+    URL_EXCLUDES,
+    CLEANUP_TOOL_PATH
 )
 
 try:
@@ -178,8 +180,8 @@ def get_urls(query, url, verbose=False, warning=True, **kwargs):
             if not str(do_continue).lower().startswith("n"):  # shutdown and write the URL to a file
                 write_to_log_file(retval, EXTRACTED_URL_LOG, "extracted-url-{}.log")
                 logger.info(set_color(
-                    "it is advised to use the built in blackwidow crawler with the extracted URL "
-                    "(IE -b '{}')".format(retval)
+                    "it is advised to extract the URL's from the produced URL written to the above "
+                    "(IE open the log, copy the url into firefox)...".format(retval)
                 ))
                 shutdown()
         except Exception as e:
@@ -251,6 +253,28 @@ def parse_search_results(
                 "check your installation and make sure it is in /usr/lib, if you "
                 "find it there, restart your system and try again...", level=50
             ))
+        elif "connection refused" in str(e):
+            logger.fatal(set_color(
+                "there are to many sessions of firefox opened and selenium cannot "
+                "create a new one...", level=50
+            ))
+            do_autoclean = prompt(
+                "would you like to attempt to auto clean the open sessions", opts="yN"
+            )
+            if do_autoclean.lower().startswith("y"):
+                logger.warning(set_color(
+                    "this will kill all instances of the firefox web browser...", level=30
+                ))
+                subprocess.call(["sudo", "sh", CLEANUP_TOOL_PATH])
+                logger.info(set_color(
+                    "all open sessions of firefox killed, it should be safe to re-run "
+                    "Zeus..."
+                ))
+            else:
+                logger.warning(set_color(
+                    "kill off the open sessions of firefox and re-run Zeus...", level=30
+                ))
+            shutdown()
         else:
             logger.exception(set_color(
                 "{} failed to gather the URL from search engine, caught exception '{}' "

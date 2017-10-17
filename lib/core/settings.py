@@ -16,14 +16,14 @@ import bin.unzip_gecko
 import lib.core.errors
 
 try:
-    raw_input          # Python 2
+    raw_input  # Python 2
 except NameError:
     raw_input = input  # Python 3
 
 # clone link
 CLONE = "https://github.com/ekultek/zeus-scanner.git"
 # current version <major.minor.commit.patch ID>
-VERSION = "1.0.51"
+VERSION = "1.0.52"
 # colors to output depending on the version
 VERSION_TYPE_COLORS = {"dev": 33, "stable": 92, "other": 30}
 # version string formatting
@@ -122,7 +122,8 @@ URL_EXCLUDES = (
     "www.google.com", "map.google.com", "mail.google.com", "drive.google.com",
     "news.google.com", "accounts.google.com", "books.google.com"
 )
-DBMS_ERRORS = {  # regular expressions used for DBMS recognition based on error message response
+# regular expressions used for DBMS recognition based on error message response
+DBMS_ERRORS = {
     "MySQL": (r"SQL syntax.*MySQL", r"Warning.*mysql_.*", r"valid MySQL result", r"MySqlClient\."),
     "PostgreSQL": (r"PostgreSQL.*ERROR", r"Warning.*\Wpg_.*", r"valid PostgreSQL result", r"Npgsql\."),
     "Microsoft SQL Server": (r"Driver.* SQL[\-\_\ ]*Server", r"OLE DB.* SQL Server",
@@ -150,6 +151,7 @@ def create_log_name(log_path="{}/log", filename="zeus-log-{}.log"):
     find_file_amount = len(os.listdir(log_path.format(os.getcwd())))
     full_log_path = "{}/{}".format(log_path.format(os.getcwd()), filename.format(find_file_amount + 1))
     return full_log_path
+
 
 # console logger and file logger settings
 logger = logging.getLogger("zeus-log")
@@ -185,11 +187,11 @@ def set_color(org_string, level=None):
     set the console log color, this will kinda mess with the file log but whatever
     """
     color_levels = {
-        10: "\033[36m{}\033[0m",       # DEBUG
-        20: "\033[32m{}\033[0m",       # INFO *default
-        30: "\033[33m{}\033[0m",       # WARNING
-        40: "\033[31m{}\033[0m",       # ERROR
-        50: "\033[7;31;31m{}\033[0m"   # FATAL/CRITICAL/EXCEPTION
+        10: "\033[36m{}\033[0m",  # DEBUG
+        20: "\033[32m{}\033[0m",  # INFO *default
+        30: "\033[33m{}\033[0m",  # WARNING
+        40: "\033[31m{}\033[0m",  # ERROR
+        50: "\033[7;31;31m{}\033[0m"  # FATAL/CRITICAL/EXCEPTION
     }
     if level is None:
         return color_levels[20].format(org_string)
@@ -275,6 +277,7 @@ def replace_http(url):
         delete the queries from the URL
         """
         return data.split("/")[0]
+
     try:
         url_list = url.split("//")
         new_url = url_list[1]
@@ -316,7 +319,7 @@ def prompt(question, opts=None):
         )
 
 
-def find_application(application, opt="path", verbose=False):
+def find_application(application, opt="path"):
     """
     find the given application on the users system by parsing the given configuration file
     """
@@ -382,12 +385,12 @@ def fix_log_file(logfile=get_latest_log_file(CURRENT_LOG_FILE_PATH)):
     retval = ""
     escape_seq_regex = re.compile("\033\[\d+[*m]")
     with open(logfile, "r+") as to_fix:
-            for line in to_fix.readlines():
-                retval += escape_seq_regex.sub("", line)
+        for line in to_fix.readlines():
+            retval += escape_seq_regex.sub("", line)
     open(logfile, "w").close()
     with open(logfile, "a+") as fixed:
-            for line in retval.split("\n"):
-                fixed.write(line + "\n")
+        for line in retval.split("\n"):
+            fixed.write(line + "\n")
 
 
 def write_to_log_file(data_to_write, path, filename):
@@ -450,3 +453,33 @@ def get_browser_version():
         ))
         return "failed to gather"
     return major, minor
+
+
+def config_headers(**kwargs):
+    """
+    configure the request headers, this will configure user agents and proxies
+    """
+    proxy = kwargs.get("proxy", None)
+    rand_proxy = kwargs.get("proxy_file", None)
+    personal_agent = kwargs.get("p_agent", None)
+    rand_agent = kwargs.get("rand_agent", None)
+    verbose = kwargs.get("verbose", False)
+    if proxy is not None:
+        proxy_retval = proxy
+    elif rand_proxy is not None:
+        if verbose:
+            logger.debug(set_color(
+                "loading random proxy from '{}'...".format(rand_proxy), level=10
+            ))
+        with open(rand_proxy) as proxies:
+            possible = proxies.readlines()
+            proxy_retval = random.choice(possible).strip()
+    else:
+        proxy_retval = None
+    if personal_agent is not None:
+        agent = personal_agent
+    elif rand_agent:
+        agent = grab_random_agent(verbose=verbose)
+    else:
+        agent = DEFAULT_USER_AGENT
+    return proxy_retval, agent

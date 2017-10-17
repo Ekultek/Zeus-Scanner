@@ -2,7 +2,6 @@
 
 import optparse
 import os
-import random
 import subprocess
 import time
 
@@ -10,7 +9,6 @@ try:
     import http.client as http_client  # Python 3
 except ImportError:
     import httplib as http_client  # Python 2
-from selenium.webdriver.remote.errorhandler import WebDriverException
 
 from var import blackwidow
 from var.google_search import search
@@ -34,7 +32,6 @@ from lib.core.settings import (
     logger,
     set_color,
     get_latest_log_file,
-    grab_random_agent,
     CURRENT_LOG_FILE_PATH,
     AUTHORIZED_SEARCH_ENGINES,
     URL_LOG_PATH,
@@ -48,10 +45,9 @@ from lib.core.settings import (
     SQLMAP_MAN_PAGE_URL,
     get_true_url,
     fix_log_file,
-    DEFAULT_USER_AGENT,
     SPIDER_LOG_PATH,
-    CLEANUP_TOOL_PATH,
-    FIX_PROGRAM_INSTALL_PATH
+    FIX_PROGRAM_INSTALL_PATH,
+    config_headers
 )
 
 if __name__ == "__main__":
@@ -256,31 +252,6 @@ if __name__ == "__main__":
                 logger.warning(set_color(
                     "{} is not a valid choice...".format(choice)
                 ))
-
-
-    def __config_headers():
-        """
-        configure the request headers, this will configure user agents and proxies
-        """
-        if opt.proxyConfig is not None:
-            proxy = opt.proxyConfig
-        elif opt.proxyFileRand is not None:
-            if opt.runInVerbose:
-                logger.debug(set_color(
-                    "loading random proxy from '{}'...".format(opt.proxyFileRand), level=10
-                ))
-            with open(opt.proxyFileRand) as proxies:
-                possible = proxies.readlines()
-                proxy = random.choice(possible).strip()
-        else:
-            proxy = None
-        if opt.usePersonalAgent is not None:
-            agent = opt.usePersonalAgent
-        elif opt.useRandomAgent:
-            agent = grab_random_agent(verbose=opt.runInVerbose)
-        else:
-            agent = DEFAULT_USER_AGENT
-        return proxy, agent
 
 
     def __config_search_engine(verbose=False):
@@ -493,7 +464,11 @@ if __name__ == "__main__":
                     )
 
 
-    proxy_to_use, agent_to_use = __config_headers()
+    proxy_to_use, agent_to_use = config_headers(
+        proxy=opt.proxyConfig, proxy_file=opt.proxyFileRand,
+        p_agent=opt.usePersonalAgent, rand_agent=opt.useRandomAgent,
+        verbose=opt.runInVerbose
+    )
     search_engine = __config_search_engine(verbose=opt.runInVerbose)
 
     try:
@@ -654,40 +629,6 @@ if __name__ == "__main__":
             "do not interrupt the browser when selenium is running, "
             "it will cause Zeus to crash...", level=30
         ))
-    except WebDriverException as e:
-        if "connection refused" in str(e):
-            logger.fatal(set_color(
-                "there are to many sessions of firefox opened and selenium cannot "
-                "create a new one...", level=50
-            ))
-            do_autoclean = prompt(
-                "would you like to attempt auto clean", opts="yN"
-            )
-            if do_autoclean.lower().startswith("y"):
-                logger.warning(set_color(
-                    "this will kill all instances of the firefox web browser...", level=30
-                ))
-                subprocess.call(["sudo", "sh", CLEANUP_TOOL_PATH])
-                logger.info(set_color(
-                    "all open sessions of firefox killed, it should be safe to re-run "
-                    "Zeus..."
-                ))
-            elif "Service geckodriver unexpectedly exited" in str(e):
-                logger.fatal(set_color(
-                    "it seems that your firefox version is not compatible with the geckodriver "
-                    "version. please update firefox and try again...", level=50
-                ))
-            else:
-                logger.info(set_color(
-                    "kill off the open sessions of firefox and re-run Zeus..."
-                ))
-            shutdown()
-        else:
-            logger.exception(set_color(
-                "Zeus has run into an unexpected error from selenium webdriver and cannot continue "
-                "error info '{}'...".format(str(e))
-            ))
-            request_issue_creation()
     except Exception as e:
         if "url did not match a true url" in str(e).lower():
             logger.error(set_color(
@@ -695,6 +636,12 @@ if __name__ == "__main__":
                 "the URL provided to the spider needs to contain protocol as well "
                 "ie. 'http://google.com' (it is advised not to add the GET parameter), "
                 "fix the URL you want to scan and try again...", level=40
+            ))
+            shutdown()
+        elif "Service geckodriver unexpectedly exited" in str(e):
+            logger.fatal(set_color(
+                "it seems that your firefox version is not compatible with the geckodriver "
+                "version. please update firefox and try again...", level=50
             ))
             shutdown()
         elif "Max retries exceeded with url" in str(e):

@@ -135,7 +135,7 @@ def check_for_admin_page(url, exts, protocol="http://", **kwargs):
 
 def __load_extensions(filename="{}/etc/link_ext.txt"):
     """
-    load the extenstions to use from the etc/link_ext file
+    load the extensions to use from the etc/link_ext file
     """
     with open(filename.format(os.getcwd())) as ext:
         return ext.readlines()
