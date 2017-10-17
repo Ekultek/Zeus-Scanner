@@ -229,6 +229,7 @@ def parse_search_results(
 
     proxy_string_info = "setting proxy to {}..."
     if proxy_string is not None:
+        proxy_string = proxy_string_to_dict(proxy_string)
         proxy_string_info = proxy_string_info.format(
             ''.join(proxy_string.keys()) + "://" + ''.join(proxy_string.values()))
     else:
@@ -244,13 +245,7 @@ def parse_search_results(
     try:
         query_url = get_urls(query, url_to_search, verbose=verbose, user_agent=user_agent, proxy=proxy_string)
     except Exception as e:
-        if "WebDriverException" in str(e):
-            logger.exception(set_color(
-                "it seems that you exited the browser, please allow the browser "
-                "to complete it's run so that Zeus can bypass captchas and API "
-                "calls", level=50
-            ))
-        elif "'/usr/lib/firefoxdriver/webdriver.xpi'" in str(e):
+        if "'/usr/lib/firefoxdriver/webdriver.xpi'" in str(e):
             logger.fatal(set_color(
                 "firefox was not found in the default location on your system, "
                 "check your installation and make sure it is in /usr/lib, if you "

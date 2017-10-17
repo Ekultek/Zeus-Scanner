@@ -23,7 +23,7 @@ except NameError:
 # clone link
 CLONE = "https://github.com/ekultek/zeus-scanner.git"
 # current version <major.minor.commit.patch ID>
-VERSION = "1.0.50"
+VERSION = "1.0.51"
 # colors to output depending on the version
 VERSION_TYPE_COLORS = {"dev": 33, "stable": 92, "other": 30}
 # version string formatting
@@ -54,6 +54,8 @@ URL_QUERY_REGEX = re.compile(r"(.*)[?|#](.*){1}\=(.*)")
 URL_REGEX = re.compile(r"((https?):((//)|(\\\\))+([\w\d:#@%/;$()~_?\+-=\\\.&](#!)?)*)")
 # geckodriver version information path, grabs the file that was installed on your system
 GECKO_VERSION_INFO_PATH = "{}/bin/version_info".format(os.getcwd())
+# attempt to fix the program install error
+FIX_PROGRAM_INSTALL_PATH = "{}/etc/scripts/fix_pie.sh".format(os.getcwd())
 # path to the auto clean tool
 CLEANUP_TOOL_PATH = "{}/etc/scripts/cleanup.sh".format(os.getcwd())
 # paths to sqlmap and nmap
