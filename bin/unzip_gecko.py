@@ -68,8 +68,9 @@ def config_gecko_version(browser_version):
     }
     major = browser_version[0]
     for key in version_specs.keys():
-        if any(k == major for k in key):
-            return version_specs[key]
+        for num in key:
+            if num == major:
+                return version_specs[key]
 
 
 def check_os(current=platform.platform()):
