@@ -121,6 +121,10 @@ if __name__ == "__main__":
                             help="Specify how many links to try and search on Google")
     search_items.add_option("-M", "--multi", dest="searchMultiplePages", action="store_true",
                             help="Search multiple pages of Google")
+    search_items.add_option("-E", "--exclude-none", dest="noExclude", action="store_true",
+                            help="Do not exclude URLs because they do not have a GET(query) parameter in them")
+    search_items.add_option("-W", "--webcache", dest="parseWebcache", action="store_true",
+                            help="Parse webcache URLs for the redirect in them")
 
     # obfuscation options
     anon = optparse.OptionGroup(parser, "Anonymity arguments",
@@ -480,7 +484,7 @@ if __name__ == "__main__":
             try:
                 search.parse_search_results(
                     opt.dorkToUse, search_engine, verbose=opt.runInVerbose, proxy=proxy_to_use,
-                    agent=agent_to_use
+                    agent=agent_to_use, pull_all=opt.noExclude, parse_webcache=opt.parseWebcache
                 )
             except Exception as e:
                 logger.exception(set_color(

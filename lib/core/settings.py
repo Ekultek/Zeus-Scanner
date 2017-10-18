@@ -24,7 +24,7 @@ except NameError:
 # clone link
 CLONE = "https://github.com/ekultek/zeus-scanner.git"
 # current version <major.minor.commit.patch ID>
-VERSION = "1.0.54.f2f8"
+VERSION = "1.0.55"
 # colors to output depending on the version
 VERSION_TYPE_COLORS = {"dev": 33, "stable": 92, "other": 30}
 # version string formatting
@@ -122,8 +122,10 @@ SPIDER_EXT_EXCLUDE = (
 )
 # urls to exclude from being grabbed during the searching
 URL_EXCLUDES = (
-    "www.google.com", "map.google.com", "mail.google.com", "drive.google.com",
-    "news.google.com", "accounts.google.com", "books.google.com"
+    "maps.google", "play.google", "youtube",
+    "drive.google", "books.google", "news.google",
+    "www.google", "mail.google", "accounts.google",
+    "schema.org", "www.<b"  # this is some weird thing that pulls up?
 )
 # regular expressions used for DBMS recognition based on error message response
 DBMS_ERRORS = {

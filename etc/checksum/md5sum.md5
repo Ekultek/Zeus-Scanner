@@ -1,5 +1,5 @@
 e6c13a69a5290cdb1a8e5e1c4dd19b7d  ./requirements.txt
-5a7b2d95ee736b8781ada9782598ba60  ./zeus.py
+a33737127d83dd172ff5c563e92bb026  ./zeus.py
 6ad5f22ec4a6f8324bfb1b01ab6d51ec  ./etc/scripts/cleanup.sh
 155c9482f690f1482f324a7ffd8b8098  ./etc/scripts/fix_pie.sh
 642a77905d8bb4e5533e0e9c2137c0fa  ./etc/agents.txt
@@ -32,9 +32,9 @@ fc11145007c1c3f47cbda44ced93e73f  ./lib/attacks/admin_panel_finder/__init__.py
 c5ebb0c56c9ae3b9a72a14e3f05afa16  ./lib/attacks/intel_me/__init__.py
 1faa2b5dfad6eb538bbfe42942d2a9da  ./lib/core/errors.py
 d41d8cd98f00b204e9800998ecf8427e  ./lib/core/__init__.py
-a7ca933b5fff483d26e0d30a12838100  ./lib/core/settings.py
+6e0e9181f2ee8af956663e57ec7b5552  ./lib/core/settings.py
 d41d8cd98f00b204e9800998ecf8427e  ./var/google_search/__init__.py
-e5457ee2e54bb4f4f823367818694596  ./var/google_search/search.py
+b098737ac94451ae4cb2a1d8c07b91d4  ./var/google_search/search.py
 d41d8cd98f00b204e9800998ecf8427e  ./var/__init__.py
 66b11aa388ea909de7b212341259a318  ./var/auto_issue/oauth
 d41d8cd98f00b204e9800998ecf8427e  ./var/auto_issue/__init__.py

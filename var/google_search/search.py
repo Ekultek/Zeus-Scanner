@@ -2,6 +2,7 @@ import os
 import re
 import time
 import subprocess
+
 try:
     from urllib import (
         unquote,
@@ -216,11 +217,21 @@ def parse_search_results(
     retval = set()
     query_url = None
 
+    parse_webcache, pull_all = kwargs.get("parse_webcache", False), kwargs.get("pull_all", False)
     proxy_string, user_agent = kwargs.get("proxy", None), kwargs.get("agent", None)
 
     if verbose:
         logger.debug(set_color(
             "checking for user-agent and proxy configuration...", level=10
+        ))
+
+    if not parse_webcache:
+        logger.warning(set_color(
+            "will not parse webcache URLs...", level=30
+        ))
+    if not pull_all:
+        logger.warning(set_color(
+            "only pulling URLs with GET(query) parameters...", level=30
         ))
 
     user_agent_info = "adjusting user-agent header to {}..."
@@ -292,26 +303,18 @@ def parse_search_results(
     logger.info(set_color(user_agent_info))
     req.headers.update(headers)
     found_urls = URL_REGEX.findall(req.text)
-    url_skip_schema = ("maps.google", "play.google", "youtube")
     for urls in list(found_urls):
         for url in list(urls):
             url = unquote(url)
-            if not any(u in url for u in url_skip_schema):
-                if URL_QUERY_REGEX.match(url) and not any(l in url for l in URL_EXCLUDES):
+            if not any(u in url for u in URL_EXCLUDES):
+                if URL_REGEX.match(url):
                     if isinstance(url, unicode):
                         url = str(url).encode("utf-8")
-                    if "webcache" in url:
-                        logger.info(set_color(
-                            "received webcache URL, extracting URL from webcache..."
-                        ))
-                        webcache_url = url
-                        url = extract_webcache_url(webcache_url)
-                        if url is None:
-                            logger.warning(set_color(
-                                "unable to extract url from given webcache URL '{}'...".format(
-                                    webcache_url
-                                ), level=30
-                            ))
+                    if pull_all:
+                        retval.add(url.split(splitter)[0])
+                    else:
+                        if URL_QUERY_REGEX.match(url.split(splitter)[0]):
+                            retval.add(url.split(splitter)[0])
                     if verbose:
                         try:
                             logger.debug(set_color(
@@ -326,23 +329,39 @@ def parse_search_results(
                                 "found '{}...".format(str(url)), level=10
                             ))
                     if url is not None:
-                        retval.add(url.split("&amp;")[0])
-    logger.info(set_color(
-        "found a total of {} URL's with a GET parameter...".format(len(retval))
-    ))
-    if len(retval) != 0:
-        write_to_log_file(retval, URL_LOG_PATH, "url-log-{}.log")
+                        retval.add(url.split(splitter)[0])
+    true_retval = set()
+    for url in list(retval):
+        if parse_webcache:
+            if "webcache" in url:
+                logger.info(set_color(
+                    "found a webcache URL, extracting..."
+                ))
+                url = extract_webcache_url(url)
+                if verbose:
+                    logger.debug(set_color(
+                        "found '{}'...".format(url), level=10
+                    ))
+                true_retval.add(url)
+            else:
+                true_retval.add(url)
+        else:
+            true_retval.add(url)
+
+    if len(true_retval) != 0:
+        write_to_log_file(true_retval, URL_LOG_PATH, "url-log-{}.log")
     else:
-        logger.critical(set_color(
-            "did not find any usable URL's with the given query '{}' "
-            "using search engine '{}'...".format(query, url_to_search), level=50
+        logger.fatal(set_color(
+            "did not find any URLs with given query '{}'...".format(query), level=50
         ))
         shutdown()
-    return list(retval) if len(retval) != 0 else None
+    logger.info(set_color(
+        "found a total of {} URLs with given query '{}'...".format(len(true_retval), query)
+    ))
+    return list(true_retval) if len(true_retval) != 0 else None
 
 
 def search_multiple_pages(query, link_amount, verbose=False, **kwargs):
-
     def __config_proxy(proxy_string):
         proxy_type_schema = {
             "http": httplib2.socks.PROXY_TYPE_HTTP,
