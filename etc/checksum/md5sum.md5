@@ -4,7 +4,7 @@ e6c13a69a5290cdb1a8e5e1c4dd19b7d  ./requirements.txt
 155c9482f690f1482f324a7ffd8b8098  ./etc/scripts/fix_pie.sh
 642a77905d8bb4e5533e0e9c2137c0fa  ./etc/agents.txt
 82cc68f46539d0255f7ce14cd86cd49b  ./etc/link_ext.txt
-b0e9a64654947e53b8631a9b84f1df97  ./etc/dorks.txt
+75b485c7a5c6daa22a65794da4109ddc  ./etc/dorks.txt
 8fc2e244d69f0a38c2d7cee8da211cbf  ./etc/xss_payloads.txt
 d41d8cd98f00b204e9800998ecf8427e  ./bin/__init__.py
 feea6218ad0b502f050542378d63cc65  ./bin/unzip_gecko.py
