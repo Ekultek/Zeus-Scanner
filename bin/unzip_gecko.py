@@ -2,7 +2,10 @@ import os
 import platform
 import subprocess
 import tarfile
-import ConfigParser
+try:
+    import ConfigParser  # python 2
+except ImportError:
+    import configparser as ConfigParser  # python 3
 
 import whichcraft
 

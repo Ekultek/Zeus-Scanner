@@ -6,9 +6,13 @@ import glob
 import time
 import difflib
 import logging
+import string
 import random
 import subprocess
-import ConfigParser
+try:
+    import ConfigParser  # python 2
+except ImportError:
+    import configparser as ConfigParser  # python 3
 
 import psutil
 import requests
@@ -24,7 +28,7 @@ except NameError:
 # clone link
 CLONE = "https://github.com/ekultek/zeus-scanner.git"
 # current version <major.minor.commit.patch ID>
-VERSION = "1.0.55"
+VERSION = "1.0.56"
 # colors to output depending on the version
 VERSION_TYPE_COLORS = {"dev": 33, "stable": 92, "other": 30}
 # version string formatting
@@ -498,3 +502,10 @@ def get_md5sum(url="https://raw.githubusercontent.com/Ekultek/Zeus-Scanner/maste
     posted_checksum = requests.get(url).content
     if current_checksum == posted_checksum:
         return True
+
+
+def create_identifier(chars=string.ascii_letters):
+    retval = []
+    for _ in range(0, 7):
+        retval.append(random.choice(chars))
+    return "".join(retval)

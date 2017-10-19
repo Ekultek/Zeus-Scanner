@@ -79,7 +79,8 @@ def request_issue_creation():
 
     current_log_file = lib.core.settings.get_latest_log_file(lib.core.settings.CURRENT_LOG_FILE_PATH)
     stacktrace = __extract_stacktrace(current_log_file)
-    issue_title = stacktrace.split("\n")[-2]
+    identifier = lib.core.settings.create_identifier()
+    issue_title = "{} ({})".format(stacktrace.split("\n")[-2], identifier)
     ff_version = lib.core.settings.get_browser_version()
 
     issue_data = {
@@ -112,7 +113,8 @@ def request_issue_creation():
         )
         urllib2.urlopen(req, timeout=10).read()
         lib.core.settings.logger.info(lib.core.settings.set_color(
-            "issue has been created successfully with the following name '{}'...".format(issue_title)
+            "issue has been created successfully with the following name '{}', your unique identifier "
+            "for this issue is '{}'...".format(issue_title, identifier)
         ))
     except Exception as e:
         lib.core.settings.logger.exception(lib.core.settings.set_color(
