@@ -46,7 +46,6 @@ from lib.core.settings import (
     get_true_url,
     fix_log_file,
     SPIDER_LOG_PATH,
-    FIX_PROGRAM_INSTALL_PATH,
     config_headers
 )
 
@@ -655,25 +654,6 @@ if __name__ == "__main__":
                 "along with a new user-agent (--random-agent/--agent).", level=50
             ))
             shutdown()
-        elif "Program install error!" in str(e):
-            do_fix = prompt(
-                "seems the program is having some trouble installing would you like "
-                "to try and automatically fix this issue", opts="yN"
-            )
-            if do_fix.lower().startswith("y"):
-                logger.info(set_color(
-                    "attempting to reinstall failing dependency..."
-                ))
-                subprocess.call(["sudo", "sh", FIX_PROGRAM_INSTALL_PATH])
-                logger.info(set_color(
-                    "successfully installed, you should be good to re-run Zeus..."
-                ))
-                shutdown()
-            else:
-                logger.info(set_color(
-                    "you can automatically try and re-install Xvfb to fix the problem..."
-                ))
-                shutdown()
         else:
             logger.exception(set_color(
                 "ran into exception '{}' exception has been saved to log file...".format(e), level=50
