@@ -12,7 +12,7 @@ from base64 import b64decode
 import lib.core.settings
 
 
-def __get_encoded_string(filename="{}/var/auto_issue/oauth"):
+def __get_encoded_string(filename="{}/etc/auths/git_auth"):
     with open(filename.format(os.getcwd())) as data:
         return data.read()
 

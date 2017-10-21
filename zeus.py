@@ -18,6 +18,7 @@ from lib.attacks.admin_panel_finder import main
 from lib.attacks.xss_scan import main_xss
 from lib.attacks.nmap_scan.nmap_opts import NMAP_API_OPTS
 from lib.attacks.sqlmap_scan.sqlmap_opts import SQLMAP_API_OPTIONS
+from lib.attacks.whois_lookup.whois import whois_lookup_main
 
 from lib.attacks import (
     nmap_scan,
@@ -82,6 +83,10 @@ if __name__ == "__main__":
                        help="Search for the websites admin panel")
     attacks.add_option("-x", "--xss-scan", dest="runXssScan", action="store_true",
                        help="Run an XSS scan on the found URL's")
+    attacks.add_option("-w", "--whois-lookup", dest="performWhoisLookup", action="store_true",
+                       help="Perform a WhoIs lookup on the provided domain")
+    attacks.add_option("--show-readable", dest="showReadableOutput", action="store_true",
+                       help="Show human readable output from the WhoIs lookup")
     attacks.add_option("--sqlmap-args", dest="sqlmapArguments", metavar="SQLMAP-ARGS",
                        help="Pass the arguments to send to the sqlmap API within quotes & "
                             "separated by a comma. IE 'dbms mysql, verbose 3, level 5'")
@@ -363,6 +368,7 @@ if __name__ == "__main__":
         xss = kwargs.get("xss", False)
         admin = kwargs.get("admin", False)
         verbose = kwargs.get("verbose", False)
+        whois = kwargs.get("whois", False)
         batch = kwargs.get("batch", False)
         auto_start = kwargs.get("auto_start", False)
 
@@ -371,7 +377,8 @@ if __name__ == "__main__":
             "port": opt.runPortScan,
             "xss": opt.runXssScan,
             "admin": opt.adminPanelFinder,
-            "intel": opt.intelCheck
+            "intel": opt.intelCheck,
+            "whois": opt.performWhoisLookup
         }
 
         enabled = set()
@@ -421,6 +428,10 @@ if __name__ == "__main__":
                     url, verbose=verbose, proxy=proxy_to_use,
                     agent=agent_to_use, tamper=opt.tamperXssPayloads
                 )
+            elif whois:
+                whois_lookup_main(
+                    url, verbose=opt.runInVerbose, readable=opt.showReadableOutput
+                )
             else:
                 pass
         else:
@@ -453,7 +464,7 @@ if __name__ == "__main__":
         options = [
             opt.runSqliScan, opt.runPortScan,
             opt.intelCheck, opt.adminPanelFinder,
-            opt.runXssScan
+            opt.runXssScan, opt.performWhoisLookup
         ]
         if any(options):
             with open(urls_to_use) as urls:
@@ -462,8 +473,9 @@ if __name__ == "__main__":
                         url.strip(),
                         sqlmap=opt.runSqliScan, nmap=opt.runPortScan,
                         intel=opt.intelCheck, xss=opt.runXssScan,
-                        admin=opt.adminPanelFinder, verbose=opt.runInVerbose,
-                        batch=opt.runInBatch, auto_start=opt.autoStartSqlmap
+                        whois=opt.performWhoisLookup, admin=opt.adminPanelFinder,
+                        verbose=opt.runInVerbose, batch=opt.runInBatch,
+                        auto_start=opt.autoStartSqlmap
                     )
 
 

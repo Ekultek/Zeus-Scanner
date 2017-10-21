@@ -6,3 +6,5 @@ bin/executed.txt
 bin/paths
 bin/version_info
 checksum.txt
+etc/ip_resolvers.txt
+etc/sub_names.txt

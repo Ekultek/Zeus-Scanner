@@ -3,6 +3,7 @@ import io
 import re
 import sys
 import glob
+import json
 import time
 import difflib
 import logging
@@ -25,12 +26,13 @@ try:
 except NameError:
     raw_input = input  # Python 3
 
+
 # get the master patch ID when a patch is pushed to the program
 PATCH_ID = str(subprocess.check_output(["git", "rev-parse", "origin/master"]))[:6]
 # clone link
 CLONE = "https://github.com/ekultek/zeus-scanner.git"
 # current version <major.minor.commit.patch ID>
-VERSION = "1.0.56.{}".format(PATCH_ID)
+VERSION = "1.0.57"
 # colors to output depending on the version
 VERSION_TYPE_COLORS = {"dev": 33, "stable": 92, "other": 30}
 # version string formatting
@@ -69,6 +71,7 @@ FIX_PROGRAM_INSTALL_PATH = "{}/etc/scripts/fix_pie.sh".format(os.getcwd())
 CLEANUP_TOOL_PATH = "{}/etc/scripts/cleanup.sh".format(os.getcwd())
 # paths to sqlmap and nmap
 TOOL_PATHS = "{}/bin/paths/path_config.ini".format(os.getcwd())
+WHOIS_RESULTS_LOG_PATH = "{}/log/whois".format(os.getcwd())
 # path to store robot.txt page in
 ROBOTS_PAGE_PATH = "{}/log/robots".format(os.getcwd())
 # URL's that are extracted from Google's ban URL
@@ -85,6 +88,8 @@ CURRENT_LOG_FILE_PATH = "{}/log".format(os.getcwd())
 NMAP_MAN_PAGE_URL = "https://nmap.org/book/man-briefoptions.html"
 # sqlmap's manual page for their options
 SQLMAP_MAN_PAGE_URL = "https://github.com/sqlmapproject/sqlmap/wiki/Usage"
+# whois API link
+WHOIS_JSON_LINK = "https://jsonwhoisapi.com/api/v1/whois?identifier={}"
 # holder for sqlmap API ID hashes, makes it so that they are all unique
 ALREADY_USED = set()
 # search engines that the application can use
@@ -423,6 +428,8 @@ def write_to_log_file(data_to_write, path, filename):
             for item in list(data_to_write):
                 item = item.strip()
                 log.write(str(item) + "\n")
+        elif isinstance(data_to_write, dict):
+            json.dump(data_to_write, log, sort_keys=True, indent=4)
         else:
             log.write(data_to_write + "\n")
     logger.info(set_color(
@@ -507,6 +514,9 @@ def get_md5sum(url="https://raw.githubusercontent.com/Ekultek/Zeus-Scanner/maste
 
 
 def create_identifier(chars=string.ascii_letters):
+    """
+    create the identifier for your Github issue
+    """
     retval = []
     for _ in range(0, 7):
         retval.append(random.choice(chars))
