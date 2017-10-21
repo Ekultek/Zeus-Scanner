@@ -67,14 +67,14 @@ def human_readable_display(domain, interesting, raw, show_readable=False):
     if show_readable:
         contact_dict = dict(interesting[1])
         print(" |--[!] Domain: {} (organization '{}')".format(domain, contact_dict["owner"][0]["organization"]))
-        print(" |   |--[x] Found nameservers (total {})".format(len(interesting[0])))
+        print(" |   |--[!] Found nameservers (total {})".format(len(interesting[0])))
         if len(interesting[0]) > 1:
             for i, server in enumerate(interesting[0], start=1):
                 print(" |   |   |--[{}]--- {}".format(i, server))
         else:
             print(" |   |   |--{}".format("".join(interesting[0])))
         if contact_dict["owner"][0]["name"] is not None or "":
-            print(" |   |--[x] Contact name found: {}".format(contact_dict["owner"][0]["name"]))
+            print(" |   |--[!] Contact name found: {}".format(contact_dict["owner"][0]["name"]))
             if contact_dict["owner"][0]["phone"] != "" or None:
                 print(" |   |   |-- Phone number: {}".format(contact_dict["owner"][0]["phone"]))
             else:
@@ -82,7 +82,7 @@ def human_readable_display(domain, interesting, raw, show_readable=False):
         else:
             print(" [x] No contact owner revealed")
         if len(contact_dict["admin"]) > 0:
-            print(" |   |--[x] Total admins found {}".format(len(contact_dict["admin"])))
+            print(" |   |--[!] Total admins found {}".format(len(contact_dict["admin"])))
             for i, admin in enumerate(contact_dict["admin"]):
                 print(" |   |   |--[{}]--- {}".format(i, admin))
         else:
@@ -122,9 +122,17 @@ def whois_lookup_main(domain, **kwargs):
     else:
         if verbose:
             for data in interesting_data:
-                logger.debug(set_color(
-                    "found '{}'...".format(data), level=10
-                ))
+                if isinstance(data, dict):
+                    for v in data.itervalues():
+                        if v is not None:
+                            logger.debug(set_color(
+                                "found '{}'...".format(v), level=10
+                            ))
+                elif isinstance(data, list):
+                    if len(data) != 0:
+                        logger.debug(set_color(
+                            "found '{}'...".format(data), level=10
+                        ))
         try:
             return human_readable_display(domain, interesting_data, raw_information)
         except:

@@ -549,7 +549,7 @@ if __name__ == "__main__":
                     try:
                         search.parse_search_results(
                             dork, search_engine, verbose=opt.runInVerbose, proxy=proxy_to_use,
-                            agent=agent_to_use
+                            agent=agent_to_use, pull_all=opt.noExclude, parse_webcache=opt.parseWebcache
                         )
                     except Exception as e:
                         logger.exception(set_color(
@@ -573,7 +573,7 @@ if __name__ == "__main__":
             try:
                 search.parse_search_results(
                     random_dork, search_engine, verbose=opt.runInVerbose,
-                    proxy=proxy_to_use, agent=agent_to_use
+                    proxy=proxy_to_use, agent=agent_to_use, pull_all=opt.noExclude, parse_webcache=opt.parseWebcache
                 )
                 __run_attacks_main()
 
