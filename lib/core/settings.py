@@ -25,10 +25,12 @@ try:
 except NameError:
     raw_input = input  # Python 3
 
+# get the master patch ID when a patch is pushed to the program
+PATCH_ID = str(subprocess.check_output(["git", "rev-parse", "origin/master"]))[:6]
 # clone link
 CLONE = "https://github.com/ekultek/zeus-scanner.git"
 # current version <major.minor.commit.patch ID>
-VERSION = "1.0.56.d28b"
+VERSION = "1.0.56.{}".format(PATCH_ID)
 # colors to output depending on the version
 VERSION_TYPE_COLORS = {"dev": 33, "stable": 92, "other": 30}
 # version string formatting

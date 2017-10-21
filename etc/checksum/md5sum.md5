@@ -32,7 +32,7 @@ fc11145007c1c3f47cbda44ced93e73f  ./lib/attacks/admin_panel_finder/__init__.py
 c5ebb0c56c9ae3b9a72a14e3f05afa16  ./lib/attacks/intel_me/__init__.py
 1faa2b5dfad6eb538bbfe42942d2a9da  ./lib/core/errors.py
 d41d8cd98f00b204e9800998ecf8427e  ./lib/core/__init__.py
-61d607a67d50b6a9c372ba2a8bd33bec  ./lib/core/settings.py
+28df692d6ecc5d0888e8a63466666c5b  ./lib/core/settings.py
 d41d8cd98f00b204e9800998ecf8427e  ./var/google_search/__init__.py
 d28b1b648539106a488067b951a9dd7c  ./var/google_search/search.py
 d41d8cd98f00b204e9800998ecf8427e  ./var/__init__.py
