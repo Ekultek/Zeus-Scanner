@@ -10,6 +10,7 @@ import logging
 import string
 import random
 import subprocess
+
 try:
     import ConfigParser  # python 2
 except ImportError:
@@ -26,13 +27,12 @@ try:
 except NameError:
     raw_input = input  # Python 3
 
-
 # get the master patch ID when a patch is pushed to the program
 PATCH_ID = str(subprocess.check_output(["git", "rev-parse", "origin/master"]))[:6]
 # clone link
 CLONE = "https://github.com/ekultek/zeus-scanner.git"
 # current version <major.minor.commit.patch ID>
-VERSION = "1.0.57.{}".format(PATCH_ID)
+VERSION = "1.0.58".format(PATCH_ID)
 # colors to output depending on the version
 VERSION_TYPE_COLORS = {"dev": 33, "stable": 92, "other": 30}
 # version string formatting
@@ -136,7 +136,7 @@ URL_EXCLUDES = (
     "maps.google", "play.google", "youtube",
     "drive.google", "books.google", "news.google",
     "www.google", "mail.google", "accounts.google",
-    "schema.org", "www.<b"  # this is some weird thing that pulls up?
+    "schema.org", "www.<b", "https://cid-", "https://<strong"  # these are some weird things that get pulled up?
 )
 # regular expressions used for DBMS recognition based on error message response
 DBMS_ERRORS = {
@@ -521,3 +521,57 @@ def create_identifier(chars=string.ascii_letters):
     for _ in range(0, 7):
         retval.append(random.choice(chars))
     return "".join(retval)
+
+
+def config_search_engine(**kwargs):
+    """
+    configure the search engine if a one different from google is given
+    """
+    verbose = kwargs.get("verbose", False)
+    aol = kwargs.get("aol", False)
+    bing = kwargs.get("bing", False)
+    ddg = kwargs.get("ddg", False)
+    enum = kwargs.get("enum", None)
+
+    non_default_msg = "specified to use non-default search engine..."
+    se_message = "using '{}' as the search engine..."
+    if ddg:
+        if verbose:
+            logger.debug(set_color(
+                se_message.format("DuckDuckGo"), level=10
+            ))
+        logger.info(set_color(
+            non_default_msg
+        ))
+        se = AUTHORIZED_SEARCH_ENGINES["duckduckgo"]
+    elif aol:
+        logger.warning(set_color(
+            "AOL will take a little longer due to pop-ups...", level=30
+        ))
+        if verbose:
+            logger.debug(set_color(
+                se_message.format("AOL"), level=10
+            ))
+        logger.info(set_color(
+            non_default_msg
+        ))
+        se = AUTHORIZED_SEARCH_ENGINES["aol"]
+    elif bing:
+        if verbose:
+            logger.debug(set_color(
+                se_message.format("Bing"), level=10
+            ))
+        logger.info(set_color(
+            non_default_msg
+        ))
+        se = AUTHORIZED_SEARCH_ENGINES["bing"]
+    else:
+        if verbose:
+            logger.debug(set_color(
+                "using default search engine (Google)...", level=10
+            ))
+        logger.info(set_color(
+            "using default search engine..."
+        )) if enum is None else ""
+        se = AUTHORIZED_SEARCH_ENGINES["google"]
+    return se

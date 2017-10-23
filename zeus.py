@@ -39,7 +39,6 @@ from lib.core.settings import (
     set_color,
     get_latest_log_file,
     CURRENT_LOG_FILE_PATH,
-    AUTHORIZED_SEARCH_ENGINES,
     URL_LOG_PATH,
     replace_http,
     prompt,
@@ -52,7 +51,8 @@ from lib.core.settings import (
     get_true_url,
     fix_log_file,
     SPIDER_LOG_PATH,
-    config_headers
+    config_headers,
+    config_search_engine
 )
 
 if __name__ == "__main__":
@@ -267,55 +267,9 @@ if __name__ == "__main__":
                 ))
 
 
-    def __config_search_engine(verbose=False):
-        """
-        configure the search engine if a one different from google is given
-        """
-        non_default_msg = "specified to use non-default search engine..."
-        se_message = "using '{}' as the search engine..."
-        if opt.useDDG:
-            if verbose:
-                logger.debug(set_color(
-                    se_message.format("DuckDuckGo"), level=10
-                ))
-            logger.info(set_color(
-                non_default_msg
-            ))
-            se = AUTHORIZED_SEARCH_ENGINES["duckduckgo"]
-        elif opt.useAOL:
-            logger.warning(set_color(
-                "AOL will take a little longer due to pop-ups...", level=30
-            ))
-            if verbose:
-                logger.debug(set_color(
-                    se_message.format("AOL"), level=10
-                ))
-            logger.info(set_color(
-                non_default_msg
-            ))
-            se = AUTHORIZED_SEARCH_ENGINES["aol"]
-        elif opt.useBing:
-            if verbose:
-                logger.debug(set_color(
-                    se_message.format("Bing"), level=10
-                ))
-            logger.info(set_color(
-                non_default_msg
-            ))
-            se = AUTHORIZED_SEARCH_ENGINES["bing"]
-        else:
-            if verbose:
-                logger.debug(set_color(
-                    "using default search engine (Google)...", level=10
-                ))
-            logger.info(set_color(
-                "using default search engine..."
-            )) if opt.fileToEnumerate is None else ""
-            se = AUTHORIZED_SEARCH_ENGINES["google"]
-        return se
-
-
-    def __create_arguments(sqlmap=False, nmap=False):
+    def __create_arguments(**kwargs):
+        nmap = kwargs.get("nmap", False)
+        sqlmap = kwargs.get("sqlmap", False)
         """
         create the sqlmap arguments (a list of tuples) that will be passed to the API
         """
@@ -406,7 +360,8 @@ if __name__ == "__main__":
                     "it appears that you have enabled multiple attack types, "
                     "as of now only 1 attack is supported at a time, choose "
                     "your attack and try again. You can use the -f flag if "
-                    "you do not want to complete an entire search again...", level=40
+                    "you do not want to complete an entire search again "
+                    "(IE -f /home/me/zeus-scanner/log/url-log/url-log-1.log)...", level=40
                 ))
                 shutdown()
 
@@ -500,7 +455,10 @@ if __name__ == "__main__":
         p_agent=opt.usePersonalAgent, rand_agent=opt.useRandomAgent,
         verbose=opt.runInVerbose
     )
-    search_engine = __config_search_engine(verbose=opt.runInVerbose)
+    search_engine = config_search_engine(
+        verbose=opt.runInVerbose, ddg=opt.useDDG,
+        aol=opt.useAOL, bing=opt.useBing, enum=opt.fileToEnumerate
+    )
 
     try:
         # use a personal dork as the query
