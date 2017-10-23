@@ -228,11 +228,11 @@ def parse_search_results(
 
     if not parse_webcache:
         logger.warning(set_color(
-            "will not parse webcache URLs...", level=30
+            "will not parse webcache URL's (to parse webcache pass -W)...", level=30
         ))
     if not pull_all:
         logger.warning(set_color(
-            "only pulling URLs with GET(query) parameters...", level=30
+            "only pulling URLs with GET(query) parameters (to pull all URL's pass -E)...", level=30
         ))
 
     user_agent_info = "adjusting user-agent header to {}..."

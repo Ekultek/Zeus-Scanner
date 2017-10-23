@@ -13,12 +13,17 @@ except ImportError:
 from var import blackwidow
 from var.google_search import search
 from var.auto_issue.github import request_issue_creation
-from lib.core.errors import InvalidInputProvided
 from lib.attacks.admin_panel_finder import main
 from lib.attacks.xss_scan import main_xss
 from lib.attacks.nmap_scan.nmap_opts import NMAP_API_OPTS
 from lib.attacks.sqlmap_scan.sqlmap_opts import SQLMAP_API_OPTIONS
 from lib.attacks.whois_lookup.whois import whois_lookup_main
+
+from lib.core.errors import (
+    InvalidInputProvided,
+    InvalidProxyType
+)
+
 
 from lib.attacks import (
     nmap_scan,
@@ -320,17 +325,28 @@ if __name__ == "__main__":
         retval = []
         splitter = {"sqlmap": ",", "nmap": "|"}
         if sqlmap:
+            warn_msg = "option '{}' is not recognized by sqlmap API, skipping..."
             if opt.sqlmapArguments is not None:
                 for line in opt.sqlmapArguments.split(splitter["sqlmap"]):
-                    to_use = line.strip().split(" ")
-                    option = (to_use[0], to_use[1])
-                    if to_use[0] in SQLMAP_API_OPTIONS:
-                        retval.append(option)
-                    else:
-                        logger.warning(set_color(
-                            "option '{}' is not recognized by sqlmap API, skipping...".format(option[0]),
-                            level=30
-                        ))
+                    try:
+                        to_use = line.strip().split(" ")
+                        option = (to_use[0], to_use[1])
+                        if to_use[0] in SQLMAP_API_OPTIONS:
+                            retval.append(option)
+                        else:
+                            logger.warning(set_color(
+                                warn_msg.format(option[0]),
+                                level=30
+                            ))
+                    except IndexError:
+                        option = (line.strip(), "true")
+                        if line.strip() in SQLMAP_API_OPTIONS:
+                            retval.append(option)
+                        else:
+                            logger.warning(set_color(
+                                warn_msg.format(line.strip()), level=30
+                            ))
+
         elif nmap:
             warning_msg = "option {} is not known by the nmap api, skipping..."
             if opt.nmapArguments is not None:
@@ -497,6 +513,12 @@ if __name__ == "__main__":
                     opt.dorkToUse, search_engine, verbose=opt.runInVerbose, proxy=proxy_to_use,
                     agent=agent_to_use, pull_all=opt.noExclude, parse_webcache=opt.parseWebcache
                 )
+            except InvalidProxyType:
+                supported_proxy_types = ["socks5", "socks4", "https", "http"]
+                logger.fatal(set_color(
+                    "the provided proxy is not valid, specify the protocol and try again, supported "
+                    "proxy protocols are {} (IE socks5://127.0.0.1:9050)...".format(", ".join(supported_proxy_types)), level=50
+                ))
             except Exception as e:
                 logger.exception(set_color(
                     "ran into exception '{}'...".format(e), level=50
