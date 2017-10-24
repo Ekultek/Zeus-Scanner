@@ -22,6 +22,9 @@ import requests
 import bin.unzip_gecko
 import lib.core.errors
 
+from lib.attacks.sqlmap_scan.sqlmap_opts import SQLMAP_API_OPTIONS
+from lib.attacks.nmap_scan.nmap_opts import NMAP_API_OPTS
+
 try:
     raw_input  # Python 2
 except NameError:
@@ -32,7 +35,7 @@ PATCH_ID = str(subprocess.check_output(["git", "rev-parse", "origin/master"]))[:
 # clone link
 CLONE = "https://github.com/ekultek/zeus-scanner.git"
 # current version <major.minor.commit.patch ID>
-VERSION = "1.0.59"
+VERSION = "1.0.60"
 # colors to output depending on the version
 VERSION_TYPE_COLORS = {"dev": 33, "stable": 92, "other": 30}
 # version string formatting
@@ -69,8 +72,13 @@ GECKO_VERSION_INFO_PATH = "{}/bin/version_info".format(os.getcwd())
 FIX_PROGRAM_INSTALL_PATH = "{}/etc/scripts/fix_pie.sh".format(os.getcwd())
 # path to the auto clean tool
 CLEANUP_TOOL_PATH = "{}/etc/scripts/cleanup.sh".format(os.getcwd())
+# path to tool to launch sqlmap API
+LAUNCH_SQLMAP_API_TOOL = "{}/etc/scripts/launch_sqlmap.sh".format(os.getcwd())
+# path to nmap installer
+NMAP_INSTALLER_TOOL = "{}/etc/scripts/install_nmap.sh".format(os.getcwd())
 # paths to sqlmap and nmap
 TOOL_PATHS = "{}/bin/paths/path_config.ini".format(os.getcwd())
+# log path to the whois results
 WHOIS_RESULTS_LOG_PATH = "{}/log/whois".format(os.getcwd())
 # path to store robot.txt page in
 ROBOTS_PAGE_PATH = "{}/log/robots".format(os.getcwd())
@@ -294,7 +302,7 @@ def get_latest_log_file(log_path):
         return None
 
 
-def replace_http(url):
+def replace_http(url, queries=True, complete=False):
     """
     replace the http in the url so we can get the IP address
     """
@@ -308,7 +316,13 @@ def replace_http(url):
     try:
         url_list = url.split("//")
         new_url = url_list[1]
-        return __remove_queries(new_url)
+        if queries:
+            retval = __remove_queries(new_url)
+        elif complete:
+            retval = __remove_queries(new_url)
+            if "www" in retval:
+                retval = retval.replace("www.", "")
+        return retval
     except IndexError:
         return url
 
@@ -586,3 +600,67 @@ def config_search_engine(**kwargs):
         )) if enum is None else ""
         se = AUTHORIZED_SEARCH_ENGINES["google"]
     return se
+
+
+def create_arguments(**kwargs):
+    """
+    create the arguments for sqlmap and nmap if arguments are passed
+    """
+    nmap = kwargs.get("nmap", False)
+    sqlmap = kwargs.get("sqlmap", False)
+    sqlmap_args = kwargs.get("sqlmap_args", None)
+    nmap_args = kwargs.get("nmap_args", None)
+
+    logger.info(set_color(
+        "creating arguments for {}...".format("sqlmap" if sqlmap else "nmap")
+    ))
+    retval = []
+    splitter = {"sqlmap": ",", "nmap": "|"}
+    if sqlmap:
+        warn_msg = "option '{}' is not recognized by sqlmap API, skipping..."
+        if sqlmap_args is not None:
+            for line in sqlmap_args.split(splitter["sqlmap"]):
+                try:
+                    to_use = line.strip().split(" ")
+                    option = (to_use[0], to_use[1])
+                    if to_use[0] in SQLMAP_API_OPTIONS:
+                        retval.append(option)
+                    else:
+                        logger.warning(set_color(
+                            warn_msg.format(option[0]),
+                            level=30
+                        ))
+                except IndexError:
+                    option = (line.strip(), "true")
+                    if line.strip() in SQLMAP_API_OPTIONS:
+                        retval.append(option)
+                    else:
+                        logger.warning(set_color(
+                            warn_msg.format(line.strip()), level=30
+                        ))
+
+    elif nmap:
+        warning_msg = "option {} is not known by the nmap api, skipping..."
+        if nmap_args is not None:
+            for line in nmap_args.split(splitter["nmap"]):
+                try:
+                    data = line.index(" ")
+                except Exception:
+                    data = None
+                    pass
+                if data is not None:
+                    argument = line[0:data]
+                    if argument in NMAP_API_OPTS:
+                        retval.append(line)
+                    else:
+                        logger.warning(set_color(
+                            warning_msg.format(argument), level=30
+                        ))
+                else:
+                    if line in NMAP_API_OPTS:
+                        retval.append(line)
+                    else:
+                        logger.warning(set_color(
+                            warning_msg.format(line), level=30
+                        ))
+    return retval

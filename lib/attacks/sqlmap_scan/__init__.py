@@ -1,5 +1,4 @@
 import json
-import time
 import re
 import subprocess
 
@@ -109,11 +108,11 @@ class SqlmapHook(object):
                 already_displayed.add(log_json["log"][i]["message"])
 
 
-def find_sqlmap(to_find="sqlmap", verbose=False):
+def find_sqlmap(to_find="sqlmap"):
     """
     find sqlmap on the users system
     """
-    found_path = lib.core.settings.find_application(to_find, verbose=verbose)
+    found_path = lib.core.settings.find_application(to_find)
     return found_path
 
 
@@ -129,43 +128,22 @@ def sqlmap_scan_main(url, port=None, verbose=None, opts=None, auto_start=False):
         return {key: value for key, value in opts}
 
     is_started = lib.core.settings.search_for_process("sqlmapapi.py")
+    found_path = find_sqlmap()
 
     if auto_start:
         lib.core.settings.logger.error(lib.core.settings.set_color(
-            "auto starting sqlmap is not implemented yet, you will need to start "
-            "the API manually for now...", level=40
+            "auto start is not enabled yet, please start the API manually..."
         ))
         lib.core.settings.prompt(
-            "press enter when ready to continue..."
+            "press enter when ready..."
         )
         '''lib.core.settings.logger.info(lib.core.settings.set_color(
-            "attempting to find sqlmap on your system..."
+            "attempting to launch sqlmap API..."
         ))
-        try:
-            path = "".join(find_sqlmap("sqlmap", verbose=verbose))
-            lib.core.settings.logger.info(lib.core.settings.set_color(
-                "attempting to call sqlmap API..."
-            ))
-            subprocess.Popen(["python {}/{} -s".format(path, "sqlmapapi.py")], shell=True,
-                             close_fds=True, stdout=subprocess.PIPE)
-            lib.core.settings.logger.info(lib.core.settings.set_color(
-                "API started, continuing process..."
-                )
-            )
-            time.sleep(3)
-            if not is_started:
-                lib.core.settings.prompt(
-                    "appears that sqlmap's API was not started successfully, start it manually and press"
-                    " enter..."
-                )
-        except Exception as e:
-            print e
-            lib.core.settings.logger.error(lib.core.settings.set_color(
-                "ran into an error while trying to start the sqlmap API, please do it manually...", level=50
-            ))
-            lib.core.settings.prompt(
-                "press enter when ready to start..."
-            )'''
+        subprocess.call("sudo sh {} p {}".format(lib.core.settings.LAUNCH_SQLMAP_API_TOOL, found_path))
+        lib.core.settings.logger.info(lib.core.settings.set_color(
+            "sqlmap API is up and running, continuing process..."
+        ))'''
     else:
         if not is_started:
             lib.core.settings.prompt(

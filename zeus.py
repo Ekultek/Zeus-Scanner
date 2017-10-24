@@ -53,7 +53,8 @@ from lib.core.settings import (
     SPIDER_LOG_PATH,
     config_headers,
     config_search_engine,
-    find_running_opts
+    find_running_opts,
+    create_arguments
 )
 
 if __name__ == "__main__":
@@ -256,67 +257,6 @@ if __name__ == "__main__":
                 ))
 
 
-    def __create_arguments(**kwargs):
-        nmap = kwargs.get("nmap", False)
-        sqlmap = kwargs.get("sqlmap", False)
-        """
-        create the sqlmap arguments (a list of tuples) that will be passed to the API
-        """
-        logger.info(set_color(
-            "creating arguments for {}...".format("sqlmap" if sqlmap else "nmap")
-        ))
-        retval = []
-        splitter = {"sqlmap": ",", "nmap": "|"}
-        if sqlmap:
-            warn_msg = "option '{}' is not recognized by sqlmap API, skipping..."
-            if opt.sqlmapArguments is not None:
-                for line in opt.sqlmapArguments.split(splitter["sqlmap"]):
-                    try:
-                        to_use = line.strip().split(" ")
-                        option = (to_use[0], to_use[1])
-                        if to_use[0] in SQLMAP_API_OPTIONS:
-                            retval.append(option)
-                        else:
-                            logger.warning(set_color(
-                                warn_msg.format(option[0]),
-                                level=30
-                            ))
-                    except IndexError:
-                        option = (line.strip(), "true")
-                        if line.strip() in SQLMAP_API_OPTIONS:
-                            retval.append(option)
-                        else:
-                            logger.warning(set_color(
-                                warn_msg.format(line.strip()), level=30
-                            ))
-
-        elif nmap:
-            warning_msg = "option {} is not known by the nmap api, skipping..."
-            if opt.nmapArguments is not None:
-                for line in opt.nmapArguments.split(splitter["nmap"]):
-                    try:
-                        data = line.index(" ")
-                    except Exception:
-                        data = None
-                        pass
-                    if data is not None:
-                        argument = line[0:data]
-                        if argument in NMAP_API_OPTS:
-                            retval.append(line)
-                        else:
-                            logger.warning(set_color(
-                                warning_msg.format(argument), level=30
-                            ))
-                    else:
-                        if line in NMAP_API_OPTS:
-                            retval.append(line)
-                        else:
-                            logger.warning(set_color(
-                                warning_msg.format(line), level=30
-                            ))
-        return retval
-
-
     def __run_attacks(url, **kwargs):
         """
         run the attacks if any are requested
@@ -365,12 +305,12 @@ if __name__ == "__main__":
             if sqlmap:
                 return sqlmap_scan.sqlmap_scan_main(
                     url.strip(), verbose=verbose,
-                    opts=__create_arguments(sqlmap=True), auto_start=auto_start)
+                    opts=create_arguments(sqlmap=True, sqlmap_args=opt.sqlmapArguments), auto_start=auto_start)
             elif nmap:
                 url_ip_address = replace_http(url.strip())
                 return nmap_scan.perform_port_scan(
                     url_ip_address, verbose=verbose,
-                    opts=__create_arguments(nmap=True)
+                    opts=create_arguments(nmap=True, nmap_args=opt.nmapArguments)
                 )
             elif intel:
                 url = get_true_url(url)
