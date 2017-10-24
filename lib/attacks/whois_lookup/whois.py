@@ -64,6 +64,9 @@ def get_interesting(raw_json):
 
 
 def human_readable_display(domain, interesting, raw, show_readable=False):
+    """
+    create a human readable display from the given whois lookup
+    """
     if show_readable:
         contact_dict = dict(interesting[1])
         print(" |--[!] Domain: {} (organization '{}')".format(domain, contact_dict["owner"][0]["organization"]))
@@ -93,6 +96,9 @@ def human_readable_display(domain, interesting, raw, show_readable=False):
 
 
 def whois_lookup_main(domain, **kwargs):
+    """
+    main function
+    """
     readable = kwargs.get("readable", False)
     verbose = kwargs.get("verbose", False)
     domain = replace_http(domain)
@@ -110,12 +116,13 @@ def whois_lookup_main(domain, **kwargs):
     if readable:
         if verbose:
             for data in interesting_data:
-                logger.debug(set_color(
-                    "found '{}'...".format(data), level=10
-                ))
+                if len(data) != 0 or None:
+                    logger.debug(set_color(
+                        "found '{}'...".format(data), level=10
+                    ))
         try:
             return human_readable_display(domain, interesting_data, raw_information, show_readable=True)
-        except:
+        except (ValueError, Exception):
             logger.fatal(set_color(
                 "unable to display any information from WhoIs lookup on domain '{}'...".format(domain), level=50
             ))
@@ -124,7 +131,7 @@ def whois_lookup_main(domain, **kwargs):
             for data in interesting_data:
                 if isinstance(data, dict):
                     for v in data.itervalues():
-                        if v is not None:
+                        if len(v) != 0 or v is not None:
                             logger.debug(set_color(
                                 "found '{}'...".format(v), level=10
                             ))
@@ -135,7 +142,7 @@ def whois_lookup_main(domain, **kwargs):
                         ))
         try:
             return human_readable_display(domain, interesting_data, raw_information)
-        except:
+        except (ValueError, Exception):
             logger.fatal(set_color(
                 "unable to find any information on '{}' from WhoIs lookup...".format(domain), level=50
             ))
