@@ -1,5 +1,3 @@
-caa0444d437bc23ae47436e87e868e3e  ./README.md
-e6c13a69a5290cdb1a8e5e1c4dd19b7d  ./requirements.txt
 0795e9e227fe78a89886155fe9daf559  ./zeus.py
 6ad5f22ec4a6f8324bfb1b01ab6d51ec  ./etc/scripts/cleanup.sh
 155c9482f690f1482f324a7ffd8b8098  ./etc/scripts/fix_pie.sh
@@ -47,7 +45,6 @@ d901189371e5cd4a32114ee63b611b11  ./lib/core/settings.py
 d41d8cd98f00b204e9800998ecf8427e  ./var/google_search/__init__.py
 b8761604c5d4f88ae653526057491a5f  ./var/google_search/search.py
 d41d8cd98f00b204e9800998ecf8427e  ./var/__init__.py
-66b11aa388ea909de7b212341259a318  ./var/auto_issue/oauth
 d41d8cd98f00b204e9800998ecf8427e  ./var/auto_issue/__init__.py
 4506850a02aa18e12bef4efeb760ad9e  ./var/auto_issue/github.py
 a83bf6c450035a733fa81a46c16fdd2b  ./var/blackwidow/__init__.py
