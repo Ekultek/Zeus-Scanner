@@ -49,6 +49,16 @@ except NameError:
     unicode = str
 
 
+def strip_leftovers(url, possibles):
+    """
+    strip leftover HTML tags and random garbage data that is sometimes found in the URL's
+    """
+    for p in possibles:
+        if p in url:
+            url = url.split(p)[0]
+    return url
+
+
 def bypass_ip_block(url):
     """
     bypass Google's IP blocking by extracting the true URL from the ban URL.
@@ -214,6 +224,7 @@ def parse_search_results(
     """
       Parse a webpage from Google for URL's with a GET(query) parameter
     """
+    possible_leftovers = ("<", ">", ";", ",")
     splitter = "&amp;"
     retval = set()
     query_url = None
@@ -352,6 +363,8 @@ def parse_search_results(
                         retval.add(url.split(splitter)[0])
     true_retval = set()
     for url in list(retval):
+        if any(l in url for l in possible_leftovers):
+            url = strip_leftovers(url, list(possible_leftovers))
         if parse_webcache:
             if "webcache" in url:
                 logger.info(set_color(
