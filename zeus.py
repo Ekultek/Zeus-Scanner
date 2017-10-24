@@ -52,7 +52,8 @@ from lib.core.settings import (
     fix_log_file,
     SPIDER_LOG_PATH,
     config_headers,
-    config_search_engine
+    config_search_engine,
+    find_running_opts
 )
 
 if __name__ == "__main__":
@@ -229,20 +230,8 @@ if __name__ == "__main__":
         update_zeus()
         shutdown()
 
-
-    def __find_running_opts():
-        """
-        display the running options if verbose is used
-        """
-        opts_being_used = []
-        for o, v in opt.__dict__.items():
-            if v is not None:
-                opts_being_used.append((o, v))
-        return dict(opts_being_used)
-
-
     if opt.runInVerbose:
-        being_run = __find_running_opts()
+        being_run = find_running_opts(opt)
         logger.debug(set_color(
             "running with options '{}'...".format(being_run), level=10
         ))

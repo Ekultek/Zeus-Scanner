@@ -32,7 +32,7 @@ PATCH_ID = str(subprocess.check_output(["git", "rev-parse", "origin/master"]))[:
 # clone link
 CLONE = "https://github.com/ekultek/zeus-scanner.git"
 # current version <major.minor.commit.patch ID>
-VERSION = "1.0.58.{}".format(PATCH_ID)
+VERSION = "1.0.59"
 # colors to output depending on the version
 VERSION_TYPE_COLORS = {"dev": 33, "stable": 92, "other": 30}
 # version string formatting
@@ -196,6 +196,17 @@ def create_dir(dirpath):
     """
     if not os.path.exists(dirpath):
         os.mkdir(dirpath)
+
+
+def find_running_opts(options):
+    """
+    display the running options if verbose is used
+    """
+    opts_being_used = []
+    for o, v in options.__dict__.iteritems():
+        if v is not None:
+            opts_being_used.append((o, v))
+    return dict(opts_being_used)
 
 
 def set_color(org_string, level=None):
