@@ -113,7 +113,7 @@ if __name__ == "__main__":
     attacks.add_option("--thread", dest="threadPanels", action="store_true",
                        help=optparse.SUPPRESS_HELP)
     attacks.add_option("--auto", dest="autoStartSqlmap", action="store_true",
-                       help=optparse.SUPPRESS_HELP)
+                       help="Automatically start the sqlmap API (or at least try to)")
 
     # search engine options
     engines = optparse.OptionGroup(parser, "Search engine arguments",

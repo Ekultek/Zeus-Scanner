@@ -131,19 +131,30 @@ def sqlmap_scan_main(url, port=None, verbose=None, opts=None, auto_start=False):
     found_path = find_sqlmap()
 
     if auto_start:
-        lib.core.settings.logger.error(lib.core.settings.set_color(
+        '''lib.core.settings.logger.error(lib.core.settings.set_color(
             "auto start is not enabled yet, please start the API manually..."
         ))
         lib.core.settings.prompt(
             "press enter when ready..."
-        )
-        '''lib.core.settings.logger.info(lib.core.settings.set_color(
+        )'''
+        lib.core.settings.logger.info(lib.core.settings.set_color(
             "attempting to launch sqlmap API..."
         ))
-        subprocess.call("sudo sh {} p {}".format(lib.core.settings.LAUNCH_SQLMAP_API_TOOL, found_path))
-        lib.core.settings.logger.info(lib.core.settings.set_color(
-            "sqlmap API is up and running, continuing process..."
-        ))'''
+        subprocess.Popen(
+            ["sudo", "sh", "{}".format(lib.core.settings.LAUNCH_SQLMAP_API_TOOL), "p", "{}".format("".join(found_path))],
+            stdout=subprocess.PIPE
+        )
+        if is_started:
+            lib.core.settings.logger.info(lib.core.settings.set_color(
+                "sqlmap API is up and running, continuing process..."
+            ))
+        else:
+            lib.core.settings.logger.error(lib.core.settings.set_color(
+                "there was a problem starting sqlmap API...", level=40
+            ))
+            lib.core.settings.prompt(
+                "manually start the API and press enter when ready..."
+            )
     else:
         if not is_started:
             lib.core.settings.prompt(
