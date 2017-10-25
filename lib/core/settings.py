@@ -5,6 +5,7 @@ import sys
 import glob
 import json
 import time
+import shlex
 import difflib
 import logging
 import string
@@ -482,15 +483,16 @@ def get_browser_version():
         "attempting to get firefox browser version..."
     ))
     try:
-        output = subprocess.check_output(['firefox', '--version'])
-    except Exception:
+        firefox_version_command = shlex.split("firefox --version")
+        output = subprocess.check_output(firefox_version_command)
+    except (OSError, Exception):
         logger.error(set_color(
             "failed to run firefox...", level=50
         ))
         return "failed to start"
     try:
         major, minor = map(int, re.search(r"(\d+).(\d+)", output).groups())
-    except Exception:
+    except (ValueError, Exception):
         logger.error(set_color(
             "failed to parse '{}' for version number...".format(output), level=50
         ))

@@ -2,6 +2,7 @@
 
 import optparse
 import os
+import shlex
 import subprocess
 import time
 
@@ -510,7 +511,7 @@ if __name__ == "__main__":
             else:
                 if URL_QUERY_REGEX.match(opt.spiderWebSite):
                     is_sure = prompt(
-                        "it is recomened to not use a URL that has a GET(query) parameter in it, "
+                        "it is recommended to not use a URL that has a GET(query) parameter in it, "
                         "would you like to continue", "yN"
                     )
                     if is_sure.lower().startswith("y"):
@@ -532,7 +533,8 @@ if __name__ == "__main__":
                 "failed to provide a mandatory argument, you will be redirected to the help menu...", level=50
             ))
             time.sleep(2)
-            subprocess.call("python zeus.py --help", shell=True)
+            zeus_help_menu_command = shlex.split("python zeus.py --help")
+            subprocess.call(zeus_help_menu_command)
     except IOError as e:
         if "Invalid URL" in str(e):
             logger.exception(set_color(

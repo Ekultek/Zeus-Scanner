@@ -1,6 +1,7 @@
 import json
 import re
 import subprocess
+import shlex
 
 try:
     import urllib2  # python 2
@@ -140,10 +141,10 @@ def sqlmap_scan_main(url, port=None, verbose=None, opts=None, auto_start=False):
         lib.core.settings.logger.info(lib.core.settings.set_color(
             "attempting to launch sqlmap API..."
         ))
-        subprocess.Popen(
-            ["sudo", "sh", "{}".format(lib.core.settings.LAUNCH_SQLMAP_API_TOOL), "p", "{}".format("".join(found_path))],
-            stdout=subprocess.PIPE
-        )
+        sqlmap_api_command = shlex.split("sudo sh {} p {}".format(
+            lib.core.settings.LAUNCH_SQLMAP_API_TOOL, "".join(found_path)
+        ))
+        subprocess.Popen(sqlmap_api_command, stdout=subprocess.PIPE)
         if is_started:
             lib.core.settings.logger.info(lib.core.settings.set_color(
                 "sqlmap API is up and running, continuing process..."

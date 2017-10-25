@@ -1,6 +1,7 @@
 import os
 import re
 import time
+import shlex
 import subprocess
 
 try:
@@ -288,7 +289,8 @@ def parse_search_results(
                 logger.warning(set_color(
                     "this will kill all instances of the firefox web browser...", level=30
                 ))
-                subprocess.call(["sudo", "sh", CLEANUP_TOOL_PATH])
+                auto_clean_command = shlex.split("sudo sh {}".format(CLEANUP_TOOL_PATH))
+                subprocess.call(auto_clean_command)
                 logger.info(set_color(
                     "all open sessions of firefox killed, it should be safe to re-run "
                     "Zeus..."
@@ -307,7 +309,8 @@ def parse_search_results(
                 logger.info(set_color(
                     "attempting to reinstall failing dependency..."
                 ))
-                subprocess.call(["sudo", "sh", FIX_PROGRAM_INSTALL_PATH])
+                do_fix_command = shlex.split("sudo sh {}".format(FIX_PROGRAM_INSTALL_PATH))
+                subprocess.call(do_fix_command)
                 logger.info(set_color(
                     "successfully installed, you should be good to re-run Zeus..."
                 ))

@@ -1,6 +1,7 @@
 import json
 import os
 import socket
+import shlex
 import subprocess
 
 import nmap
@@ -140,7 +141,8 @@ def perform_port_scan(url, scanner=NmapHook, verbose=False, opts=None, **kwargs)
             "would you like to automatically install it", opts="yN"
         )
         if question.lower().startswith("y"):
-            subprocess.call(["sudo",  "sh", "{}".format(lib.core.settings.NMAP_INSTALLER_TOOL)])
+            install_nmap_command = shlex.split("sudo sh {}".format(lib.core.settings.NMAP_INSTALLER_TOOL))
+            subprocess.call(install_nmap_command)
             lib.core.settings.logger.info(lib.core.settings.set_color(
                 "nmap has been successfully installed, re-running..."
             ))
