@@ -1,4 +1,4 @@
-f75a6d23bd80e9861153c9c52dce15bd  ./zeus.py
+4910b563b0f2403dbe4a89f10001de0b  ./zeus.py
 6ad5f22ec4a6f8324bfb1b01ab6d51ec  ./etc/scripts/cleanup.sh
 155c9482f690f1482f324a7ffd8b8098  ./etc/scripts/fix_pie.sh
 0e435c641bc636ac0b3d54e032d9cf6a  .etc/scripts/install_nmap.sh
@@ -43,9 +43,9 @@ f27322b9716e1a2b0b0b0487f3149474  ./lib/attacks/whois_lookup/whois.py
 c5ebb0c56c9ae3b9a72a14e3f05afa16  ./lib/attacks/intel_me/__init__.py
 1faa2b5dfad6eb538bbfe42942d2a9da  ./lib/core/errors.py
 d41d8cd98f00b204e9800998ecf8427e  ./lib/core/__init__.py
-95f45565a70e223e091ff306464c9888  ./lib/core/settings.py
+d68e0285c6d17335a6f4abeefb689c5c  ./lib/core/settings.py
 d41d8cd98f00b204e9800998ecf8427e  ./var/google_search/__init__.py
-6fe42683a339115709c32562b305f116  ./var/google_search/search.py
+b92ee17da90b17a0abb4e07e24fca3e1  ./var/google_search/search.py
 d41d8cd98f00b204e9800998ecf8427e  ./var/__init__.py
 d41d8cd98f00b204e9800998ecf8427e  ./var/auto_issue/__init__.py
 4506850a02aa18e12bef4efeb760ad9e  ./var/auto_issue/github.py

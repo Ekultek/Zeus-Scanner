@@ -98,6 +98,7 @@ def get_urls(query, url, verbose=False, warning=True, **kwargs):
       the Google URL. This will open a robot controlled browser window and attempt
       to get a URL from Google that will be used for scraping afterwards.
     """
+    query = query.decode('unicode_escape').encode('utf-8')
     proxy, user_agent = kwargs.get("proxy", None), kwargs.get("user_agent", None)
     if verbose:
         logger.debug(set_color(
@@ -164,6 +165,13 @@ def get_urls(query, url, verbose=False, warning=True, **kwargs):
         search.send_keys(query)
         search.send_keys(Keys.RETURN)  # hit return after you enter search text
         time.sleep(3)
+    except UnicodeDecodeError:
+        logger.error(set_color(
+            "your query '{}' appears to have unicode characters in it, selenium is not "
+            "properly formatted to handle unicode characters, this dork will be skipped...".format(
+                query
+            ), level=40
+        ))
     if verbose:
         logger.debug(set_color(
             "obtaining URL from selenium..."

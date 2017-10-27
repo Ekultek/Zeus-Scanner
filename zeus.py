@@ -2,6 +2,7 @@
 
 import optparse
 import os
+import io
 import shlex
 import subprocess
 import time
@@ -450,7 +451,7 @@ if __name__ == "__main__":
 
         # use a file full of dorks as the queries
         elif opt.dorkFileToUse is not None:
-            with open(opt.dorkFileToUse) as dorks:
+            with io.open(opt.dorkFileToUse, encoding="utf-8") as dorks:
                 for dork in dorks.readlines():
                     dork = dork.strip()
                     logger.info(set_color(

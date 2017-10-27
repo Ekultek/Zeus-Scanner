@@ -36,7 +36,7 @@ PATCH_ID = str(subprocess.check_output(["git", "rev-parse", "origin/master"]))[:
 # clone link
 CLONE = "https://github.com/ekultek/zeus-scanner.git"
 # current version <major.minor.commit.patch ID>
-VERSION = "1.1.1"
+VERSION = "1.1.2.{}".format(PATCH_ID)
 # colors to output depending on the version
 VERSION_TYPE_COLORS = {"dev": 33, "stable": 92, "other": 30}
 # version string formatting
@@ -145,7 +145,8 @@ URL_EXCLUDES = (
     "maps.google", "play.google", "youtube",
     "drive.google", "books.google", "news.google",
     "www.google", "mail.google", "accounts.google",
-    "schema.org", "www.<b", "https://cid-", "https://<strong"  # these are some weird things that get pulled up?
+    "schema.org", "www.<b", "https://cid-", "https://<strong",  # these are some weird things that get pulled up?
+    "plus.google"
 )
 # regular expressions used for DBMS recognition based on error message response
 DBMS_ERRORS = {
