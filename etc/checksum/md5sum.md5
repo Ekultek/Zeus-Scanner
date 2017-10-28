@@ -1,8 +1,8 @@
 4910b563b0f2403dbe4a89f10001de0b  ./zeus.py
 6ad5f22ec4a6f8324bfb1b01ab6d51ec  ./etc/scripts/cleanup.sh
 155c9482f690f1482f324a7ffd8b8098  ./etc/scripts/fix_pie.sh
-0e435c641bc636ac0b3d54e032d9cf6a  .etc/scripts/install_nmap.sh
-4b32db388e8acda35570c734d27c950c  .etc/scripts/launch_sqlmap.sh
+0e435c641bc636ac0b3d54e032d9cf6a  ./etc/scripts/install_nmap.sh
+4b32db388e8acda35570c734d27c950c  ./etc/scripts/launch_sqlmap.sh
 642a77905d8bb4e5533e0e9c2137c0fa  ./etc/agents.txt
 66b11aa388ea909de7b212341259a318  ./etc/auths/git_auth
 8f686b05c5c5dfc02f0fcaa7ebc8677c  ./etc/auths/whois_auth
@@ -49,4 +49,4 @@ b92ee17da90b17a0abb4e07e24fca3e1  ./var/google_search/search.py
 d41d8cd98f00b204e9800998ecf8427e  ./var/__init__.py
 d41d8cd98f00b204e9800998ecf8427e  ./var/auto_issue/__init__.py
 4506850a02aa18e12bef4efeb760ad9e  ./var/auto_issue/github.py
-a83bf6c450035a733fa81a46c16fdd2b  ./var/blackwidow/__init__.py
+c9aff08ed524687c3de90393a5a49f64  ./var/blackwidow/__init__.py

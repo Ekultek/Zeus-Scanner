@@ -1,6 +1,7 @@
 import os
 
 import requests
+from bs4 import BeautifulSoup
 
 import lib.core.errors
 import lib.core.settings
@@ -48,19 +49,21 @@ class Blackwidow(object):
                 )
             ))
 
-    def scrape_page_for_links(self, given_url):
+    def scrape_page_for_links(self, given_url, attribute="a", descriptor="href"):
         """
         scrape the webpage's HTML for usable GET links
         """
         unique_links = set()
-        while True:
-            req = requests.get(given_url, params={"user-agent": self.user_agent}, proxies=self.proxy)
-            html_page = req.content
-            found_links = lib.core.settings.URL_REGEX.findall(html_page)
-            for link in list(found_links):
-                if lib.core.settings.URL_QUERY_REGEX.match(link[0]) and not Blackwidow.get_url_ext(link[0]):
-                    unique_links.add(link)
-            break
+        true_url = lib.core.settings.replace_http(given_url)
+        req = requests.get(given_url, params={"user-agent": self.user_agent}, proxies=self.proxy)
+        html_page = req.content
+        soup = BeautifulSoup(html_page, "html.parser")
+        for link in soup.findAll(attribute):
+            found_redirect = link.get(descriptor)
+            if found_redirect is not None and lib.core.settings.URL_REGEX.match(found_redirect):
+                unique_links.add(found_redirect)
+            else:
+                unique_links.add("http://{}/{}".format(true_url, found_redirect))
         return list(unique_links)
 
 
@@ -83,5 +86,16 @@ def blackwidow_main(url, proxy=None, agent=None, verbose=False):
             "connection satisfied, continuing process...", level=10
         ))
     found = crawler.scrape_page_for_links(url)
-    to_use = [data[0] for data in found]
-    lib.core.settings.write_to_log_file(to_use, path=lib.core.settings.SPIDER_LOG_PATH, filename="blackwidow-log-{}.log")
+    file_path = lib.core.settings.write_to_log_file(found, path=lib.core.settings.SPIDER_LOG_PATH, filename="blackwidow-log-{}.log")
+    with open(file_path) as data:
+        found = data.readlines()
+        if len(found) > 0:
+            lib.core.settings.logger.info(lib.core.settings.set_color(
+                "found a total of {} links from '{}'...".format(
+                    len(found), url
+                )
+            ))
+        else:
+            lib.core.settings.logger.fatal(lib.core.settings.set_color(
+                "did not find any usable links from '{}'...".format(url), level=50
+            ))

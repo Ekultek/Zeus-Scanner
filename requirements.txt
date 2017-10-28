@@ -7,3 +7,4 @@ lxml==3.7.3
 google-api-python-client==1.6.4
 httplib2==0.10.3
 psutil==5.0.1
+beautifulsoup4==4.6.0
