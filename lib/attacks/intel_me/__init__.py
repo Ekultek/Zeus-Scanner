@@ -1,9 +1,8 @@
 import json
-import socket
 import re
+import socket
 
 import requests
-from lxml import html
 
 from lib.core.settings import (
     proxy_string_to_dict,
@@ -11,6 +10,7 @@ from lib.core.settings import (
     DEFAULT_USER_AGENT,
     replace_http
 )
+from lxml import html
 from var.auto_issue.github import request_issue_creation
 
 
