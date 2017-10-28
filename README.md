@@ -65,6 +65,7 @@ There are some requirements for this to be run successfully.
  - `google-api-python-client` is required to search via Google's API client
  - `psutil` is required to search for running sqlmap API sessions
  - `httplib2` is required to allow user-agent changes during Google's API client searches
+ - `beautifulsoup` is required to pull all the HREF descriptor tags while using the blackwidow crawler
 
 ### Installing
 
