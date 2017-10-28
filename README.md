@@ -48,6 +48,7 @@ There are a few requirements for this:
 You download the latest zip/tarball [here](https://github.com/Ekultek/Zeus-Scanner/releases/tag/v1.1) or follow the following steps here:
  
  - **_(optional but highly advised)_** add sqlmap and nmap to your environment PATH by moving them to `/usr/bin` or by adding them to the PATH via terminal
+ - You made need to run `sudo apt-get install libxml2-dev libxslt1-dev python-dev`
  - Clone the repository `git clone https://github.com/Ekultek/Zeus-Scanner.git`
  - `cd` into zeus-scanner 
  - Run `pip install -r requirements.txt`
