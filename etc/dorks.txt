@@ -32,7 +32,7 @@ allinurl:servlet/SnoopServlet
 allinurl:servlet/SnoopServlet 
 allinurl:wps/portal/ login
 allinurl:"exchange/logon.asp"
-allinurl:"index.php" “site=sglinks"
+allinurl:"index.php" "site=sglinks"
 ext:(doc | pdf | xls | txt | ps | rtf | odt | sxw | psw | ppt | pps | xml) (intext:confidential salary | intext:"budget approved") inurl:confidential
 ext:(doc | pdf | xls | txt | ps | rtf | odt | sxw | psw | ppt | pps | xml) (intext:confidential salary | intext:"budget approved") inurl:confidential
 ext:CDX CDX
@@ -50,7 +50,7 @@ ext:cgi   inurl:editcgi.cgi inurl:file=
 ext:cgi intext:"nrg-" " This web page was created on "
 ext:cgi intext:"nrg-" " This web page was created on "
 ext:cgi intitle:"control panel" "enter your owner password to continue!"
-ext:cgi intitle:"control panel" “enter your owner password to continue!"
+ext:cgi intitle:"control panel" "enter your owner password to continue!"
 ext:cgi inurl:editcgi.cgi inurl:file=
 ext:cgi inurl:editcgi.cgi inurl:file=
 ext:cgi inurl:ubb_test
@@ -66,7 +66,7 @@ ext:gho gho
 ext:gho gho
 ext:ics ics
 ext:inc "pwd=" "UID="
-ext:inc “pwd=" “UID="
+ext:inc "pwd=" "UID="
 ext:ini   intext:env.ini
 ext:ini Version=... password
 ext:ini Version=4.0.0.4 password
@@ -82,7 +82,7 @@ ext:log "Software: Microsoft   Internet Information
 ext:log "Software: Microsoft Internet Information
 ext:log "Software: Microsoft Internet Information Services *.*"
 ext:log \"Software: Microsoft Internet Information Services *.*\"
-ext:log “Software: Microsoft Internet Information Services *.*"
+ext:log "Software: Microsoft Internet Information Services *.*"
 ext:mdb   inurl:*.mdb inurl:fpdb shop.mdb
 ext:mdb inurl:*.mdb inurl:fpdb shop.mdb
 ext:mdb inurl:*.mdb inurl:fpdb shop.mdb
@@ -95,7 +95,7 @@ ext:pqi pqi -database
 ext:pwd inurl:(service | authors | administrators | users) "# -FrontPage-"
 ext:reg "username=*" putty
 ext:reg \"username=*\" putty
-ext:reg “username=*" putty
+ext:reg "username=*" putty
 ext:txt   "Final encryption key"
 ext:txt "Final encryption   key"
 ext:txt "Final encryption key"
@@ -104,7 +104,7 @@ ext:txt inurl:dxdiag
 ext:txt inurl:dxdiag
 ext:txt inurl:unattend.txt
 ext:txt inurl:unattend.txt
-ext:txt “Final encryption key"
+ext:txt "Final encryption key"
 ext:vmdk vmdk
 ext:vmdk vmdk
 ext:vmx   vmx
@@ -148,11 +148,11 @@ filetype:XLS XLS
 filetype:asp   DBQ=" * Server.MapPath("*.mdb")
 filetype:asp "Custom Error Message" Category Source
 filetype:asp + "[ODBC SQL"
-filetype:asp + “[ODBC SQL"
+filetype:asp + "[ODBC SQL"
 filetype:asp DBQ=" * Server.MapPath("*.mdb")
 filetype:asp DBQ=\" * Server.MapPath(\"*.mdb\") 
-filetype:asp DBQ=" * Server.MapPath(“*.mdb")
-filetype:asp “Custom Error Message" Category Source
+filetype:asp DBQ=" * Server.MapPath("*.mdb")
+filetype:asp "Custom Error Message" Category Source
 filetype:bak createobject sa
 filetype:bak inurl:"htaccess|passwd|shadow|htusers"
 filetype:bak inurl:\"htaccess|passwd|shadow|htusers\" 
@@ -164,7 +164,7 @@ filetype:blt "buddylist"
 filetype:blt \"buddylist\" 
 filetype:blt blt +intext:screenname
 filetype:blt blt +intext:screenname 
-filetype:blt “buddylist"
+filetype:blt "buddylist"
 filetype:cfg   auto_inst.cfg
 filetype:cfg auto_inst.cfg
 filetype:cfg auto_inst.cfg 
@@ -172,10 +172,10 @@ filetype:cfg ks intext:rootpw -sample -test -howto
 filetype:cfg ks intext:rootpw -sample -test -howto 
 filetype:cfg mrtg "target
 filetype:cfg mrtg \"target 
-filetype:cfg mrtg “target
+filetype:cfg mrtg "target
 filetype:cfm "cfapplication name" password
 filetype:cfm \"cfapplication name\" password 
-filetype:cfm “cfapplication name" password
+filetype:cfm "cfapplication name" password
 filetype:cgi inurl:"Web_Store.cgi"
 filetype:cgi inurl:"fileman.cgi"
 filetype:cgi inurl:cachemgr.cgi 
@@ -196,7 +196,7 @@ filetype:conf slapd.conf
 filetype:conf slapd.conf 
 filetype:config config intext:appSettings "User ID"
 filetype:config config intext:appSettings \"User ID\" 
-filetype:config config intext:appSettings “User ID"
+filetype:config config intext:appSettings "User ID"
 filetype:config web.config -CVS
 filetype:config web.config -CVS 
 filetype:ctl inurl:haccess. Microsoft FrontPage equivalent of htaccess
@@ -211,7 +211,7 @@ filetype:dat \"password.dat\"
 filetype:dat inurl:Sites.dat
 filetype:dat wand.dat
 filetype:dat wand.dat 
-filetype:dat “password.dat"
+filetype:dat "password.dat"
 filetype:eml eml   +intext:"Subject" +intext:"From" +intext:"To"
 filetype:eml eml +intext:"Subject" +intext:"From" +intext:"To"
 filetype:eml eml +intext:\"Subject\" +intext:\"From\" +intext:\"To\" 
@@ -266,8 +266,8 @@ filetype:log inurl:\"password.log\"
 filetype:log inurl:password.log
 filetype:log inurl:"password.log"
 filetype:log username putty PUTTY SSH client logs can reveal usernames
-filetype:log “PHP Parse error" | “PHP Warning" | “PHP Error"
-filetype:log “See `ipsec –copyright"
+filetype:log "PHP Parse error" | "PHP Warning" | "PHP Error"
+filetype:log "See `ipsec –copyright"
 filetype:mbx mbx intext:Subject
 filetype:mbx mbx intext:Subject 
 filetype:mdb inurl:\"news/news\" 
@@ -288,22 +288,22 @@ filetype:ora tnsnames
 filetype:pass pass intext:userid
 filetype:pdb pdb backup (Pilot | Pluckerdb)
 filetype:pdf "Assessment Report" nessus
-filetype:pdf “Assessment Report" nessus
+filetype:pdf "Assessment Report" nessus
 filetype:pem intext:private
 filetype:php inurl:"logging.php" "Discuz" error
 filetype:php inurl:"webeditor.php"
 filetype:php inurl:index inurl:phpicalendar -site:sourceforge.net
 filetype:php inurl:ipinfo.php "Distributed Intrusion Detection System"
-filetype:php inurl:ipinfo.php “Distributed Intrusion Detection System"
+filetype:php inurl:ipinfo.php "Distributed Intrusion Detection System"
 filetype:php inurl:nqt intext:"Network Query Tool"
 filetype:php inurl:nqt intext:"Network Query Tool"
 filetype:php inurl:vAuthenticate
-filetype:php inurl:"logging.php" “Discuz" error
+filetype:php inurl:"logging.php" "Discuz" error
 filetype:php inurl:"webeditor.php"
 filetype:pl "Download: SuSE Linux Openexchange Server CA"
 filetype:pl intitle:"Ultraboard Setup"
 filetype:pl intitle:"Ultraboard Setup"
-filetype:pl “Download: SuSE Linux Openexchange Server CA"
+filetype:pl "Download: SuSE Linux Openexchange Server CA"
 filetype:pot inurl:john.pot
 filetype:properties inurl:db intext:password
 filetype:pst inurl:"outlook.pst"
@@ -327,18 +327,18 @@ filetype:reg reg HKEY_ Windows Registry exports can reveal
 filetype:reg reg HKEY_CURRENT_USER SSHHOSTKEYS
 filetype:reg reg HKEY_CURRENT_USER SSHHOSTKEYS 
 filetype:reg reg intext: Microsoft Internet Account Manager can
-filetype:reg “Terminal Server Client"
+filetype:reg "Terminal Server Client"
 filetype:sql "insert into" (pass|passwd|password)
 filetype:sql ("values * MD5" | "values * password" | "values * encrypt")
 filetype:sql (\"passwd values\" | \"password values\" | \"pass values\" ) 
 filetype:sql (\"values * MD\" | \"values * password\" | \"values * encrypt\") 
-filetype:sql (“values * MD5″ | “values * password" | “values * encrypt")
+filetype:sql ("values * MD5″ | "values * password" | "values * encrypt")
 filetype:sql +"IDENTIFIED BY" -cvs
 filetype:sql +\"IDENTIFIED BY\" -cvs 
 filetype:sql +"IDENTIFIED BY" -cvs
 filetype:sql password
 filetype:sql password 
-filetype:sql “insert into" (pass|passwd|password)
+filetype:sql "insert into" (pass|passwd|password)
 filetype:torrent torrent 
 filetype:url +inurl:"ftp://" +inurl:";@"
 filetype:url +inurl:\"ftp://\" +inurl:\";@\" 
@@ -641,12 +641,12 @@ intext:"EZGuestbook"
 intext:"Error Message : Error loading required libraries."
 intext:"Fill out the form below completely to change your password and user name. If new username is left blank, your old one will be assumed." -edu
 intext:"Mail admins login here to administrate your domain."
-intext:"Master Account" “Domain Name" “Password" inurl:/cgi-bin/qmailadmin
+intext:"Master Account" "Domain Name" "Password" inurl:/cgi-bin/qmailadmin
 intext:"Session Start * * * *:*:* *" filetype:log
 intext:"Storage Management Server for" intitle:"Server Administration"
-intext:"Tobias Oetiker" “traffic analysis"
-intext:"Warning: * am able * write ** configuration file" “includes/configure.php" -
-intext:"Warning: Failed opening" “on line" “include_path"
+intext:"Tobias Oetiker" "traffic analysis"
+intext:"Warning: * am able * write ** configuration file" "includes/configure.php" -
+intext:"Warning: Failed opening" "on line" "include_path"
 intext:"Web Wiz Journal"
 intext:"Welcome to the Web V.Networks" intitle:"V.Networks [Top]" -filetype:htm
 intext:"Welcome to" inurl:"cp" intitle:"H-SPHERE" inurl:"begin.html" -Fee
@@ -851,12 +851,12 @@ intitle:"welcome to netware *" -site:novell.com
 intitle:"welcome.to.squeezebox"
 intitle:"xams 0.0.0..15 - Login"
 intitle:("TrackerCam Live Video")|("TrackerCam Application Login")|("Trackercam Remote") -trackercam.com
-intitle:(“TrackerCam Live Video")|(“TrackerCam Application Login")|(“Trackercam Remote") -trackercam.com
+intitle:("TrackerCam Live Video")|("TrackerCam Application Login")|("Trackercam Remote") -trackercam.com
 intitle:Bookmarks inurl:bookmarks.html "Bookmarks
-intitle:Bookmarks inurl:bookmarks.html “Bookmarks
+intitle:Bookmarks inurl:bookmarks.html "Bookmarks
 intitle:Configuration.File inurl:softcart.exe
 intitle:Group-Office "Enter your username and password to login"
-intitle:Group-Office “Enter your username and password to login"
+intitle:Group-Office "Enter your username and password to login"
 intitle:IMP inurl:imp/index.php3
 intitle:Index.of etc shadow
 intitle:Index.of etc shadow 
@@ -867,7 +867,7 @@ intitle:Login intext:"RT is ? Copyright"
 intitle:Node.List Win32.Version.3.11
 intitle:Novell intitle:WebAccess "Copyright &# Novell, Inc"
 intitle:Novell intitle:WebAccess "Copyright *-* Novell, Inc"
-intitle:Novell intitle:WebAccess “Copyright *-* Novell, Inc"
+intitle:Novell intitle:WebAccess "Copyright *-* Novell, Inc"
 intitle:Ovislink inurl:private/login
 intitle:\"ASP FileMan\" Resend -site:iisworks.com 
 intitle:\"ASP Stats Generator *.*\" \"ASP Stats Generator\" \"- weppos\" 
@@ -962,7 +962,7 @@ intitle:index.of people.lst
 intitle:index.of trillian.ini
 intitle:index.of ws_ftp.ini
 intitle:index.of ws_ftp.ini 
-intitle:index.of “Apache" “server at"
+intitle:index.of "Apache" "server at"
 intitle:intranet   inurl:intranet +intext:"phone"
 intitle:intranet inurl:intranet +intext:"phone"
 intitle:intranet inurl:intranet +intext:\"human resources\" 
@@ -973,23 +973,23 @@ intitle:mywebftp \"Please enter your password\"
 intitle:open-xchange inurl:login.pl
 intitle:opengroupware.org "resistance is obsolete" "Report Bugs" "Username"
 intitle:opengroupware.org "resistance is obsolete" "Report Bugs" "Username" "password"
-intitle:opengroupware.org “resistance is obsolete" “Report Bugs" “Username" “password"
+intitle:opengroupware.org "resistance is obsolete" "Report Bugs" "Username" "password"
 intitle:osCommerce inurl:admin intext:"redistributable under the GNU" intext:"Online Catalog" -demo -site:oscommerce.com
 intitle:osCommerce inurl:admin intext:"redistributable under the GNU" intext:"Online Catalog" -demo -site:oscommerce.com
 intitle:phpMyAdmin "Welcome to phpMyAdmin ***" "running on * as root@*"
-intitle:phpMyAdmin “Welcome to phpMyAdmin ***" “running on * as root@*"
+intitle:phpMyAdmin "Welcome to phpMyAdmin ***" "running on * as root@*"
 intitle:phpinfo "PHP Version"
 intitle:phpnews.login
 intitle:plesk inurl:login.php3
 intitle:rapidshare intext:login
 intitle:upload inurl:upload intext:upload -forum -shop -support -wc 
-intitle:"*- HP WBEM Login" | “You are being prompted to provide login account information for *" | “Please provide the information requested and press
+intitle:"*- HP WBEM Login" | "You are being prompted to provide login account information for *" | "Please provide the information requested and press
 intitle:"ADSL Configuration page"
-intitle:"ASP Stats Generator *.*" “ASP Stats Generator" “2003-2004 weppos"
-intitle:"Admin Login" “admin login" “blogware"
-intitle:"Admin login" “Web Site Administration" “Copyright"
+intitle:"ASP Stats Generator *.*" "ASP Stats Generator" "2003-2004 weppos"
+intitle:"Admin Login" "admin login" "blogware"
+intitle:"Admin login" "Web Site Administration" "Copyright"
 intitle:"AlternC Desktop"
-intitle:"Apache Tomcat" “Error Report"
+intitle:"Apache Tomcat" "Error Report"
 intitle:"Apache::Status" (inurl:server-status | inurl:status.html | inurl:apache.html)
 intitle:"AppServ Open Project" -site:www.appservnetwork.com
 intitle:"Athens Authentication Point"
@@ -997,9 +997,9 @@ intitle:"Azureus : Java BitTorrent Client Tracker"
 intitle:"BNBT Tracker Info"
 intitle:"Belarc Advisor Current Profile" intext:"Click here for Belarc’s PC Management products, for large and small companies."
 intitle:"Big Sister" +"OK Attention Trouble"
-intitle:"Cisco CallManager User Options Log On" “Please enter your User ID and Password in the spaces provided below and click the Log On button to co
+intitle:"Cisco CallManager User Options Log On" "Please enter your User ID and Password in the spaces provided below and click the Log On button to co
 intitle:"ColdFusion Administrator Login"
-intitle:"Content Management System" “user name"|"password"|"admin" “Microsoft IE 5.5″ -mambo
+intitle:"Content Management System" "user name"|"password"|"admin" "Microsoft IE 5.5″ -mambo
 intitle:"Default PLESK Page"
 intitle:"Dell Remote Access Controller"
 intitle:"DocuShare" inurl:"docushare/dsweb/" -faq -gov -edu
@@ -1009,15 +1009,15 @@ intitle:"EXTRANET login" -.edu -.mil -.gov
 intitle:"EZPartner" -netpond
 intitle:"Employee Intranet Login"
 intitle:"Error Occurred While Processing Request" +WHERE (SELECT|INSERT) filetype:cfm
-intitle:"Error Occurred" “The error occurred in" filetype:cfm
-intitle:"Error using Hypernews" “Server Software"
+intitle:"Error Occurred" "The error occurred in" filetype:cfm
+intitle:"Error using Hypernews" "Server Software"
 intitle:"Execution of this s?ri?t not permitted"
 intitle:"FTP root at"
 intitle:"Flash Operator Panel" -ext:php -wiki -cms -inurl:asternic -inurl:sip -intitle:ANNOUNCE -inurl:lists
 intitle:"Gateway Configuration Menu"
 intitle:"Horde :: My Portal" -"[Tickets"
 intitle:"ISPMan : Unauthorized Access prohibited"
-intitle:"ITS System Information" “Please log on to the SAP System"
+intitle:"ITS System Information" "Please log on to the SAP System"
 intitle:"Icecast Administration Admin Page"
 intitle:"Index Of" -inurl:maillog maillog size
 intitle:"Index Of" cookies.txt size
@@ -1033,18 +1033,18 @@ intitle:"Login Forum
 intitle:"Login to @Mail" (ext:pl | inurl:"index") -dwaffleman
 intitle:"Login to Cacti"
 intitle:"Login to the forums – @www.aimoo.com" inurl:login.cfm?id=
-intitle:"MX Control Console" “If you can’t remember"
-intitle:"Mail Server CMailServer Webmail" “5.2″
+intitle:"MX Control Console" "If you can’t remember"
+intitle:"Mail Server CMailServer Webmail" "5.2″
 intitle:"MailMan Login"
-intitle:"Member Login" “NOTE: Your browser must have cookies enabled in order to log into the site." ext:php OR ext:cgi
+intitle:"Member Login" "NOTE: Your browser must have cookies enabled in order to log into the site." ext:php OR ext:cgi
 intitle:"Merak Mail Server Web Administration" -ihackstuff.com
 intitle:"Microsoft Site Server Analysis"
 intitle:"MikroTik RouterOS Managing Webpage"
 intitle:"Multimon UPS status page"
 intitle:"MvBlog powered"
-intitle:"Nessus Scan Report" “This file was generated by Nessus"
+intitle:"Nessus Scan Report" "This file was generated by Nessus"
 intitle:"Novell Web Services" intext:"Select a service and a language."
-intitle:"Novell Web Services" “GroupWise" -inurl:"doc/11924″ -.mil -.edu -.gov -filetype:pdf
+intitle:"Novell Web Services" "GroupWise" -inurl:"doc/11924″ -.mil -.edu -.gov -filetype:pdf
 intitle:"OnLine Recruitment Program – Login"
 intitle:"PHP Advanced Transfer" (inurl:index.php | inurl:showrecent.php )
 intitle:"PHP Advanced Transfer" inurl:"login.php"
@@ -1054,11 +1054,11 @@ intitle:"Philex 0.2*" -s?ri?t -site:freelists.org
 intitle:"PhpMyExplorer" inurl:"index.php" -cvs
 intitle:"Remote Desktop Web Connection"
 intitle:"Remote Desktop Web Connection" inurl:tsweb
-intitle:"Retina Report" “CONFIDENTIAL INFORMATION"
+intitle:"Retina Report" "CONFIDENTIAL INFORMATION"
 intitle:"SFXAdmin – sfx_global" | intitle:"SFXAdmin – sfx_local" | intitle:"SFXAdmin – sfx_test"
 intitle:"SHOUTcast Administrator" inurl:admin.cgi
 intitle:"Samba Web Administration Tool" intext:"Help Workgroup"
-intitle:"SuSE Linux Openexchange Server" “Please activate Javas?ri?t!"
+intitle:"SuSE Linux Openexchange Server" "Please activate Javas?ri?t!"
 intitle:"Supero Doctor III" -inurl:supermicro
 intitle:"System Statistics" +"System and Network Information Center"
 intitle:"TOPdesk ApplicationServer"
@@ -1066,9 +1066,9 @@ intitle:"TUTOS Login"
 intitle:"TWIG Login"
 intitle:"Terminal Services Web Connection"
 intitle:"Tomcat Server Administration"
-intitle:"Under construction" “does not currently have"
+intitle:"Under construction" "does not currently have"
 intitle:"Uploader – Uploader v6″ -pixloads.com
-intitle:"Usage Statistics for" “Generated by Webalizer"
+intitle:"Usage Statistics for" "Generated by Webalizer"
 intitle:"VMware Management Interface:" inurl:"vmware/en/"
 intitle:"VNC viewer for Java"
 intitle:"Virtual Server Administration System"
@@ -1077,19 +1077,19 @@ intitle:"VitalQIP IP Management System"
 intitle:"WJ-NT104 Main Page"
 intitle:"Web Server Statistics for ****"
 intitle:"WebLogic Server" intitle:"Console Login" inurl:console
-intitle:"Welcome Site/User Administrator" “Please select the language" -demos
+intitle:"Welcome Site/User Administrator" "Please select the language" -demos
 intitle:"Welcome to F-Secure Policy Manager Server Welcome Page"
 intitle:"Welcome to Mailtraq WebMail"
 intitle:"WorldClient" intext:"? (2003|2004) Alt-N Technologies."
 intitle:"XMail Web Administration Interface" intext:Login intext:password
-intitle:"XcAuctionLite" | “DRIVEN BY XCENT" Lite inurl:admin
+intitle:"XcAuctionLite" | "DRIVEN BY XCENT" Lite inurl:admin
 intitle:"Zope Help System" inurl:HelpSys
-intitle:"ZyXEL Prestige Router" “Enter password"
+intitle:"ZyXEL Prestige Router" "Enter password"
 intitle:"admin panel" +"
-intitle:"b2evo > Login form" “Login form. You must log in! You will have to accept cookies in order to log in" -demo -site:b2evolution.net
+intitle:"b2evo > Login form" "Login form. You must log in! You will have to accept cookies in order to log in" -demo -site:b2evolution.net
 intitle:"communigate pro * *" intitle:"entrance"
 intitle:"curriculum vitae" filetype:doc
-intitle:"eMule *" intitle:"- Web Control Panel" intext:"Web Control Panel" “Enter your password here."
+intitle:"eMule *" intitle:"- Web Control Panel" intext:"Web Control Panel" "Enter your password here."
 intitle:"ePowerSwitch Login"
 intitle:"eXist Database Administration" -demo
 intitle:"edna:streaming mp3 server" -forums
@@ -1107,20 +1107,20 @@ intitle:"oMail-admin Administration – Login" -inurl:omnis.ch
 intitle:"php icalendar administration" -site:sourceforge.net
 intitle:"phpPgAdmin – Login" Language
 intitle:"phpinfo()" +"mysql.default_password" +"Zend s?ri?ting Language Engine"
-intitle:"please login" “your password is *"
+intitle:"please login" "your password is *"
 intitle:"remote assessment" OpenAanval Console
-intitle:"site administration: please log in" “site designed by emarketsouth"
+intitle:"site administration: please log in" "site designed by emarketsouth"
 intitle:"start.managing.the.device" remote pbx acc
-intitle:"statistics of" “advanced web statistics"
+intitle:"statistics of" "advanced web statistics"
 intitle:"supervisioncam protocol"
 intitle:"sysinfo * " intext:"Generated by Sysinfo * written by The Gamblers."
 intitle:"teamspeak server-administration
 intitle:"twiki" inurl:"TWikiUsers"
 intitle:"urchin (5|3|admin)" ext:cgi
 intitle:"vhost" intext:"vHost . 2000-2004″
-intitle:"wbem" compaq login “Compaq Information Technologies Group"
+intitle:"wbem" compaq login "Compaq Information Technologies Group"
 intitle:"web server status" SSH Telnet
-intitle:"web-cyradm"|"by Luc de Louw" “This is only for authorized users" -tar.gz -site:web-cyradm.org
+intitle:"web-cyradm"|"by Luc de Louw" "This is only for authorized users" -tar.gz -site:web-cyradm.org
 intitle:"welcome to netware *" -site:novell.com
 intitle:"welcome.to.squeezebox"
 intitle:"xams 0.0.0..15 – Login"
@@ -1292,7 +1292,7 @@ inurl:/cgi-bin/finger.cgi
 inurl:/cgi-bin/finger.pl
 inurl:/cgi-bin/finger? "In real life"
 inurl:/cgi-bin/finger? Enter (account|host|user|username)
-inurl:/cgi-bin/finger? “In real life"
+inurl:/cgi-bin/finger? "In real life"
 inurl:/cgi-bin/flexform
 inurl:/cgi-bin/flexform.cgi
 inurl:/cgi-bin/formmail.pl
@@ -1621,7 +1621,7 @@ inurl:/yabbse/Sources/Packages.php?sourcedir=
 inurl:/zentrack/index.php?configFile=
 inurl:/zipndownload.php?PP_PATH=
 inurl:1810 "Oracle Enterprise Manager"
-inurl:1810 “Oracle Enterprise Manager"
+inurl:1810 "Oracle Enterprise Manager"
 inurl:2000 intitle:RemotelyAnywhere -site:realvnc.com
 inurl::2082/frontend -demo
 inurl:AT-admin.cgi
@@ -1678,7 +1678,7 @@ inurl:admin.php?page=
 inurl:admin/doeditconfig.php?thispath=../includes&config[path]=
 inurl:admin/index.php?o=
 inurl:administrator "welcome to mambo"
-inurl:administrator “welcome to mambo"
+inurl:administrator "welcome to mambo"
 inurl:administrator/components/com_a6mambocredits/admin.a6mambocredits.php?mosConfig_live_site=
 inurl:administrator/components/com_comprofiler/plugin.class.php?mosConfig_absolute_path=
 inurl:administrator/components/com_comprofiler/plugin.class.php?mosConfig_absolute_path= /tools/send_reminders.php?includedir= allinurl:day.php?date=
@@ -1848,7 +1848,7 @@ inurl:cgi-bin/printenv
 inurl:cgi-bin/testcgi.exe   "Please distribute TestCGI"
 inurl:cgi-bin/testcgi.exe "Please distribute TestCGI"
 inurl:cgi-bin/testcgi.exe \"Please distribute TestCGI\" 
-inurl:cgi-bin/testcgi.exe “Please distribute TestCGI"
+inurl:cgi-bin/testcgi.exe "Please distribute TestCGI"
 inurl:cgi-bin/ultimatebb.cgi?ubb=login
 inurl:cgi.asx?StoreID 
 inurl:cgiirc.config
@@ -2977,7 +2977,7 @@ inurl:login.cfm
 inurl:login.jsp
 inurl:login.jsp.bak
 inurl:login.php "SquirrelMail version"
-inurl:login.php “SquirrelMail version"
+inurl:login.php "SquirrelMail version"
 inurl:login.php?dir=
 inurl:m2f/m2f_phpbb204.php?m2f_root_path=
 inurl:mail
@@ -3455,19 +3455,19 @@ inurl:php inurl:hlstats intext: Half-life statistics file, lists username and
 inurl:php.cgi
 inurl:php.ini filetype:ini
 inurl:phpSysInfo/ "created by phpsysinfo"
-inurl:phpSysInfo/ “created by phpsysinfo"
+inurl:phpSysInfo/ "created by phpsysinfo"
 inurl:phpwcms/include/inc_ext/spaw/dialogs/table.php?spaw_root=
 inurl:pivot/modules/module_db.php?pivot_path=
 inurl:pls/admin_/gateway.htm
 inurl:plusmail
 inurl:port.php?content=
 inurl:portscan.php "from Port"|"Port Range"
-inurl:portscan.php “from Port"|"Port Range"
+inurl:portscan.php "from Port"|"Port Range"
 inurl:post-query
 inurl:postfixadmin intitle:"postfix admin" ext:php
 inurl:postfixadmin intitle:"postfix admin" ext:php
 inurl:preferences.ini "[emule]"
-inurl:preferences.ini “[emule]"
+inurl:preferences.ini "[emule]"
 inurl:press.php?*[*]*=
 inurl:press.php?*root*=
 inurl:press.php?OpenPage=
@@ -4474,24 +4474,24 @@ inurl:pwd.dat
 intext:""BiTBOARD v2.0″ BiTSHiFTERS Bulletin Board"
 intext:"Fill out the form below completely to change your password and user name. If new username is left blank, your old one will be assumed." -edu
 intext:"Mail admins login here to administrate your domain."
-intext:"Master Account" “Domain Name" “Password" inurl:/cgi-bin/qmailadmin
+intext:"Master Account" "Domain Name" "Password" inurl:/cgi-bin/qmailadmin
 intext:"Storage Management Server for" intitle:"Server Administration"
 intext:"Welcome to" inurl:"cp" intitle:"H-SPHERE" inurl:"begin.html" -Fee
 intext:"vbulletin" inurl:admincp
-intitle:"*- HP WBEM Login" | “You are being prompted to provide login account information for *" | “Please provide the information requested and press
-intitle:"Admin Login" “admin login" “blogware"
-intitle:"Admin login" “Web Site Administration" “Copyright"
+intitle:"*- HP WBEM Login" | "You are being prompted to provide login account information for *" | "Please provide the information requested and press
+intitle:"Admin Login" "admin login" "blogware"
+intitle:"Admin login" "Web Site Administration" "Copyright"
 intitle:"AlternC Desktop"
 intitle:"Athens Authentication Point"
-intitle:"b2evo > Login form" “Login form. You must log in! You will have to accept cookies in order to log in" -demo -site:b2evolution.net
-intitle:"Cisco CallManager User Options Log On" “Please enter your User ID and Password in the spaces provided below and click the Log On button to co
+intitle:"b2evo > Login form" "Login form. You must log in! You will have to accept cookies in order to log in" -demo -site:b2evolution.net
+intitle:"Cisco CallManager User Options Log On" "Please enter your User ID and Password in the spaces provided below and click the Log On button to co
 intitle:"ColdFusion Administrator Login"
 intitle:"communigate pro * *" intitle:"entrance"
-intitle:"Content Management System" “user name"|"password"|"admin" “Microsoft IE 5.5″ -mambo
+intitle:"Content Management System" "user name"|"password"|"admin" "Microsoft IE 5.5″ -mambo
 intitle:"Dell Remote Access Controller"
 intitle:"Docutek ERes – Admin Login" -edu
 intitle:"Employee Intranet Login"
-intitle:"eMule *" intitle:"- Web Control Panel" intext:"Web Control Panel" “Enter your password here."
+intitle:"eMule *" intitle:"- Web Control Panel" intext:"Web Control Panel" "Enter your password here."
 intitle:"ePowerSwitch Login"
 intitle:"eXist Database Administration" -demo
 intitle:"EXTRANET * – Identification"
@@ -4502,7 +4502,7 @@ intitle:"i-secure v1.1″ -edu
 intitle:"Icecast Administration Admin Page"
 intitle:"iDevAffiliate – admin" -demo
 intitle:"ISPMan : Unauthorized Access prohibited"
-intitle:"ITS System Information" “Please log on to the SAP System"
+intitle:"ITS System Information" "Please log on to the SAP System"
 intitle:"Kurant Corporation StoreSense" filetype:bok
 intitle:"ListMail Login" admin -demo
 intitle:"Login –
@@ -4514,12 +4514,12 @@ intitle:"Login to @Mail" (ext:pl | inurl:"index") -dwaffleman
 intitle:"Login to Cacti"
 intitle:"Login to the forums – @www.aimoo.com" inurl:login.cfm?id=
 intitle:"MailMan Login"
-intitle:"Member Login" “NOTE: Your browser must have cookies enabled in order to log into the site." ext:php OR ext:cgi
+intitle:"Member Login" "NOTE: Your browser must have cookies enabled in order to log into the site." ext:php OR ext:cgi
 intitle:"Merak Mail Server Web Administration" -ihackstuff.com
 intitle:"microsoft certificate services" inurl:certsrv
 intitle:"MikroTik RouterOS Managing Webpage"
-intitle:"MX Control Console" “If you can’t remember"
-intitle:"Novell Web Services" “GroupWise" -inurl:"doc/11924″ -.mil -.edu -.gov -filetype:pdf
+intitle:"MX Control Console" "If you can’t remember"
+intitle:"Novell Web Services" "GroupWise" -inurl:"doc/11924″ -.mil -.edu -.gov -filetype:pdf
 intitle:"Novell Web Services" intext:"Select a service and a language."
 intitle:"oMail-admin Administration – Login" -inurl:omnis.ch
 intitle:"OnLine Recruitment Program – Login"
@@ -4528,13 +4528,13 @@ intitle:"PHP Advanced Transfer" inurl:"login.php"
 intitle:"php icalendar administration" -site:sourceforge.net
 intitle:"phpPgAdmin – Login" Language
 intitle:"PHProjekt – login" login password
-intitle:"please login" “your password is *"
+intitle:"please login" "your password is *"
 intitle:"Remote Desktop Web Connection" inurl:tsweb
 intitle:"SFXAdmin – sfx_global" | intitle:"SFXAdmin – sfx_local" | intitle:"SFXAdmin – sfx_test"
 intitle:"SHOUTcast Administrator" inurl:admin.cgi
-intitle:"site administration: please log in" “site designed by emarketsouth"
+intitle:"site administration: please log in" "site designed by emarketsouth"
 intitle:"Supero Doctor III" -inurl:supermicro
-intitle:"SuSE Linux Openexchange Server" “Please activate Javas?ri?t!"
+intitle:"SuSE Linux Openexchange Server" "Please activate Javas?ri?t!"
 intitle:"teamspeak server-administration
 intitle:"Tomcat Server Administration"
 intitle:"TOPdesk ApplicationServer"
@@ -4546,22 +4546,22 @@ intitle:"VisNetic WebMail" inurl:"/mail/"
 intitle:"VitalQIP IP Management System"
 intitle:"VMware Management Interface:" inurl:"vmware/en/"
 intitle:"VNC viewer for Java"
-intitle:"web-cyradm"|"by Luc de Louw" “This is only for authorized users" -tar.gz -site:web-cyradm.org
+intitle:"web-cyradm"|"by Luc de Louw" "This is only for authorized users" -tar.gz -site:web-cyradm.org
 intitle:"WebLogic Server" intitle:"Console Login" inurl:console
-intitle:"Welcome Site/User Administrator" “Please select the language" -demos
+intitle:"Welcome Site/User Administrator" "Please select the language" -demos
 intitle:"Welcome to Mailtraq WebMail"
 intitle:"welcome to netware *" -site:novell.com
 intitle:"WorldClient" intext:"? (2003|2004) Alt-N Technologies."
 intitle:"xams 0.0.0..15 – Login"
-intitle:"XcAuctionLite" | “DRIVEN BY XCENT" Lite inurl:admin
+intitle:"XcAuctionLite" | "DRIVEN BY XCENT" Lite inurl:admin
 intitle:"XMail Web Administration Interface" intext:Login intext:password
 intitle:"Zope Help System" inurl:HelpSys
-intitle:"ZyXEL Prestige Router" “Enter password"
+intitle:"ZyXEL Prestige Router" "Enter password"
 intitle:"inc. *** 3000 concentrator"
-intitle:(“TrackerCam Live Video")|(“TrackerCam Application Login")|(“Trackercam Remote") -trackercam.com
+intitle:("TrackerCam Live Video")|("TrackerCam Application Login")|("Trackercam Remote") -trackercam.com
 intitle:asterisk.management.portal web-access
 intitle:endymion.sak?.mail.login.page | inurl:sake.servlet
-intitle:Group-Office “Enter your username and password to login"
+intitle:Group-Office "Enter your username and password to login"
 intitle:ilohamail "
 IlohaMail"
 intitle:ilohamail intext:"Version 0.8.10″ "
@@ -4570,7 +4570,7 @@ intitle:IMP inurl:imp/index.php3
 intitle:Login * Webmailer
 intitle:Login intext:"RT is ? Copyright"
 intitle:Node.List Win32.Version.3.11
-intitle:Novell intitle:WebAccess “Copyright *-* Novell, Inc"
+intitle:Novell intitle:WebAccess "Copyright *-* Novell, Inc"
 intitle:open-xchange inurl:login.pl
 intitle:Ovislink inurl:private/login
 intitle:phpnews.login
@@ -4580,7 +4580,7 @@ inurl:"/slxweb.dll/external?name=(custportal|webticketcust)"
 inurl:"1220/parse_xml.cgi?"
 inurl:"631/admin" (inurl:"op=*") | (intitle:CUPS)
 inurl:":10000″ intext:webmin
-inurl:"Activex/default.htm" “Demo"
+inurl:"Activex/default.htm" "Demo"
 inurl:"calendar.asp?action=login"
 inurl:"default/login.php" intitle:"kerio"
 inurl:"gs/adminlogin.aspx"
@@ -4595,7 +4595,7 @@ inurl:register.cgi
 inurl:report "EVEREST Home   Edition "
 inurl:report "EVEREST Home Edition "
 inurl:report \"EVEREST Home Edition \" 
-inurl:report “EVEREST Home Edition "
+inurl:report "EVEREST Home Edition "
 inurl:responder.cgi
 inurl:robpoll.cgi filetype:cgi 
 inurl:root.asp?acs=anon Outlook Mail Web Access directory can be
@@ -4613,11 +4613,11 @@ inurl:sendmail.cfm
 inurl:sendmail.inc
 inurl:server-info "Apache Server Information"
 inurl:server-info \"Apache Server Information\" 
-inurl:server-info “Apache Server Information"
+inurl:server-info "Apache Server Information"
 inurl:server-status   "apache"
 inurl:server-status "apache"
 inurl:server-status \"apache\" 
-inurl:server-status “apache"
+inurl:server-status "apache"
 inurl:server.cfg rcon password
 inurl:service.pwd
 inurl:service.pwd 
@@ -5013,7 +5013,7 @@ inurl:users.pwd
 inurl:vbstats.php   "page generated"
 inurl:vbstats.php "page generated"
 inurl:vbstats.php \"page generated\" 
-inurl:vbstats.php “page generated"
+inurl:vbstats.php "page generated"
 inurl:ventrilo_srv.ini adminpassword
 inurl:video.php?content=
 inurl:view-source
@@ -5084,14 +5084,14 @@ inurl:webdist.cgi
 inurl:webdriver
 inurl:webgais
 inurl:webmail./index.pl "Interface"
-inurl:webmail./index.pl “Interface"
+inurl:webmail./index.pl "Interface"
 inurl:webpage.cgi
 inurl:websendmail
 inurl:webutil.pl
 inurl:webvpn.html "login" "Please enter your"
-inurl:webvpn.html “login" “Please enter your"
+inurl:webvpn.html "login" "Please enter your"
 inurl:wp-mail.php + "There doesn't seem to be any new mail."
-inurl:wp-mail.php + “There doesn’t seem to be any new mail."
+inurl:wp-mail.php + "There doesn’t seem to be any new mail."
 inurl:wrap
 inurl:www-sql
 inurl:wwwboard.pl
@@ -5109,9 +5109,9 @@ inurl:"/slxweb.dll/external?name=(custportal|webticketcust)"
 inurl:"1220/parse_xml.cgi?"
 inurl:"631/admin" (inurl:"op=*") | (intitle:CUPS)
 inurl:":10000″ intext:webmin
-inurl:"Activex/default.htm" “Demo"
+inurl:"Activex/default.htm" "Demo"
 inurl:"GRC.DAT" intext:"password"
-inurl:"NmConsole/Login.asp" | intitle:"Login – Ipswitch WhatsUp Professional 2005″ | intext:"Ipswitch WhatsUp Professional 2005 (SP1)" “Ipswitch, Inc"
+inurl:"NmConsole/Login.asp" | intitle:"Login – Ipswitch WhatsUp Professional 2005″ | intext:"Ipswitch WhatsUp Professional 2005 (SP1)" "Ipswitch, Inc"
 inurl:"Sites.dat"+"PASS="
 inurl:"ViewerFrame?Mode="
 inurl:"bookmark.htm"
@@ -5119,7 +5119,7 @@ inurl:"cacti" +inurl:"graph_view.php" +"Settings Tree View" -cvs -RPM
 inurl:"calendar.asp?action=login"
 inurl:"calendars?ri?t/users.txt"
 inurl:"default/login.php" intitle:"kerio"
-inurl:"editor/list.asp" | inurl:"database_editor.asp" | inurl:"login.asa" “are set"
+inurl:"editor/list.asp" | inurl:"database_editor.asp" | inurl:"login.asa" "are set"
 inurl:"gs/adminlogin.aspx"
 inurl:"index.php? module=ew_filemanager"
 inurl:"install/install.php"
