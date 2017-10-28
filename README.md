@@ -4,20 +4,22 @@
 [![GitHub license](https://img.shields.io/badge/license-GPL-blue.svg?style=flat-square)](https://raw.githubusercontent.com/Ekultek/Zeus-Scanner/master/.github/LICENSE.md)
 [![Twitter](https://img.shields.io/twitter/url/https/github.com/ekultek/zeus-scanner.svg?style=social)](https://twitter.com/Zeus_Scanner)
 
-# Directory
+# Helpful links directory
 
 - [Overview](https://github.com/Ekultek/Zeus-Scanner#zeus-scanner)
-- [Legal information](https://github.com/Ekultek/Zeus-Scanner/tree/master/.github)
-  - [License](https://github.com/Ekultek/Zeus-Scanner/blob/master/.github/LICENSE.md)
-  - [Code of conduct](https://github.com/Ekultek/Zeus-Scanner/blob/master/.github/CODE_OF_CONDUCT.md)
-  - [Contributing](https://github.com/Ekultek/Zeus-Scanner/blob/master/.github/CONTRIBUTING.md)
+- [Report a bug](https://github.com/Ekultek/Zeus-Scanner/issues/new)
+- [Open a pull request](https://github.com/Ekultek/Zeus-Scanner/compare)
+- [Requirements and installation](https://github.com/Ekultek/Zeus-Scanner#requirements)
+- [Screenshots](https://github.com/Ekultek/Zeus-Scanner#screenshots)
+- [Demo video](https://vimeo.com/239885768)
 - [User manual](https://github.com/Ekultek/Zeus-Scanner/wiki/Functionality)
   - [How it works](https://github.com/Ekultek/Zeus-Scanner/wiki/How-Zeus-works)
   - [Functionality](https://github.com/Ekultek/Zeus-Scanner/wiki/Functionality)
   - [How to use sqlmap with Zeus](https://github.com/Ekultek/Zeus-Scanner/wiki/Passing-flags-to-sqlmap)
-- [Requirements and installation](https://github.com/Ekultek/Zeus-Scanner#requirements)
-- [Screenshots](https://github.com/Ekultek/Zeus-Scanner#screenshots)
-- [Demo video](https://vimeo.com/239885768)
+- [Legal information](https://github.com/Ekultek/Zeus-Scanner/tree/master/.github)
+  - [License](https://github.com/Ekultek/Zeus-Scanner/blob/master/.github/LICENSE.md)
+  - [Code of conduct](https://github.com/Ekultek/Zeus-Scanner/blob/master/.github/CODE_OF_CONDUCT.md)
+  - [Contributing](https://github.com/Ekultek/Zeus-Scanner/blob/master/.github/CONTRIBUTING.md)
 - [Donations to Zeus](https://github.com/Ekultek/Zeus-Scanner#donations)
 
 # Zeus-Scanner

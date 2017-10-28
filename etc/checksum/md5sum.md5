@@ -50,8 +50,3 @@ d41d8cd98f00b204e9800998ecf8427e  ./var/__init__.py
 d41d8cd98f00b204e9800998ecf8427e  ./var/auto_issue/__init__.py
 4506850a02aa18e12bef4efeb760ad9e  ./var/auto_issue/github.py
 a83bf6c450035a733fa81a46c16fdd2b  ./var/blackwidow/__init__.py
-3bd1097ac6645f6fbb3a8fa6b07002b3  ./.github/CONTRIBUTING.md
-1d4d81f6661524558d4f9f3d517fa7fc  ./.github/LICENSE.md
-50570f0932047fa6b567c46df374ec90  ./.github/CODE_OF_CONDUCT.md
-3b80f55a0b161769c07292bbec686641  ./.github/ISSUE_TEMPLATE.md
-baae8bbef0dec71131f5fd4e468ef2d8  ./.gitignore
