@@ -10,6 +10,7 @@ import difflib
 import logging
 import string
 import random
+import platform
 import subprocess
 
 try:
@@ -37,7 +38,7 @@ PATCH_ID = str(subprocess.check_output(["git", "rev-parse", "origin/master"]))[:
 # clone link
 CLONE = "https://github.com/ekultek/zeus-scanner.git"
 # current version <major.minor.commit.patch ID>
-VERSION = "1.1.3".format(PATCH_ID)
+VERSION = "1.1.4".format(PATCH_ID)
 # colors to output depending on the version
 VERSION_TYPE_COLORS = {"dev": 33, "stable": 92, "other": 30}
 # version string formatting
@@ -59,8 +60,9 @@ BANNER = """\033[36m
                        \/   \/           \/  {}
 \t{}\n\t\t{}\033[0m""".format(VERSION_STRING, CLONE, SAYING)
 # default user agent if another one isn't given
-DEFAULT_USER_AGENT = "Zeus-Scanner(v{})::Python->v{}.{}".format(
-    VERSION, sys.version_info[0], sys.version_info[1]
+# reference for best practices: https://docs.developer.amazonservices.com/en_US/dev_guide/DG_UserAgentHeader.html
+DEFAULT_USER_AGENT = "Zeus-Scanner/{} (Language=Python/{}; Platform={})".format(
+    VERSION, sys.version.split(" ")[0], platform.platform().split("-")[0]
 )
 # regex to find GET params in a URL, IE php?id=
 URL_QUERY_REGEX = re.compile(r"(.*)[?|#](.*){1}\=(.*)")
