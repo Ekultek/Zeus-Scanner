@@ -70,7 +70,7 @@ There are some requirements for this to be run successfully.
 
 ### Installing
 
-You download the latest zip/tarball [here](https://github.com/Ekultek/Zeus-Scanner/releases/tag/v1.1) or follow the following steps here:
+You can download the latest [tar.gz](https://github.com/ekultek/zeus-scanner/tarball/master), the latest [zip](https://github.com/ekultek/zeus-scanner/zipball/master), or you can find the current stable release [here](https://github.com/Ekultek/Zeus-Scanner/releases/tag/v1.1). Alternatively you can install the latest development version by follow the below instructions:
  
  - **_(optional but highly advised)_** add sqlmap and nmap to your environment PATH by moving them to `/usr/bin` or by adding them to the PATH via terminal
  - You made need to run `sudo apt-get install libxml2-dev libxslt1-dev python-dev`
