@@ -3,6 +3,7 @@
 [![GitHub issues](https://img.shields.io/github/issues/ekultek/zeus-scanner.svg?style=flat-square)](https://github.com/ekultek/zeus-scanner/issues) 
 [![GitHub license](https://img.shields.io/badge/license-GPL-blue.svg?style=flat-square)](https://raw.githubusercontent.com/Ekultek/Zeus-Scanner/master/.github/LICENSE.md)
 [![Twitter](https://img.shields.io/twitter/url/https/github.com/ekultek/zeus-scanner.svg?style=social)](https://twitter.com/Zeus_Scanner)
+<script type='text/javascript' src='https://ko-fi.com/widgets/widget_2.js'></script><script type='text/javascript'>kofiwidget2.init('Buy Me a Coffee', '#444746', 'A28355P5');kofiwidget2.draw();</script> 
 
 # Helpful links directory
 
@@ -82,4 +83,10 @@ This will install all the package requirements along with the gecko web driver
 
 ### Donations
 
-If you like Zeus and feel like buying me a coffee or a beer, donations are gladly accepted via BTC `3DAQGcAQ194NGVs16Mmv75ip45CVuE8cZy` no pressure but I really like beer..
+Zeus is created by a small team of developers that have an aspiration for information security and a strive to succeed. If you like Zeus and want to donate to our funding, we gladly and appreciatively accept donations via:
+
+ - Bitcoin(BTC) via: `3DAQGcAQ194NGVs16Mmv75ip45CVuE8cZy`
+ - [PayPal](https://www.paypal.me/ZeusScanner)
+ - Or you can click the [_By me a Coffee_]() link at the top of this page
+ 
+You can be assured that all donations will go towards Zeus funding to make it more reliable and even better, thank you from the Zeus development team
