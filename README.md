@@ -4,6 +4,22 @@
 [![GitHub license](https://img.shields.io/badge/license-GPL-blue.svg?style=flat-square)](https://raw.githubusercontent.com/Ekultek/Zeus-Scanner/master/.github/LICENSE.md)
 [![Twitter](https://img.shields.io/twitter/url/https/github.com/ekultek/zeus-scanner.svg?style=social)](https://twitter.com/Zeus_Scanner)
 
+# Directory
+
+- [Overview](https://github.com/Ekultek/Zeus-Scanner#zeus-scanner)
+- [Legal information](https://github.com/Ekultek/Zeus-Scanner/tree/master/.github)
+  - [License](https://github.com/Ekultek/Zeus-Scanner/blob/master/.github/LICENSE.md)
+  - [Code of conduct](https://github.com/Ekultek/Zeus-Scanner/blob/master/.github/CODE_OF_CONDUCT.md)
+  - [Contributing](https://github.com/Ekultek/Zeus-Scanner/blob/master/.github/CONTRIBUTING.md)
+- [User manual](https://github.com/Ekultek/Zeus-Scanner/wiki/Functionality)
+  - [How it works](https://github.com/Ekultek/Zeus-Scanner/wiki/How-Zeus-works)
+  - [Functionality](https://github.com/Ekultek/Zeus-Scanner/wiki/Functionality)
+  - [How to use sqlmap with Zeus](https://github.com/Ekultek/Zeus-Scanner/wiki/Passing-flags-to-sqlmap)
+- [Requirements and installation](https://github.com/Ekultek/Zeus-Scanner#requirements)
+- [Screenshots](https://github.com/Ekultek/Zeus-Scanner#screenshots)
+- [Demo video](https://vimeo.com/239885768)
+- [Donations to Zeus](https://github.com/Ekultek/Zeus-Scanner#donations)
+
 # Zeus-Scanner
 
 ### What is Zeus?
@@ -28,8 +44,9 @@ You can see more screenshots [here](https://github.com/Ekultek/Zeus-Scanner/wiki
 
 ### Requirements
 
-There are a few requirements for this:
+There are some requirements for this to be run successfully.
 
+ - You may need to run `sudo apt-get install libxml2-dev libxslt1-dev python-dev`
  - Firefox web browser is required as of now, I will be adding the functionality of most web browsers.
  - If you want to run sqlmap through the URL's you will need sqlmap somewhere on your system.
  - If you want to run a port scan using nmap on the URL's IP addresses. You will need nmap on your system.
@@ -42,6 +59,10 @@ There are a few requirements for this:
  - `whichcraft` package is required to check if nmap and sqlmap are on your system if you want to use them
  - `pyvirtualdisplay` package is required to hide the browser display while finding the search URL
  - `xvfb` is required by pyvirtualdisplay, it will be installed if not installed on your first run
+ - `lxml` is required to parse XML data for the sitemap and save it as such
+ - `google-api-python-client` is required to search via Google's API client
+ - `psutil` is required to search for running sqlmap API sessions
+ - `httplib2` is required to allow user-agent changes during Google's API client searches
 
 ### Installing
 
