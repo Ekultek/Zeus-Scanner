@@ -17,7 +17,8 @@ from lib.core.settings import (
     create_tree,
     prompt,
     write_to_log_file,
-    ROBOTS_PAGE_PATH
+    ROBOTS_PAGE_PATH,
+    SITEMAP_FILE_LOG_PATH
 )
 
 
@@ -52,7 +53,28 @@ def check_for_robots(url, ext="/robots.txt", data_sep="-" * 30):
     logger.info(set_color(
         "robots.txt page will be saved into a file..."
     ))
-    write_to_log_file(data, ROBOTS_PAGE_PATH, "robots-{}.log".format(url))
+    return write_to_log_file(data, ROBOTS_PAGE_PATH, "robots-{}.log".format(url))
+
+
+def check_for_sitemap(url, ext="/sitemap.xml"):
+    """
+    check the URL for a sitemap.xml file
+    """
+    url = replace_http(url)
+    full_url = "http://{}{}".format(url, ext)
+    conn = requests.get(full_url)
+    data = conn.content
+    code = conn.status_code
+    if code == 404:
+        logger.error(set_color(
+            "no sitemap found, continuing...", level=40
+        ))
+        return False
+    else:
+        logger.info(set_color(
+            "found a sitemap, saving to file..."
+        ))
+        return write_to_log_file(data, SITEMAP_FILE_LOG_PATH, "{}-sitemap.xml".format(replace_http(url)))
 
 
 def check_for_admin_page(url, exts, protocol="http://", **kwargs):
@@ -97,8 +119,7 @@ def check_for_admin_page(url, exts, protocol="http://", **kwargs):
             if verbose:
                 if "<urlopen error timed out>" or "timeout: timed out" in str(e):
                     logger.warning(set_color(
-                        "connection timed out after five seconds "
-                        "assuming won't connect and skipping...", level=30
+                        "connection timed out assuming won't connect and skipping...", level=30
                     ))
                 else:
                     logger.exception(set_color(
@@ -110,7 +131,7 @@ def check_for_admin_page(url, exts, protocol="http://", **kwargs):
     logger.info(set_color(
         data_msg.format(len(possible_connections), len(connections))
     ))
-    if len(connections) != 0:
+    if len(connections) > 0:
         logger.info(set_color(
             "creating connection tree..."
         ))
@@ -121,7 +142,7 @@ def check_for_admin_page(url, exts, protocol="http://", **kwargs):
             "{}...".format(url), level=50
         ))
     if show_possibles:
-        if len(possible_connections) != 0:
+        if len(possible_connections) > 0:
             logger.info(set_color(
                 "creating possible connection tree..."
             ))
@@ -129,7 +150,7 @@ def check_for_admin_page(url, exts, protocol="http://", **kwargs):
         else:
             logger.fatal(set_color(
                 "did not find any possible connections to {}'s "
-                "admin page", level=50
+                "admin page".format(url), level=50
             ))
 
 
@@ -155,6 +176,10 @@ def main(url, show=False, verbose=False, **kwargs):
         logger.warning(set_color(
             "seems like this page is blocking access to robots.txt...", level=30
         ))
+    logger.info(set_color(
+        "checking for a sitemap..."
+    ))
+    check_for_sitemap(url)
     logger.info(set_color(
         "loading extensions..."
     ))
