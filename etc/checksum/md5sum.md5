@@ -43,10 +43,10 @@ f27322b9716e1a2b0b0b0487f3149474  ./lib/attacks/whois_lookup/whois.py
 f746d2867f493104a78d0540cf50c03f  ./lib/attacks/intel_me/__init__.py
 1faa2b5dfad6eb538bbfe42942d2a9da  ./lib/core/errors.py
 d41d8cd98f00b204e9800998ecf8427e  ./lib/core/__init__.py
-8255b986984e7b069907548ec7bc2478  ./lib/core/settings.py
+819b60912d654bdd81b9d96bd757989f  ./lib/core/settings.py
 d41d8cd98f00b204e9800998ecf8427e  ./var/google_search/__init__.py
 b92ee17da90b17a0abb4e07e24fca3e1  ./var/google_search/search.py
 d41d8cd98f00b204e9800998ecf8427e  ./var/__init__.py
 d41d8cd98f00b204e9800998ecf8427e  ./var/auto_issue/__init__.py
 4506850a02aa18e12bef4efeb760ad9e  ./var/auto_issue/github.py
-c9aff08ed524687c3de90393a5a49f64  ./var/blackwidow/__init__.py
+3f8ab5a50094d0aa9b95cf7797f3326e  ./var/blackwidow/__init__.py

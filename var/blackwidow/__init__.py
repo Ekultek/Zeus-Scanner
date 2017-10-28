@@ -21,12 +21,12 @@ class Blackwidow(object):
     @staticmethod
     def get_url_ext(url):
         """
-        get the extenstion of the URL
+        get the extension of the URL
         """
         try:
             data = url.split(".")
             return data[-1] in lib.core.settings.SPIDER_EXT_EXCLUDE
-        except Exception:
+        except (IndexError, Exception):
             pass
 
     def test_connection(self):
@@ -34,7 +34,8 @@ class Blackwidow(object):
         make sure the connection is good before you continue
         """
         try:
-            attempt = requests.get(self.url, params={"user-agent": self.user_agent}, proxies=self.proxy)
+            attempt = requests.get(self.url, params={"user-agent": self.user_agent},
+                                   proxies=lib.core.settings.proxy_string_to_dict(self.proxy))
             if attempt.status_code == 200:
                 return "ok"
             raise lib.core.errors.SpiderTestFailure(
@@ -55,7 +56,8 @@ class Blackwidow(object):
         """
         unique_links = set()
         true_url = lib.core.settings.replace_http(given_url)
-        req = requests.get(given_url, params={"user-agent": self.user_agent}, proxies=self.proxy)
+        req = requests.get(given_url, params={"user-agent": self.user_agent},
+                           proxies=lib.core.settings.proxy_string_to_dict(self.proxy))
         html_page = req.content
         soup = BeautifulSoup(html_page, "html.parser")
         for link in soup.findAll(attribute):
@@ -67,10 +69,22 @@ class Blackwidow(object):
         return list(unique_links)
 
 
-def blackwidow_main(url, proxy=None, agent=None, verbose=False):
+def blackwidow_main(url, **kwargs):
     """
     scrape a given URL for all available links
     """
+    verbose = kwargs.get("verbose", False)
+    proxy = kwargs.get("proxy", None)
+    agent = kwargs.get("agent", None)
+    if verbose:
+        lib.core.settings.logger.debug(lib.core.settings.set_color(
+            "settings user-agent to '{}'...".format(agent)
+        ))
+    if proxy is not None:
+        if verbose:
+            lib.core.settings.logger.debug(lib.core.settings.set_color(
+                "running behind proxy '{}'...".format(proxy)
+            ))
     lib.core.settings.create_dir("{}/{}".format(os.getcwd(), "log/blackwidow-log"))
     lib.core.settings.logger.info(lib.core.settings.set_color(
         "starting blackwidow on '{}'...".format(url)
@@ -85,17 +99,19 @@ def blackwidow_main(url, proxy=None, agent=None, verbose=False):
         lib.core.settings.logger.debug(lib.core.settings.set_color(
             "connection satisfied, continuing process...", level=10
         ))
+    lib.core.settings.logger.info(lib.core.settings.set_color(
+        "crawling given URL '{}' for links...".format(url)
+    ))
     found = crawler.scrape_page_for_links(url)
-    file_path = lib.core.settings.write_to_log_file(found, path=lib.core.settings.SPIDER_LOG_PATH, filename="blackwidow-log-{}.log")
-    with open(file_path) as data:
-        found = data.readlines()
-        if len(found) > 0:
-            lib.core.settings.logger.info(lib.core.settings.set_color(
-                "found a total of {} links from '{}'...".format(
-                    len(found), url
-                )
-            ))
-        else:
-            lib.core.settings.logger.fatal(lib.core.settings.set_color(
-                "did not find any usable links from '{}'...".format(url), level=50
-            ))
+    if len(found) > 0:
+        lib.core.settings.logger.info(lib.core.settings.set_color(
+            "found a total of {} links from given URL '{}'...".format(
+                len(found), url
+            )
+        ))
+        lib.core.settings.write_to_log_file(found, path=lib.core.settings.SPIDER_LOG_PATH,
+                                            filename="blackwidow-log-{}.log")
+    else:
+        lib.core.settings.logger.fatal(lib.core.settings.set_color(
+            "did not find any usable links from '{}'...".format(url), level=50
+        ))
