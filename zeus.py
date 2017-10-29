@@ -6,7 +6,6 @@ import io
 import shlex
 import subprocess
 import time
-
 try:
     import http.client as http_client  # Python 3
 except ImportError:
@@ -25,8 +24,6 @@ from lib.core.errors import (
     InvalidInputProvided,
     InvalidProxyType
 )
-
-
 from lib.attacks import (
     nmap_scan,
     sqlmap_scan,
@@ -58,6 +55,7 @@ from lib.core.settings import (
     find_running_opts,
     create_arguments
 )
+
 
 if __name__ == "__main__":
 
@@ -567,8 +565,8 @@ if __name__ == "__main__":
             shutdown()
         elif "Service geckodriver unexpectedly exited" in str(e):
             logger.fatal(set_color(
-                "it seems that your firefox version is not compatible with the geckodriver "
-                "version. please update firefox and try again...", level=50
+                "it seems your firefox version is not compatible with the geckodriver version, "
+                "please re-install Zeus and try again...", level=50
             ))
             shutdown()
         elif "Max retries exceeded with url" in str(e):

@@ -18,59 +18,59 @@ from lib.core.settings import (
     prompt,
     write_to_log_file,
     ROBOTS_PAGE_PATH,
-    SITEMAP_FILE_LOG_PATH
+    SITEMAP_FILE_LOG_PATH,
+    ADMIN_PAGE_FILE_PATH
 )
 
 
-def check_for_robots(url, ext="/robots.txt", data_sep="-" * 30):
+def check_for_externals(url, robots=False, sitemap=False, data_sep="-" * 30, verbose=False):
     """
     check if the URL has a robots.txt in it and collect `interesting` information
     out of the page
     """
+    ext = {
+        robots: "/robots.txt",
+        sitemap: "/sitemap.xml"
+    }
+    currently_searching = ext[robots if robots else sitemap]
+    if verbose:
+        logger.debug(set_color(
+            "currently searching for a '{}'...".format(currently_searching), level=10
+        ))
     url = replace_http(url)
-    interesting = set()
-    full_url = "{}{}{}".format("http://", url, ext)
-    conn = requests.get(full_url)
-    data = conn.content
-    code = conn.status_code
-    if code == 404:
-        return False
-    for line in data.split("\n"):
-        if "Allow" in line:
-            interesting.add(line.strip())
-    if len(interesting) > 0:
-        create_tree(full_url, list(interesting))
-    else:
-        to_display = prompt(
-            "nothing interesting found in robots.txt would you like to display the entire page", opts="yN"
-        )
-        if to_display.lower().startswith("y"):
-            print(
-                "{}\n{}\n{}".format(
-                    data_sep, data, data_sep
-                )
-            )
-    logger.info(set_color(
-        "robots.txt page will be saved into a file..."
-    ))
-    return write_to_log_file(data, ROBOTS_PAGE_PATH, "robots-{}.log".format(url))
-
-
-def check_for_sitemap(url, ext="/sitemap.xml"):
-    """
-    check the URL for a sitemap.xml file
-    """
-    url = replace_http(url)
-    full_url = "http://{}{}".format(url, ext)
+    full_url = "{}{}{}".format("http://", url, currently_searching)
     conn = requests.get(full_url)
     data = conn.content
     code = conn.status_code
     if code == 404:
         logger.error(set_color(
-            "no sitemap found, continuing...", level=40
+            "unable to connect to '{}', assuming does not exist and continuing...".format(
+                full_url
+            ), level=40
         ))
         return False
-    else:
+    if robots:
+        interesting = set()
+        for line in data.split("\n"):
+            if "Allow" in line:
+                interesting.add(line.strip())
+        if len(interesting) > 0:
+            create_tree(full_url, list(interesting))
+        else:
+            to_display = prompt(
+                "nothing interesting found in robots.txt would you like to display the entire page", opts="yN"
+            )
+            if to_display.lower().startswith("y"):
+                print(
+                    "{}\n{}\n{}".format(
+                        data_sep, data, data_sep
+                    )
+                )
+        logger.info(set_color(
+            "robots.txt page will be saved into a file..."
+        ))
+        return write_to_log_file(data, ROBOTS_PAGE_PATH, "robots-{}.log".format(url))
+    elif sitemap:
         logger.info(set_color(
             "found a sitemap, saving to file..."
         ))
@@ -152,6 +152,12 @@ def check_for_admin_page(url, exts, protocol="http://", **kwargs):
                 "did not find any possible connections to {}'s "
                 "admin page".format(url), level=50
             ))
+    logger.warning(set_color(
+        "only writing successful connections to log file..."
+    ))
+    write_to_log_file(list(connections), ADMIN_PAGE_FILE_PATH, "{}-admin-page.log".format(
+        replace_http(url)
+    ))
 
 
 def __load_extensions(filename="{}/etc/link_ext.txt"):
@@ -171,15 +177,15 @@ def main(url, show=False, verbose=False, **kwargs):
     logger.info(set_color(
         "parsing robots.txt..."
     ))
-    results = check_for_robots(url)
+    results = check_for_externals(url, robots=True)
     if not results:
         logger.warning(set_color(
-            "seems like this page is blocking access to robots.txt...", level=30
+            "seems like this page is either blocking access to robots.txt or it does not exist...", level=30
         ))
     logger.info(set_color(
         "checking for a sitemap..."
     ))
-    check_for_sitemap(url)
+    check_for_externals(url, sitemap=True)
     logger.info(set_color(
         "loading extensions..."
     ))

@@ -38,7 +38,7 @@ PATCH_ID = str(subprocess.check_output(["git", "rev-parse", "origin/master"]))[:
 # clone link
 CLONE = "https://github.com/ekultek/zeus-scanner.git"
 # current version <major.minor.commit.patch ID>
-VERSION = "1.1.6.{}".format(PATCH_ID)
+VERSION = "1.1.7.{}".format(PATCH_ID)
 # colors to output depending on the version
 VERSION_TYPE_COLORS = {"dev": 33, "stable": 92, "other": 30}
 # version string formatting
@@ -82,6 +82,8 @@ LAUNCH_SQLMAP_API_TOOL = "{}/etc/scripts/launch_sqlmap_api.sh".format(os.getcwd(
 NMAP_INSTALLER_TOOL = "{}/etc/scripts/install_nmap.sh".format(os.getcwd())
 # paths to sqlmap and nmap
 TOOL_PATHS = "{}/bin/paths/path_config.ini".format(os.getcwd())
+# the log for found admin pages on a site
+ADMIN_PAGE_FILE_PATH = "{}/log/admin-page-log".format(os.getcwd())
 # path to the sitemap log file
 SITEMAP_FILE_LOG_PATH = "{}/log/sitemap-log".format(os.getcwd())
 # log path to the whois results
@@ -454,7 +456,14 @@ def write_to_log_file(data_to_write, path, filename):
     with open(full_file_path, "a+") as log:
         data = re.sub(r'\s+', '', log.read())
         if re.match(r'^<.+>$', data):
-            log.write(etree.tostring(data_to_write, pretty_print=True))
+            try:
+                log.write(etree.tostring(data_to_write, pretty_print=True))
+            except TypeError:
+                logger.warning(set_color(
+                    "unable to serialize XML, writing as plain text (usually means the file already exists)...",
+                    level=30
+                ))
+                log.write(data_to_write)
         else:
             if isinstance(data_to_write, list):
                 for item in data_to_write:
