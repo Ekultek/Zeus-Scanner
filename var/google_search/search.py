@@ -349,29 +349,30 @@ def parse_search_results(
         for url in list(urls):
             url = unquote(url)
             if not any(u in url for u in URL_EXCLUDES):
-                if URL_REGEX.match(url):
-                    if isinstance(url, unicode):
-                        url = str(url).encode("utf-8")
-                    if pull_all:
-                        retval.add(url.split(splitter)[0])
-                    else:
-                        if URL_QUERY_REGEX.match(url.split(splitter)[0]):
+                if not url == "http://" and not url == "https://":
+                    if URL_REGEX.match(url):
+                        if isinstance(url, unicode):
+                            url = str(url).encode("utf-8")
+                        if pull_all:
                             retval.add(url.split(splitter)[0])
-                    if verbose:
-                        try:
-                            logger.debug(set_color(
-                                "found '{}'...".format(url.split(splitter)[0]), level=10
-                            ))
-                        except TypeError:
-                            logger.debug(set_color(
-                                "found '{}'...".format(str(url).split(splitter)[0]), level=10
-                            ))
-                        except AttributeError:
-                            logger.debug(set_color(
-                                "found '{}...".format(str(url)), level=10
-                            ))
-                    if url is not None:
-                        retval.add(url.split(splitter)[0])
+                        else:
+                            if URL_QUERY_REGEX.match(url.split(splitter)[0]):
+                                retval.add(url.split(splitter)[0])
+                        if verbose:
+                            try:
+                                logger.debug(set_color(
+                                    "found '{}'...".format(url.split(splitter)[0]), level=10
+                                ))
+                            except TypeError:
+                                logger.debug(set_color(
+                                    "found '{}'...".format(str(url).split(splitter)[0]), level=10
+                                ))
+                            except AttributeError:
+                                logger.debug(set_color(
+                                    "found '{}...".format(str(url)), level=10
+                                ))
+                        if url is not None:
+                            retval.add(url.split(splitter)[0])
     true_retval = set()
     for url in list(retval):
         if any(l in url for l in possible_leftovers):
