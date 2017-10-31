@@ -1,4 +1,7 @@
 import os
+import sys
+reload(sys)
+sys.setdefaultencoding("utf-8")  # this will take care of most of the Unicode errors.
 
 import requests
 from bs4 import BeautifulSoup
@@ -13,10 +16,22 @@ class Blackwidow(object):
     spider to scrape a webpage for all available URL's
     """
 
-    def __init__(self, url, user_agent=None, proxy=None):
+    def __init__(self, url, user_agent=None, proxy=None, forward=None):
         self.url = url
-        self.proxy = proxy or None
+        self.forward = forward or None
+        self.proxy = lib.core.settings.proxy_string_to_dict(proxy) or None
         self.user_agent = user_agent or lib.core.settings.DEFAULT_USER_AGENT
+        if self.forward is not None:
+            self.headers = {
+                "user-agent": self.user_agent,
+                "X-Forwarded-For": "{}, {}, {}".format(
+                    self.forward[0], self.forward[1], self.forward[2]
+                )
+            }
+        else:
+            self.headers = {
+                "user-agent": self.user_agent
+            }
 
     @staticmethod
     def get_url_ext(url):
@@ -34,8 +49,7 @@ class Blackwidow(object):
         make sure the connection is good before you continue
         """
         try:
-            attempt = requests.get(self.url, params={"user-agent": self.user_agent},
-                                   proxies=lib.core.settings.proxy_string_to_dict(self.proxy))
+            attempt = requests.get(self.url, params=self.headers, proxies=self.proxy)
             if attempt.status_code == 200:
                 return "ok"
             raise lib.core.errors.SpiderTestFailure(
@@ -56,12 +70,11 @@ class Blackwidow(object):
         """
         unique_links = set()
         true_url = lib.core.settings.replace_http(given_url)
-        req = requests.get(given_url, params={"user-agent": self.user_agent},
-                           proxies=lib.core.settings.proxy_string_to_dict(self.proxy))
+        req = requests.get(given_url, params=self.headers, proxies=self.proxy)
         html_page = req.content
         soup = BeautifulSoup(html_page, "html.parser")
         for link in soup.findAll(attribute):
-            found_redirect = link.get(descriptor)
+            found_redirect = str(link.get(descriptor)).decode("unicode_escape")
             if found_redirect is not None and lib.core.settings.URL_REGEX.match(found_redirect):
                 unique_links.add(found_redirect)
             else:
@@ -76,20 +89,33 @@ def blackwidow_main(url, **kwargs):
     verbose = kwargs.get("verbose", False)
     proxy = kwargs.get("proxy", None)
     agent = kwargs.get("agent", None)
+    forward = kwargs.get("forward", None)
+
+    if forward is not None:
+        forward = (
+            lib.core.settings.create_random_ip(),
+            lib.core.settings.create_random_ip(),
+            lib.core.settings.create_random_ip()
+        )
+        if verbose:
+            lib.core.settings.logger.debug(lib.core.settings.set_color(
+                "random IP addresses generated for header '{}'...".format(forward), level=10
+            ))
+
     if verbose:
         lib.core.settings.logger.debug(lib.core.settings.set_color(
-            "settings user-agent to '{}'...".format(agent)
+            "settings user-agent to '{}'...".format(agent), level=10
         ))
     if proxy is not None:
         if verbose:
             lib.core.settings.logger.debug(lib.core.settings.set_color(
-                "running behind proxy '{}'...".format(proxy)
+                "running behind proxy '{}'...".format(proxy), level=10
             ))
     lib.core.settings.create_dir("{}/{}".format(os.getcwd(), "log/blackwidow-log"))
     lib.core.settings.logger.info(lib.core.settings.set_color(
         "starting blackwidow on '{}'...".format(url)
     ))
-    crawler = Blackwidow(url, user_agent=agent, proxy=proxy)
+    crawler = Blackwidow(url, user_agent=agent, proxy=proxy, forward=forward)
     if verbose:
         lib.core.settings.logger.debug(lib.core.settings.set_color(
             "testing connection to the URL...", level=10

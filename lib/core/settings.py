@@ -10,6 +10,8 @@ import difflib
 import logging
 import string
 import random
+import socket
+import struct
 import platform
 import subprocess
 
@@ -38,7 +40,7 @@ PATCH_ID = str(subprocess.check_output(["git", "rev-parse", "origin/master"]))[:
 # clone link
 CLONE = "https://github.com/ekultek/zeus-scanner.git"
 # current version <major.minor.commit.patch ID>
-VERSION = "1.1.9.{}".format(PATCH_ID)
+VERSION = "1.1.10.{}".format(PATCH_ID)
 # colors to output depending on the version
 VERSION_TYPE_COLORS = {"dev": 33, "stable": 92, "other": 30}
 # version string formatting
@@ -685,3 +687,17 @@ def create_arguments(**kwargs):
                             warning_msg.format(line), level=30
                         ))
     return retval
+
+
+def create_random_ip():
+    """
+    create a random IP address, no testing if it is valid or not
+    """
+
+    def __get_nodes():
+        return str(socket.inet_ntoa(struct.pack(">I", random.randint(1, 0xffffffff))))
+
+    generated = __get_nodes()
+    if generated == "0.0.0.0" or "255.255.255.255":
+        generated = __get_nodes()
+    return generated
