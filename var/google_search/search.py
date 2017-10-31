@@ -280,7 +280,7 @@ def parse_search_results(query, url_to_search, verbose=False, **kwargs):
         headers = {
             "Connection": "close",
             "user-agent": user_agent,
-            "X-Forward-For": "{}, {}, {}".format(ip_to_use[0], ip_to_use[1], ip_to_use[2])
+            "X-Forwarded-For": "{}, {}, {}".format(ip_to_use[0], ip_to_use[1], ip_to_use[2])
         }
     else:
         headers = {
@@ -355,7 +355,7 @@ def parse_search_results(query, url_to_search, verbose=False, **kwargs):
     ))
 
     logger.info(set_color(proxy_string_info))
-    req = requests.get(query_url, proxies=proxy_string)
+    req = requests.get(query_url, proxies=proxy_string, params=headers)
     logger.info(set_color(user_agent_info))
     req.headers.update(headers)
     found_urls = URL_REGEX.findall(req.text)

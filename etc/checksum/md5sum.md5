@@ -42,9 +42,9 @@ e2b494ba257444ed4a9a8a554dcbe250  ./lib/attacks/whois_lookup/whois.py
 f746d2867f493104a78d0540cf50c03f  ./lib/attacks/intel_me/__init__.py
 1faa2b5dfad6eb538bbfe42942d2a9da  ./lib/core/errors.py
 d41d8cd98f00b204e9800998ecf8427e  ./lib/core/__init__.py
-fe536912ecebbf8cc367c2a3bd2d53ff  ./lib/core/settings.py
+20f53fc0b7c08efc83da348a8d5fff2b  ./lib/core/settings.py
 d41d8cd98f00b204e9800998ecf8427e  ./var/google_search/__init__.py
-15f574ccf91fcf97ad421d053050e8dd  ./var/google_search/search.py
+5f9788e4421696fc1539e6b11cace04b  ./var/google_search/search.py
 d41d8cd98f00b204e9800998ecf8427e  ./var/__init__.py
 d41d8cd98f00b204e9800998ecf8427e  ./var/auto_issue/__init__.py
 4506850a02aa18e12bef4efeb760ad9e  ./var/auto_issue/github.py
