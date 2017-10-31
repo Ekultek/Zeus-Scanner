@@ -134,6 +134,8 @@ if __name__ == "__main__":
                             help="Do not exclude URLs because they do not have a GET(query) parameter in them")
     search_items.add_option("-W", "--webcache", dest="parseWebcache", action="store_true",
                             help="Parse webcache URLs for the redirect in them")
+    search_items.add_option("--x-forward", dest="forwardedForRandomIP", action="store_true",
+                            help="Add a header called 'X-Forwarded-For' with three random IP addresses")
 
     # obfuscation options
     anon = optparse.OptionGroup(parser, "Anonymity arguments",
@@ -294,7 +296,7 @@ if __name__ == "__main__":
 
         if not batch:
             question = prompt(
-                "would you like to process found URL: '{}'".format(url), opts=["y", "N"]
+                "would you like to process found URL: '{}'gi".format(url), opts=["y", "N"]
             )
         else:
             question = "y"
@@ -396,7 +398,8 @@ if __name__ == "__main__":
             try:
                 search.parse_search_results(
                     opt.dorkToUse, search_engine, verbose=opt.runInVerbose, proxy=proxy_to_use,
-                    agent=agent_to_use, pull_all=opt.noExclude, parse_webcache=opt.parseWebcache
+                    agent=agent_to_use, pull_all=opt.noExclude, parse_webcache=opt.parseWebcache,
+                    forward_for=opt.forwardedForRandomIP
                 )
             except InvalidProxyType:
                 supported_proxy_types = ["socks5", "socks4", "https", "http"]
@@ -517,12 +520,17 @@ if __name__ == "__main__":
                         shutdown()
 
             blackwidow.blackwidow_main(opt.spiderWebSite, agent=agent_to_use, proxy=proxy_to_use,
-                                       verbose=opt.runInVerbose)
+                                       verbose=opt.runInVerbose, forward=opt.forwardedForRandomIP)
 
             __run_attacks_main()
 
         # enumerate a file and run attacks on the URL's provided
         elif opt.fileToEnumerate is not None:
+            logger.info(set_color(
+                "found a total of {} URL's to enumerate in given file...".format(
+                    len(open(opt.fileToEnumerate).readlines())
+                )
+            ))
             __run_attacks_main()
 
         else:

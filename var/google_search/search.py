@@ -41,7 +41,8 @@ from lib.core.settings import (
     EXTRACTED_URL_LOG,
     URL_EXCLUDES,
     CLEANUP_TOOL_PATH,
-    FIX_PROGRAM_INSTALL_PATH
+    FIX_PROGRAM_INSTALL_PATH,
+    create_random_ip
 )
 
 try:
@@ -228,8 +229,7 @@ def get_urls(query, url, verbose=False, warning=True, **kwargs):
     return retval
 
 
-def parse_search_results(
-        query, url_to_search, verbose=False, **kwargs):
+def parse_search_results(query, url_to_search, verbose=False, **kwargs):
     """
       Parse a webpage from Google for URL's with a GET(query) parameter
     """
@@ -240,6 +240,7 @@ def parse_search_results(
 
     parse_webcache, pull_all = kwargs.get("parse_webcache", False), kwargs.get("pull_all", False)
     proxy_string, user_agent = kwargs.get("proxy", None), kwargs.get("agent", None)
+    forward_for = kwargs.get("forward_for", False)
 
     if verbose:
         logger.debug(set_color(
@@ -269,10 +270,23 @@ def parse_search_results(
     else:
         proxy_string_info = "no proxy configuration detected..."
 
-    headers = {
-        "Connection": "close",
-        "user-agent": user_agent
-    }
+    if forward_for:
+        ip_to_use = (create_random_ip(), create_random_ip(), create_random_ip())
+        if verbose:
+            logger.debug(set_color(
+                "random IP address generated for headers '{}'...".format(ip_to_use), level=10
+            ))
+
+        headers = {
+            "Connection": "close",
+            "user-agent": user_agent,
+            "X-Forward-For": "{}, {}, {}".format(ip_to_use[0], ip_to_use[1], ip_to_use[2])
+        }
+    else:
+        headers = {
+            "Connection": "close",
+            "user-agent": user_agent
+        }
     logger.info(set_color(
         "attempting to gather query URL..."
     ))
