@@ -35,7 +35,7 @@ d41d8cd98f00b204e9800998ecf8427e  ./lib/attacks/__init__.py
 d93cf7cdeabe951251f2f4d56687b5f4  ./lib/attacks/sqlmap_scan/__init__.py
 5e5bb575014ebe613db6bf671d008cf8  ./lib/attacks/sqlmap_scan/sqlmap_opts.py
 d41d8cd98f00b204e9800998ecf8427e  ./lib/attacks/whois_lookup/__init__.py
-82afab0e65ac90cfcde4bd274066939e  ./lib/attacks/whois_lookup/whois.py
+e2b494ba257444ed4a9a8a554dcbe250  ./lib/attacks/whois_lookup/whois.py
 96fc5b718e60e5e9c82b1a0e38170d29  ./lib/attacks/admin_panel_finder/__init__.py
 23c1e5e934029f9acc89d2c95e7748e7  ./lib/attacks/xss_scan/__init__.py
 27358f26bda30d7356143c3ea1fa99c5  ./lib/attacks/nmap_scan/__init__.py
@@ -43,7 +43,7 @@ d41d8cd98f00b204e9800998ecf8427e  ./lib/attacks/whois_lookup/__init__.py
 f746d2867f493104a78d0540cf50c03f  ./lib/attacks/intel_me/__init__.py
 1faa2b5dfad6eb538bbfe42942d2a9da  ./lib/core/errors.py
 d41d8cd98f00b204e9800998ecf8427e  ./lib/core/__init__.py
-f5e9b36328f3e144451738b617caa0ef  ./lib/core/settings.py
+079901a5adaf95e2b5605cd8cebb7e26  ./lib/core/settings.py
 d41d8cd98f00b204e9800998ecf8427e  ./var/google_search/__init__.py
 2043c53d8dfd45a375059cf02740cf9d  ./var/google_search/search.py
 d41d8cd98f00b204e9800998ecf8427e  ./var/__init__.py

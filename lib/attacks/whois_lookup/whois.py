@@ -9,7 +9,7 @@ from lib.core.settings import (
     write_to_log_file,
     WHOIS_RESULTS_LOG_PATH,
     logger, set_color,
-    replace_http, prompt
+    replace_http
 )
 
 
