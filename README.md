@@ -70,14 +70,33 @@ There are some requirements for this to be run successfully.
 
 ### Installing
 
-You can download the latest [tar.gz](https://github.com/ekultek/zeus-scanner/tarball/master), the latest [zip](https://github.com/ekultek/zeus-scanner/zipball/master), or you can find the current stable release [here](https://github.com/Ekultek/Zeus-Scanner/releases/tag/v1.1). Alternatively you can install the latest development version by follow the below instructions:
- 
+You can download the latest [tar.gz](https://github.com/ekultek/zeus-scanner/tarball/master), the latest [zip](https://github.com/ekultek/zeus-scanner/zipball/master), or you can find the current stable release [here](https://github.com/Ekultek/Zeus-Scanner/releases/tag/v1.1). Alternatively you can install the latest development version by following the below instructions:
+
  - **_(optional but highly advised)_** add sqlmap and nmap to your environment PATH by moving them to `/usr/bin` or by adding them to the PATH via terminal
- - You made need to run `sudo apt-get install libxml2-dev libxslt1-dev python-dev`
- - Clone the repository `git clone https://github.com/Ekultek/Zeus-Scanner.git`
- - `cd` into zeus-scanner 
- - Run `pip install -r requirements.txt`
- - For your first run, run `sudo python zeus.py`
+
+##### Ubuntu/Debian
+
+ - `sudo apt-get install libxml2-dev libxslt1-dev python-dev`
+ - `git clone https://github.com/Ekultek/Zeus-Scanner.git`
+ - `cd zeus-scanner`
+ - `sudo pip install -r requirements.txt`
+ - `sudo python zeus.py`
+ 
+##### centOS
+
+ - `sudo apt-get install gcc python-devel libxml2-dev libxslt1-dev python-dev`
+ - `git clone https://github.com/ekultek/zeus-scanner`
+ - `cd zeus-scanner`
+ - `sudo pip install -r requirements.txt`
+ - `sudo python zeus.py`
+
+##### Others
+
+ - `sudo apt-get install libxml2-dev libxslt1-dev python-dev`
+ - `git clone https://github.com/Ekultek/Zeus-Scanner.git`
+ - `cd zeus-scanner`
+ - `sudo pip install -r requirements.txt`
+ - `sudo python zeus.py`
 
 This will install all the package requirements along with the gecko web driver
 
