@@ -4,7 +4,9 @@ from lib.core.settings import (
 )
 
 
-def tamper(payload, warning=True, **kwargs):
+def tamper(payload, **kwargs):
+    warning = kwargs.get("warning", True)
+
     if warning:
         logger.warning(set_color(
             "obfuscating the payloads by ordinal equivalents may increase the risk "
