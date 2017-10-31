@@ -1,4 +1,4 @@
-1627b4ccf4cbc52b7408d7cde3c2a5e1  ./zeus.py
+7997f139b079d2ba625f7fdd79a82ca4  ./zeus.py
 6ad5f22ec4a6f8324bfb1b01ab6d51ec  ./etc/scripts/cleanup.sh
 155c9482f690f1482f324a7ffd8b8098  ./etc/scripts/fix_pie.sh
 0e435c641bc636ac0b3d54e032d9cf6a  ./etc/scripts/install_nmap.sh
@@ -35,7 +35,7 @@ d41d8cd98f00b204e9800998ecf8427e  ./lib/attacks/__init__.py
 d93cf7cdeabe951251f2f4d56687b5f4  ./lib/attacks/sqlmap_scan/__init__.py
 5e5bb575014ebe613db6bf671d008cf8  ./lib/attacks/sqlmap_scan/sqlmap_opts.py
 d41d8cd98f00b204e9800998ecf8427e  ./lib/attacks/whois_lookup/__init__.py
-f27322b9716e1a2b0b0b0487f3149474  ./lib/attacks/whois_lookup/whois.py
+82afab0e65ac90cfcde4bd274066939e  ./lib/attacks/whois_lookup/whois.py
 96fc5b718e60e5e9c82b1a0e38170d29  ./lib/attacks/admin_panel_finder/__init__.py
 23c1e5e934029f9acc89d2c95e7748e7  ./lib/attacks/xss_scan/__init__.py
 27358f26bda30d7356143c3ea1fa99c5  ./lib/attacks/nmap_scan/__init__.py

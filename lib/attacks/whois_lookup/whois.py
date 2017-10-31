@@ -9,7 +9,7 @@ from lib.core.settings import (
     write_to_log_file,
     WHOIS_RESULTS_LOG_PATH,
     logger, set_color,
-    replace_http
+    replace_http, prompt
 )
 
 
@@ -52,54 +52,51 @@ def gather_raw_whois_info(domain):
     return _json_data
 
 
+def _pretty_print_json(data, sort=True, indentation=4):
+    return json.dumps(data, sort_keys=sort, indent=indentation)
+
+
 def get_interesting(raw_json):
     """
     return the interesting aspects of the whois lookup from the raw JSON data
     """
     nameservers = raw_json["nameservers"]
     user_contact = raw_json["contacts"]
-    admin_info = raw_json["contacts"]["admin"]
     reg_info = raw_json["registrar"]
-    return nameservers, user_contact, admin_info, reg_info
+    return nameservers, user_contact, reg_info
 
 
-def human_readable_display(domain, interesting, raw, show_readable=False):
+def human_readable_display(domain, interesting):
     """
     create a human readable display from the given whois lookup
     """
-    if show_readable:
-        contact_dict = dict(interesting[1])
-        print(" |--[!] Domain: {} (organization '{}')".format(domain, contact_dict["owner"][0]["organization"]))
-        print(" |   |--[!] Found nameservers (total {})".format(len(interesting[0])))
-        if len(interesting[0]) > 1:
-            for i, server in enumerate(interesting[0], start=1):
-                print(" |   |   |--[{}]--- {}".format(i, server))
-        else:
-            print(" |   |   |--{}".format("".join(interesting[0])))
-        if contact_dict["owner"][0]["name"] is not None or "":
-            print(" |   |--[!] Contact name found: {}".format(contact_dict["owner"][0]["name"]))
-            if contact_dict["owner"][0]["phone"] != "" or None:
-                print(" |   |   |-- Phone number: {}".format(contact_dict["owner"][0]["phone"]))
-            else:
-                print(" |   |   |-- No phone number revealed")
-        else:
-            print(" [x] No contact owner revealed")
-        if len(contact_dict["admin"]) > 0:
-            print(" |   |--[!] Total admins found {}".format(len(contact_dict["admin"])))
-            for i, admin in enumerate(contact_dict["admin"]):
-                print(" |   |   |--[{}]--- {}".format(i, admin))
-        else:
-            print(" |   |--[x] No administrators revealed")
-        return write_to_log_file(raw, WHOIS_RESULTS_LOG_PATH, "whois-log-{}.json")
+    data_sep = "-" * 30
+    servers, contact, reg = interesting
+    total_servers, total_contact, total_reg = len(servers), len(contact), len(reg)
+    print(data_sep)
+    print("[!] Domain {}".format(domain))
+    if total_servers > 0:
+        print("[!] Found a total of {} servers".format(total_servers))
+        print(_pretty_print_json(servers))
     else:
-        return write_to_log_file(raw, WHOIS_RESULTS_LOG_PATH, "whois-log-{}.json")
+        print("[x] No server information found")
+    if total_contact > 0:
+        print("[!] Found contact information")
+        print(_pretty_print_json(contact))
+    else:
+        print("[x] No contact information found")
+    if total_reg > 0:
+        print("[!] Found register information")
+        print(_pretty_print_json(reg))
+    else:
+        print("[x] No register information found")
+    print(data_sep)
 
 
 def whois_lookup_main(domain, **kwargs):
     """
     main function
     """
-    readable = kwargs.get("readable", False)
     verbose = kwargs.get("verbose", False)
     domain = replace_http(domain)
     logger.info(set_color(
@@ -113,36 +110,11 @@ def whois_lookup_main(domain, **kwargs):
         "gathering interesting information..."
     ))
     interesting_data = get_interesting(raw_information)
-    if readable:
-        if verbose:
-            for data in interesting_data:
-                if len(data) != 0 or None:
-                    logger.debug(set_color(
-                        "found '{}'...".format(data), level=10
-                    ))
+    if verbose:
         try:
-            return human_readable_display(domain, interesting_data, raw_information, show_readable=True)
+            human_readable_display(domain, interesting_data)
         except (ValueError, Exception):
             logger.fatal(set_color(
                 "unable to display any information from WhoIs lookup on domain '{}'...".format(domain), level=50
             ))
-    else:
-        if verbose:
-            for data in interesting_data:
-                if isinstance(data, dict):
-                    for v in data.itervalues():
-                        if len(v) != 0 or v is not None:
-                            logger.debug(set_color(
-                                "found '{}'...".format(v), level=10
-                            ))
-                elif isinstance(data, list):
-                    if len(data) != 0:
-                        logger.debug(set_color(
-                            "found '{}'...".format(data), level=10
-                        ))
-        try:
-            return human_readable_display(domain, interesting_data, raw_information)
-        except (ValueError, Exception):
-            logger.fatal(set_color(
-                "unable to find any information on '{}' from WhoIs lookup...".format(domain), level=50
-            ))
+    write_to_log_file(raw_information, WHOIS_RESULTS_LOG_PATH, "{}-whois.json".format(domain))

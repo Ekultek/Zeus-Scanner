@@ -92,8 +92,6 @@ if __name__ == "__main__":
                        help="Run an XSS scan on the found URL's")
     attacks.add_option("-w", "--whois-lookup", dest="performWhoisLookup", action="store_true",
                        help="Perform a WhoIs lookup on the provided domain")
-    attacks.add_option("--show-readable", dest="showReadableOutput", action="store_true",
-                       help="Show human readable output from the WhoIs lookup")
     attacks.add_option("--sqlmap-args", dest="sqlmapArguments", metavar="SQLMAP-ARGS",
                        help="Pass the arguments to send to the sqlmap API within quotes & "
                             "separated by a comma. IE 'dbms mysql, verbose 3, level 5'")
@@ -330,7 +328,7 @@ if __name__ == "__main__":
                 )
             elif whois:
                 whois_lookup_main(
-                    url, verbose=opt.runInVerbose, readable=opt.showReadableOutput
+                    url, verbose=opt.runInVerbose
                 )
             else:
                 pass
