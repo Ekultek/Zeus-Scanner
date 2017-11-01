@@ -42,7 +42,8 @@ from lib.core.settings import (
     URL_EXCLUDES,
     CLEANUP_TOOL_PATH,
     FIX_PROGRAM_INSTALL_PATH,
-    create_random_ip
+    create_random_ip,
+    rewrite_all_paths
 )
 
 try:
@@ -340,6 +341,26 @@ def parse_search_results(query, url_to_search, verbose=False, **kwargs):
             else:
                 logger.info(set_color(
                     "you can automatically try and re-install Xvfb to fix the problem..."
+                ))
+                shutdown()
+        elif "Message: Reached error page:" in str(e):
+            logger.fatal(set_color(
+                "geckodriver has hit an error that usually means it needs to be reinstalled...", level=50
+            ))
+            question = prompt(
+                "would you like to attempt a reinstallation of the geckodriver", opts="yN"
+            )
+            if question.lower().startswith("y"):
+                logger.warning(set_color(
+                    "rewriting all executed information, path information, and removing geckodriver...", level=30
+                ))
+                rewrite_all_paths()
+                logger.info(set_color(
+                    "all paths rewritten, you will be forced to re-install everything next run of Zeus..."
+                ))
+            else:
+                logger.fatal(set_color(
+                    "you will need to remove the geckodriver from /usr/bin and reinstall it...", level=50
                 ))
                 shutdown()
         else:

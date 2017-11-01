@@ -22,6 +22,7 @@ except ImportError:
 
 import psutil
 import requests
+import whichcraft
 from lxml import etree
 
 import bin.unzip_gecko
@@ -82,6 +83,8 @@ CLEANUP_TOOL_PATH = "{}/etc/scripts/cleanup.sh".format(os.getcwd())
 LAUNCH_SQLMAP_API_TOOL = "{}/etc/scripts/launch_sqlmap_api.sh".format(os.getcwd())
 # path to nmap installer
 NMAP_INSTALLER_TOOL = "{}/etc/scripts/install_nmap.sh".format(os.getcwd())
+# path to check if the program has been executed or not
+EXECUTED_PATH = "{}/bin/executed.txt".format(os.getcwd())
 # paths to sqlmap and nmap
 TOOL_PATHS = "{}/bin/paths/path_config.ini".format(os.getcwd())
 # the log for found admin pages on a site
@@ -701,3 +704,17 @@ def create_random_ip():
     if generated == "0.0.0.0" or "255.255.255.255":
         generated = __get_nodes()
     return generated
+
+
+def rewrite_all_paths():
+    """
+    rewrite all the paths in case we hit a certain error, this will force a reinstall of the
+    geckodriver
+    """
+    gecko_path = whichcraft.which("geckodriver")
+    os.remove(gecko_path)
+    paths = (TOOL_PATHS, GECKO_VERSION_INFO_PATH)
+    for path in paths:
+        open(path, "w").close()
+    with open(EXECUTED_PATH, "w") as log:
+        log.write("FALSE")

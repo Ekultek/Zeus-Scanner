@@ -10,7 +10,7 @@
 a3ee2d4610056c6fe270c2a74dda49f9  ./etc/dorks.txt
 b34aacdcb683a2de649c002601f53746  ./etc/xss_payloads.txt
 d41d8cd98f00b204e9800998ecf8427e  ./bin/__init__.py
-a19ac607db04a68fdbfc81d6c5a000d1  ./bin/unzip_gecko.py
+ff2511effe21aa36002f37ed9bfe47ec  ./bin/unzip_gecko.py
 dc1eb4ebe0f372af48b5a9c107ebc68d  ./bin/drivers/geckodriver-v0.18.0-linux32.tar.gz
 be18faeea6e7db9db6990d8667e2298f  ./bin/drivers/geckodriver-v0.17.0-linux64.tar.gz
 79b1a158f96d29942a111c0905f1c807  ./bin/drivers/geckodriver-v0.17.0-linux32.tar.gz
@@ -42,9 +42,9 @@ e2b494ba257444ed4a9a8a554dcbe250  ./lib/attacks/whois_lookup/whois.py
 f746d2867f493104a78d0540cf50c03f  ./lib/attacks/intel_me/__init__.py
 1faa2b5dfad6eb538bbfe42942d2a9da  ./lib/core/errors.py
 d41d8cd98f00b204e9800998ecf8427e  ./lib/core/__init__.py
-20f53fc0b7c08efc83da348a8d5fff2b  ./lib/core/settings.py
+97bfe118adfdfc3ef02c5dca4c0aec62  ./lib/core/settings.py
 d41d8cd98f00b204e9800998ecf8427e  ./var/google_search/__init__.py
-5f9788e4421696fc1539e6b11cace04b  ./var/google_search/search.py
+2d984415adc457061e1757cbd79ea12b  ./var/google_search/search.py
 d41d8cd98f00b204e9800998ecf8427e  ./var/__init__.py
 d41d8cd98f00b204e9800998ecf8427e  ./var/auto_issue/__init__.py
 4506850a02aa18e12bef4efeb760ad9e  ./var/auto_issue/github.py

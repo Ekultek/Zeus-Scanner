@@ -202,7 +202,7 @@ def main(rewrite="{}/bin/executed.txt", verbose=False):
         if not disclaimer():
             exit(1)
         lib.core.settings.logger.info(lib.core.settings.set_color(
-            "seems this is your first time running the appication, "
+            "seems this is your first time running the application, "
             "doing setup please wait..."
         ))
         if verbose:
