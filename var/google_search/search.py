@@ -275,7 +275,7 @@ def parse_search_results(query, url_to_search, verbose=False, **kwargs):
         ip_to_use = (create_random_ip(), create_random_ip(), create_random_ip())
         if verbose:
             logger.debug(set_color(
-                "random IP address generated for headers '{}'...".format(ip_to_use), level=10
+                "random IP addresses generated for headers '{}'...".format(ip_to_use), level=10
             ))
 
         headers = {

@@ -19,6 +19,7 @@ from lib.attacks.xss_scan import main_xss
 from lib.attacks.nmap_scan.nmap_opts import NMAP_API_OPTS
 from lib.attacks.sqlmap_scan.sqlmap_opts import SQLMAP_API_OPTIONS
 from lib.attacks.whois_lookup.whois import whois_lookup_main
+from lib.attacks.clickjacking_scan import clickjacking_main
 
 from lib.core.errors import (
     InvalidInputProvided,
@@ -92,6 +93,8 @@ if __name__ == "__main__":
                        help="Run an XSS scan on the found URL's")
     attacks.add_option("-w", "--whois-lookup", dest="performWhoisLookup", action="store_true",
                        help="Perform a WhoIs lookup on the provided domain")
+    attacks.add_option("-c", "--clickjacking", dest="performClickjackingScan", action="store_true",
+                       help="Perform a clickjacking scan on a provided URL")
     attacks.add_option("--sqlmap-args", dest="sqlmapArguments", metavar="SQLMAP-ARGS",
                        help="Pass the arguments to send to the sqlmap API within quotes & "
                             "separated by a comma. IE 'dbms mysql, verbose 3, level 5'")
@@ -268,6 +271,7 @@ if __name__ == "__main__":
         admin = kwargs.get("admin", False)
         verbose = kwargs.get("verbose", False)
         whois = kwargs.get("whois", False)
+        clickjacking = kwargs.get("clickjacking", False)
         batch = kwargs.get("batch", False)
         auto_start = kwargs.get("auto_start", False)
 
@@ -277,7 +281,8 @@ if __name__ == "__main__":
             "xss": opt.runXssScan,
             "admin": opt.adminPanelFinder,
             "intel": opt.intelCheck,
-            "whois": opt.performWhoisLookup
+            "whois": opt.performWhoisLookup,
+            "clickjacking": opt.performClickjackingScan
         }
 
         enabled = set()
@@ -296,7 +301,7 @@ if __name__ == "__main__":
 
         if not batch:
             question = prompt(
-                "would you like to process found URL: '{}'gi".format(url), opts=["y", "N"]
+                "would you like to process found URL: '{}'".format(url), opts=["y", "N"]
             )
         else:
             question = "y"
@@ -332,6 +337,9 @@ if __name__ == "__main__":
                 whois_lookup_main(
                     url, verbose=opt.runInVerbose
                 )
+            elif clickjacking:
+                clickjacking_main(url, agent=agent_to_use, proxy=proxy_to_use,
+                                  forward=opt.forwardedForRandomIP, batch=opt.runInBatch)
             else:
                 pass
         else:
@@ -364,7 +372,8 @@ if __name__ == "__main__":
         options = [
             opt.runSqliScan, opt.runPortScan,
             opt.intelCheck, opt.adminPanelFinder,
-            opt.runXssScan, opt.performWhoisLookup
+            opt.runXssScan, opt.performWhoisLookup,
+            opt.performClickjackingScan
         ]
         if any(options):
             with open(urls_to_use) as urls:
@@ -374,6 +383,7 @@ if __name__ == "__main__":
                         sqlmap=opt.runSqliScan, nmap=opt.runPortScan,
                         intel=opt.intelCheck, xss=opt.runXssScan,
                         whois=opt.performWhoisLookup, admin=opt.adminPanelFinder,
+                        clickjacking=opt.performClickjackingScan,
                         verbose=opt.runInVerbose, batch=opt.runInBatch,
                         auto_start=opt.autoStartSqlmap
                     )

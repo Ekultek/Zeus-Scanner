@@ -41,7 +41,7 @@ PATCH_ID = str(subprocess.check_output(["git", "rev-parse", "origin/master"]))[:
 # clone link
 CLONE = "https://github.com/ekultek/zeus-scanner.git"
 # current version <major.minor.commit.patch ID>
-VERSION = "1.1.12.{}".format(PATCH_ID)
+VERSION = "1.1.13".format(PATCH_ID)
 # colors to output depending on the version
 VERSION_TYPE_COLORS = {"dev": 33, "stable": 92, "other": 30}
 # version string formatting
@@ -83,10 +83,14 @@ CLEANUP_TOOL_PATH = "{}/etc/scripts/cleanup.sh".format(os.getcwd())
 LAUNCH_SQLMAP_API_TOOL = "{}/etc/scripts/launch_sqlmap_api.sh".format(os.getcwd())
 # path to nmap installer
 NMAP_INSTALLER_TOOL = "{}/etc/scripts/install_nmap.sh".format(os.getcwd())
+# clickjacking HTML test page path
+CLICKJACKING_TEST_PAGE_PATH = "{}/etc/clickjacking_test_page.html".format(os.getcwd())
 # path to check if the program has been executed or not
 EXECUTED_PATH = "{}/bin/executed.txt".format(os.getcwd())
 # paths to sqlmap and nmap
 TOOL_PATHS = "{}/bin/paths/path_config.ini".format(os.getcwd())
+# path to write the HTML in
+CLICKJACKING_RESULTS_PATH = "{}/log/clickjacking-log".format(os.getcwd())
 # the log for found admin pages on a site
 ADMIN_PAGE_FILE_PATH = "{}/log/admin-page-log".format(os.getcwd())
 # path to the sitemap log file
@@ -465,7 +469,7 @@ def write_to_log_file(data_to_write, path, filename):
                 log.write(etree.tostring(data_to_write, pretty_print=True))
             except TypeError:
                 logger.warning(set_color(
-                    "unable to serialize XML, writing as plain text (usually means the file already exists)...",
+                    "unable to serialize data, writing as plain text (usually means the file already exists)...",
                     level=30
                 ))
                 log.write(data_to_write)
