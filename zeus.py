@@ -150,7 +150,9 @@ if __name__ == "__main__":
     anon.add_option("--random-agent", dest="useRandomAgent", action="store_true",
                     help="Use a random user-agent from the etc/agents.txt file")
     anon.add_option("--agent", dest="usePersonalAgent", metavar="USER-AGENT",
-                    help="Use your own personal user-agent")
+                    help="Use your own personal user-agent"),
+    anon.add_option("--tor", dest="useTor", action="store_true",
+                    help="Use Tor connection as the proxy and set the firefox browser settings to mimic Tor")
 
     # miscellaneous options
     misc = optparse.OptionGroup(parser, "Misc Options",
@@ -409,7 +411,7 @@ if __name__ == "__main__":
                 search.parse_search_results(
                     opt.dorkToUse, search_engine, verbose=opt.runInVerbose, proxy=proxy_to_use,
                     agent=agent_to_use, pull_all=opt.noExclude, parse_webcache=opt.parseWebcache,
-                    forward_for=opt.forwardedForRandomIP
+                    forward_for=opt.forwardedForRandomIP, tor=opt.useTor
                 )
             except InvalidProxyType:
                 supported_proxy_types = ["socks5", "socks4", "https", "http"]
@@ -469,7 +471,8 @@ if __name__ == "__main__":
                     try:
                         search.parse_search_results(
                             dork, search_engine, verbose=opt.runInVerbose, proxy=proxy_to_use,
-                            agent=agent_to_use, pull_all=opt.noExclude, parse_webcache=opt.parseWebcache
+                            agent=agent_to_use, pull_all=opt.noExclude, parse_webcache=opt.parseWebcache,
+                            tor=opt.useTor
                         )
                     except Exception as e:
                         logger.exception(set_color(
@@ -493,7 +496,8 @@ if __name__ == "__main__":
             try:
                 search.parse_search_results(
                     random_dork, search_engine, verbose=opt.runInVerbose,
-                    proxy=proxy_to_use, agent=agent_to_use, pull_all=opt.noExclude, parse_webcache=opt.parseWebcache
+                    proxy=proxy_to_use, agent=agent_to_use, pull_all=opt.noExclude, parse_webcache=opt.parseWebcache,
+                    tor=opt.useTor
                 )
                 __run_attacks_main()
 

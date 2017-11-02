@@ -80,6 +80,65 @@ def bypass_ip_block(url):
     return unquote(retval)
 
 
+def set_tor_browser_settings(ff_browser, default_port="9050", **kwargs):
+    """
+    set the Firefox browser settings to mimic the Tor browser
+    """
+    port = kwargs.get("port", None)
+    verbose = kwargs.get("verbose", False)
+    user_agent = kwargs.get("agent", None)
+    if port is not None:
+        port = port
+    else:
+        port = default_port
+    if verbose:
+        logger.debug(set_color(
+            "tor port set to '{}'...".format(port), level=10
+        ))
+    preferences = {
+        "privacy": [
+            # set the privacy settings
+            ("places.history.enabled", False),\
+            ("privacy.clearOnShutdown.offlineApps", True),
+            ("privacy.clearOnShutdown.passwords", True),
+            ("privacy.clearOnShutdown.siteSettings", True),
+            ("privacy.sanitize.sanitizeOnShutdown", True),
+            ("signon.rememberSignons", False),
+            ("network.cookie.lifetimePolicy", 2),
+            ("network.dns.disablePrefetch", True),
+            ("network.http.sendRefererHeader", 0)
+        ],
+        "proxy": [
+            # set the proxy settings
+            ("network.proxy.type", 1),
+            ("network.proxy.socks_version", 5),
+            ("network.proxy.socks", '127.0.0.1'),
+            ("network.proxy.socks_port", int(port)),
+            ("network.proxy.socks_remote_dns", True)
+        ],
+        "javascript": [
+            # disabled the javascript settings
+            ("javascript.enabled", False)
+        ],
+        "download": [
+            # get a speed increase by not downloading the images
+            ("permissions.default.image", 2)
+        ],
+        "user-agent": [
+            # set the user agent settings
+            ("general.useragent.override", user_agent)
+        ]
+    }
+    for preference in preferences.iterkeys():
+        if verbose:
+            logger.debug(set_color(
+                "setting '{}' preference(s)...".format(preference), level=10
+            ))
+        for setting in preferences[preference]:
+            ff_browser.set_preference(setting[0], setting[1])
+    return ff_browser
+
+
 def extract_webcache_url(webcache_url, splitter="+"):
     """
     extract the true URL from Google's webcache URL's
@@ -102,10 +161,16 @@ def get_urls(query, url, verbose=False, warning=True, **kwargs):
     """
     query = query.decode('unicode_escape').encode('utf-8')
     proxy, user_agent = kwargs.get("proxy", None), kwargs.get("user_agent", None)
+    tor, tor_port = kwargs.get("tor", False), kwargs.get("tor_port", None)
     if verbose:
         logger.debug(set_color(
             "setting up the virtual display to hide the browser...", level=10
         ))
+    if tor:
+        if "google" in url:
+            logger.warning(set_color(
+                "using Google with tor will most likely result in a ban URL...", level=30
+            ))
     ff_display = Display(visible=0, size=(800, 600))
     ff_display.start()
     logger.info(set_color(
@@ -127,7 +192,7 @@ def get_urls(query, url, verbose=False, warning=True, **kwargs):
         logger.debug(set_color(
             "adjusting selenium-webdriver user-agent to '{}'...".format(user_agent), level=10
         ))
-    if proxy is not None:
+    if not tor and proxy is not None:
         proxy_type = proxy.keys()
         proxy_to_use = Proxy({
             "proxyType": ProxyType.MANUAL,
@@ -146,8 +211,16 @@ def get_urls(query, url, verbose=False, warning=True, **kwargs):
         proxy_to_use = None
 
     profile = webdriver.FirefoxProfile()
-    profile.set_preference("general.useragent.override", user_agent)
-    browser = webdriver.Firefox(profile, proxy=proxy_to_use)
+    if not tor:
+        profile.set_preference("general.useragent.override", user_agent)
+        browser = webdriver.Firefox(profile, proxy=proxy_to_use)
+    else:
+        logger.info(set_color(
+            "settings tor browser settings..."
+        ))
+        profile = set_tor_browser_settings(profile, verbose=verbose, agent=user_agent, port=tor_port)
+        browser = webdriver.Firefox(profile)
+
     logger.info(set_color("browser will open shortly..."))
     browser.get(url)
     if verbose:
@@ -161,7 +234,13 @@ def get_urls(query, url, verbose=False, warning=True, **kwargs):
     try:
         search.send_keys(query)
         search.send_keys(Keys.RETURN)  # hit return after you enter search text
-        time.sleep(3)
+        if not tor:
+            time.sleep(3)
+        else:
+            logger.warning(set_color(
+                "sleep time has been increased to 10 seconds due to tor being used...", level=30
+            ))
+            time.sleep(10)
     except ElementNotInteractableException:
         browser.execute_script("document.querySelectorAll('label.boxed')[1].click()")
         search.send_keys(query)
@@ -242,6 +321,7 @@ def parse_search_results(query, url_to_search, verbose=False, **kwargs):
     parse_webcache, pull_all = kwargs.get("parse_webcache", False), kwargs.get("pull_all", False)
     proxy_string, user_agent = kwargs.get("proxy", None), kwargs.get("agent", None)
     forward_for = kwargs.get("forward_for", False)
+    tor = kwargs.get("tor", False)
 
     if verbose:
         logger.debug(set_color(
@@ -268,6 +348,11 @@ def parse_search_results(query, url_to_search, verbose=False, **kwargs):
         proxy_string = proxy_string_to_dict(proxy_string)
         proxy_string_info = proxy_string_info.format(
             ''.join(proxy_string.keys()) + "://" + ''.join(proxy_string.values()))
+    elif tor:
+        proxy_string = proxy_string_to_dict("socks5://127.0.0.1:9050")
+        proxy_string_info = proxy_string_info.format(
+            "tor proxy settings"
+        )
     else:
         proxy_string_info = "no proxy configuration detected..."
 
@@ -292,7 +377,10 @@ def parse_search_results(query, url_to_search, verbose=False, **kwargs):
         "attempting to gather query URL..."
     ))
     try:
-        query_url = get_urls(query, url_to_search, verbose=verbose, user_agent=user_agent, proxy=proxy_string)
+        query_url = get_urls(
+            query, url_to_search, verbose=verbose, user_agent=user_agent, proxy=proxy_string,
+            tor=tor
+        )
     except Exception as e:
         if "'/usr/lib/firefoxdriver/webdriver.xpi'" in str(e):
             logger.fatal(set_color(
