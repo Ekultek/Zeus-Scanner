@@ -13,7 +13,8 @@ class ClickJackingScanner(object):
 
     def generate_html(self):
         """
-        generate the HTML page if the clicking test was successfully completed
+        generate the HTML page for the clickjacking, it's up to you
+        to put it into play
         """
         return self.html.format(self.url)
 

@@ -9,7 +9,7 @@ b100d6428f04f18100e9358688004abd  ./zeus.py
 82cc68f46539d0255f7ce14cd86cd49b  ./etc/link_ext.txt
 a3ee2d4610056c6fe270c2a74dda49f9  ./etc/dorks.txt
 b34aacdcb683a2de649c002601f53746  ./etc/xss_payloads.txt
-f914fafb99953a9124295b381be2954b  .etc/clickjacking_test_page.html
+d3ad89703575a712a0aeead2b176d8c5  ./etc/clickjacking_test_page.html
 d41d8cd98f00b204e9800998ecf8427e  ./bin/__init__.py
 ff2511effe21aa36002f37ed9bfe47ec  ./bin/unzip_gecko.py
 dc1eb4ebe0f372af48b5a9c107ebc68d  ./bin/drivers/geckodriver-v0.18.0-linux32.tar.gz
@@ -41,10 +41,10 @@ e2b494ba257444ed4a9a8a554dcbe250  ./lib/attacks/whois_lookup/whois.py
 27358f26bda30d7356143c3ea1fa99c5  ./lib/attacks/nmap_scan/__init__.py
 216999fa0e84866d5c1d96d5676034e4  ./lib/attacks/nmap_scan/nmap_opts.py
 f746d2867f493104a78d0540cf50c03f  ./lib/attacks/intel_me/__init__.py
-49c88c6927a141a688d3fc0c7c101019  .lib/attacks/clickjacking_scan/__init__.py
+c8fe372b08e7e27fe4e21f5f730f22ec  ./lib/attacks/clickjacking_scan/__init__.py
 1faa2b5dfad6eb538bbfe42942d2a9da  ./lib/core/errors.py
 d41d8cd98f00b204e9800998ecf8427e  ./lib/core/__init__.py
-1781e9963d34604b626b6fe3db513bc7  ./lib/core/settings.py
+21008b2aa1ff8abacbaa3042c9252640  ./lib/core/settings.py
 d41d8cd98f00b204e9800998ecf8427e  ./var/google_search/__init__.py
 914ac7cf2e216ca878a5f711a71290a8  ./var/google_search/search.py
 d41d8cd98f00b204e9800998ecf8427e  ./var/__init__.py
