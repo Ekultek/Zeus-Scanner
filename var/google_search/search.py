@@ -98,7 +98,7 @@ def set_tor_browser_settings(ff_browser, default_port="9050", **kwargs):
     preferences = {
         "privacy": [
             # set the privacy settings
-            ("places.history.enabled", False),\
+            ("places.history.enabled", False),
             ("privacy.clearOnShutdown.offlineApps", True),
             ("privacy.clearOnShutdown.passwords", True),
             ("privacy.clearOnShutdown.siteSettings", True),

@@ -8,6 +8,7 @@ from bs4 import BeautifulSoup
 
 import lib.core.errors
 import lib.core.settings
+import var.auto_issue.github
 
 
 class Blackwidow(object):
@@ -58,11 +59,26 @@ class Blackwidow(object):
                 )
             )
         except Exception as e:
-            lib.core.settings.logger.exception(lib.core.settings.set_color(
-                "failed to connect to '{}' received error '{}'...".format(
-                    self.url, e
-                )
-            ))
+            if "Max retries exceeded with url" in str(e):
+                info_msg = ""
+                if "https://" in self.url:
+                    info_msg += ", try dropping https:// to http://"
+                else:
+                    info_msg += ""
+                lib.core.settings.logger.fatal(lib.core.settings.set_color(
+                    "provided website '{}' is refusing connection{}...".format(
+                        self.url, info_msg
+                    ), level=50
+                ))
+                lib.core.settings.shutdown()
+            else:
+                lib.core.settings.logger.exception(lib.core.settings.set_color(
+                    "failed to connect to '{}' received error '{}'...".format(
+                        self.url, e
+                    ), level=50
+                ))
+                var.auto_issue.github.request_issue_creation()
+                lib.core.settings.shutdown()
 
     def scrape_page_for_links(self, given_url, attribute="a", descriptor="href"):
         """

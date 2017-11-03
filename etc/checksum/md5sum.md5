@@ -44,10 +44,10 @@ f746d2867f493104a78d0540cf50c03f  ./lib/attacks/intel_me/__init__.py
 c8fe372b08e7e27fe4e21f5f730f22ec  ./lib/attacks/clickjacking_scan/__init__.py
 1faa2b5dfad6eb538bbfe42942d2a9da  ./lib/core/errors.py
 d41d8cd98f00b204e9800998ecf8427e  ./lib/core/__init__.py
-cf2f33084ee604925738dc2b40f19aee  ./lib/core/settings.py
+6d80ab9bf54a4a4412719b1268334cff  ./lib/core/settings.py
 d41d8cd98f00b204e9800998ecf8427e  ./var/google_search/__init__.py
-5895fefecd3ae3b52e68a490478823bb  ./var/google_search/search.py
+fe2fb9df1a0c525ca69cca3bbe6e8acc  ./var/google_search/search.py
 d41d8cd98f00b204e9800998ecf8427e  ./var/__init__.py
 d41d8cd98f00b204e9800998ecf8427e  ./var/auto_issue/__init__.py
 4506850a02aa18e12bef4efeb760ad9e  ./var/auto_issue/github.py
-804cfbdaac8afd878b79fdceddaece2a  ./var/blackwidow/__init__.py
+059765fe1ae084ad267d4b7aa7a34032  ./var/blackwidow/__init__.py
