@@ -471,7 +471,7 @@ def write_to_log_file(data_to_write, path, filename):
             except TypeError:
                 logger.warning(set_color(
                     "unable to serialize {} data, writing as plain text...".format(
-                        filename.split(".")[-1].uppercase()
+                        filename.split(".")[-1].upper()
                     ), level=30
                 ))
                 log.write(data_to_write)
