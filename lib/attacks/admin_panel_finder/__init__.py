@@ -160,7 +160,7 @@ def check_for_admin_page(url, exts, protocol="http://", **kwargs):
     ))
 
 
-def __load_extensions(filename="{}/etc/link_ext.txt"):
+def __load_extensions(filename="{}/etc/text_files/link_ext.txt"):
     """
     load the extensions to use from the etc/link_ext file
     """

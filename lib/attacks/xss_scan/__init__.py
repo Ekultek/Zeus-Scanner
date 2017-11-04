@@ -49,7 +49,7 @@ def __tamper_payload(payload, tamper_type, warning=True, **kwargs):
         raise InvalidTamperProvided()
 
 
-def __load_payloads(filename="{}/etc/xss_payloads.txt"):
+def __load_payloads(filename="{}/etc/text_files/xss_payloads.txt"):
     """
     load the tamper payloads from the etc/xss_payloads file
     """
