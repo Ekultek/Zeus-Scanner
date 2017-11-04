@@ -358,7 +358,6 @@ if __name__ == "__main__":
             "dork": URL_LOG_PATH,
             "spider": SPIDER_LOG_PATH
         }
-
         options = (opt.useRandomDork, opt.dorkToUse, opt.dorkFileToUse, opt.fileToEnumerate)
         to_use = which_log_to_use["dork"] if any(arg for arg in options) is True else which_log_to_use["spider"]
         try:
@@ -380,15 +379,20 @@ if __name__ == "__main__":
         if any(options):
             with open(urls_to_use) as urls:
                 for url in urls.readlines():
-                    __run_attacks(
-                        url.strip(),
-                        sqlmap=opt.runSqliScan, nmap=opt.runPortScan,
-                        intel=opt.intelCheck, xss=opt.runXssScan,
-                        whois=opt.performWhoisLookup, admin=opt.adminPanelFinder,
-                        clickjacking=opt.performClickjackingScan,
-                        verbose=opt.runInVerbose, batch=opt.runInBatch,
-                        auto_start=opt.autoStartSqlmap
-                    )
+                    if "webcache" in url:
+                        logger.warning(set_color(
+                            "ran into unextracted webcache URL skipping..."
+                        ))
+                    else:
+                        __run_attacks(
+                            url.strip(),
+                            sqlmap=opt.runSqliScan, nmap=opt.runPortScan,
+                            intel=opt.intelCheck, xss=opt.runXssScan,
+                            whois=opt.performWhoisLookup, admin=opt.adminPanelFinder,
+                            clickjacking=opt.performClickjackingScan,
+                            verbose=opt.runInVerbose, batch=opt.runInBatch,
+                            auto_start=opt.autoStartSqlmap
+                        )
 
 
     proxy_to_use, agent_to_use = config_headers(

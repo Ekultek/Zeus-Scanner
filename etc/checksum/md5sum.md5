@@ -1,4 +1,4 @@
-cfaee70f681421c937e735346b61fd5e  ./zeus.py
+c6b20b66e81047fad538e527689c1ea8  ./zeus.py
 6ad5f22ec4a6f8324bfb1b01ab6d51ec  ./etc/scripts/cleanup.sh
 155c9482f690f1482f324a7ffd8b8098  ./etc/scripts/fix_pie.sh
 0e435c641bc636ac0b3d54e032d9cf6a  ./etc/scripts/install_nmap.sh
@@ -44,7 +44,7 @@ f746d2867f493104a78d0540cf50c03f  ./lib/attacks/intel_me/__init__.py
 c8fe372b08e7e27fe4e21f5f730f22ec  ./lib/attacks/clickjacking_scan/__init__.py
 1faa2b5dfad6eb538bbfe42942d2a9da  ./lib/core/errors.py
 d41d8cd98f00b204e9800998ecf8427e  ./lib/core/__init__.py
-6d80ab9bf54a4a4412719b1268334cff  ./lib/core/settings.py
+45902686b2821e127333d2965d4c846a  ./lib/core/settings.py
 d41d8cd98f00b204e9800998ecf8427e  ./var/google_search/__init__.py
 fe2fb9df1a0c525ca69cca3bbe6e8acc  ./var/google_search/search.py
 d41d8cd98f00b204e9800998ecf8427e  ./var/__init__.py
