@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 
-import optparse
 import os
 import io
-import shlex
-import subprocess
 import time
+import shlex
+import optparse
+import subprocess
 try:
     import http.client as http_client  # Python 3
 except ImportError:
@@ -60,7 +60,7 @@ from lib.core.settings import (
 
 if __name__ == "__main__":
 
-    parser = optparse.OptionParser(usage="{} -d|l|s|b DORK|FILE|URL [ATTACKS] [S-E] [--OPTS]".format(
+    parser = optparse.OptionParser(usage="{} -d|r|l|f|b| DORK|FILE|URL [ATTACKS] [--OPTS]".format(
         os.path.basename(__file__)
     ))
 
@@ -381,7 +381,7 @@ if __name__ == "__main__":
                 for url in urls.readlines():
                     if "webcache" in url:
                         logger.warning(set_color(
-                            "ran into unextracted webcache URL skipping..."
+                            "ran into unexpected webcache URL skipping...", level=30
                         ))
                     else:
                         __run_attacks(
