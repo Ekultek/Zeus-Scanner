@@ -41,7 +41,7 @@ PATCH_ID = str(subprocess.check_output(["git", "rev-parse", "origin/master"]))[:
 # clone link
 CLONE = "https://github.com/ekultek/zeus-scanner.git"
 # current version <major.minor.commit.patch ID>
-VERSION = "1.1.17.{}".format(PATCH_ID)
+VERSION = "1.1.18".format(PATCH_ID)
 # colors to output depending on the version
 VERSION_TYPE_COLORS = {"dev": 33, "stable": 92, "other": 30}
 # version string formatting
@@ -84,7 +84,7 @@ LAUNCH_SQLMAP_API_TOOL = "{}/etc/scripts/launch_sqlmap_api.sh".format(os.getcwd(
 # path to nmap installer
 NMAP_INSTALLER_TOOL = "{}/etc/scripts/install_nmap.sh".format(os.getcwd())
 # clickjacking HTML test page path
-CLICKJACKING_TEST_PAGE_PATH = "{}/etc/clickjacking_test_page.html".format(os.getcwd())
+CLICKJACKING_TEST_PAGE_PATH = "{}/etc/html/clickjacking_test_page.html".format(os.getcwd())
 # path to check if the program has been executed or not
 EXECUTED_PATH = "{}/bin/executed.txt".format(os.getcwd())
 # paths to sqlmap and nmap
@@ -162,7 +162,8 @@ URL_EXCLUDES = (
     "drive.google", "books.google", "news.google",
     "www.google", "mail.google", "accounts.google",
     "schema.org", "www.<b", "https://cid-", "https://<strong",  # these are some weird things that get pulled up?
-    "plus.google", "www.w3.org", "schemas.live.com"
+    "plus.google", "www.w3.org", "schemas.live.com",
+    "torproject.org"
 )
 # regular expressions used for DBMS recognition based on error message response
 DBMS_ERRORS = {
@@ -345,7 +346,7 @@ def replace_http(url, queries=True, complete=False):
         return url
 
 
-def grab_random_agent(agent_path="{}/etc/agents.txt", verbose=False):
+def grab_random_agent(agent_path="{}/etc/text_files/agents.txt", verbose=False):
     """
     grab a random user agent from the agent file
     """
@@ -393,7 +394,7 @@ def find_application(application, opt="path"):
     return retval
 
 
-def get_random_dork(filename="{}/etc/dorks.txt"):
+def get_random_dork(filename="{}/etc/text_files/dorks.txt"):
     """
     grab a random dork from the file
     """
@@ -469,8 +470,9 @@ def write_to_log_file(data_to_write, path, filename):
                 log.write(etree.tostring(data_to_write, pretty_print=True))
             except TypeError:
                 logger.warning(set_color(
-                    "unable to serialize data, writing as plain text (usually means the file already exists)...",
-                    level=30
+                    "unable to serialize {} data, writing as plain text...".format(
+                        filename.split(".")[-1].uppercase()
+                    ), level=30
                 ))
                 log.write(data_to_write)
         else:
