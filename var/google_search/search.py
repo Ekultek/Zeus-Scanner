@@ -207,6 +207,11 @@ def get_urls(query, url, verbose=False, warning=True, **kwargs):
                     ''.join(proxy_type) + "://" + ''.join(proxy.values())
                 ), level=10
             ))
+    elif tor and proxy is not None:
+        logger.warning(set_color(
+            "proxies are not compatible with tor, assuming no proxy and continuing...", level=30
+        ))
+        proxy_to_use = None
     else:
         proxy_to_use = None
 
