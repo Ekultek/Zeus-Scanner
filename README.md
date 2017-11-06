@@ -20,11 +20,11 @@
   - [Functionality](https://github.com/Ekultek/Zeus-Scanner/wiki/Functionality)
   - [Passing sqlmap flags with Zeus](https://github.com/Ekultek/Zeus-Scanner/wiki/Passing-flags-to-sqlmap)
 - [Legal information](https://github.com/Ekultek/Zeus-Scanner/tree/master/.github)
-  - [License](https://github.com/Ekultek/Zeus-Scanner/blob/master/.github/LICENSE.md)
+  - [License (GPL)](https://github.com/Ekultek/Zeus-Scanner/blob/master/.github/LICENSE.md)
   - [Code of conduct](https://github.com/Ekultek/Zeus-Scanner/blob/master/.github/CODE_OF_CONDUCT.md)
-  - [Contributing](https://github.com/Ekultek/Zeus-Scanner/blob/master/.github/CONTRIBUTING.md)
 - [Report a bug](https://github.com/Ekultek/Zeus-Scanner/issues/new)
 - [Open a pull request](https://github.com/Ekultek/Zeus-Scanner/compare)
+  - [Contribution guidelines](https://github.com/Ekultek/Zeus-Scanner/blob/master/.github/CONTRIBUTING.md)
 - [Donations to Zeus](https://github.com/Ekultek/Zeus-Scanner#donations)
 
 # Zeus-Scanner
@@ -70,44 +70,54 @@ You can see more screenshots [here](https://github.com/Ekultek/Zeus-Scanner/wiki
 
 There are some requirements for this to be run successfully.
 
- - You may need to run `sudo apt-get install libxml2-dev libxslt1-dev python-dev`
+##### Basic requirements
+
+ - `libxml2-dev`, `libxslt1-dev`, `python-dev` are required for the installation process
  - Firefox web browser is required as of now, I will be adding the functionality of most web browsers.
  - If you want to run sqlmap through the URL's you will need sqlmap somewhere on your system.
  - If you want to run a port scan using nmap on the URL's IP addresses. You will need nmap on your system.
-   - _Highly advised tip_: Add sqlmap and nmap to your ENV PATH
- - Gecko web driver is required and will be installed the first time you run. It will be added to your `/usr/bin` so that it can be run in your ENV PATH.
- - You must be `sudo` for the first time running this so that you can add the driver to your PATH 
- - `selenium-webdriver` package is required to automate the web browser and bypass API calls.
- - `requests` package is required to connect to the URL, and the sqlmap API
- - `python-nmap` package is required to run nmap on the URL's IP addresses
- - `whichcraft` package is required to check if nmap and sqlmap are on your system if you want to use them
- - `pyvirtualdisplay` package is required to hide the browser display while finding the search URL
- - `xvfb` is required by pyvirtualdisplay, it will be installed if not installed on your first run
- - `lxml` is required to parse XML data for the sitemap and save it as such
- - `google-api-python-client` is required to search via Google's API client
- - `psutil` is required to search for running sqlmap API sessions
- - `httplib2` is required to allow user-agent changes during Google's API client searches
- - `beautifulsoup` is required to pull all the HREF descriptor tags while using the blackwidow crawler
+ - [Geckodriver](https://github.com/mozilla/geckodriver) is required to run the firefox web browser and will be installed the first time you run. It will be added to your `/usr/bin` so that it can be run in your ENV PATH.
+ - You must be `sudo` for the first time running this so that you can add the driver to your PATH, you also may need to run as `sudo` depending on your permissions.
+ - `xvfb` is required by pyvirtualdisplay, it will be installed if not installed on your first run 
+ 
+##### Python package requirements
 
-### Installing
+ - [selenium-webdriver](http://www.seleniumhq.org/projects/webdriver/) package is required to automate the web browser and bypass API calls.
+ - [requests](http://docs.python-requests.org/en/master/) package is required to connect to the URL, and the sqlmap API
+ - [python-nmap](http://xael.org/pages/python-nmap-en.html) package is required to run nmap on the URL's IP addresses
+ - [whichcraft](https://github.com/spookyowl/witchcraft) package is required to check if nmap and sqlmap are on your system if you want to use them
+ - [pyvirtualdisplay](https://pyvirtualdisplay.readthedocs.io/en/latest/) package is required to hide the browser display while finding the search URL
+ - [lxml](https://lxml.readthedocs.io/en/latest/) is required to parse XML data for the sitemap and save it as such
+ - [google-api-python-client](https://github.com/google/google-api-python-client) is required to search via Google's API client
+ - [psutil](https://github.com/giampaolo/psutil) is required to search for running sqlmap API sessions
+ - [httplib2](https://github.com/httplib2/httplib2) is required to allow user-agent changes during Google's API client searches
+ - [beautifulsoup](https://www.crummy.com/software/BeautifulSoup/bs4/doc/) is required to pull all the HREF descriptor tags while using the blackwidow crawler
 
-You can download the latest [tar.gz](https://github.com/ekultek/zeus-scanner/tarball/master), the latest [zip](https://github.com/ekultek/zeus-scanner/zipball/master), or you can find the current stable release [here](https://github.com/Ekultek/Zeus-Scanner/releases/tag/v1.1). Alternatively you can install the latest development version by following the below instructions:
+### Installation
 
- - **_(optional but highly advised)_** add sqlmap and nmap to your environment PATH by moving them to `/usr/bin` or by adding them to the PATH via terminal
+You can download the latest [tar.gz](https://github.com/ekultek/zeus-scanner/tarball/master), the latest [zip](https://github.com/ekultek/zeus-scanner/zipball/master), or you can find the current stable release [here](https://github.com/Ekultek/Zeus-Scanner/releases/tag/v1.1). Alternatively you can install the latest development version by following the instructions that best match your operating system:
+
+**_NOTE: (optional but highly advised)_** add sqlmap and nmap to your environment PATH by moving them to `/usr/bin` or by adding them to the PATH via terminal
 
 ##### Ubuntu/Debian
 
- - `sudo apt-get install libxml2-dev libxslt1-dev python-dev &&  git clone https://github.com/ekultek/zeus-scanner.git && cd zeus-scanner && sudo pip install -r requirements.txt && sudo python zeus.py`
+```
+sudo apt-get install libxml2-dev libxslt1-dev python-dev &&  git clone https://github.com/ekultek/zeus-scanner.git && cd zeus-scanner && sudo pip install -r requirements.txt && sudo python zeus.py`
+``` 
  
 ##### centOS
 
- - `sudo apt-get install gcc python-devel libxml2-dev libxslt1-dev python-dev && git clone https://github.com/ekultek/zeus-scanner && cd zeus-scanner && sudo pip install -r requirements.txt && sudo python zeus.py`
+```
+sudo apt-get install gcc python-devel libxml2-dev libxslt1-dev python-dev && git clone https://github.com/ekultek/zeus-scanner && cd zeus-scanner && sudo pip install -r requirements.txt && sudo python zeus.py`
+```
 
 ##### Others
 
- - `sudo apt-get install libxml2-dev libxslt1-dev python-dev && git clone https://github.com/ekultek/zeus-scanner.git && cd zeus-scanner && sudo pip install -r requirements.txt && sudo python zeus.py`
+```
+sudo apt-get install libxml2-dev libxslt1-dev python-dev && git clone https://github.com/ekultek/zeus-scanner.git && cd zeus-scanner && sudo pip install -r requirements.txt && sudo python zeus.py`
+```
 
-This will install all the package requirements along with the gecko web driver
+This will install all the package requirements along with the geckodriver
 
 
 ### Donations
