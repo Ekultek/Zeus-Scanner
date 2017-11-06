@@ -27,7 +27,24 @@
 
 ### What is Zeus?
 
-Zeus is a advanced dork searching tool that is capable of bypassing search engine API calls, search engine captchas, and IP address blocking from sending many requests to the search engine itself. Zeus can use three different search engines to do the search (_default is Google_). Zeus has a powerful built in engine, automates a hidden web browser to pull the search URL, and can run sqlmap and nmap scans on the URL's.
+Zeus is a advanced dork searching utility that is capable of bypassing search engine API calls, search engine captchas, and extracting the URL from Google's ban URL, thus bypassing IP bans. Zeus can use four different search engines (`DuckDuckGo`, `AOL`, `Bing`, and `Google`) to do the dork searching (_default is `Google`_). Zeus has a powerful built in URL parsing engine, automates a hidden web browser to pull the search URL before parsing, and can run multiple vulnerability assessments on the found URLs. Zeus comes complete with automatic issue creation, self correcting scripts, and a simple usage
+
+### Features
+
+ - Multiple search engine compatibility (`DuckDuckGo`, `AOL`, `Bing`, `Google`)
+ - Ban URL extraction (pull the true URL from the ban URL)
+ - Google webcache URL extraction (extract the true URL from a webcache URL)
+ - Proxy compatibility (`http`, `https`, `socks4`, `socks5`)
+ - Tor proxy compatibility and Tor browser emulation
+ - Parse `robots.txt`/`sitemap.xml` and save them to a file
+ - Multiple vulnerability assessments (XSS, SQLi, clickjacking, port scanning, admin panel finding, whois lookups, and more)
+ - Tamper scripts to obfuscate XSS tests
+ - Ability to search multiple pages of Google, and use Google's API
+ - Can run with a custom default user-agent, one of over 4000 random user-agents, or a personal user-agent
+ - Automatic issue creation
+ - Ability to crawl a webpage and pull all the links
+ - Can run a singular dork, multiple dorks in a given file, or a random dork from a list of over 5000 carefully researched dorks
+ - and much more...
 
 ### Screenshots
 
@@ -76,27 +93,15 @@ You can download the latest [tar.gz](https://github.com/ekultek/zeus-scanner/tar
 
 ##### Ubuntu/Debian
 
- - `sudo apt-get install libxml2-dev libxslt1-dev python-dev`
- - `git clone https://github.com/Ekultek/Zeus-Scanner.git`
- - `cd zeus-scanner`
- - `sudo pip install -r requirements.txt`
- - `sudo python zeus.py`
+ - `sudo apt-get install libxml2-dev libxslt1-dev python-dev &&  git clone https://github.com/ekultek/zeus-scanner.git && cd zeus-scanner && sudo pip install -r requirements.txt && sudo python zeus.py`
  
 ##### centOS
 
- - `sudo apt-get install gcc python-devel libxml2-dev libxslt1-dev python-dev`
- - `git clone https://github.com/ekultek/zeus-scanner`
- - `cd zeus-scanner`
- - `sudo pip install -r requirements.txt`
- - `sudo python zeus.py`
+ - `sudo apt-get install gcc python-devel libxml2-dev libxslt1-dev python-dev && git clone https://github.com/ekultek/zeus-scanner && cd zeus-scanner && sudo pip install -r requirements.txt && sudo python zeus.py`
 
 ##### Others
 
- - `sudo apt-get install libxml2-dev libxslt1-dev python-dev`
- - `git clone https://github.com/Ekultek/Zeus-Scanner.git`
- - `cd zeus-scanner`
- - `sudo pip install -r requirements.txt`
- - `sudo python zeus.py`
+ - `sudo apt-get install libxml2-dev libxslt1-dev python-dev && git clone https://github.com/ekultek/zeus-scanner.git && cd zeus-scanner && sudo pip install -r requirements.txt && sudo python zeus.py`
 
 This will install all the package requirements along with the gecko web driver
 
