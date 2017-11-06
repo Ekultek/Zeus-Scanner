@@ -53,6 +53,11 @@ class SqlmapHook(object):
         to_check = str(json.loads(req.content)["tasks"]).lower()
         found = ''.join(id_re.findall(to_check))
         if len(found) > 16:
+            # split the found ID by 16 characters each time one is found to be over 16 characters
+            # IE ['abcdee345593fffa', '2222aaa449837cc9']
+            # if any of these items are not in the already used container, then chances are that's the
+            # item we're looking for.
+            # this will also allow you to go back to the same item more then once.
             data_found = [found[i:i+split_by] for i in range(0, len(found), split_by)]
             for item in data_found:
                 if item not in lib.core.settings.ALREADY_USED:
@@ -71,6 +76,22 @@ class SqlmapHook(object):
         data_dict = {"url": self.to_scan}
         if opts is not None:
             for i in range(0, len(opts)):
+                # if the options are passed they will be placed as a dict
+                # IE {'level': 5, 'risk': 3}
+                # from there they will be added into the post data dict what this
+                # will accomplish is that it will take precedence over the already
+                # set data on the sqlmap API client and replace that data with the
+                # data that is provided.
+                # IE
+                # {
+                #   'level': 1,
+                #   'risk': 1,
+                # }
+                # will become
+                # {
+                #   'level': '5',
+                #   'risk': '3',
+                # }
                 data_dict[opts[i][0]] = opts[i][1]
         post_data = json.dumps(data_dict)
         req = urllib2.Request(start_scan_url, data=post_data, headers=self.headers)
@@ -92,6 +113,12 @@ class SqlmapHook(object):
             )
         already_displayed = set()
         while current_status == "running":
+            # while the current status evaluates to `running`
+            # we can load the JSON data and output the log information
+            # we will skip over information that has already been provided
+            # by using the already displayed container set.
+            # this will allow us to only output information that we
+            # have not seen yet.
             current_status = json.loads(requests.get(running_status_url).content)["status"]
             log_req = requests.get(running_log_url)
             log_json = json.loads(log_req.content)
@@ -126,6 +153,11 @@ def sqlmap_scan_main(url, port=None, verbose=None, opts=None, auto_start=False):
         """
         create argument tuples for the sqlmap arguments passed by the user
         """
+        # create the dict to pass to the sqlmap hook
+        # basically it will just take the key and value
+        # for the argument tuples and create a dictionary
+        # out of them.
+        # IE ('level', '5') -> {'level': '5'}
         return {key: value for key, value in opts}
 
     is_started = lib.core.settings.search_for_process("sqlmapapi.py")

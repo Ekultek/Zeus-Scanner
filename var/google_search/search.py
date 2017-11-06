@@ -5,12 +5,12 @@ import shlex
 import subprocess
 
 try:
-    from urllib import (
-        unquote,
+    from urllib import (  # python 2
+        unquote
     )
 except ImportError:
-    from urllib.parse import (
-        unquote,
+    from urllib.parse import (  # python 3
+        unquote
     )
 
 import requests
@@ -62,7 +62,7 @@ def strip_leftovers(url, possibles):
     return url
 
 
-def bypass_ip_block(url):
+def extract_ip_ban(url):
     """
     bypass Google's IP blocking by extracting the true URL from the ban URL.
     """
@@ -277,7 +277,7 @@ def get_urls(query, url, verbose=False, warning=True, **kwargs):
             "it appears that Google is attempting to block your IP address, attempting bypass...", level=30
         ))
         try:
-            retval = bypass_ip_block(retval)
+            retval = extract_ip_ban(retval)
             do_continue = prompt(
                 "zeus was able to successfully extract the URL from Google's ban URL "
                 "it is advised to shutdown zeus and attempt to extract the URL's manually. "

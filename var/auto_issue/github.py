@@ -103,7 +103,7 @@ def request_issue_creation():
     }
 
     _json_data = json.dumps(issue_data)
-    if sys.version_info > (3,):
+    if sys.version_info > (3,):  # python 3
         _json_data = _json_data.encode("utf-8")
 
     try:

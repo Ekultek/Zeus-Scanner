@@ -86,6 +86,9 @@ def check_for_admin_page(url, exts, protocol="http://", **kwargs):
     possible_connections, connections = set(), set()
     stripped_url = replace_http(str(url).strip())
     for ext in exts:
+        # each extension is loaded before this process begins to save time
+        # while running this process.
+        # it will be loaded and passed instead of loaded during.
         ext = ext.strip()
         true_url = "{}{}{}".format(protocol, stripped_url, ext)
         if verbose:
@@ -132,6 +135,7 @@ def check_for_admin_page(url, exts, protocol="http://", **kwargs):
         data_msg.format(len(possible_connections), len(connections))
     ))
     if len(connections) > 0:
+        # create the connection tree if we got some connections
         logger.info(set_color(
             "creating connection tree..."
         ))
@@ -164,6 +168,7 @@ def __load_extensions(filename="{}/etc/text_files/link_ext.txt"):
     """
     load the extensions to use from the etc/link_ext file
     """
+    # this is where the extensions are loaded from
     with open(filename.format(os.getcwd())) as ext:
         return ext.readlines()
 

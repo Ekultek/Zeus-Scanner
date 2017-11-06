@@ -37,13 +37,18 @@ except NameError:
     raw_input = input  # Python 3
 
 # get the master patch ID when a patch is pushed to the program
+
 PATCH_ID = str(subprocess.check_output(["git", "rev-parse", "origin/master"]))[:6]
 # clone link
+
 CLONE = "https://github.com/ekultek/zeus-scanner.git"
 # current version <major.minor.commit.patch ID>
-VERSION = "1.1.18".format(PATCH_ID)
+
+VERSION = "1.1.19".format(PATCH_ID)
 # colors to output depending on the version
+
 VERSION_TYPE_COLORS = {"dev": 33, "stable": 92, "other": 30}
+
 # version string formatting
 if VERSION.count(".") == 1:
     VERSION_STRING = "\033[92mv{}\033[0m(\033[{}m\033[1mstable\033[0m)".format(VERSION, VERSION_TYPE_COLORS["stable"])
@@ -51,8 +56,10 @@ elif VERSION.count(".") <= 2:
     VERSION_STRING = "\033[92mv{}\033[0m(\033[{}m\033[1mdev\033[0m)".format(VERSION, VERSION_TYPE_COLORS["dev"])
 else:
     VERSION_STRING = "\033[92mv{}\033[0m(\033[{}m\033[1mrevision\033[0m)".format(VERSION, VERSION_TYPE_COLORS["other"])
+
 # zeus-scanners saying
 SAYING = "Advanced Dork Searching..."
+
 # sexy banner
 BANNER = """\033[36m
     __          __________                             __   
@@ -62,61 +69,88 @@ BANNER = """\033[36m
    \_\          /_______ \___  >____//____  >          /_/  
                        \/   \/           \/  {}
 \t{}\n\t\t{}\033[0m""".format(VERSION_STRING, CLONE, SAYING)
+
 # default user agent if another one isn't given
 # reference for best practices: https://docs.developer.amazonservices.com/en_US/dev_guide/DG_UserAgentHeader.html
 DEFAULT_USER_AGENT = "Zeus-Scanner/{} (Language=Python/{}; Platform={})".format(
     VERSION, sys.version.split(" ")[0], platform.platform().split("-")[0]
 )
-# regex to find GET params in a URL, IE php?id=
-URL_QUERY_REGEX = re.compile(r"(.*)[?|#](.*){1}\=(.*)")
-# regex to recognize a URL
-URL_REGEX = re.compile(r"((https?):((//)|(\\\\))+([\w\d:#@%/;$()~_?\+-=\\\.&](#!)?)*)")
+
 # path to the checksum
 CHECKSUM_PATH = "{}/etc/checksum/md5sum.md5".format(os.getcwd())
+
 # geckodriver version information path, grabs the file that was installed on your system
 GECKO_VERSION_INFO_PATH = "{}/bin/version_info".format(os.getcwd())
-# attempt to fix the program install error
-FIX_PROGRAM_INSTALL_PATH = "{}/etc/scripts/fix_pie.sh".format(os.getcwd())
-# path to the auto clean tool
-CLEANUP_TOOL_PATH = "{}/etc/scripts/cleanup.sh".format(os.getcwd())
-# path to tool to launch sqlmap API
-LAUNCH_SQLMAP_API_TOOL = "{}/etc/scripts/launch_sqlmap_api.sh".format(os.getcwd())
-# path to nmap installer
-NMAP_INSTALLER_TOOL = "{}/etc/scripts/install_nmap.sh".format(os.getcwd())
-# clickjacking HTML test page path
-CLICKJACKING_TEST_PAGE_PATH = "{}/etc/html/clickjacking_test_page.html".format(os.getcwd())
+
 # path to check if the program has been executed or not
 EXECUTED_PATH = "{}/bin/executed.txt".format(os.getcwd())
+
 # paths to sqlmap and nmap
 TOOL_PATHS = "{}/bin/paths/path_config.ini".format(os.getcwd())
-# path to write the HTML in
-CLICKJACKING_RESULTS_PATH = "{}/log/clickjacking-log".format(os.getcwd())
-# the log for found admin pages on a site
-ADMIN_PAGE_FILE_PATH = "{}/log/admin-page-log".format(os.getcwd())
-# path to the sitemap log file
-SITEMAP_FILE_LOG_PATH = "{}/log/sitemap-log".format(os.getcwd())
-# log path to the whois results
-WHOIS_RESULTS_LOG_PATH = "{}/log/whois".format(os.getcwd())
-# path to store robot.txt page in
-ROBOTS_PAGE_PATH = "{}/log/robots".format(os.getcwd())
-# URL's that are extracted from Google's ban URL
-EXTRACTED_URL_LOG = "{}/log/extracted-url-log".format(os.getcwd())
-# log path for the URL's that are found
-URL_LOG_PATH = "{}/log/url-log".format(os.getcwd())
-# log path for port scans
-PORT_SCAN_LOG_PATH = "{}/log/scanner-log".format(os.getcwd())
-# blackwidow log path
-SPIDER_LOG_PATH = "{}/log/blackwidow-log".format(os.getcwd())
-# the current log file being used
-CURRENT_LOG_FILE_PATH = "{}/log".format(os.getcwd())
-# nmap's manual page for their options
-NMAP_MAN_PAGE_URL = "https://nmap.org/book/man-briefoptions.html"
-# sqlmap's manual page for their options
-SQLMAP_MAN_PAGE_URL = "https://github.com/sqlmapproject/sqlmap/wiki/Usage"
-# whois API link
-WHOIS_JSON_LINK = "https://jsonwhoisapi.com/api/v1/whois?identifier={}"
+
+# attempt to fix the program install error
+FIX_PROGRAM_INSTALL_PATH = "{}/etc/scripts/fix_pie.sh".format(os.getcwd())
+
+# path to the auto clean tool
+CLEANUP_TOOL_PATH = "{}/etc/scripts/cleanup.sh".format(os.getcwd())
+
+# path to tool to launch sqlmap API
+LAUNCH_SQLMAP_API_TOOL = "{}/etc/scripts/launch_sqlmap_api.sh".format(os.getcwd())
+
+# path to nmap installer
+NMAP_INSTALLER_TOOL = "{}/etc/scripts/install_nmap.sh".format(os.getcwd())
+
+# clickjacking HTML test page path
+CLICKJACKING_TEST_PAGE_PATH = "{}/etc/html/clickjacking_test_page.html".format(os.getcwd())
+
 # holder for sqlmap API ID hashes, makes it so that they are all unique
 ALREADY_USED = set()
+
+# path to write the HTML in
+CLICKJACKING_RESULTS_PATH = "{}/log/clickjacking-log".format(os.getcwd())
+
+# the log for found admin pages on a site
+ADMIN_PAGE_FILE_PATH = "{}/log/admin-page-log".format(os.getcwd())
+
+# path to the sitemap log file
+SITEMAP_FILE_LOG_PATH = "{}/log/sitemap-log".format(os.getcwd())
+
+# log path to the whois results
+WHOIS_RESULTS_LOG_PATH = "{}/log/whois".format(os.getcwd())
+
+# path to store robot.txt page in
+ROBOTS_PAGE_PATH = "{}/log/robots".format(os.getcwd())
+
+# URL's that are extracted from Google's ban URL
+EXTRACTED_URL_LOG = "{}/log/extracted-url-log".format(os.getcwd())
+
+# log path for the URL's that are found
+URL_LOG_PATH = "{}/log/url-log".format(os.getcwd())
+
+# log path for port scans
+PORT_SCAN_LOG_PATH = "{}/log/scanner-log".format(os.getcwd())
+
+# blackwidow log path
+SPIDER_LOG_PATH = "{}/log/blackwidow-log".format(os.getcwd())
+
+# the current log file being used
+CURRENT_LOG_FILE_PATH = "{}/log".format(os.getcwd())
+
+# nmap's manual page for their options
+NMAP_MAN_PAGE_URL = "https://nmap.org/book/man-briefoptions.html"
+
+# sqlmap's manual page for their options
+SQLMAP_MAN_PAGE_URL = "https://github.com/sqlmapproject/sqlmap/wiki/Usage"
+
+# whois API link
+WHOIS_JSON_LINK = "https://jsonwhoisapi.com/api/v1/whois?identifier={}"
+
+# regex to find GET params in a URL, IE php?id=
+URL_QUERY_REGEX = re.compile(r"(.*)[?|#](.*){1}\=(.*)")
+
+# regex to recognize a URL
+URL_REGEX = re.compile(r"((https?):((//)|(\\\\))+([\w\d:#@%/;$()~_?\+-=\\\.&](#!)?)*)")
+
 # search engines that the application can use
 AUTHORIZED_SEARCH_ENGINES = {
     "aol": "http://aol.com",
@@ -124,38 +158,26 @@ AUTHORIZED_SEARCH_ENGINES = {
     "duckduckgo": "http://duckduckgo.com/html",
     "google": "http://google.com"
 }
+
 # extensions to exclude from the spider
 SPIDER_EXT_EXCLUDE = (
-    "3ds", "3g2", "3gp", "7z", "DS_Store",
-    "a", "aac", "adp", "ai", "aif", "aiff",
-    "apk", "ar", "asf", "au", "avi", "bak",
-    "bin", "bk", "bmp", "btif", "bz2", "cab",
-    "caf", "cgm", "cmx", "cpio", "cr2", "dat",
-    "deb", "djvu", "dll", "dmg", "dmp", "dng",
-    "doc", "docx", "dot", "dotx", "dra", "dsk",
-    "dts", "dtshd", "dvb", "dwg", "dxf", "ear",
-    "ecelp4800", "ecelp7470", "ecelp9600", "egg",
-    "eol", "eot", "epub", "exe", "f4v", "fbs", "fh",
-    "fla", "flac", "fli", "flv", "fpx", "fst", "fvt",
-    "g3", "gif", "gz", "h261", "h263", "h264", "ico",
-    "ief", "image", "img", "ipa", "iso", "jar", "jpeg",
-    "jpg", "jpgv", "jpm", "jxr", "ktx", "lvp", "lz",
-    "lzma", "lzo", "m3u", "m4a", "m4v", "mar", "mdi",
-    "mid", "mj2", "mka", "mkv", "mmr", "mng", "mov",
-    "movie", "mp3", "mp4", "mp4a", "mpeg", "mpg",
-    "mpga", "mxu", "nef", "npx", "o", "oga", "ogg",
-    "ogv", "otf", "pbm", "pcx", "pdf", "pea", "pgm",
-    "pic", "png", "pnm", "ppm", "pps", "ppt", "pptx",
-    "ps", "psd", "pya", "pyc", "pyo", "pyv", "qt", "rar",
-    "ras", "raw", "rgb", "rip", "rlc", "rz", "s3m", "s7z",
-    "scm", "scpt", "sgi", "shar", "sil", "smv", "so", "sub",
-    "swf", "tar", "tbz2", "tga", "tgz", "tif", "tiff", "tlz",
-    "ts", "ttf", "uvh", "uvi", "uvm", "uvp", "uvs", "uvu",
-    "viv", "vob", "war", "wav", "wax", "wbmp", "wdp", "weba",
-    "webm", "webp", "whl", "wm", "wma", "wmv", "wmx", "woff",
-    "woff2", "wvx", "xbm", "xif", "xls", "xlsx", "xlt", "xm",
-    "xpi", "xpm", "xwd", "xz", "z", "zip", "zipx"
+    "3ds", "3g2", "3gp", "7z", "DS_Store", "a", "aac", "adp", "ai", "aif", "aiff",
+    "apk", "ar", "asf", "au", "avi", "bak", "bin", "bk", "bmp", "btif", "bz2", "cab",
+    "caf", "cgm", "cmx", "cpio", "cr2", "dat", "deb", "djvu", "dll", "dmg", "dmp", "dng",
+    "doc", "docx", "dot", "dotx", "dra", "dsk", "dts", "dtshd", "dvb", "dwg", "dxf", "ear",
+    "ecelp4800", "ecelp7470", "ecelp9600", "egg", "eol", "eot", "epub", "exe", "f4v", "fbs", "fh",
+    "fla", "flac", "fli", "flv", "fpx", "fst", "fvt", "g3", "gif", "gz", "h261", "h263", "h264", "ico", "ief",
+    "image", "img", "ipa", "iso", "jar", "jpeg", "jpg", "jpgv", "jpm", "jxr", "ktx", "lvp", "lz", "lzma",
+    "lzo", "m3u", "m4a", "m4v", "mar", "mdi", "mid", "mj2", "mka", "mkv", "mmr", "mng", "mov", "movie", "mp3",
+    "mp4", "mp4a", "mpeg", "mpg", "mpga", "mxu", "nef", "npx", "o", "oga", "ogg", "ogv", "otf", "pbm", "pcx",
+    "pdf", "pea", "pgm", "pic", "png", "pnm", "ppm", "pps", "ppt", "pptx", "ps", "psd", "pya", "pyc", "pyo",
+    "pyv", "qt", "rar", "ras", "raw", "rgb", "rip", "rlc", "rz", "s3m", "s7z", "scm", "scpt", "sgi", "shar",
+    "sil", "smv", "so", "sub", "swf", "tar", "tbz2", "tga", "tgz", "tif", "tiff", "tlz", "ts", "ttf", "uvh",
+    "uvi", "uvm", "uvp", "uvs", "uvu", "viv", "vob", "war", "wav", "wax", "wbmp", "wdp", "weba", "webm", "webp",
+    "whl", "wm", "wma", "wmv", "wmx", "woff", "woff2", "wvx", "xbm", "xif", "xls", "xlsx", "xlt", "xm", "xpi",
+    "xpm", "xwd", "xz", "z", "zip", "zipx"
 )
+
 # urls to exclude from being grabbed during the searching
 URL_EXCLUDES = (
     "maps.google", "play.google", "youtube",
@@ -165,6 +187,7 @@ URL_EXCLUDES = (
     "plus.google", "www.w3.org", "schemas.live.com",
     "torproject.org"
 )
+
 # regular expressions used for DBMS recognition based on error message response
 DBMS_ERRORS = {
     "MySQL": (r"SQL syntax.*MySQL", r"Warning.*mysql_.*", r"valid MySQL result", r"MySqlClient\."),
@@ -447,10 +470,10 @@ def fix_log_file(logfile=get_latest_log_file(CURRENT_LOG_FILE_PATH)):
     with open(logfile, "r+") as to_fix:
         for line in to_fix.readlines():
             retval += escape_seq_regex.sub("", line)
-    open(logfile, "w").close()
+    open(logfile, "w").close()  # completely erase the log file
     with open(logfile, "a+") as fixed:
         for line in retval.split("\n"):
-            fixed.write(line + "\n")
+            fixed.write(line + "\n")  # rewrite everything back to normal
 
 
 def write_to_log_file(data_to_write, path, filename):
@@ -465,10 +488,12 @@ def write_to_log_file(data_to_write, path, filename):
     )
     with open(full_file_path, "a+") as log:
         data = re.sub(r'\s+', '', log.read())
-        if re.match(r'^<.+>$', data):
+        if re.match(r'^<.+>$', data):  # matches HTML and XML
             try:
                 log.write(etree.tostring(data_to_write, pretty_print=True))
             except TypeError:
+                # usually happens when the file already exists
+                # TODO:/ skip writing to the file, or write to the file with a (1), (2), etc at the end
                 logger.warning(set_color(
                     "unable to serialize {} data, writing as plain text...".format(
                         filename.split(".")[-1].upper()
@@ -622,6 +647,11 @@ def config_search_engine(**kwargs):
             non_default_msg
         ))
         se = AUTHORIZED_SEARCH_ENGINES["bing"]
+    elif enum is not None:
+        logger.info(set_color(
+            "running enumeration on given file '{}'...".format(enum)
+        ))
+        se = None
     else:
         if verbose:
             logger.debug(set_color(
@@ -629,7 +659,7 @@ def config_search_engine(**kwargs):
             ))
         logger.info(set_color(
             "using default search engine..."
-        )) if enum is None else ""
+        ))
         se = AUTHORIZED_SEARCH_ENGINES["google"]
     return se
 
@@ -708,7 +738,7 @@ def create_random_ip():
 
     generated = __get_nodes()
     if generated == "0.0.0.0" or "255.255.255.255":
-        generated = __get_nodes()
+        generated = __get_nodes()  # if it isn't a real IP regenerate it
     return generated
 
 

