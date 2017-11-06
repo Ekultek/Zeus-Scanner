@@ -102,19 +102,19 @@ You can download the latest [tar.gz](https://github.com/ekultek/zeus-scanner/tar
 ##### Ubuntu/Debian
 
 ```
-sudo apt-get install libxml2-dev libxslt1-dev python-dev &&  git clone https://github.com/ekultek/zeus-scanner.git && cd zeus-scanner && sudo pip install -r requirements.txt && sudo python zeus.py`
+sudo apt-get install libxml2-dev libxslt1-dev python-dev &&  git clone https://github.com/ekultek/zeus-scanner.git && cd zeus-scanner && sudo pip install -r requirements.txt && sudo python zeus.py
 ``` 
  
 ##### centOS
 
 ```
-sudo apt-get install gcc python-devel libxml2-dev libxslt1-dev python-dev && git clone https://github.com/ekultek/zeus-scanner && cd zeus-scanner && sudo pip install -r requirements.txt && sudo python zeus.py`
+sudo apt-get install gcc python-devel libxml2-dev libxslt1-dev python-dev && git clone https://github.com/ekultek/zeus-scanner && cd zeus-scanner && sudo pip install -r requirements.txt && sudo python zeus.py
 ```
 
 ##### Others
 
 ```
-sudo apt-get install libxml2-dev libxslt1-dev python-dev && git clone https://github.com/ekultek/zeus-scanner.git && cd zeus-scanner && sudo pip install -r requirements.txt && sudo python zeus.py`
+sudo apt-get install libxml2-dev libxslt1-dev python-dev && git clone https://github.com/ekultek/zeus-scanner.git && cd zeus-scanner && sudo pip install -r requirements.txt && sudo python zeus.py
 ```
 
 This will install all the package requirements along with the geckodriver
