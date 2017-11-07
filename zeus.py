@@ -139,6 +139,8 @@ if __name__ == "__main__":
                             help="Parse webcache URLs for the redirect in them")
     search_items.add_option("--x-forward", dest="forwardedForRandomIP", action="store_true",
                             help="Add a header called 'X-Forwarded-For' with three random IP addresses")
+    search_items.add_option("--time-sec", dest="controlTimeout", metavar="SECONDS", type=int,
+                            help="Control the sleep time to the WhoIS lookup to prevent errors")
 
     # obfuscation options
     anon = optparse.OptionGroup(parser, "Anonymity arguments",
@@ -337,7 +339,7 @@ if __name__ == "__main__":
                 )
             elif whois:
                 whois_lookup_main(
-                    url, verbose=opt.runInVerbose
+                    url, verbose=opt.runInVerbose, timeout=opt.controlTimeout
                 )
             elif clickjacking:
                 clickjacking_main(url, agent=agent_to_use, proxy=proxy_to_use,
@@ -564,6 +566,12 @@ if __name__ == "__main__":
                 "URL provided is not valid, schema appears to be missing...", level=50
             ))
             request_issue_creation()
+            shutdown()
+        elif "HTTP Error 429: Too Many Requests" in str(e):
+            logger.fatal(set_color(
+                "WhoIs doesn't like it when you send to many requests at one time, "
+                "try updating the timeout with the --time-sec flag (IE --time-sec 10)", level=50
+            ))
             shutdown()
         else:
             logger.fatal(set_color(
