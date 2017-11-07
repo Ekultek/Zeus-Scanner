@@ -207,11 +207,6 @@ def get_urls(query, url, verbose=False, warning=True, **kwargs):
                     ''.join(proxy_type) + "://" + ''.join(proxy.values())
                 ), level=10
             ))
-    elif tor and proxy is not None:
-        logger.warning(set_color(
-            "proxies are not compatible with tor, assuming no proxy and continuing...", level=30
-        ))
-        proxy_to_use = None
     else:
         proxy_to_use = None
 
@@ -221,7 +216,7 @@ def get_urls(query, url, verbose=False, warning=True, **kwargs):
         browser = webdriver.Firefox(profile, proxy=proxy_to_use)
     else:
         logger.info(set_color(
-            "settings tor browser settings..."
+            "setting tor browser settings..."
         ))
         profile = set_tor_browser_settings(profile, verbose=verbose, agent=user_agent, port=tor_port)
         browser = webdriver.Firefox(profile)
@@ -535,7 +530,11 @@ def parse_search_results(query, url_to_search, verbose=False, **kwargs):
 
 
 def search_multiple_pages(query, link_amount, verbose=False, **kwargs):
+
     def __config_proxy(proxy_string):
+        """
+        configure httplib proxy
+        """
         proxy_type_schema = {
             "http": httplib2.socks.PROXY_TYPE_HTTP,
             "socks4": httplib2.socks.PROXY_TYPE_SOCKS4,
