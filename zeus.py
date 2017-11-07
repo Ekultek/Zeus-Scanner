@@ -324,7 +324,7 @@ if __name__ == "__main__":
             elif intel:
                 url = get_true_url(url)
                 return intel_me.main_intel_amt(
-                    url, agent=agent_to_use,
+                    url, agent=agent_to_use, verbose=opt.runInVerbose,
                     proxy=proxy_to_use, do_ip=opt.runAgainstIpAddress
                 )
             elif admin:

