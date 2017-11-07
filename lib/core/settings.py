@@ -44,7 +44,7 @@ PATCH_ID = str(subprocess.check_output(["git", "rev-parse", "origin/master"]))[:
 CLONE = "https://github.com/ekultek/zeus-scanner.git"
 
 # current version <major.minor.commit.patch ID>
-VERSION = "1.1.21.{}".format(PATCH_ID)
+VERSION = "1.1.22".format(PATCH_ID)
 # colors to output depending on the version
 
 VERSION_TYPE_COLORS = {"dev": 33, "stable": 92, "other": 30}
@@ -103,8 +103,17 @@ NMAP_INSTALLER_TOOL = "{}/etc/scripts/install_nmap.sh".format(os.getcwd())
 # clickjacking HTML test page path
 CLICKJACKING_TEST_PAGE_PATH = "{}/etc/html/clickjacking_test_page.html".format(os.getcwd())
 
+# check the site headers to see what it's possibly vulnerable against
+HEADER_XML_DATA = "{}/etc/xml/headers.xml".format(os.getcwd())
+
 # holder for sqlmap API ID hashes, makes it so that they are all unique
 ALREADY_USED = set()
+
+# holder for protection
+PROTECTED = set()
+
+# save the headers to a file for further use
+HEADER_RESULT_PATH = "{}/log/header-log".format(os.getcwd())
 
 # path to write the HTML in
 CLICKJACKING_RESULTS_PATH = "{}/log/clickjacking-log".format(os.getcwd())
@@ -754,3 +763,26 @@ def rewrite_all_paths():
         open(path, "w").close()
     with open(EXECUTED_PATH, "w") as log:
         log.write("FALSE")
+
+
+def check_for_protection(protected, attack_type):
+    """
+    check if the provided target URL has header protection against an attack type
+    """
+    items = [item.lower() for item in protected]
+    if attack_type in items:
+        protected.clear()  # clear the set
+        logger.warning(set_color(
+            "provided target seems to have protection against this attack type...", level=30
+        ))
+        question = prompt(
+            "continuing will most likely result in a failure, would you like to continue", opts="yN"
+        )
+        if question.lower().startswith("y"):
+            return True
+        else:
+            logger.warning(set_color(
+                "skipping provided target URL..."
+            ))
+            return False
+    return True

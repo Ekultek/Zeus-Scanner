@@ -1,4 +1,4 @@
-913ce06f47d730817768c6d434bccad9  ./zeus.py
+f7dfe15a281f72ff02f937a51838c614  ./zeus.py
 4b32db388e8acda35570c734d27c950c  ./etc/scripts/launch_sqlmap.sh
 6ad5f22ec4a6f8324bfb1b01ab6d51ec  ./etc/scripts/cleanup.sh
 155c9482f690f1482f324a7ffd8b8098  ./etc/scripts/fix_pie.sh
@@ -6,6 +6,7 @@
 66b11aa388ea909de7b212341259a318  ./etc/auths/git_auth
 8f686b05c5c5dfc02f0fcaa7ebc8677c  ./etc/auths/whois_auth
 d3ad89703575a712a0aeead2b176d8c5  ./etc/html/clickjacking_test_page.html
+7526750f8bd909ef08fa2c15d278c244  ./etc/xml/headers.xml
 642a77905d8bb4e5533e0e9c2137c0fa  ./etc/text_files/agents.txt
 82cc68f46539d0255f7ce14cd86cd49b  ./etc/text_files/link_ext.txt
 a3ee2d4610056c6fe270c2a74dda49f9  ./etc/text_files/dorks.txt
@@ -51,7 +52,8 @@ d41d8cd98f00b204e9800998ecf8427e  ./lib/attacks/whois_lookup/__init__.py
 a0b5265f235a266f7a48874c3d1e08f9  ./lib/attacks/intel_me/__init__.py
 1faa2b5dfad6eb538bbfe42942d2a9da  ./lib/core/errors.py
 d41d8cd98f00b204e9800998ecf8427e  ./lib/core/__init__.py
-30112312eefcb5444d7916fb8f78142a  ./lib/core/settings.py
+ecb1912f467c0c3d6fc58975f9317126  ./lib/core/settings.py
+623830ef2e6f389c961edcb5bc135132  ./lib/header_check/__init__.py
 d41d8cd98f00b204e9800998ecf8427e  ./var/google_search/__init__.py
 e9f1e2624154401840b0b118216ba82e  ./var/google_search/search.py
 d41d8cd98f00b204e9800998ecf8427e  ./var/__init__.py

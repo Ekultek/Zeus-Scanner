@@ -14,6 +14,7 @@ except ImportError:
 from var import blackwidow
 from var.google_search import search
 from var.auto_issue.github import request_issue_creation
+from lib.header_check import main_header_check
 from lib.attacks.admin_panel_finder import main
 from lib.attacks.xss_scan import main_xss
 from lib.attacks.nmap_scan.nmap_opts import NMAP_API_OPTS
@@ -54,7 +55,9 @@ from lib.core.settings import (
     config_headers,
     config_search_engine,
     find_running_opts,
-    create_arguments
+    create_arguments,
+    PROTECTED,
+    check_for_protection
 )
 
 
@@ -86,7 +89,8 @@ if __name__ == "__main__":
     attacks.add_option("-p", "--port-scan", dest="runPortScan", action="store_true",
                        help="Run a Nmap port scan on the discovered URL's")
     attacks.add_option("-i", "--intel-check", dest="intelCheck", action="store_true",
-                       help="Check if a URL's host is exploitable via Intel ME AMT (CVE-2017-5689)")
+                       help="Check if a URL's host is exploitable via Intel ME AMT (CVE-2017-5689) "
+                            "scans will be deprecated by version 1.2")
     attacks.add_option("-a", "--admin-panel", dest="adminPanelFinder", action="store_true",
                        help="Search for the websites admin panel")
     attacks.add_option("-x", "--xss-scan", dest="runXssScan", action="store_true",
@@ -322,6 +326,9 @@ if __name__ == "__main__":
                     opts=create_arguments(nmap=True, nmap_args=opt.nmapArguments)
                 )
             elif intel:
+                logger.warning(set_color(
+                    "intel AMT bypass scans will be deprecated by version 1.2...", level=30
+                ))
                 url = get_true_url(url)
                 return intel_me.main_intel_amt(
                     url, agent=agent_to_use, verbose=opt.runInVerbose,
@@ -333,17 +340,19 @@ if __name__ == "__main__":
                     verbose=verbose, do_threading=opt.threadPanels
                 )
             elif xss:
-                main_xss(
-                    url, verbose=verbose, proxy=proxy_to_use,
-                    agent=agent_to_use, tamper=opt.tamperXssPayloads
-                )
+                if check_for_protection(PROTECTED, "xss"):
+                    main_xss(
+                            url, verbose=verbose, proxy=proxy_to_use,
+                            agent=agent_to_use, tamper=opt.tamperXssPayloads
+                        )
             elif whois:
                 whois_lookup_main(
                     url, verbose=opt.runInVerbose, timeout=opt.controlTimeout
                 )
             elif clickjacking:
-                clickjacking_main(url, agent=agent_to_use, proxy=proxy_to_use,
-                                  forward=opt.forwardedForRandomIP, batch=opt.runInBatch)
+                if check_for_protection(PROTECTED, "clickjacking"):
+                    clickjacking_main(url, agent=agent_to_use, proxy=proxy_to_use,
+                                      forward=opt.forwardedForRandomIP, batch=opt.runInBatch)
             else:
                 pass
         else:
@@ -386,6 +395,13 @@ if __name__ == "__main__":
                             "ran into unexpected webcache URL skipping...", level=30
                         ))
                     else:
+                        logger.info(set_color(
+                            "checking URL headers..."
+                        ))
+                        main_header_check(
+                            url, verbose=opt.runInVerbose, agent=agent_to_use,
+                            proxy=proxy_to_use, xforward=opt.forwardedForRandomIP
+                        )
                         __run_attacks(
                             url.strip(),
                             sqlmap=opt.runSqliScan, nmap=opt.runPortScan,

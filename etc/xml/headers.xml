@@ -1,0 +1,7 @@
+<headers>
+    <header name="X-XSS-Protection"/>
+    <header name="Strict-Transport-Security"/>
+    <header name="X-Frame-Options"/>
+    <header name="X-Content-Type-Options"/>
+    <header name="Content-Security-Policy"/>
+</headers>
