@@ -1,5 +1,6 @@
 import os
 import json
+import time
 import urllib2
 
 from base64 import b64decode
@@ -97,11 +98,15 @@ def whois_lookup_main(domain, **kwargs):
     """
     main function
     """
+    # sleep a little bit so that WhoIs doesn't stop us from making requests
     verbose = kwargs.get("verbose", False)
+    timeout = kwargs.get("timeout", None)
     domain = replace_http(domain)
     logger.info(set_color(
         "performing WhoIs lookup on given domain '{}'...".format(domain)
     ))
+    if timeout is not None:
+        time.sleep(timeout)
     raw_information = gather_raw_whois_info(domain)
     logger.info(set_color(
         "discovered raw information..."
