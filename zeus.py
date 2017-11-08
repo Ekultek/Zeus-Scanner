@@ -589,10 +589,16 @@ if __name__ == "__main__":
                 "try updating the timeout with the --time-sec flag (IE --time-sec 10)", level=50
             ))
             shutdown()
-        else:
+        elif "No such file or directory" in str(e):
+            logger.exception(e)
             logger.fatal(set_color(
                 "provided file does not exist, make sure you have the full path...", level=50
             ))
+        else:
+            logger.exception(set_color(
+                "Zeus has hit an unexpected error and cannot continue, error code '{}'...".format(e), level=50
+            ))
+            request_issue_creation()
     except KeyboardInterrupt:
         logger.error(set_color(
             "user aborted process...", level=40

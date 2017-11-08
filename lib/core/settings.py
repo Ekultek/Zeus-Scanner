@@ -44,7 +44,7 @@ PATCH_ID = str(subprocess.check_output(["git", "rev-parse", "origin/master"]))[:
 CLONE = "https://github.com/ekultek/zeus-scanner.git"
 
 # current version <major.minor.commit.patch ID>
-VERSION = "1.1.22".format(PATCH_ID)
+VERSION = "1.1.23.{}".format(PATCH_ID)
 # colors to output depending on the version
 
 VERSION_TYPE_COLORS = {"dev": 33, "stable": 92, "other": 30}
@@ -495,20 +495,20 @@ def write_to_log_file(data_to_write, path, filename):
             os.getcwd()
         ))) + 1)
     )
+    to_search = filename.split("-")[0]
+    amount = len([f for f in os.listdir(path) if to_search in f])
+    new_filename = "{}({}).{}".format(
+                    filename.split("-")[0], amount, filename.split(".")[-1]
+                )
     with open(full_file_path, "a+") as log:
         data = re.sub(r'\s+', '', log.read())
         if re.match(r'^<.+>$', data):  # matches HTML and XML
             try:
                 log.write(etree.tostring(data_to_write, pretty_print=True))
             except TypeError:
-                # usually happens when the file already exists
-                # TODO:/ skip writing to the file, or write to the file with a (1), (2), etc at the end
-                logger.warning(set_color(
-                    "unable to serialize {} data, writing as plain text...".format(
-                        filename.split(".")[-1].upper()
-                    ), level=30
-                ))
-                log.write(data_to_write)
+                return write_to_log_file(data_to_write, path, new_filename)
+        elif amount > 0:
+            return write_to_log_file(data_to_write, path, new_filename)
         else:
             if isinstance(data_to_write, list):
                 for item in data_to_write:
@@ -770,7 +770,7 @@ def check_for_protection(protected, attack_type):
     check if the provided target URL has header protection against an attack type
     """
     items = [item.lower() for item in protected]
-    if attack_type in items:
+    if attack_type in items or "all" in items:
         protected.clear()  # clear the set
         logger.warning(set_color(
             "provided target seems to have protection against this attack type...", level=30
