@@ -100,8 +100,8 @@ def main_header_check(url, **kwargs):
     protection["target"] = url
     for key in definition.iterkeys():
         if any(key in h.lower() for h in headers_established):
-            logger.error(set_color(
-                "provided target has {}...".format(definition[key][0]), level=40
+            logger.warning(set_color(
+                "provided target has {}...".format(definition[key][0]), level=30
             ))
             protection[key] = True
             PROTECTED.add(definition[key][1])
