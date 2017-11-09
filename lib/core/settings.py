@@ -53,7 +53,7 @@ PATCH_ID = str(subprocess.check_output(["git", "rev-parse", "origin/master"]))[:
 CLONE = "https://github.com/ekultek/zeus-scanner.git"
 
 # current version <major.minor.commit.patch ID>
-VERSION = "1.1.26.{}".format(PATCH_ID)
+VERSION = "1.1.27.{}".format(PATCH_ID)
 # colors to output depending on the version
 
 VERSION_TYPE_COLORS = {"dev": 33, "stable": 92, "other": 30}
@@ -506,6 +506,7 @@ def write_to_log_file(data_to_write, path, filename):
             os.getcwd()
         ))) + 1)
     )
+    skip_log_schema = ("url-log", "blackwidow-log", "zeus-log")
     to_search = filename.split("-")[0]
     amount = len([f for f in os.listdir(path) if to_search in f])
     new_filename = "{}({}).{}".format(
@@ -518,7 +519,7 @@ def write_to_log_file(data_to_write, path, filename):
                 log.write(etree.tostring(data_to_write, pretty_print=True))
             except TypeError:
                 return write_to_log_file(data_to_write, path, new_filename)
-        elif amount > 0 and "url-log" not in filename:
+        elif amount > 0 and not any(_ in filename for _ in list(skip_log_schema)):
             return write_to_log_file(data_to_write, path, new_filename)
         else:
             if isinstance(data_to_write, list):

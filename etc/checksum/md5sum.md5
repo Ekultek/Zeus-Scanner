@@ -51,7 +51,7 @@ c26df169167f18dad922d14d64d15c7f  ./lib/attacks/admin_panel_finder/__init__.py
 686935ee6e0277f93aec904bb60d8004  ./lib/attacks/intel_me/__init__.py
 1faa2b5dfad6eb538bbfe42942d2a9da  ./lib/core/errors.py
 d41d8cd98f00b204e9800998ecf8427e  ./lib/core/__init__.py
-bb9e634196a78ada615128612a7c05e8  ./lib/core/settings.py
+0f6e4e4cab1fc589e7285a2274a7c292  ./lib/core/settings.py
 c265970650a068c0f0cdfcdb756c9914  ./lib/header_check/__init__.py
 d41d8cd98f00b204e9800998ecf8427e  ./var/google_search/__init__.py
 80a3ec2db4c45cae6df673676149f9ad  ./var/google_search/search.py
