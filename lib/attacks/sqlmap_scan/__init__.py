@@ -164,12 +164,6 @@ def sqlmap_scan_main(url, port=None, verbose=None, opts=None, auto_start=False):
     found_path = find_sqlmap()
 
     if auto_start:
-        '''lib.core.settings.logger.error(lib.core.settings.set_color(
-            "auto start is not enabled yet, please start the API manually..."
-        ))
-        lib.core.settings.prompt(
-            "press enter when ready..."
-        )'''
         lib.core.settings.logger.info(lib.core.settings.set_color(
             "attempting to launch sqlmap API..."
         ))
@@ -212,7 +206,7 @@ def sqlmap_scan_main(url, port=None, verbose=None, opts=None, auto_start=False):
                 "current sqlmap scan ID: '{}'...".format(api_id), level=10
             ))
         lib.core.settings.logger.info(lib.core.settings.set_color(
-            "starting sqlmap scan on url: '{}'...".format(url)
+            "starting sqlmap scan on url: '{}'...".format(url), level=25
         ))
         if opts:
             if verbose:
