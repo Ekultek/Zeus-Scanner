@@ -75,7 +75,7 @@ def main_header_check(url, **kwargs):
     proxy = kwargs.get("proxy", None)
     xforward = kwargs.get("xforward", False)
 
-    protection = {}
+    protection = {"hostname": url}
     definition = {
         "x-xss": ("protection against XSS attacks", "XSS"),
         "strict-transport": ("protection against unencrypted connections (force HTTPS connection)", "HTTPS"),
@@ -89,7 +89,7 @@ def main_header_check(url, **kwargs):
         ))
     comparable_headers = load_xml_data(HEADER_XML_DATA)
     logger.info(set_color(
-        "attempting to get request headers..."
+        "attempting to get request headers for '{}'...".format(url)
     ))
     found_headers = load_headers(url, proxy=proxy, agent=agent, xforward=xforward)
     if verbose:
@@ -97,18 +97,15 @@ def main_header_check(url, **kwargs):
             "fetched {}...".format(found_headers), level=10
         ))
     headers_established = [str(h) for h in compare_headers(found_headers, comparable_headers)]
-    protection["target"] = url
     for key in definition.iterkeys():
         if any(key in h.lower() for h in headers_established):
             logger.warning(set_color(
                 "provided target has {}...".format(definition[key][0]), level=30
             ))
-            protection[key] = True
-            PROTECTED.add(definition[key][1])
         else:
             logger.info(set_color(
                 "provided target does not have {}...".format(definition[key][0])
             ))
-            protection[key] = False
-    data_to_write = json.dumps(protection, indent=4)
-    write_to_log_file(data_to_write, HEADER_RESULT_PATH, "{}-headers.json".format(replace_http(url)))
+    for key in found_headers.iterkeys():
+        protection[key] = found_headers[key]
+    return write_to_log_file(protection, HEADER_RESULT_PATH, "{}-headers.json".format(replace_http(url)))
