@@ -9,17 +9,8 @@ import importlib
 
 import requests
 
+import lib.core.settings
 from lib.core.errors import InvalidTamperProvided
-from lib.core.settings import (
-    logger,
-    set_color,
-    DEFAULT_USER_AGENT,
-    proxy_string_to_dict,
-    DBMS_ERRORS,
-    create_tree,
-    prompt,
-    shutdown,
-)
 
 
 def list_tamper_scripts(path="{}/lib/tamper_scripts"):
@@ -71,12 +62,12 @@ def create_urls(url, payload_list, tamper=None):
                     else:
                         payload = __tamper_payload(payload, tamper_type=tamper, warning=False)
                 except InvalidTamperProvided:
-                    logger.error(set_color(
+                    lib.core.settings.logger.error(lib.core.settings.set_color(
                         "you provided and invalid tamper script, acceptable tamper scripts are: {}...".format(
                             " | ".join(list_tamper_scripts()), level=40
                         )
                     ))
-                    shutdown()
+                    lib.core.settings.shutdown()
             loaded_url = "{}{}\n".format(url.strip(), payload.strip())
             tmp.write(loaded_url)
     return tf_name
@@ -107,14 +98,14 @@ def scan_xss(url, agent=None, proxy=None):
     chance that the URL is vulnerable to XSS attacks. Usually what will happen is the payload will
     be tampered or encoded if the site is not vulnerable
     """
-    user_agent = agent or DEFAULT_USER_AGENT
-    config_proxy = proxy_string_to_dict(proxy)
+    user_agent = agent or lib.core.settings.DEFAULT_USER_AGENT
+    config_proxy = lib.core.settings.proxy_string_to_dict(proxy)
     config_headers = {"connection": "close", "user-agent": user_agent}
     xss_request = requests.get(url, proxies=config_proxy, headers=config_headers)
     html_data = xss_request.content
     query = find_xss_script(url)
-    for db in DBMS_ERRORS.keys():
-        for item in DBMS_ERRORS[db]:
+    for db in lib.core.settings.DBMS_ERRORS.keys():
+        for item in lib.core.settings.DBMS_ERRORS[db]:
             if re.findall(item, html_data):
                 return "sqli", db
     if query in html_data:
@@ -127,30 +118,30 @@ def main_xss(start_url, verbose=False, proxy=None, agent=None, tamper=None, batc
     main attack method to be called
     """
     if tamper:
-        logger.info(set_color(
+        lib.core.settings.logger.info(lib.core.settings.set_color(
             "tampering payloads with '{}'...".format(tamper)
         ))
     find_xss_script(start_url)
-    logger.info(set_color(
+    lib.core.settings.logger.info(lib.core.settings.set_color(
         "loading payloads..."
     ))
     payloads = __load_payloads()
     if verbose:
-        logger.debug(set_color(
+        lib.core.settings.logger.debug(lib.core.settings.set_color(
             "a total of {} payloads loaded...".format(len(payloads)), level=10
         ))
-    logger.info(set_color(
+    lib.core.settings.logger.info(lib.core.settings.set_color(
         "payloads will be written to a temporary file and read from there..."
     ))
     filename = create_urls(start_url, payloads, tamper=tamper)
-    logger.info(set_color(
+    lib.core.settings.logger.info(lib.core.settings.set_color(
             "loaded URL's have been saved to '{}'...".format(filename), level=25
         ))
-    logger.info(set_color(
+    lib.core.settings.logger.info(lib.core.settings.set_color(
         "testing for XSS vulnerabilities on host '{}'...".format(start_url)
     ))
     if proxy is not None:
-        logger.info(set_color(
+        lib.core.settings.logger.info(lib.core.settings.set_color(
             "using proxy '{}'...".format(proxy)
         ))
     success = set()
@@ -160,18 +151,18 @@ def main_xss(start_url, verbose=False, proxy=None, agent=None, tamper=None, batc
             result = scan_xss(url, proxy=proxy, agent=agent)
             payload = find_xss_script(url)
             if verbose:
-                logger.info(set_color(
+                lib.core.settings.logger.info(lib.core.settings.set_color(
                     "trying payload '{}'...".format(payload)
                 ))
             if result[0] != "sqli" and result[0] is True:
                 success.add(url)
                 if verbose:
-                    logger.debug(set_color(
+                    lib.core.settings.logger.debug(lib.core.settings.set_color(
                         "payload '{}' appears to be usable...".format(payload), level=10
                     ))
             elif result[0] is "sqli":
                 if i <= 1:
-                    logger.error(set_color(
+                    lib.core.settings.logger.error(lib.core.settings.set_color(
                         "loaded URL '{}' threw a DBMS error and appears to be injectable, test for SQL injection, "
                         "backend DBMS appears to be '{}'...".format(
                             url, result[1]
@@ -179,27 +170,27 @@ def main_xss(start_url, verbose=False, proxy=None, agent=None, tamper=None, batc
                     ))
                 else:
                     if verbose:
-                        logger.error(set_color(
+                        lib.core.settings.logger.error(lib.core.settings.set_color(
                             "SQL error discovered...", level=40
                         ))
             else:
                 if verbose:
-                    logger.debug(set_color(
+                    lib.core.settings.logger.debug(lib.core.settings.set_color(
                         "host '{}' does not appear to be vulnerable to XSS attacks with payload '{}'...".format(
                             start_url, payload
                         ), level=10
                     ))
     if len(success) != 0:
-        logger.info(set_color(
+        lib.core.settings.logger.info(lib.core.settings.set_color(
             "possible XSS scripts to be used:", level=25
         ))
-        create_tree(start_url, list(success))
+        lib.core.settings.create_tree(start_url, list(success))
     else:
-        logger.error(set_color(
+        lib.core.settings.logger.error(lib.core.settings.set_color(
             "host '{}' does not appear to be vulnerable to XSS attacks...".format(start_url)
         ))
     if not batch:
-        save = prompt(
+        save = lib.core.settings.prompt(
             "would you like to keep the URL's saved for further testing", opts="yN"
         )
         if save.lower().startswith("n"):

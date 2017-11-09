@@ -5,13 +5,7 @@ import urllib2
 
 from base64 import b64decode
 
-from lib.core.settings import (
-    WHOIS_JSON_LINK,
-    write_to_log_file,
-    WHOIS_RESULTS_LOG_PATH,
-    logger, set_color,
-    replace_http
-)
+import lib.core.settings
 
 
 def __get_encoded_string(path="{}/etc/auths/whois_auth"):
@@ -46,7 +40,7 @@ def gather_raw_whois_info(domain):
         "Authorization": "Token {}".format(__get_token()),
     }
     request = urllib2.Request(
-        WHOIS_JSON_LINK.format(domain), headers=auth_headers
+        lib.core.settings.WHOIS_JSON_LINK.format(domain), headers=auth_headers
     )
     data = urllib2.urlopen(request).read()
     _json_data = json.loads(data)
@@ -101,17 +95,17 @@ def whois_lookup_main(domain, **kwargs):
     # sleep a little bit so that WhoIs doesn't stop us from making requests
     verbose = kwargs.get("verbose", False)
     timeout = kwargs.get("timeout", None)
-    domain = replace_http(domain)
-    logger.info(set_color(
+    domain = lib.core.settings.replace_http(domain)
+    lib.core.settings.logger.info(lib.core.settings.set_color(
         "performing WhoIs lookup on given domain '{}'...".format(domain)
     ))
     if timeout is not None:
         time.sleep(timeout)
     raw_information = gather_raw_whois_info(domain)
-    logger.info(set_color(
+    lib.core.settings.logger.info(lib.core.settings.set_color(
         "discovered raw information...", level=25
     ))
-    logger.info(set_color(
+    lib.core.settings.logger.info(lib.core.settings.set_color(
         "gathering interesting information..."
     ))
     interesting_data = get_interesting(raw_information)
@@ -119,7 +113,10 @@ def whois_lookup_main(domain, **kwargs):
         try:
             human_readable_display(domain, interesting_data)
         except (ValueError, Exception):
-            logger.fatal(set_color(
+            lib.core.settings.logger.fatal(lib.core.settings.set_color(
                 "unable to display any information from WhoIs lookup on domain '{}'...".format(domain), level=50
             ))
-    write_to_log_file(raw_information, WHOIS_RESULTS_LOG_PATH, "{}-whois.json".format(domain))
+    lib.core.settings.write_to_log_file(
+        raw_information, lib.core.settings.WHOIS_RESULTS_LOG_PATH,
+        "{}-whois.json".format(domain)
+    )
