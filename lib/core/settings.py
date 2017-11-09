@@ -28,8 +28,17 @@ from lxml import etree
 import bin.unzip_gecko
 import lib.core.errors
 
+from lib.attacks.admin_panel_finder import main
+from lib.attacks.xss_scan import main_xss
+from lib.attacks.whois_lookup.whois import whois_lookup_main
+from lib.attacks.clickjacking_scan import clickjacking_main
 from lib.attacks.sqlmap_scan.sqlmap_opts import SQLMAP_API_OPTIONS
 from lib.attacks.nmap_scan.nmap_opts import NMAP_API_OPTS
+from lib.attacks import (
+    nmap_scan,
+    sqlmap_scan,
+    intel_me
+)
 
 try:
     raw_input  # Python 2
@@ -44,7 +53,7 @@ PATCH_ID = str(subprocess.check_output(["git", "rev-parse", "origin/master"]))[:
 CLONE = "https://github.com/ekultek/zeus-scanner.git"
 
 # current version <major.minor.commit.patch ID>
-VERSION = "1.1.24".format(PATCH_ID)
+VERSION = "1.1.25".format(PATCH_ID)
 # colors to output depending on the version
 
 VERSION_TYPE_COLORS = {"dev": 33, "stable": 92, "other": 30}
@@ -509,7 +518,7 @@ def write_to_log_file(data_to_write, path, filename):
                 log.write(etree.tostring(data_to_write, pretty_print=True))
             except TypeError:
                 return write_to_log_file(data_to_write, path, new_filename)
-        elif amount > 0:
+        elif amount > 0 and "url-log" not in filename:
             return write_to_log_file(data_to_write, path, new_filename)
         else:
             if isinstance(data_to_write, list):
@@ -804,3 +813,104 @@ def deprecation(target_version, function, *args, **kwargs):
         )
     )
     return function(args, kwargs)
+
+
+def run_attacks(url, **kwargs):
+    """
+    run the attacks if any are requested
+    """
+    nmap = kwargs.get("nmap", False)
+    sqlmap = kwargs.get("sqlmap", False)
+    intel = kwargs.get("intel", False)
+    xss = kwargs.get("xss", False)
+    admin = kwargs.get("admin", False)
+    verbose = kwargs.get("verbose", False)
+    whois = kwargs.get("whois", False)
+    clickjacking = kwargs.get("clickjacking", False)
+    auto_start = kwargs.get("auto_start", False)
+    sqlmap_arguments = kwargs.get("sqlmap_args", None)
+    nmap_arguments = kwargs.get("nmap_args", None)
+    run_ip_address = kwargs.get("run_ip", False)
+    show_all = kwargs.get("show_all", False)
+    do_threading = kwargs.get("do_threading", False)
+    batch = kwargs.get("batch", False)
+    tamper_script = kwargs.get("tamper_script", None)
+    timeout = kwargs.get("timeout", None)
+    forwarded = kwargs.get("xforward", None)
+    proxy = kwargs.get("proxy", None)
+    agent = kwargs.get("agent", None)
+
+    __enabled_attacks = {
+        "sqlmap": sqlmap,
+        "port": nmap,
+        "xss": xss,
+        "admin": admin,
+        "intel": intel,
+        "whois": whois,
+        "clickjacking": clickjacking
+    }
+
+    enabled = set()
+    for key in __enabled_attacks.keys():
+        if __enabled_attacks[key] is True:
+            enabled.add(key)
+        if len(enabled) > 1:
+            logger.error(set_color(
+                "it appears that you have enabled multiple attack types, "
+                "as of now only 1 attack is supported at a time, choose "
+                "your attack and try again. You can use the -f flag if "
+                "you do not want to complete an entire search again "
+                "(IE -f /home/me/zeus-scanner/log/url-log/url-log-1.log)...", level=40
+            ))
+            shutdown()
+
+    if not batch:
+        question = prompt(
+            "would you like to process found URL: '{}'".format(url), opts=["y", "N"]
+        )
+    else:
+        question = "y"
+
+    if question.lower().startswith("y"):
+        if sqlmap:
+            return sqlmap_scan.sqlmap_scan_main(
+                url.strip(), verbose=verbose,
+                opts=create_arguments(sqlmap=True, sqlmap_args=sqlmap_arguments), auto_start=auto_start)
+        elif nmap:
+            url_ip_address = replace_http(url.strip())
+            return nmap_scan.perform_port_scan(
+                url_ip_address, verbose=verbose,
+                opts=create_arguments(nmap=True, nmap_args=nmap_arguments)
+            )
+        elif intel:
+            url = get_true_url(url)
+            return deprecation(
+                "1.2", intel_me.main_intel_amt, url,
+                verbose=verbose, proxy=proxy,
+                do_ip=run_ip_address
+            )
+        elif admin:
+            main(
+                url, show=show_all,
+                verbose=verbose, do_threading=do_threading, batch=batch
+            )
+        elif xss:
+            if check_for_protection(PROTECTED, "xss"):
+                main_xss(
+                    url, verbose=verbose, proxy=proxy,
+                    agent=agent, tamper=tamper_script, batch=batch
+                )
+        elif whois:
+            whois_lookup_main(
+                url, verbose=verbose, timeout=timeout
+            )
+        elif clickjacking:
+            if check_for_protection(PROTECTED, "clickjacking"):
+                clickjacking_main(url, agent=agent, proxy=proxy,
+                                  forward=forwarded, batch=batch)
+        else:
+            pass
+    else:
+        logger.warning(set_color(
+            "skipping '{}'...".format(url), level=30
+        ))

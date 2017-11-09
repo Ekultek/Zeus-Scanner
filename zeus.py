@@ -15,21 +15,12 @@ from var import blackwidow
 from var.google_search import search
 from var.auto_issue.github import request_issue_creation
 from lib.header_check import main_header_check
-from lib.attacks.admin_panel_finder import main
-from lib.attacks.xss_scan import main_xss
 from lib.attacks.nmap_scan.nmap_opts import NMAP_API_OPTS
 from lib.attacks.sqlmap_scan.sqlmap_opts import SQLMAP_API_OPTIONS
-from lib.attacks.whois_lookup.whois import whois_lookup_main
-from lib.attacks.clickjacking_scan import clickjacking_main
 
 from lib.core.errors import (
     InvalidInputProvided,
     InvalidProxyType
-)
-from lib.attacks import (
-    nmap_scan,
-    sqlmap_scan,
-    intel_me
 )
 from lib.core.settings import (
     setup,
@@ -41,7 +32,6 @@ from lib.core.settings import (
     get_latest_log_file,
     CURRENT_LOG_FILE_PATH,
     URL_LOG_PATH,
-    replace_http,
     prompt,
     get_random_dork,
     update_zeus,
@@ -49,16 +39,12 @@ from lib.core.settings import (
     URL_REGEX, URL_QUERY_REGEX,
     NMAP_MAN_PAGE_URL,
     SQLMAP_MAN_PAGE_URL,
-    get_true_url,
     fix_log_file,
     SPIDER_LOG_PATH,
     config_headers,
     config_search_engine,
     find_running_opts,
-    create_arguments,
-    PROTECTED,
-    check_for_protection,
-    deprecation
+    run_attacks,
 )
 
 
@@ -259,106 +245,6 @@ if __name__ == "__main__":
         ))
         http_client.HTTPConnection.debuglevel = 1
 
-    def __choose_attack(choice, attacks):
-        while True:
-            if int(choice) in range(len(attacks)):
-                return int(choice)
-            else:
-                logger.warning(set_color(
-                    "{} is not a valid choice...".format(choice)
-                ))
-
-
-    def __run_attacks(url, **kwargs):
-        """
-        run the attacks if any are requested
-        """
-        nmap = kwargs.get("nmap", False)
-        sqlmap = kwargs.get("sqlmap", False)
-        intel = kwargs.get("intel", False)
-        xss = kwargs.get("xss", False)
-        admin = kwargs.get("admin", False)
-        verbose = kwargs.get("verbose", False)
-        whois = kwargs.get("whois", False)
-        clickjacking = kwargs.get("clickjacking", False)
-        batch = kwargs.get("batch", False)
-        auto_start = kwargs.get("auto_start", False)
-
-        __enabled_attacks = {
-            "sqlmap": opt.runSqliScan,
-            "port": opt.runPortScan,
-            "xss": opt.runXssScan,
-            "admin": opt.adminPanelFinder,
-            "intel": opt.intelCheck,
-            "whois": opt.performWhoisLookup,
-            "clickjacking": opt.performClickjackingScan
-        }
-
-        enabled = set()
-        for key in __enabled_attacks.keys():
-            if __enabled_attacks[key] is True:
-                enabled.add(key)
-            if len(enabled) > 1:
-                logger.error(set_color(
-                    "it appears that you have enabled multiple attack types, "
-                    "as of now only 1 attack is supported at a time, choose "
-                    "your attack and try again. You can use the -f flag if "
-                    "you do not want to complete an entire search again "
-                    "(IE -f /home/me/zeus-scanner/log/url-log/url-log-1.log)...", level=40
-                ))
-                shutdown()
-
-        if not batch:
-            question = prompt(
-                "would you like to process found URL: '{}'".format(url), opts=["y", "N"]
-            )
-        else:
-            question = "y"
-
-        if question.lower().startswith("y"):
-            if sqlmap:
-                return sqlmap_scan.sqlmap_scan_main(
-                    url.strip(), verbose=verbose,
-                    opts=create_arguments(sqlmap=True, sqlmap_args=opt.sqlmapArguments), auto_start=auto_start)
-            elif nmap:
-                url_ip_address = replace_http(url.strip())
-                return nmap_scan.perform_port_scan(
-                    url_ip_address, verbose=verbose,
-                    opts=create_arguments(nmap=True, nmap_args=opt.nmapArguments)
-                )
-            elif intel:
-                url = get_true_url(url)
-                return deprecation(
-                    "1.2", intel_me.main_intel_amt, url,
-                    verbose=opt.runInVerbose, proxy=proxy_to_use,
-                    do_ip=opt.runAgainstIpAddress
-                )
-            elif admin:
-                main(
-                    url, show=opt.showAllConnections,
-                    verbose=verbose, do_threading=opt.threadPanels, batch=opt.runInBatch
-                )
-            elif xss:
-                if check_for_protection(PROTECTED, "xss"):
-                    main_xss(
-                            url, verbose=verbose, proxy=proxy_to_use,
-                            agent=agent_to_use, tamper=opt.tamperXssPayloads, batch=opt.runInBatch
-                        )
-            elif whois:
-                whois_lookup_main(
-                    url, verbose=opt.runInVerbose, timeout=opt.controlTimeout
-                )
-            elif clickjacking:
-                if check_for_protection(PROTECTED, "clickjacking"):
-                    clickjacking_main(url, agent=agent_to_use, proxy=proxy_to_use,
-                                      forward=opt.forwardedForRandomIP, batch=opt.runInBatch)
-            else:
-                pass
-        else:
-            logger.warning(set_color(
-                "skipping '{}'...".format(url), level=30
-            ))
-
 
     def __run_attacks_main():
         """
@@ -401,14 +287,18 @@ if __name__ == "__main__":
                             url, verbose=opt.runInVerbose, agent=agent_to_use,
                             proxy=proxy_to_use, xforward=opt.forwardedForRandomIP
                         )
-                        __run_attacks(
+                        run_attacks(
                             url.strip(),
                             sqlmap=opt.runSqliScan, nmap=opt.runPortScan,
                             intel=opt.intelCheck, xss=opt.runXssScan,
                             whois=opt.performWhoisLookup, admin=opt.adminPanelFinder,
                             clickjacking=opt.performClickjackingScan,
                             verbose=opt.runInVerbose, batch=opt.runInBatch,
-                            auto_start=opt.autoStartSqlmap
+                            auto_start=opt.autoStartSqlmap, xforward=opt.forwardedForRandomIP,
+                            sqlmap_args=opt.sqlmapArguments, nmap_args=opt.nmapArguments,
+                            run_ip=opt.runAgainstIpAddress, show_all=opt.showAllConnections,
+                            do_threading=opt.threadPanels, tamper_script=opt.tamperXssPayloads,
+                            timeout=opt.controlTimeout, proxy=proxy_to_use, agent=agent_to_use
                         )
 
 
