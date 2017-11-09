@@ -44,7 +44,7 @@ PATCH_ID = str(subprocess.check_output(["git", "rev-parse", "origin/master"]))[:
 CLONE = "https://github.com/ekultek/zeus-scanner.git"
 
 # current version <major.minor.commit.patch ID>
-VERSION = "1.1.23.{}".format(PATCH_ID)
+VERSION = "1.1.24".format(PATCH_ID)
 # colors to output depending on the version
 
 VERSION_TYPE_COLORS = {"dev": 33, "stable": 92, "other": 30}
@@ -273,11 +273,13 @@ def set_color(org_string, level=None):
     set the console log color, this will kinda mess with the file log but whatever
     """
     color_levels = {
-        10: "\033[36m{}\033[0m",  # DEBUG
-        20: "\033[32m{}\033[0m",  # INFO *default
-        30: "\033[33m{}\033[0m",  # WARNING
-        40: "\033[31m{}\033[0m",  # ERROR
-        50: "\033[7;31;31m{}\033[0m"  # FATAL/CRITICAL/EXCEPTION
+        10: "\033[36m{}\033[0m",         # DEBUG
+        20: "\033[32m{}\033[0m",         # INFO *default
+        25: "\033[1m\033[32m{}\033[0m",  # GOOD INFO
+        30: "\033[33m{}\033[0m",         # WARNING
+        35: "\033[1m\033[33m{}\033[0m",  # DEPRECATION
+        40: "\033[31m{}\033[0m",         # ERROR
+        50: "\033[7;31;31m{}\033[0m"     # FATAL/CRITICAL/EXCEPTION
     }
     if level is None:
         return color_levels[20].format(org_string)
@@ -786,3 +788,19 @@ def check_for_protection(protected, attack_type):
             ))
             return False
     return True
+
+
+def deprecation(target_version, function, *args, **kwargs):
+    """
+    show a deprecation warning and return the function with the correct given arguments
+    """
+    print(
+        "[{} DEPRECATION] {}".format(
+            time.strftime("%H:%M:%S"), set_color(
+                "{} will be deprecated by version {}...".format(
+                    function.__name__, target_version
+                ), level=35
+            )
+        )
+    )
+    return function(args, kwargs)
