@@ -109,7 +109,7 @@ def whois_lookup_main(domain, **kwargs):
         time.sleep(timeout)
     raw_information = gather_raw_whois_info(domain)
     logger.info(set_color(
-        "discovered raw information..."
+        "discovered raw information...", level=25
     ))
     logger.info(set_color(
         "gathering interesting information..."
