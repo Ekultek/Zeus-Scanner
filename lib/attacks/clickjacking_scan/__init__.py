@@ -91,7 +91,7 @@ def clickjacking_main(url, **kwargs):
         if results:
             lib.core.settings.logger.info(lib.core.settings.set_color(
                 "it appears that provided URL '{}' is vulnerable to clickjacking, writing "
-                "to HTML file...".format(url)
+                "to HTML file...".format(url), level=25
             ))
             lib.core.settings.write_to_log_file(
                 data,
