@@ -1,4 +1,5 @@
 import os
+import time
 import multiprocessing
 
 try:                 # Python 2
@@ -23,11 +24,16 @@ from lib.core.settings import (
 )
 
 
-def check_for_externals(url, robots=False, sitemap=False, data_sep="-" * 30, verbose=False):
+def check_for_externals(url, data_sep="-" * 30, **kwargs):
     """
     check if the URL has a robots.txt in it and collect `interesting` information
     out of the page
     """
+    robots = kwargs.get("robots", False)
+    sitemap = kwargs.get("sitemap", False)
+    verbose = kwargs.get("verbose", False)
+    batch = kwargs.get("batch", False)
+
     ext = {
         robots: "/robots.txt",
         sitemap: "/sitemap.xml"
@@ -57,22 +63,23 @@ def check_for_externals(url, robots=False, sitemap=False, data_sep="-" * 30, ver
         if len(interesting) > 0:
             create_tree(full_url, list(interesting))
         else:
-            to_display = prompt(
-                "nothing interesting found in robots.txt would you like to display the entire page", opts="yN"
-            )
-            if to_display.lower().startswith("y"):
-                print(
-                    "{}\n{}\n{}".format(
-                        data_sep, data, data_sep
-                    )
+            if not batch:
+                to_display = prompt(
+                    "nothing interesting found in robots.txt would you like to display the entire page", opts="yN"
                 )
+                if to_display.lower().startswith("y"):
+                    print(
+                        "{}\n{}\n{}".format(
+                            data_sep, data, data_sep
+                        )
+                    )
         logger.info(set_color(
-            "robots.txt page will be saved into a file..."
+            "robots.txt page will be saved into a file...", level=25
         ))
         return write_to_log_file(data, ROBOTS_PAGE_PATH, "robots-{}.log".format(url))
     elif sitemap:
         logger.info(set_color(
-            "found a sitemap, saving to file..."
+            "found a sitemap, saving to file...", level=25
         ))
         return write_to_log_file(data, SITEMAP_FILE_LOG_PATH, "{}-sitemap.xml".format(replace_http(url)))
 
@@ -98,7 +105,7 @@ def check_for_admin_page(url, exts, protocol="http://", **kwargs):
         try:
             urlopen(true_url, timeout=5)
             logger.info(set_color(
-                "connected successfully to '{}'...".format(true_url)
+                "connected successfully to '{}'...".format(true_url), level=25
             ))
             connections.add(true_url)
         except HTTPError as e:
@@ -179,10 +186,11 @@ def main(url, show=False, verbose=False, **kwargs):
     """
     do_threading = kwargs.get("do_threading", False)
     proc_num = kwargs.get("proc_num", 3)
+    batch = kwargs.get("batch", False)
     logger.info(set_color(
         "parsing robots.txt..."
     ))
-    results = check_for_externals(url, robots=True)
+    results = check_for_externals(url, robots=True, batch=batch)
     if not results:
         logger.warning(set_color(
             "seems like this page is either blocking access to robots.txt or it does not exist...", level=30
