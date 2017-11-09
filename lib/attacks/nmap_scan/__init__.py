@@ -98,7 +98,7 @@ def perform_port_scan(url, scanner=NmapHook, verbose=False, opts=None, **kwargs)
     ))
     found_ip_address = socket.gethostbyname(url)
     lib.core.settings.logger.info(lib.core.settings.set_color(
-        "found IP address for given URL -> '{}'...".format(found_ip_address)
+        "found IP address for given URL -> '{}'...".format(found_ip_address), level=25
     ))
     if verbose:
         lib.core.settings.logger.debug(lib.core.settings.set_color(
@@ -144,7 +144,7 @@ def perform_port_scan(url, scanner=NmapHook, verbose=False, opts=None, **kwargs)
             install_nmap_command = shlex.split("sudo sh {}".format(lib.core.settings.NMAP_INSTALLER_TOOL))
             subprocess.call(install_nmap_command)
             lib.core.settings.logger.info(lib.core.settings.set_color(
-                "nmap has been successfully installed, re-running..."
+                "nmap has been successfully installed, re-running...", level=25
             ))
             perform_port_scan(url, verbose=verbose, opts=opts)
         else:
