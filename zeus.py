@@ -57,7 +57,8 @@ from lib.core.settings import (
     find_running_opts,
     create_arguments,
     PROTECTED,
-    check_for_protection
+    check_for_protection,
+    deprecation
 )
 
 
@@ -326,24 +327,22 @@ if __name__ == "__main__":
                     opts=create_arguments(nmap=True, nmap_args=opt.nmapArguments)
                 )
             elif intel:
-                logger.warning(set_color(
-                    "intel AMT bypass scans will be deprecated by version 1.2...", level=30
-                ))
                 url = get_true_url(url)
-                return intel_me.main_intel_amt(
-                    url, agent=agent_to_use, verbose=opt.runInVerbose,
-                    proxy=proxy_to_use, do_ip=opt.runAgainstIpAddress
+                return deprecation(
+                    "1.2", intel_me.main_intel_amt, url,
+                    verbose=opt.runInVerbose, proxy=proxy_to_use,
+                    do_ip=opt.runAgainstIpAddress
                 )
             elif admin:
                 main(
                     url, show=opt.showAllConnections,
-                    verbose=verbose, do_threading=opt.threadPanels
+                    verbose=verbose, do_threading=opt.threadPanels, batch=opt.runInBatch
                 )
             elif xss:
                 if check_for_protection(PROTECTED, "xss"):
                     main_xss(
                             url, verbose=verbose, proxy=proxy_to_use,
-                            agent=agent_to_use, tamper=opt.tamperXssPayloads
+                            agent=agent_to_use, tamper=opt.tamperXssPayloads, batch=opt.runInBatch
                         )
             elif whois:
                 whois_lookup_main(
