@@ -1,4 +1,4 @@
-d34e5a7ccd254ba7dddeb1197a1d5bd4  ./zeus.py
+3529d17de0883d725a8eedc741eb17d0  ./zeus.py
 4b32db388e8acda35570c734d27c950c  ./etc/scripts/launch_sqlmap.sh
 6ad5f22ec4a6f8324bfb1b01ab6d51ec  ./etc/scripts/cleanup.sh
 155c9482f690f1482f324a7ffd8b8098  ./etc/scripts/fix_pie.sh
@@ -43,15 +43,15 @@ d41d8cd98f00b204e9800998ecf8427e  ./lib/attacks/__init__.py
 a8cc494d25325a8cbce38004922579e3  ./lib/attacks/sqlmap_scan/__init__.py
 5e5bb575014ebe613db6bf671d008cf8  ./lib/attacks/sqlmap_scan/sqlmap_opts.py
 d41d8cd98f00b204e9800998ecf8427e  ./lib/attacks/whois_lookup/__init__.py
-c6ac1db74b8dad2d55bc7399fb4ce04e  ./lib/attacks/whois_lookup/whois.py
-be723db33c39194b94c7762abebc0237  ./lib/attacks/admin_panel_finder/__init__.py
-b7d284c4204734b8bbf9657adfcf0a7f  ./lib/attacks/xss_scan/__init__.py
+d8fab18b15d1546f6585fe926c27868f  ./lib/attacks/whois_lookup/whois.py
+c26df169167f18dad922d14d64d15c7f  ./lib/attacks/admin_panel_finder/__init__.py
+3491167b56700b65c4664766eaebbb99  ./lib/attacks/xss_scan/__init__.py
 27358f26bda30d7356143c3ea1fa99c5  ./lib/attacks/nmap_scan/__init__.py
 21faf4679cdeaa731029a48f8963d6e7  ./lib/attacks/nmap_scan/nmap_opts.py
-a0b5265f235a266f7a48874c3d1e08f9  ./lib/attacks/intel_me/__init__.py
+686935ee6e0277f93aec904bb60d8004  ./lib/attacks/intel_me/__init__.py
 1faa2b5dfad6eb538bbfe42942d2a9da  ./lib/core/errors.py
 d41d8cd98f00b204e9800998ecf8427e  ./lib/core/__init__.py
-7af3417d3c3db4c99d4bce0083b65619  ./lib/core/settings.py
+2745752495362cdc0da9bde9b8e60e4e  ./lib/core/settings.py
 c265970650a068c0f0cdfcdb756c9914  ./lib/header_check/__init__.py
 d41d8cd98f00b204e9800998ecf8427e  ./var/google_search/__init__.py
 e9f1e2624154401840b0b118216ba82e  ./var/google_search/search.py
