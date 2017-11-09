@@ -122,7 +122,7 @@ def scan_xss(url, agent=None, proxy=None):
     return False, None
 
 
-def main_xss(start_url, verbose=False, proxy=None, agent=None, tamper=None):
+def main_xss(start_url, verbose=False, proxy=None, agent=None, tamper=None, batch=False):
     """
     main attack method to be called
     """
@@ -144,7 +144,7 @@ def main_xss(start_url, verbose=False, proxy=None, agent=None, tamper=None):
     ))
     filename = create_urls(start_url, payloads, tamper=tamper)
     logger.info(set_color(
-            "loaded URL's have been saved to '{}'...".format(filename)
+            "loaded URL's have been saved to '{}'...".format(filename), level=25
         ))
     logger.info(set_color(
         "testing for XSS vulnerabilities on host '{}'...".format(start_url)
@@ -191,15 +191,18 @@ def main_xss(start_url, verbose=False, proxy=None, agent=None, tamper=None):
                     ))
     if len(success) != 0:
         logger.info(set_color(
-            "possible XSS scripts to be used:"
+            "possible XSS scripts to be used:", level=25
         ))
         create_tree(start_url, list(success))
     else:
         logger.error(set_color(
             "host '{}' does not appear to be vulnerable to XSS attacks...".format(start_url)
         ))
-    save = prompt(
-        "would you like to keep the URL's saved for further testing", opts="yN"
-    )
-    if save.lower().startswith("n"):
+    if not batch:
+        save = prompt(
+            "would you like to keep the URL's saved for further testing", opts="yN"
+        )
+        if save.lower().startswith("n"):
+            os.remove(filename)
+    else:
         os.remove(filename)
