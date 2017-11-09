@@ -51,10 +51,10 @@ c26df169167f18dad922d14d64d15c7f  ./lib/attacks/admin_panel_finder/__init__.py
 686935ee6e0277f93aec904bb60d8004  ./lib/attacks/intel_me/__init__.py
 1faa2b5dfad6eb538bbfe42942d2a9da  ./lib/core/errors.py
 d41d8cd98f00b204e9800998ecf8427e  ./lib/core/__init__.py
-2745752495362cdc0da9bde9b8e60e4e  ./lib/core/settings.py
+bb9e634196a78ada615128612a7c05e8  ./lib/core/settings.py
 c265970650a068c0f0cdfcdb756c9914  ./lib/header_check/__init__.py
 d41d8cd98f00b204e9800998ecf8427e  ./var/google_search/__init__.py
-e9f1e2624154401840b0b118216ba82e  ./var/google_search/search.py
+80a3ec2db4c45cae6df673676149f9ad  ./var/google_search/search.py
 d41d8cd98f00b204e9800998ecf8427e  ./var/__init__.py
 d41d8cd98f00b204e9800998ecf8427e  ./var/auto_issue/__init__.py
 dadca85c232153021ba9ff253d8ee1d9  ./var/auto_issue/github.py

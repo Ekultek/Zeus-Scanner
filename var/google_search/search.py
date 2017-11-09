@@ -207,12 +207,6 @@ def get_urls(query, url, verbose=False, warning=True, **kwargs):
                     ''.join(proxy_type) + "://" + ''.join(proxy.values())
                 ), level=10
             ))
-    elif tor:
-        if proxy is not None:
-            logger.warning(set_color(
-                "proxies are not compatible with tor, assuming no proxy and continuing...", level=30
-            ))
-        proxy_to_use = None
     else:
         proxy_to_use = None
 
@@ -222,7 +216,7 @@ def get_urls(query, url, verbose=False, warning=True, **kwargs):
         browser = webdriver.Firefox(profile, proxy=proxy_to_use)
     else:
         logger.info(set_color(
-            "settings tor browser settings..."
+            "setting tor browser settings..."
         ))
         profile = set_tor_browser_settings(profile, verbose=verbose, agent=user_agent, port=tor_port)
         browser = webdriver.Firefox(profile)
