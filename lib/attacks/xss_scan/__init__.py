@@ -189,11 +189,17 @@ def main_xss(start_url, verbose=False, proxy=None, agent=None, tamper=None, batc
         lib.core.settings.logger.error(lib.core.settings.set_color(
             "host '{}' does not appear to be vulnerable to XSS attacks...".format(start_url)
         ))
+    question_msg = "would you like to keep the URL's saved for further testing"
     if not batch:
         save = lib.core.settings.prompt(
-            "would you like to keep the URL's saved for further testing", opts="yN"
+            question_msg, opts="yN"
         )
-        if save.lower().startswith("n"):
-            os.remove(filename)
+    else:
+        save = lib.core.settings.prompt(
+            question_msg, opts="yN", default="n"
+        )
+
+    if save.lower().startswith("n"):
+        os.remove(filename)
     else:
         os.remove(filename)
