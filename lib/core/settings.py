@@ -37,7 +37,7 @@ from lib.attacks.nmap_scan.nmap_opts import NMAP_API_OPTS
 from lib.attacks import (
     nmap_scan,
     sqlmap_scan,
-    intel_me
+    intel_me  # TODO:/ completely remove
 )
 
 try:
@@ -53,7 +53,7 @@ PATCH_ID = str(subprocess.check_output(["git", "rev-parse", "origin/master"]))[:
 CLONE = "https://github.com/ekultek/zeus-scanner.git"
 
 # current version <major.minor.commit.patch ID>
-VERSION = "1.1.28".format(PATCH_ID)
+VERSION = "1.2".format(PATCH_ID)
 # colors to output depending on the version
 
 VERSION_TYPE_COLORS = {"dev": 33, "stable": 92, "other": 30}
@@ -402,11 +402,11 @@ def grab_random_agent(agent_path="{}/etc/text_files/agents.txt", verbose=False):
         return retval.strip()
 
 
-def prompt(question, opts=None):
+def prompt(question, opts=None, default=None):
     """
     ask a question
     """
-    if opts is not None:
+    if opts is not None and default is None:
         options = '/'.join(opts)
         return raw_input(
             "[{} {}] {}[{}]: ".format(
@@ -414,6 +414,24 @@ def prompt(question, opts=None):
                 "PROMPT", question, options
             )
         )
+    elif default is not None:
+        if opts is not None:
+            options = "/".join(opts)
+            print(
+                "[{} {}] {}[{}] {}".format(
+                    time.strftime("%H:%M:%S"), "PROMPT",
+                    question, options, default
+                )
+            )
+            return default
+        else:
+            print(
+                "[{} {}] {} {}".format(
+                    time.strftime("%H:%M:%S"), "PROMPT",
+                    question, default
+                )
+            )
+            return default
     else:
         return raw_input(
             "[{} {}] {} ".format(
@@ -506,7 +524,7 @@ def write_to_log_file(data_to_write, path, filename):
             os.getcwd()
         ))) + 1)
     )
-    skip_log_schema = ("url-log", "blackwidow-log", "zeus-log")
+    skip_log_schema = ("url-log", "blackwidow-log", "zeus-log", "extracted")
     to_search = filename.split("-")[0]
     amount = len([f for f in os.listdir(path) if to_search in f])
     new_filename = "{}({}).{}".format(
@@ -787,33 +805,36 @@ def check_for_protection(protected, attack_type):
         logger.warning(set_color(
             "provided target seems to have protection against this attack type...", level=30
         ))
-        question = prompt(
-            "continuing will most likely result in a failure, would you like to continue", opts="yN"
-        )
-        if question.lower().startswith("y"):
-            return True
-        else:
-            logger.warning(set_color(
-                "skipping provided target URL..."
-            ))
-            return False
     return True
 
 
-def deprecation(target_version, function, *args, **kwargs):
+def deprecation(target_version, method, connect=True, *args, **kwargs):
     """
     show a deprecation warning and return the function with the correct given arguments
     """
-    print(
-        "[{} DEPRECATION] {}".format(
-            time.strftime("%H:%M:%S"), set_color(
-                "{} will be deprecated by version {}...".format(
-                    function.__name__, target_version
-                ), level=35
+    if connect:
+        print(
+            "[{} DEPRECATION] {}".format(
+                time.strftime("%H:%M:%S"), set_color(
+                    "{} will be deprecated by version {}...".format(
+                        method.__name__, target_version
+                    ), level=35
+                )
             )
         )
-    )
-    return function(args, kwargs)
+        return method(args, kwargs)
+    else:
+        print(
+            "[{} DEPRECATION] {}".format(
+                time.strftime("%H:%M:%S"), set_color(
+                    "{} has been deprecated and will no longer work, "
+                    "this attack type will be completely removed by v{}...".format(
+                        method.__name__, target_version
+                    ), level=35
+                )
+            )
+        )
+        shutdown()
 
 
 def run_attacks(url, **kwargs):
@@ -822,7 +843,7 @@ def run_attacks(url, **kwargs):
     """
     nmap = kwargs.get("nmap", False)
     sqlmap = kwargs.get("sqlmap", False)
-    intel = kwargs.get("intel", False)
+    intel = kwargs.get("intel", False)  # TODO:/ completely remove
     xss = kwargs.get("xss", False)
     admin = kwargs.get("admin", False)
     verbose = kwargs.get("verbose", False)
@@ -831,7 +852,7 @@ def run_attacks(url, **kwargs):
     auto_start = kwargs.get("auto_start", False)
     sqlmap_arguments = kwargs.get("sqlmap_args", None)
     nmap_arguments = kwargs.get("nmap_args", None)
-    run_ip_address = kwargs.get("run_ip", False)
+    run_ip_address = kwargs.get("run_ip", False)  # TODO:/ completely remove
     show_all = kwargs.get("show_all", False)
     do_threading = kwargs.get("do_threading", False)
     batch = kwargs.get("batch", False)
@@ -846,7 +867,7 @@ def run_attacks(url, **kwargs):
         "port": nmap,
         "xss": xss,
         "admin": admin,
-        "intel": intel,
+        "intel": intel,  # TODO:/ completely remove
         "whois": whois,
         "clickjacking": clickjacking
     }
@@ -865,12 +886,15 @@ def run_attacks(url, **kwargs):
             ))
             shutdown()
 
+    question_msg = "would you like to process found URL: '{}'".format(url)
     if not batch:
         question = prompt(
-            "would you like to process found URL: '{}'".format(url), opts=["y", "N"]
+            question_msg, opts="yN"
         )
     else:
-        question = "y"
+        question = prompt(
+            question_msg, opts="yN", default="y"
+        )
 
     if question.lower().startswith("y"):
         if sqlmap:
@@ -883,12 +907,9 @@ def run_attacks(url, **kwargs):
                 url_ip_address, verbose=verbose,
                 opts=create_arguments(nmap=True, nmap_args=nmap_arguments)
             )
-        elif intel:
-            url = get_true_url(url)
+        elif intel:  # TODO:/ completely remove
             return deprecation(
-                "1.2", intel_me.main_intel_amt, url,
-                verbose=verbose, proxy=proxy,
-                do_ip=run_ip_address
+                "1.3", intel_me.main_intel_amt, connect=False
             )
         elif admin:
             main(
