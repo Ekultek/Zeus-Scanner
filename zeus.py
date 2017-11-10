@@ -76,8 +76,7 @@ if __name__ == "__main__":
     attacks.add_option("-p", "--port-scan", dest="runPortScan", action="store_true",
                        help="Run a Nmap port scan on the discovered URL's")
     attacks.add_option("-i", "--intel-check", dest="intelCheck", action="store_true",
-                       help="Check if a URL's host is exploitable via Intel ME AMT (CVE-2017-5689) "
-                            "scans will be deprecated by version 1.2")
+                       help=optparse.SUPPRESS_HELP)  # TODO:/ completely remove
     attacks.add_option("-a", "--admin-panel", dest="adminPanelFinder", action="store_true",
                        help="Search for the websites admin panel")
     attacks.add_option("-x", "--xss-scan", dest="runXssScan", action="store_true",
@@ -101,7 +100,7 @@ if __name__ == "__main__":
     attacks.add_option("--tamper", dest="tamperXssPayloads", metavar="TAMPER-SCRIPT",
                        help="Send the XSS payloads through tampering before sending to the target")
     attacks.add_option("--run-ip-address", dest="runAgainstIpAddress", action="store_true",
-                       help="Run the Intel ME AMT exploit against the found host IP address instead of the hostname")
+                       help=optparse.SUPPRESS_HELP)  # TODO:/ completely remove
     attacks.add_option("--thread", dest="threadPanels", action="store_true",
                        help=optparse.SUPPRESS_HELP)
     attacks.add_option("--auto", dest="autoStartSqlmap", action="store_true",
@@ -290,13 +289,15 @@ if __name__ == "__main__":
                         run_attacks(
                             url.strip(),
                             sqlmap=opt.runSqliScan, nmap=opt.runPortScan,
-                            intel=opt.intelCheck, xss=opt.runXssScan,
+                            intel=opt.intelCheck,  # TODO:/ completely remove
+                            xss=opt.runXssScan,
                             whois=opt.performWhoisLookup, admin=opt.adminPanelFinder,
                             clickjacking=opt.performClickjackingScan,
                             verbose=opt.runInVerbose, batch=opt.runInBatch,
                             auto_start=opt.autoStartSqlmap, xforward=opt.forwardedForRandomIP,
                             sqlmap_args=opt.sqlmapArguments, nmap_args=opt.nmapArguments,
-                            run_ip=opt.runAgainstIpAddress, show_all=opt.showAllConnections,
+                            run_ip=opt.runAgainstIpAddress,  # TODO:/ completely remove
+                            show_all=opt.showAllConnections,
                             do_threading=opt.threadPanels, tamper_script=opt.tamperXssPayloads,
                             timeout=opt.controlTimeout, proxy=proxy_to_use, agent=agent_to_use
                         )
@@ -322,7 +323,7 @@ if __name__ == "__main__":
                 search.parse_search_results(
                     opt.dorkToUse, search_engine, verbose=opt.runInVerbose, proxy=proxy_to_use,
                     agent=agent_to_use, pull_all=opt.noExclude, parse_webcache=opt.parseWebcache,
-                    forward_for=opt.forwardedForRandomIP, tor=opt.useTor
+                    forward_for=opt.forwardedForRandomIP, tor=opt.useTor, batch=opt.runInBatch
                 )
             except InvalidProxyType:
                 supported_proxy_types = ["socks5", "socks4", "https", "http"]
@@ -383,7 +384,7 @@ if __name__ == "__main__":
                         search.parse_search_results(
                             dork, search_engine, verbose=opt.runInVerbose, proxy=proxy_to_use,
                             agent=agent_to_use, pull_all=opt.noExclude, parse_webcache=opt.parseWebcache,
-                            tor=opt.useTor
+                            tor=opt.useTor, batch=opt.runInBatch
                         )
                     except Exception as e:
                         logger.exception(set_color(
@@ -408,7 +409,7 @@ if __name__ == "__main__":
                 search.parse_search_results(
                     random_dork, search_engine, verbose=opt.runInVerbose,
                     proxy=proxy_to_use, agent=agent_to_use, pull_all=opt.noExclude, parse_webcache=opt.parseWebcache,
-                    tor=opt.useTor
+                    tor=opt.useTor, batch=opt.runInBatch
                 )
                 __run_attacks_main()
 
@@ -435,10 +436,18 @@ if __name__ == "__main__":
                 )
             else:
                 if URL_QUERY_REGEX.match(opt.spiderWebSite):
-                    is_sure = prompt(
+                    question_msg = (
                         "it is recommended to not use a URL that has a GET(query) parameter in it, "
-                        "would you like to continue", "yN"
+                        "would you like to continue"
                     )
+                    if not opt.runInBatch:
+                        is_sure = prompt(
+                            question_msg, opts="yN"
+                        )
+                    else:
+                        is_sure = prompt(
+                            question_msg, opts="yN", default="y"
+                        )
                     if is_sure.lower().startswith("y"):
                         pass
                     else:
