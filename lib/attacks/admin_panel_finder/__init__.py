@@ -52,20 +52,26 @@ def check_for_externals(url, data_sep="-" * 30, **kwargs):
         if len(interesting) > 0:
             lib.core.settings.create_tree(full_url, list(interesting))
         else:
+            question_msg = "nothing interesting found in robots.txt would you like to display the entire page"
             if not batch:
                 to_display = lib.core.settings.prompt(
-                    "nothing interesting found in robots.txt would you like to display the entire page", opts="yN"
+                    question_msg, opts="yN"
                 )
-                if to_display.lower().startswith("y"):
-                    print(
-                        "{}\n{}\n{}".format(
-                            data_sep, data, data_sep
-                        )
+            else:
+                to_display = lib.core.settings.prompt(
+                    question_msg, opts="yN", default="n"
+                )
+
+            if to_display.lower().startswith("y"):
+                print(
+                    "{}\n{}\n{}".format(
+                        data_sep, data, data_sep
                     )
+                )
         lib.core.settings.logger.info(lib.core.settings.set_color(
             "robots.txt page will be saved into a file...", level=25
         ))
-        return lib.core.settings.write_to_log_file(data, lib.core.settings.ROBOTS_PAGE_PATH, "robots-{}.log".format(url))
+        return lib.core.settings.write_to_log_file(data, lib.core.settings.ROBOTS_PAGE_PATH, "{}-robots_text.log".format(url))
     elif sitemap:
         lib.core.settings.logger.info(lib.core.settings.set_color(
             "found a sitemap, saving to file...", level=25
