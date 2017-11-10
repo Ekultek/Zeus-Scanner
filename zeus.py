@@ -245,20 +245,20 @@ if __name__ == "__main__":
         http_client.HTTPConnection.debuglevel = 1
 
 
-    def __run_attacks_main():
+    def __run_attacks_main(**kwargs):
         """
         main method to run the attacks
         """
-        which_log_to_use = {
-            "dork": URL_LOG_PATH,
-            "spider": SPIDER_LOG_PATH
-        }
-        options = (opt.useRandomDork, opt.dorkToUse, opt.dorkFileToUse, opt.fileToEnumerate)
-        to_use = which_log_to_use["dork"] if any(arg for arg in options) is True else which_log_to_use["spider"]
-        try:
-            urls_to_use = get_latest_log_file(to_use)
-        except TypeError:
-            urls_to_use = None
+        log_to_use = kwargs.get("log", None)
+        if log_to_use is None:
+            options = (opt.dorkToUse, opt.useRandomDork, opt.dorkFileToUse)
+            log_to_use = URL_LOG_PATH if any(o for o in options) else SPIDER_LOG_PATH
+            try:
+                urls_to_use = get_latest_log_file(log_to_use)
+            except TypeError:
+                urls_to_use = None
+        else:
+            urls_to_use = log_to_use
 
         if urls_to_use is None:
             logger.error(set_color(
@@ -465,7 +465,7 @@ if __name__ == "__main__":
                     len(open(opt.fileToEnumerate).readlines())
                 )
             ))
-            __run_attacks_main()
+            __run_attacks_main(log=opt.fileToEnumerate)
 
         else:
             logger.critical(set_color(
