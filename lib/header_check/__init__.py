@@ -89,7 +89,7 @@ def main_header_check(url, **kwargs):
         ))
     comparable_headers = load_xml_data(HEADER_XML_DATA)
     logger.info(set_color(
-        "attempting to get request headers for '{}'...".format(url)
+        "attempting to get request headers for '{}'...".format(url.strip())
     ))
     found_headers = load_headers(url, proxy=proxy, agent=agent, xforward=xforward)
     if verbose:
@@ -101,10 +101,6 @@ def main_header_check(url, **kwargs):
         if any(key in h.lower() for h in headers_established):
             logger.warning(set_color(
                 "provided target has {}...".format(definition[key][0]), level=30
-            ))
-        else:
-            logger.info(set_color(
-                "provided target does not have {}...".format(definition[key][0])
             ))
     for key in found_headers.iterkeys():
         protection[key] = found_headers[key]
