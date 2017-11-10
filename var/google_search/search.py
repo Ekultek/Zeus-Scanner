@@ -162,6 +162,7 @@ def get_urls(query, url, verbose=False, warning=True, **kwargs):
     query = query.decode('unicode_escape').encode('utf-8')
     proxy, user_agent = kwargs.get("proxy", None), kwargs.get("user_agent", None)
     tor, tor_port = kwargs.get("tor", False), kwargs.get("tor_port", None)
+    batch = kwargs.get("batch", False)
     if verbose:
         logger.debug(set_color(
             "setting up the virtual display to hide the browser...", level=10
@@ -273,12 +274,21 @@ def get_urls(query, url, verbose=False, warning=True, **kwargs):
         ))
         try:
             retval = extract_ip_ban(retval)
-            do_continue = prompt(
+            question_msg = (
                 "zeus was able to successfully extract the URL from Google's ban URL "
                 "it is advised to shutdown zeus and attempt to extract the URL's manually. "
                 "failing to do so will most likely result in no results being found by zeus. "
-                "would you like to shutdown", opts="yN"
+                "would you like to shutdown"
             )
+            if not batch:
+                do_continue = prompt(
+                    question_msg, opts="yN"
+                )
+            else:
+                do_continue = prompt(
+                    question_msg, opts="yN", default="n"
+                )
+
             if not str(do_continue).lower().startswith("n"):  # shutdown and write the URL to a file
                 write_to_log_file(retval, EXTRACTED_URL_LOG, "extracted-url-{}.log")
                 logger.info(set_color(
@@ -322,6 +332,7 @@ def parse_search_results(query, url_to_search, verbose=False, **kwargs):
     proxy_string, user_agent = kwargs.get("proxy", None), kwargs.get("agent", None)
     forward_for = kwargs.get("forward_for", False)
     tor = kwargs.get("tor", False)
+    batch = kwargs.get("batch", False)
 
     if verbose:
         logger.debug(set_color(
@@ -379,7 +390,7 @@ def parse_search_results(query, url_to_search, verbose=False, **kwargs):
     try:
         query_url = get_urls(
             query, url_to_search, verbose=verbose, user_agent=user_agent, proxy=proxy_string,
-            tor=tor
+            tor=tor, batch=batch
         )
     except Exception as e:
         if "'/usr/lib/firefoxdriver/webdriver.xpi'" in str(e):
