@@ -12,6 +12,7 @@ import requests
 
 import lib.core.settings
 import lib.core.errors
+import lib.attacks
 
 from var.auto_issue.github import request_issue_creation
 
@@ -144,10 +145,11 @@ def find_sqlmap(to_find="sqlmap"):
     return found_path
 
 
-def sqlmap_scan_main(url, port=None, verbose=None, opts=None, auto_start=False):
+def sqlmap_scan_main(url, port=None, verbose=None, opts=None, auto_start=False, **kwargs):
     """
     the main function that will be called and initialize everything
     """
+    parse_conf = kwargs.get("parse_conf", None)
 
     def ___dict_args():
         """

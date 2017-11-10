@@ -53,7 +53,7 @@ PATCH_ID = str(subprocess.check_output(["git", "rev-parse", "origin/master"]))[:
 CLONE = "https://github.com/ekultek/zeus-scanner.git"
 
 # current version <major.minor.commit.patch ID>
-VERSION = "1.2.1.{}".format(PATCH_ID)
+VERSION = "1.2.2".format(PATCH_ID)
 # colors to output depending on the version
 
 VERSION_TYPE_COLORS = {"dev": 33, "stable": 92, "other": 30}
@@ -275,6 +275,20 @@ def find_running_opts(options):
         if v is not None:
             opts_being_used.append((o, v))
     return dict(opts_being_used)
+
+
+def parse_conf_file(config_path):
+    set_options = []
+    skip_opt_schema = ("", "False", "0")
+    parser = ConfigParser.ConfigParser(allow_no_value=True)
+    parser.read(config_path)
+    sections = parser.sections()
+    for section in sections:
+        if not section == "url":
+            for opt in parser.options(section):
+                if not any(schema == str(parser.get(section, opt)) for schema in skip_opt_schema):
+                    set_options.append((str(opt), str(parser.get(section, opt))))
+    return set_options
 
 
 def set_color(org_string, level=None):
@@ -711,13 +725,21 @@ def create_arguments(**kwargs):
     sqlmap = kwargs.get("sqlmap", False)
     sqlmap_args = kwargs.get("sqlmap_args", None)
     nmap_args = kwargs.get("nmap_args", None)
+    conf_file = kwargs.get("conf", None)
 
     logger.info(set_color(
         "creating arguments for {}...".format("sqlmap" if sqlmap else "nmap")
     ))
     retval = []
     splitter = {"sqlmap": ",", "nmap": "|"}
-    if sqlmap:
+    if conf_file is not None:
+        set_options = parse_conf_file(conf_file)
+        for opt in set_options:
+            for o in SQLMAP_API_OPTIONS:
+                if not opt[0] == "url":
+                    if o.lower() == opt[0]:
+                        retval.append((o, opt[1]))
+    elif sqlmap:
         warn_msg = "option '{}' is not recognized by sqlmap API, skipping..."
         if sqlmap_args is not None:
             for line in sqlmap_args.split(splitter["sqlmap"]):
@@ -861,6 +883,7 @@ def run_attacks(url, **kwargs):
     forwarded = kwargs.get("xforward", None)
     proxy = kwargs.get("proxy", None)
     agent = kwargs.get("agent", None)
+    conf_file = kwargs.get("conf_file", None)
 
     __enabled_attacks = {
         "sqlmap": sqlmap,
@@ -900,7 +923,7 @@ def run_attacks(url, **kwargs):
         if sqlmap:
             return sqlmap_scan.sqlmap_scan_main(
                 url.strip(), verbose=verbose,
-                opts=create_arguments(sqlmap=True, sqlmap_args=sqlmap_arguments), auto_start=auto_start)
+                opts=create_arguments(sqlmap=True, sqlmap_args=sqlmap_arguments, conf=conf_file), auto_start=auto_start)
         elif nmap:
             url_ip_address = replace_http(url.strip())
             return nmap_scan.perform_port_scan(

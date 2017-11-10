@@ -88,6 +88,8 @@ if __name__ == "__main__":
     attacks.add_option("--sqlmap-args", dest="sqlmapArguments", metavar="SQLMAP-ARGS",
                        help="Pass the arguments to send to the sqlmap API within quotes & "
                             "separated by a comma. IE 'dbms mysql, verbose 3, level 5'")
+    attacks.add_option("--sqlmap-conf", dest="sqlmapConfigFile", metavar="CONFIG-FILE-PATH",
+                       help="Pass a configuration file that contains the sqlmap arguments")
     attacks.add_option("--nmap-args", dest="nmapArguments", metavar="NMAP-ARGS",
                        help="Pass the arguments to send to the nmap API within quotes & "
                             "separated by a pipe. IE '-O|-p 445, 1080'")
@@ -299,7 +301,8 @@ if __name__ == "__main__":
                             run_ip=opt.runAgainstIpAddress,  # TODO:/ completely remove
                             show_all=opt.showAllConnections,
                             do_threading=opt.threadPanels, tamper_script=opt.tamperXssPayloads,
-                            timeout=opt.controlTimeout, proxy=proxy_to_use, agent=agent_to_use
+                            timeout=opt.controlTimeout, proxy=proxy_to_use, agent=agent_to_use,
+                            conf_file=opt.sqlmapConfigFile
                         )
 
 
