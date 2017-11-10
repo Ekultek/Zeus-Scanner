@@ -1,3 +1,10 @@
+# Intel AMY bypass scanner is being deprecated and will be completely remove by version 1.3
+# the reason for the deprecation is that it serves really no purpose. You will most likely
+# not find a vulnerability from a webpage with this attack assessment.
+# The code will stay but will be moved to a new folder under etc, that will be called
+# deprecated
+# TODO:/ move code into deprecated folder
+
 import json
 import re
 import socket
