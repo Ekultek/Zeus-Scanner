@@ -37,7 +37,6 @@ from lib.attacks.nmap_scan.nmap_opts import NMAP_API_OPTS
 from lib.attacks import (
     nmap_scan,
     sqlmap_scan,
-    intel_me  # TODO:/ completely remove
 )
 
 try:
@@ -53,7 +52,7 @@ PATCH_ID = str(subprocess.check_output(["git", "rev-parse", "origin/master"]))[:
 CLONE = "https://github.com/ekultek/zeus-scanner.git"
 
 # current version <major.minor.commit.patch ID>
-VERSION = "1.2.2".format(PATCH_ID)
+VERSION = "1.2.3.{}".format(PATCH_ID)
 # colors to output depending on the version
 
 VERSION_TYPE_COLORS = {"dev": 33, "stable": 92, "other": 30}
@@ -821,13 +820,15 @@ def check_for_protection(protected, attack_type):
     """
     check if the provided target URL has header protection against an attack type
     """
-    items = [item.lower() for item in protected]
-    if attack_type in items or "all" in items:
-        protected.clear()  # clear the set
-        logger.warning(set_color(
-            "provided target seems to have protection against this attack type...", level=30
-        ))
-    return True
+    if protected is not None:
+        items = [item.lower() for item in protected]
+
+        if attack_type in items or "all" in items:
+            protected.clear()  # clear the set
+            logger.warning(set_color(
+                "provided target seems to have protection against this attack type...", level=30
+            ))
+        return True
 
 
 def deprecation(target_version, method, connect=True, *args, **kwargs):
@@ -865,7 +866,6 @@ def run_attacks(url, **kwargs):
     """
     nmap = kwargs.get("nmap", False)
     sqlmap = kwargs.get("sqlmap", False)
-    intel = kwargs.get("intel", False)  # TODO:/ completely remove
     xss = kwargs.get("xss", False)
     admin = kwargs.get("admin", False)
     verbose = kwargs.get("verbose", False)
@@ -874,7 +874,6 @@ def run_attacks(url, **kwargs):
     auto_start = kwargs.get("auto_start", False)
     sqlmap_arguments = kwargs.get("sqlmap_args", None)
     nmap_arguments = kwargs.get("nmap_args", None)
-    run_ip_address = kwargs.get("run_ip", False)  # TODO:/ completely remove
     show_all = kwargs.get("show_all", False)
     do_threading = kwargs.get("do_threading", False)
     batch = kwargs.get("batch", False)
@@ -890,7 +889,6 @@ def run_attacks(url, **kwargs):
         "port": nmap,
         "xss": xss,
         "admin": admin,
-        "intel": intel,  # TODO:/ completely remove
         "whois": whois,
         "clickjacking": clickjacking
     }
@@ -929,10 +927,6 @@ def run_attacks(url, **kwargs):
             return nmap_scan.perform_port_scan(
                 url_ip_address, verbose=verbose,
                 opts=create_arguments(nmap=True, nmap_args=nmap_arguments)
-            )
-        elif intel:  # TODO:/ completely remove
-            return deprecation(
-                "1.3", intel_me.main_intel_amt, connect=False
             )
         elif admin:
             main(

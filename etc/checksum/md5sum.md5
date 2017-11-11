@@ -1,4 +1,4 @@
-8bccb97e08a1bcc4790c51db3d499aa3  ./zeus.py
+9726a4e665a6a26574cac4499129c924  ./zeus.py
 4b32db388e8acda35570c734d27c950c  ./etc/scripts/launch_sqlmap.sh
 6ad5f22ec4a6f8324bfb1b01ab6d51ec  ./etc/scripts/cleanup.sh
 155c9482f690f1482f324a7ffd8b8098  ./etc/scripts/fix_pie.sh
@@ -50,8 +50,8 @@ b1c3413ca94bb98be64e1ebfedf156ae  ./lib/attacks/xss_scan/__init__.py
 21faf4679cdeaa731029a48f8963d6e7  ./lib/attacks/nmap_scan/nmap_opts.py
 1faa2b5dfad6eb538bbfe42942d2a9da  ./lib/core/errors.py
 d41d8cd98f00b204e9800998ecf8427e  ./lib/core/__init__.py
-c13c469a791a06ebab05c901f12102c6  ./lib/core/settings.py
-f2ad9e0f0177484c2ab00bbd3ee52153  ./lib/header_check/__init__.py
+26f86784a5c63bb4dfc3a3cc6b617be4  ./lib/core/settings.py
+60d6f072cc80f08e9214131dc33fe63a  ./lib/header_check/__init__.py
 d41d8cd98f00b204e9800998ecf8427e  ./var/google_search/__init__.py
 a576adcbf0c7c4e7feca1016d632e53b  ./var/google_search/search.py
 d41d8cd98f00b204e9800998ecf8427e  ./var/__init__.py

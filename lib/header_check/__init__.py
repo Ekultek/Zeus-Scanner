@@ -1,8 +1,8 @@
-import json
-
 import requests
 from xml.dom import minidom
+from requests.exceptions import ConnectionError
 
+from var.auto_issue.github import request_issue_creation
 from lib.core.settings import (
     logger, set_color,
     HEADER_XML_DATA,
@@ -11,7 +11,7 @@ from lib.core.settings import (
     write_to_log_file,
     HEADER_RESULT_PATH,
     replace_http,
-    PROTECTED
+    shutdown
 )
 
 
@@ -91,17 +91,33 @@ def main_header_check(url, **kwargs):
     logger.info(set_color(
         "attempting to get request headers for '{}'...".format(url.strip())
     ))
-    found_headers = load_headers(url, proxy=proxy, agent=agent, xforward=xforward)
-    if verbose:
-        logger.debug(set_color(
-            "fetched {}...".format(found_headers), level=10
-        ))
-    headers_established = [str(h) for h in compare_headers(found_headers, comparable_headers)]
-    for key in definition.iterkeys():
-        if any(key in h.lower() for h in headers_established):
-            logger.warning(set_color(
-                "provided target has {}...".format(definition[key][0]), level=30
+    try:
+        found_headers = load_headers(url, proxy=proxy, agent=agent, xforward=xforward)
+    except (ConnectionError, Exception) as e:
+        if "Max retries exceeded with url:" in str(e):
+            found_headers = None
+        else:
+            logger.exception(set_color(
+                "Zeus has hit an unexpected error and cannot continue '{}'...".format(e), level=50
             ))
-    for key in found_headers.iterkeys():
-        protection[key] = found_headers[key]
-    return write_to_log_file(protection, HEADER_RESULT_PATH, "{}-headers.json".format(replace_http(url)))
+            request_issue_creation()
+            shutdown()
+
+    if found_headers is not None:
+        if verbose:
+            logger.debug(set_color(
+                "fetched {}...".format(found_headers), level=10
+            ))
+        headers_established = [str(h) for h in compare_headers(found_headers, comparable_headers)]
+        for key in definition.iterkeys():
+            if any(key in h.lower() for h in headers_established):
+                logger.warning(set_color(
+                    "provided target has {}...".format(definition[key][0]), level=30
+                ))
+        for key in found_headers.iterkeys():
+            protection[key] = found_headers[key]
+        return write_to_log_file(protection, HEADER_RESULT_PATH, "{}-headers.json".format(replace_http(url)))
+    else:
+        logger.error(set_color(
+            "unable to retrieve headers for site '{}'...".format(url.strip()), level=40
+        ))

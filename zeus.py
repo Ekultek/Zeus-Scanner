@@ -75,8 +75,6 @@ if __name__ == "__main__":
                        help="Run a Sqlmap SQLi scan on the discovered URL's")
     attacks.add_option("-p", "--port-scan", dest="runPortScan", action="store_true",
                        help="Run a Nmap port scan on the discovered URL's")
-    attacks.add_option("-i", "--intel-check", dest="intelCheck", action="store_true",
-                       help=optparse.SUPPRESS_HELP)  # TODO:/ completely remove
     attacks.add_option("-a", "--admin-panel", dest="adminPanelFinder", action="store_true",
                        help="Search for the websites admin panel")
     attacks.add_option("-x", "--xss-scan", dest="runXssScan", action="store_true",
@@ -101,8 +99,6 @@ if __name__ == "__main__":
                        help="Show all connections made during the admin panel search")
     attacks.add_option("--tamper", dest="tamperXssPayloads", metavar="TAMPER-SCRIPT",
                        help="Send the XSS payloads through tampering before sending to the target")
-    attacks.add_option("--run-ip-address", dest="runAgainstIpAddress", action="store_true",
-                       help=optparse.SUPPRESS_HELP)  # TODO:/ completely remove
     attacks.add_option("--thread", dest="threadPanels", action="store_true",
                        help=optparse.SUPPRESS_HELP)
     attacks.add_option("--auto", dest="autoStartSqlmap", action="store_true",
@@ -269,9 +265,8 @@ if __name__ == "__main__":
             shutdown()
         options = [
             opt.runSqliScan, opt.runPortScan,
-            opt.intelCheck, opt.adminPanelFinder,
-            opt.runXssScan, opt.performWhoisLookup,
-            opt.performClickjackingScan
+            opt.adminPanelFinder, opt.runXssScan,
+            opt.performWhoisLookup, opt.performClickjackingScan
         ]
         if any(options):
             with open(urls_to_use) as urls:
@@ -291,18 +286,14 @@ if __name__ == "__main__":
                         run_attacks(
                             url.strip(),
                             sqlmap=opt.runSqliScan, nmap=opt.runPortScan,
-                            intel=opt.intelCheck,  # TODO:/ completely remove
-                            xss=opt.runXssScan,
-                            whois=opt.performWhoisLookup, admin=opt.adminPanelFinder,
+                            xss=opt.runXssScan, whois=opt.performWhoisLookup, admin=opt.adminPanelFinder,
                             clickjacking=opt.performClickjackingScan,
                             verbose=opt.runInVerbose, batch=opt.runInBatch,
                             auto_start=opt.autoStartSqlmap, xforward=opt.forwardedForRandomIP,
                             sqlmap_args=opt.sqlmapArguments, nmap_args=opt.nmapArguments,
-                            run_ip=opt.runAgainstIpAddress,  # TODO:/ completely remove
-                            show_all=opt.showAllConnections,
-                            do_threading=opt.threadPanels, tamper_script=opt.tamperXssPayloads,
-                            timeout=opt.controlTimeout, proxy=proxy_to_use, agent=agent_to_use,
-                            conf_file=opt.sqlmapConfigFile
+                            show_all=opt.showAllConnections, do_threading=opt.threadPanels,
+                            tamper_script=opt.tamperXssPayloads, timeout=opt.controlTimeout,
+                            proxy=proxy_to_use, agent=agent_to_use, conf_file=opt.sqlmapConfigFile
                         )
 
 
