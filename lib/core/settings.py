@@ -52,9 +52,9 @@ PATCH_ID = str(subprocess.check_output(["git", "rev-parse", "origin/master"]))[:
 CLONE = "https://github.com/ekultek/zeus-scanner.git"
 
 # current version <major.minor.commit.patch ID>
-VERSION = "1.2.3.{}".format(PATCH_ID)
-# colors to output depending on the version
+VERSION = "1.2.4".format(PATCH_ID)
 
+# colors to output depending on the version
 VERSION_TYPE_COLORS = {"dev": 33, "stable": 92, "other": 30}
 
 # version string formatting
@@ -83,6 +83,9 @@ BANNER = """\033[36m
 DEFAULT_USER_AGENT = "Zeus-Scanner/{} (Language=Python/{}; Platform={})".format(
     VERSION, sys.version.split(" ")[0], platform.platform().split("-")[0]
 )
+
+# max number of threads allowed
+MAX_THREADS = 10
 
 # path to the checksum
 CHECKSUM_PATH = "{}/etc/checksum/md5sum.md5".format(os.getcwd())
@@ -277,6 +280,9 @@ def find_running_opts(options):
 
 
 def parse_conf_file(config_path):
+    """
+    parse a sqlmap configuration file
+    """
     set_options = []
     skip_opt_schema = ("", "False", "0")
     parser = ConfigParser.ConfigParser(allow_no_value=True)
@@ -860,6 +866,37 @@ def deprecation(target_version, method, connect=True, *args, **kwargs):
         shutdown()
 
 
+def check_thread_num(number, batch=False, default=5):
+    """
+    if you specify more threads then the max number you will be prompted if not running batch
+    """
+    logger.warning(set_color(
+        "you have specified {} threads, it is highly advised to not go over {} threads, "
+        "doing so will most likely not give a significant performance increase and also "
+        "will most likely cause unforeseen issues...".format(number, MAX_THREADS), level=30
+    ))
+    question_msg = "would you like to continue anyways"
+    default_msg = "defaulting to 5 threads..."
+    if not batch:
+        question = prompt(
+            question_msg, opts="yN"
+        )
+        if question.lower().startswith("n"):
+            logger.info(set_color(
+                default_msg
+            ))
+            return default
+    else:
+        prompt(
+            question_msg, opts="yN", default="n"
+        )
+        logger.info(set_color(
+            default_msg
+        ))
+        return default
+    return number
+
+
 def run_attacks(url, **kwargs):
     """
     run the attacks if any are requested
@@ -883,6 +920,10 @@ def run_attacks(url, **kwargs):
     proxy = kwargs.get("proxy", None)
     agent = kwargs.get("agent", None)
     conf_file = kwargs.get("conf_file", None)
+    threads = kwargs.get("threads", None)
+
+    if threads > MAX_THREADS:
+        threads = check_thread_num(threads, batch=batch)
 
     __enabled_attacks = {
         "sqlmap": sqlmap,
@@ -930,14 +971,14 @@ def run_attacks(url, **kwargs):
             )
         elif admin:
             main(
-                url, show=show_all,
+                url, show=show_all, proc_num=threads,
                 verbose=verbose, do_threading=do_threading, batch=batch
             )
         elif xss:
             if check_for_protection(PROTECTED, "xss"):
                 main_xss(
                     url, verbose=verbose, proxy=proxy,
-                    agent=agent, tamper=tamper_script, batch=batch
+                    agent=agent, tamper=tamper_script, batch=batch,
                 )
         elif whois:
             whois_lookup_main(

@@ -100,7 +100,7 @@ if __name__ == "__main__":
     attacks.add_option("--tamper", dest="tamperXssPayloads", metavar="TAMPER-SCRIPT",
                        help="Send the XSS payloads through tampering before sending to the target")
     attacks.add_option("--thread", dest="threadPanels", action="store_true",
-                       help=optparse.SUPPRESS_HELP)
+                       help="Run multiple threads on functions that support multi-threading")
     attacks.add_option("--auto", dest="autoStartSqlmap", action="store_true",
                        help="Automatically start the sqlmap API (or at least try to)")
 
@@ -159,6 +159,8 @@ if __name__ == "__main__":
                     help="Hide the banner during running")
     misc.add_option("--version", dest="showCurrentVersion", action="store_true",
                     help="Show the current version and exit")
+    misc.add_option("-T", "--x-threads", dest="amountOfThreads", metavar="THREAD-AMOUNT", type=int,
+                    help="Specify how many threads you want to pass")
 
     parser.add_option_group(mandatory)
     parser.add_option_group(attacks)
@@ -293,7 +295,8 @@ if __name__ == "__main__":
                             sqlmap_args=opt.sqlmapArguments, nmap_args=opt.nmapArguments,
                             show_all=opt.showAllConnections, do_threading=opt.threadPanels,
                             tamper_script=opt.tamperXssPayloads, timeout=opt.controlTimeout,
-                            proxy=proxy_to_use, agent=agent_to_use, conf_file=opt.sqlmapConfigFile
+                            proxy=proxy_to_use, agent=agent_to_use, conf_file=opt.sqlmapConfigFile,
+                            threads=opt.amountOfThreads
                         )
 
 

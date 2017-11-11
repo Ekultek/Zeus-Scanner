@@ -1,5 +1,5 @@
 import os
-import multiprocessing
+import threading
 
 try:                 # Python 2
     from urllib.request import urlopen
@@ -183,7 +183,7 @@ def main(url, show=False, verbose=False, **kwargs):
     main method to be called
     """
     do_threading = kwargs.get("do_threading", False)
-    proc_num = kwargs.get("proc_num", 3)
+    proc_num = kwargs.get("proc_num", 5)
     batch = kwargs.get("batch", False)
     lib.core.settings.logger.info(lib.core.settings.set_color(
         "parsing robots.txt..."
@@ -210,18 +210,19 @@ def main(url, show=False, verbose=False, **kwargs):
     ))
     if do_threading:
         lib.core.settings.logger.warning(lib.core.settings.set_color(
-            "starting parallel processing with {} processes, this "
-            "will depend on your GPU speed...".format(proc_num), level=30
+            "starting {} threads, you will not be able to end the process until "
+            "it is completed...".format(proc_num), level=30
         ))
         tasks = []
         for _ in range(0, proc_num):
-            p = multiprocessing.Process(target=check_for_admin_page, args=(url, extensions), kwargs={
-                "show_possibles": show,
-                "verbose": verbose
+            t = threading.Thread(target=check_for_admin_page, args=(url, extensions), kwargs={
+                "verbose": verbose,
+                "show_possibles": show
             })
-            p.start()
-            tasks.append(p)
-        for proc in tasks:
-            proc.join()
+            t.daemon = True
+            tasks.append(t)
+        for thread in tasks:
+            thread.start()
+            thread.join()
     else:
         check_for_admin_page(url, extensions, show_possibles=show, verbose=verbose)
