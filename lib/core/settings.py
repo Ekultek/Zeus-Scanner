@@ -52,7 +52,7 @@ PATCH_ID = str(subprocess.check_output(["git", "rev-parse", "origin/master"]))[:
 CLONE = "https://github.com/ekultek/zeus-scanner.git"
 
 # current version <major.minor.commit.patch ID>
-VERSION = "1.2.5".format(PATCH_ID)
+VERSION = "1.2.6".format(PATCH_ID)
 
 # colors to output depending on the version
 VERSION_TYPE_COLORS = {"dev": 33, "stable": 92, "other": 30}
@@ -155,6 +155,9 @@ PORT_SCAN_LOG_PATH = "{}/log/scanner-log".format(os.getcwd())
 
 # blackwidow log path
 SPIDER_LOG_PATH = "{}/log/blackwidow-log".format(os.getcwd())
+
+# cookies log path
+COOKIE_LOG_PATH = "{}/log/cookies".format(os.getcwd())
 
 # the current log file being used
 CURRENT_LOG_FILE_PATH = "{}/log".format(os.getcwd())

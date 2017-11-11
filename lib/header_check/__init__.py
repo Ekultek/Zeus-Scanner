@@ -11,7 +11,8 @@ from lib.core.settings import (
     write_to_log_file,
     HEADER_RESULT_PATH,
     replace_http,
-    shutdown
+    shutdown,
+    COOKIE_LOG_PATH
 )
 
 
@@ -52,6 +53,22 @@ def load_headers(url, **kwargs):
             )
         }
     req = requests.get(url, params=header_value, proxies=proxy)
+    if len(req.cookies) > 0:
+        logger.info(set_color(
+            "found a request cookie, saving to file...", level=25
+        ))
+        try:
+            cookie_start = req.cookies.keys()
+            cookie_value = req.cookies.values()
+            write_to_log_file(
+                "{}={}".format(''.join(cookie_start), ''.join(cookie_value)),
+                COOKIE_LOG_PATH, "{}-cookie.log".format(replace_http(url))
+            )
+        except Exception:
+            write_to_log_file(
+                [c for c in req.cookies.itervalues()], COOKIE_LOG_PATH,
+                "{}-cookie.log".format(replace_http(url))
+            )
     return req.headers
 
 

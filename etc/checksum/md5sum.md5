@@ -50,8 +50,8 @@ d8fab18b15d1546f6585fe926c27868f  ./lib/attacks/whois_lookup/whois.py
 21faf4679cdeaa731029a48f8963d6e7  ./lib/attacks/nmap_scan/nmap_opts.py
 1faa2b5dfad6eb538bbfe42942d2a9da  ./lib/core/errors.py
 d41d8cd98f00b204e9800998ecf8427e  ./lib/core/__init__.py
-d7882d1d6002eef2667d10ced8e5e4f4  ./lib/core/settings.py
-60d6f072cc80f08e9214131dc33fe63a  ./lib/header_check/__init__.py
+7dfba7fabe755c6d9946097b41426458  ./lib/core/settings.py
+ad6622a5170e4ec74b5172f12ddcba9f  ./lib/header_check/__init__.py
 d41d8cd98f00b204e9800998ecf8427e  ./var/google_search/__init__.py
 049b8a1cc93dc44b12dd93efdf785412  ./var/google_search/search.py
 d41d8cd98f00b204e9800998ecf8427e  ./var/__init__.py
