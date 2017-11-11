@@ -9,7 +9,7 @@ bin/__pycache__/
 lib/__pycache__/
 lib/attacks/__pycache__/
 lib/attacks/admin_panel_finder/__pycache__/
-lib/attacks/intel_me/__pycache__/
+etc/deprecated/intel_me/__pycache__/
 lib/attacks/nmap_scan/__pycache__/
 lib/attacks/sqlmap_scan/__pycache__/
 lib/attacks/whois_lookup/__pycache__/
