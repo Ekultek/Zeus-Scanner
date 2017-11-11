@@ -52,7 +52,7 @@ PATCH_ID = str(subprocess.check_output(["git", "rev-parse", "origin/master"]))[:
 CLONE = "https://github.com/ekultek/zeus-scanner.git"
 
 # current version <major.minor.commit.patch ID>
-VERSION = "1.2.4".format(PATCH_ID)
+VERSION = "1.2.5".format(PATCH_ID)
 
 # colors to output depending on the version
 VERSION_TYPE_COLORS = {"dev": 33, "stable": 92, "other": 30}
@@ -86,6 +86,9 @@ DEFAULT_USER_AGENT = "Zeus-Scanner/{} (Language=Python/{}; Platform={})".format(
 
 # max number of threads allowed
 MAX_THREADS = 10
+
+# max amount of pages to search
+MAX_PAGE_NUMBER = 500
 
 # path to the checksum
 CHECKSUM_PATH = "{}/etc/checksum/md5sum.md5".format(os.getcwd())
@@ -176,7 +179,8 @@ AUTHORIZED_SEARCH_ENGINES = {
     "aol": "http://aol.com",
     "bing": "http://bing.com",
     "duckduckgo": "http://duckduckgo.com/html",
-    "google": "http://google.com"
+    "google": "http://google.com",
+    "search-results": "http://www1.search-results.com/web?tpr={}&q={}&page={}"
 }
 
 # extensions to exclude from the spider
@@ -205,7 +209,7 @@ URL_EXCLUDES = (
     "www.google", "mail.google", "accounts.google",
     "schema.org", "www.<b", "https://cid-", "https://<strong",  # these are some weird things that get pulled up?
     "plus.google", "www.w3.org", "schemas.live.com",
-    "torproject.org"
+    "torproject.org", "search-results.com"
 )
 
 # regular expressions used for DBMS recognition based on error message response

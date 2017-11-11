@@ -14,8 +14,7 @@ except ImportError:
     )
 
 import requests
-import httplib2
-import google as google_api
+from bs4 import BeautifulSoup
 from selenium import webdriver
 from pyvirtualdisplay import Display
 from selenium.webdriver.common.keys import Keys
@@ -36,14 +35,15 @@ from lib.core.settings import (
     shutdown,
     URL_LOG_PATH,
     write_to_log_file,
-    get_proxy_type,
     prompt,
     EXTRACTED_URL_LOG,
     URL_EXCLUDES,
     CLEANUP_TOOL_PATH,
     FIX_PROGRAM_INSTALL_PATH,
     create_random_ip,
-    rewrite_all_paths
+    rewrite_all_paths,
+    AUTHORIZED_SEARCH_ENGINES,
+    MAX_PAGE_NUMBER
 )
 
 try:
@@ -230,7 +230,7 @@ def get_urls(query, url, verbose=False, warning=True, **kwargs):
         ))
     search = browser.find_element_by_name('q')
     logger.info(set_color(
-        "searching '{}' using query '{}'...".format(url, query)
+        "searching search engine using query '{}'...".format(url, query)
     ))
     try:
         search.send_keys(query)
@@ -541,71 +541,84 @@ def parse_search_results(query, url_to_search, verbose=False, **kwargs):
 
 
 def search_multiple_pages(query, link_amount, verbose=False, **kwargs):
-    def __config_proxy(proxy_string):
-        proxy_type_schema = {
-            "http": httplib2.socks.PROXY_TYPE_HTTP,
-            "socks4": httplib2.socks.PROXY_TYPE_SOCKS4,
-            "socks5": httplib2.socks.PROXY_TYPE_SOCKS5
-        }
-        proxy_type = get_proxy_type(proxy_string)[0]
-        proxy_dict = proxy_string_to_dict(proxy_string)
-        proxy_config = httplib2.ProxyInfo(
-            proxy_type=proxy_type_schema[proxy_type],
-            proxy_host="".join(proxy_dict.keys()),
-            proxy_port="".join(proxy_dict.values())
-        )
-        return proxy_config
-
-    proxy, agent = kwargs.get("proxy", None), kwargs.get("agent", None)
-
-    if proxy is not None:
-        if verbose:
-            logger.debug(set_color(
-                "configuring to use proxy '{}'...".format(proxy), level=10
-            ))
-        __config_proxy(proxy)
-
-    if agent is not None:
-        if verbose:
-            logger.debug(set_color(
-                "settings user-agent to '{}'...".format(agent), level=10
-            ))
+    """
+    search multiple pages for a lot of links, this will not be done via Google
+    """
+    proxy = kwargs.get("proxy", None)
+    agent = kwargs.get("agent", None)
+    xforward = kwargs.get("xforward", False)
+    attrib, desc = "a", "href"
+    retval = set()
+    search_engine = AUTHORIZED_SEARCH_ENGINES["search-results"]
 
     logger.warning(set_color(
-        "multiple pages will be searched using Google's API client, searches may be blocked after a certain "
-        "amount of time...", level=30
+        "searching multiple pages will not be done on Google...".format(search_engine), level=30
     ))
-    results, limit, found, index = set(), link_amount, 0, google_api.search(query, user_agent=agent)
-    try:
-        while limit > 0:
-            results.add(next(index))
-            limit -= 1
-            found += 1
-    except Exception as e:
-        if "Error 503" in str(e):
-            logger.fatal(set_color(
-                "Google is blocking the current IP address, dumping already found URL's...", level=50
-            ))
-            results = results
-            pass
 
-    retval = set()
-    for url in results:
-        if URL_REGEX.match(url) and URL_QUERY_REGEX.match(url):
+    if not xforward:
+        params = {
+            "Connection": "close",
+            "user-agent": agent
+        }
+    else:
+        ip_list = (create_random_ip(), create_random_ip(), create_random_ip())
+        params = {
+            "Connection": "close",
+            "user-agent": agent,
+            "X-Forwarded-For": "{}, {}, {}".format(ip_list[0], ip_list[1], ip_list[2])
+        }
+
+    page_number = 1
+    try:
+        while len(retval) <= link_amount:
             if verbose:
                 logger.debug(set_color(
-                    "found '{}'...".format(url), level=10
+                    "searching page number {}...".format(page_number), level=10
                 ))
-            retval.add(url)
-
-    if len(retval) != 0:
-        logger.info(set_color(
-            "a total of {} links found out of requested {}...".format(
-                len(retval), link_amount
+            if page_number % 10 == 0:
+                logger.info(set_color(
+                    "currently on page {} of search results...".format(
+                        page_number
+                    )
+            ))
+            page_request = requests.get(
+                search_engine.format(page_number, query, page_number), params=params,
+                proxies=proxy_string_to_dict(proxy)
             )
-        ))
-        write_to_log_file(list(retval), URL_LOG_PATH, "url-log-{}.log")
-    else:
+            if page_request.status_code == 200:
+                html_page = page_request.content
+                soup = BeautifulSoup(html_page, "html.parser")
+                for link in soup.findAll(attrib):
+                    redirect = link.get(desc)
+                    if redirect is not None:
+                        if not any(ex in redirect for ex in URL_EXCLUDES):
+                            if URL_REGEX.match(redirect):
+                                retval.add(redirect)
+                if page_number < MAX_PAGE_NUMBER:
+                    page_number += 1
+                else:
+                    logger.warning(set_color(
+                        "hit max page number {}...".format(MAX_PAGE_NUMBER), level=30
+                    ))
+                    break
+    except KeyboardInterrupt:
         logger.error(set_color(
-            "unable to extract URL's from results...", level=40
+            "user aborted, dumping already found URL(s)...", level=40
         ))
+        write_to_log_file(retval, URL_LOG_PATH, "url-log-{}.log")
+        logger.info(set_color(
+            "found a total of {} URL(s)...".format(len(retval)), level=25
+        ))
+        shutdown()
+    except Exception as e:
+        logger.exception(set_color(
+            "Zeus ran into an unexpected error '{}'...".format(e), level=50
+        ))
+        request_issue_creation()
+        shutdown()
+
+    logger.info(set_color(
+        "a total of {} URL(s) found out of the requested {}...".format(len(retval), link_amount), level=25
+    ))
+    write_to_log_file(retval, URL_LOG_PATH, "url-log-{}.log")
+    return list(retval) if len(retval) != 0 else None

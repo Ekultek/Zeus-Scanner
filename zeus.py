@@ -340,17 +340,21 @@ if __name__ == "__main__":
         # search multiple pages of Google
         elif opt.dorkToUse is not None and opt.searchMultiplePages:
             if opt.amountToSearch is None:
-                logger.fatal(set_color(
-                    "did not specify amount of links to find...", level=50
+                logger.warning(set_color(
+                    "did not specify amount of links to find defaulting to 40...", level=30
                 ))
-                shutdown()
-            link_amount_to_search = opt.amountToSearch
+                link_amount_to_search = 40
+            else:
+                link_amount_to_search = opt.amountToSearch
+
             logger.info(set_color(
-                "searching Google using dork '{}' for a total of {} links...".format(opt.dorkToUse, opt.amountToSearch)
+                "searching Google using dork '{}' for a total of {} links...".format(opt.dorkToUse, link_amount_to_search)
             ))
             try:
-                search.search_multiple_pages(opt.dorkToUse, link_amount_to_search, proxy=proxy_to_use,
-                                             agent=agent_to_use, verbose=opt.runInVerbose)
+                search.search_multiple_pages(
+                    opt.dorkToUse, link_amount_to_search, proxy=proxy_to_use,
+                    agent=agent_to_use, verbose=opt.runInVerbose, xforward=opt.forwardedForRandomIP
+                )
             except Exception as e:
                 if "Error 400" in str(e):
                     logger.fatal(set_color(
