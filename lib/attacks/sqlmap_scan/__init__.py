@@ -150,17 +150,6 @@ def sqlmap_scan_main(url, port=None, verbose=None, opts=None, auto_start=False):
     the main function that will be called and initialize everything
     """
 
-    def ___dict_args():
-        """
-        create argument tuples for the sqlmap arguments passed by the user
-        """
-        # create the dict to pass to the sqlmap hook
-        # basically it will just take the key and value
-        # for the argument tuples and create a dictionary
-        # out of them.
-        # IE ('level', '5') -> {'level': '5'}
-        return {key: value for key, value in opts}
-
     is_started = lib.core.settings.search_for_process("sqlmapapi.py")
     found_path = find_sqlmap()
 
@@ -212,7 +201,7 @@ def sqlmap_scan_main(url, port=None, verbose=None, opts=None, auto_start=False):
         if opts:
             if verbose:
                 lib.core.settings.logger.debug(lib.core.settings.set_color(
-                    "using arguments: '{}'...".format(___dict_args()), level=10
+                    "using arguments: '{}'...".format(opts), level=10
                 ))
             lib.core.settings.logger.info(lib.core.settings.set_color(
                 "adding arguments to sqlmap API..."

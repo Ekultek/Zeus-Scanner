@@ -162,7 +162,7 @@ def check_for_admin_page(url, exts, protocol="http://", **kwargs):
                 "admin page".format(url), level=50
             ))
     lib.core.settings.logger.warning(lib.core.settings.set_color(
-        "only writing successful connections to log file..."
+        "only writing successful connections to log file...", level=30
     ))
     lib.core.settings.write_to_log_file(list(connections), lib.core.settings.ADMIN_PAGE_FILE_PATH, "{}-admin-page.log".format(
         lib.core.settings.replace_http(url)
