@@ -43,7 +43,8 @@ from lib.core.settings import (
     create_random_ip,
     rewrite_all_paths,
     AUTHORIZED_SEARCH_ENGINES,
-    MAX_PAGE_NUMBER
+    MAX_PAGE_NUMBER,
+    NO_RESULTS_REGEX
 )
 
 try:
@@ -588,17 +589,23 @@ def search_multiple_pages(query, link_amount, verbose=False, **kwargs):
             if page_request.status_code == 200:
                 html_page = page_request.content
                 soup = BeautifulSoup(html_page, "html.parser")
-                for link in soup.findAll(attrib):
-                    redirect = link.get(desc)
-                    if redirect is not None:
-                        if not any(ex in redirect for ex in URL_EXCLUDES):
-                            if URL_REGEX.match(redirect):
-                                retval.add(redirect)
-                if page_number < MAX_PAGE_NUMBER:
-                    page_number += 1
+                if not NO_RESULTS_REGEX.findall(str(soup)):
+                    for link in soup.findAll(attrib):
+                        redirect = link.get(desc)
+                        if redirect is not None:
+                            if not any(ex in redirect for ex in URL_EXCLUDES):
+                                if URL_REGEX.match(redirect):
+                                    retval.add(redirect)
+                    if page_number < MAX_PAGE_NUMBER:
+                        page_number += 1
+                    else:
+                        logger.warning(set_color(
+                            "hit max page number {}...".format(MAX_PAGE_NUMBER), level=30
+                        ))
+                        break
                 else:
                     logger.warning(set_color(
-                        "hit max page number {}...".format(MAX_PAGE_NUMBER), level=30
+                        "no more results found for given query '{}'...".format(query), level=30
                     ))
                     break
     except KeyboardInterrupt:

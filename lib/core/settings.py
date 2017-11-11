@@ -52,7 +52,7 @@ PATCH_ID = str(subprocess.check_output(["git", "rev-parse", "origin/master"]))[:
 CLONE = "https://github.com/ekultek/zeus-scanner.git"
 
 # current version <major.minor.commit.patch ID>
-VERSION = "1.2.6".format(PATCH_ID)
+VERSION = "1.2.7.{}".format(PATCH_ID)
 
 # colors to output depending on the version
 VERSION_TYPE_COLORS = {"dev": 33, "stable": 92, "other": 30}
@@ -176,6 +176,9 @@ URL_QUERY_REGEX = re.compile(r"(.*)[?|#](.*){1}\=(.*)")
 
 # regex to recognize a URL
 URL_REGEX = re.compile(r"((https?):((//)|(\\\\))+([\w\d:#@%/;$()~_?\+-=\\\.&](#!)?)*)")
+
+# regex to discover if there are any results on the page
+NO_RESULTS_REGEX = re.compile("did not match with any results.", re.IGNORECASE)
 
 # search engines that the application can use
 AUTHORIZED_SEARCH_ENGINES = {
