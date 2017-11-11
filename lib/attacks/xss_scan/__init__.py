@@ -1,11 +1,12 @@
 import os
 import re
+import threading
+import tempfile
+import importlib
 try:
     import urlparse  # python 2
 except ImportError:
     import urllib.parse as urlparse  # python 3
-import tempfile
-import importlib
 
 import requests
 
@@ -113,10 +114,14 @@ def scan_xss(url, agent=None, proxy=None):
     return False, None
 
 
-def main_xss(start_url, verbose=False, proxy=None, agent=None, tamper=None, batch=False):
+def main_xss(start_url, proxy=None, agent=None, **kwargs):
     """
     main attack method to be called
     """
+    batch = kwargs.get("batch", False)
+    tamper = kwargs.get("tamper", None)
+    verbose = kwargs.get("verbose", False)
+
     if tamper:
         lib.core.settings.logger.info(lib.core.settings.set_color(
             "tampering payloads with '{}'...".format(tamper)
