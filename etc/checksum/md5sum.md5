@@ -57,10 +57,10 @@ b50e4b7fb9fdef374c00b7ab0ef913e9  ./lib/attacks/xss_scan/__init__.py
 21faf4679cdeaa731029a48f8963d6e7  ./lib/attacks/nmap_scan/nmap_opts.py
 1faa2b5dfad6eb538bbfe42942d2a9da  ./lib/core/errors.py
 d41d8cd98f00b204e9800998ecf8427e  ./lib/core/__init__.py
-bb55719f0ac5853a4bef43a76378348f  ./lib/core/settings.py
+7d0c06f6bcbc8a9e024e433a94426913  ./lib/core/settings.py
 e25de81c51e5572d29e3e161dd35f41d  ./lib/header_check/__init__.py
 d41d8cd98f00b204e9800998ecf8427e  ./var/google_search/__init__.py
-670fb7fa0c618ce9712e0f73f7752925  ./var/google_search/search.py
+2a7c4285914548b86593e6e000bdab32  ./var/google_search/search.py
 d41d8cd98f00b204e9800998ecf8427e  ./var/__init__.py
 d41d8cd98f00b204e9800998ecf8427e  ./var/auto_issue/__init__.py
 dadca85c232153021ba9ff253d8ee1d9  ./var/auto_issue/github.py

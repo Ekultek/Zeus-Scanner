@@ -14,6 +14,7 @@ except ImportError:
     )
 
 import requests
+import whichcraft
 from bs4 import BeautifulSoup
 from selenium import webdriver
 from pyvirtualdisplay import Display
@@ -212,16 +213,24 @@ def get_urls(query, url, verbose=False, warning=True, **kwargs):
     else:
         proxy_to_use = None
 
-    profile = webdriver.FirefoxProfile()
-    if not tor:
-        profile.set_preference("general.useragent.override", user_agent)
-        browser = webdriver.Firefox(profile, proxy=proxy_to_use)
-    else:
-        logger.info(set_color(
-            "setting tor browser settings..."
-        ))
-        profile = set_tor_browser_settings(profile, verbose=verbose, agent=user_agent, port=tor_port)
-        browser = webdriver.Firefox(profile)
+    try:
+        profile = webdriver.FirefoxProfile()
+        if not tor:
+            profile.set_preference("general.useragent.override", user_agent)
+            browser = webdriver.Firefox(profile, proxy=proxy_to_use)
+        else:
+            logger.info(set_color(
+                "setting tor browser settings..."
+            ))
+            profile = set_tor_browser_settings(profile, verbose=verbose, agent=user_agent, port=tor_port)
+            browser = webdriver.Firefox(profile)
+    except OSError:
+        if not tor:
+            profile.set_preference("general.useragent.override", user_agent)
+            browser = webdriver.Firefox(profile, proxy=proxy_to_use, executable_path=whichcraft.which("geckodriver"))
+        else:
+            profile = set_tor_browser_settings(profile, verbose=verbose, agent=user_agent, port=tor_port)
+            browser = webdriver.Firefox(profile, executable_path=whichcraft.which("geckodriver"))
 
     logger.info(set_color("browser will open shortly..."))
     browser.get(url)
