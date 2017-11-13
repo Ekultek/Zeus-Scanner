@@ -5,6 +5,7 @@ import io
 import time
 import shlex
 import optparse
+import warnings
 import subprocess
 try:
     import http.client as http_client  # Python 3
@@ -47,6 +48,9 @@ from lib.core.settings import (
     run_attacks,
 )
 
+warnings.filterwarnings(action="ignore", category=FutureWarning)
+warnings.filterwarnings(action="ignore", category=DeprecationWarning)
+warnings.filterwarnings(action="ignore", category=PendingDeprecationWarning)
 
 if __name__ == "__main__":
 
@@ -272,12 +276,19 @@ if __name__ == "__main__":
         ]
         if any(options):
             with open(urls_to_use) as urls:
-                for url in urls.readlines():
+                for i, url in enumerate(urls.readlines(), start=1):
+                    current = i
                     if "webcache" in url:
                         logger.warning(set_color(
                             "ran into unexpected webcache URL skipping...", level=30
                         ))
+                        current -= 1
                     else:
+                        logger.info(set_color(
+                            "currently running on '{}' (target #{})...".format(
+                                url.strip(), current
+                            ), level=25
+                        ))
                         logger.info(set_color(
                             "checking URL headers..."
                         ))
@@ -298,6 +309,7 @@ if __name__ == "__main__":
                             proxy=proxy_to_use, agent=agent_to_use, conf_file=opt.sqlmapConfigFile,
                             threads=opt.amountOfThreads
                         )
+                        print("\n")
 
 
     proxy_to_use, agent_to_use = config_headers(
