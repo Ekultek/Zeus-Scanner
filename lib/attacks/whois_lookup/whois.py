@@ -101,7 +101,13 @@ def whois_lookup_main(domain, **kwargs):
     ))
     if timeout is not None:
         time.sleep(timeout)
-    raw_information = gather_raw_whois_info(domain)
+    try:
+        raw_information = gather_raw_whois_info(domain)
+    except Exception:
+        lib.core.settings.logger.error(lib.core.settings.set_color(
+            "unable to produce information from WhoIs lookup...", level=40
+        ))
+        return None
     lib.core.settings.logger.info(lib.core.settings.set_color(
         "discovered raw information...", level=25
     ))
@@ -113,9 +119,10 @@ def whois_lookup_main(domain, **kwargs):
         try:
             human_readable_display(domain, interesting_data)
         except (ValueError, Exception):
-            lib.core.settings.logger.fatal(lib.core.settings.set_color(
+            lib.core.settings.logger.error(lib.core.settings.set_color(
                 "unable to display any information from WhoIs lookup on domain '{}'...".format(domain), level=50
             ))
+            return None
     lib.core.settings.write_to_log_file(
         raw_information, lib.core.settings.WHOIS_RESULTS_LOG_PATH,
         "{}-whois.json".format(domain)
