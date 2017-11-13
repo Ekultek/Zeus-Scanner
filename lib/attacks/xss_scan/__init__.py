@@ -1,6 +1,5 @@
 import os
 import re
-import threading
 import tempfile
 import importlib
 try:
@@ -118,9 +117,9 @@ def main_xss(start_url, proxy=None, agent=None, **kwargs):
     """
     main attack method to be called
     """
-    batch = kwargs.get("batch", False)
     tamper = kwargs.get("tamper", None)
     verbose = kwargs.get("verbose", False)
+    batch = kwargs.get("batch", False)
 
     if tamper:
         lib.core.settings.logger.info(lib.core.settings.set_color(

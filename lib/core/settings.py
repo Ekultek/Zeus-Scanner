@@ -47,12 +47,15 @@ except NameError:
 # get the master patch ID when a patch is pushed to the program
 
 PATCH_ID = str(subprocess.check_output(["git", "rev-parse", "origin/master"]))[:6]
-# clone link
 
+# clone link
 CLONE = "https://github.com/ekultek/zeus-scanner.git"
 
+# issue link
+ISSUE_LINK = "https://github.com/ekultek/zeus-scanner/issues"
+
 # current version <major.minor.commit.patch ID>
-VERSION = "1.2.7.{}".format(PATCH_ID)
+VERSION = "1.2.8".format(PATCH_ID)
 
 # colors to output depending on the version
 VERSION_TYPE_COLORS = {"dev": 33, "stable": 92, "other": 30}
@@ -159,6 +162,9 @@ SPIDER_LOG_PATH = "{}/log/blackwidow-log".format(os.getcwd())
 # cookies log path
 COOKIE_LOG_PATH = "{}/log/cookies".format(os.getcwd())
 
+# unknown firewall log path
+UNKNOWN_FIREWALL_FINGERPRINT_PATH = "{}/log/unknown-firewall".format(os.getcwd())
+
 # the current log file being used
 CURRENT_LOG_FILE_PATH = "{}/log".format(os.getcwd())
 
@@ -179,6 +185,16 @@ URL_REGEX = re.compile(r"((https?):((//)|(\\\\))+([\w\d:#@%/;$()~_?\+-=\\\.&](#!
 
 # regex to discover if there are any results on the page
 NO_RESULTS_REGEX = re.compile("did not match with any results.", re.IGNORECASE)
+
+# WAF/IDS/IPS checking payload
+PROTECTION_CHECK_PAYLOAD = (
+    "AND 1=1 UNION ALL SELECT 1,NULL,'<script>alert(\"XSS\")</script>',"
+    "table_name FROM information_schema.tables WHERE 2>1--/**/; EXEC "
+    "xp_cmdshell('cat ../../../etc/passwd')#"
+)
+
+# scripts to detect the WAF/IDS/IPS
+DETECT_FIREWALL_PATH = "{}/lib/firewall".format(os.getcwd())
 
 # search engines that the application can use
 AUTHORIZED_SEARCH_ENGINES = {
@@ -215,7 +231,7 @@ URL_EXCLUDES = (
     "www.google", "mail.google", "accounts.google",
     "schema.org", "www.<b", "https://cid-", "https://<strong",  # these are some weird things that get pulled up?
     "plus.google", "www.w3.org", "schemas.live.com",
-    "torproject.org", "search-results.com"
+    "torproject.org", "search-results.com", "index.com"
 )
 
 # regular expressions used for DBMS recognition based on error message response
