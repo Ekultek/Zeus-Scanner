@@ -348,21 +348,38 @@ if __name__ == "__main__":
             __run_attacks_main()
 
         # search multiple pages of Google
-        elif opt.dorkToUse is not None and opt.searchMultiplePages:
+        elif opt.dorkToUse is not None or opt.useRandomDork and opt.searchMultiplePages:
+            if opt.dorkToUse is not None:
+                dork_to_use = opt.dorkToUse
+            elif opt.useRandomDork:
+                dork_to_use = get_random_dork()
+            else:
+                dork_to_use = None
+
+            if dork_to_use is None:
+                logger.warning(set_color(
+                    "there has been no dork to specified to do the searching, defaulting to random dork...", level=30
+                ))
+                dork_to_use = get_random_dork()
+
+            dork_to_use = dork_to_use.strip()
+
             if opt.amountToSearch is None:
                 logger.warning(set_color(
-                    "did not specify amount of links to find defaulting to 40...", level=30
+                    "did not specify amount of links to find defaulting to 75...", level=30
                 ))
-                link_amount_to_search = 40
+                link_amount_to_search = 75
             else:
                 link_amount_to_search = opt.amountToSearch
 
             logger.info(set_color(
-                "searching Google using dork '{}' for a total of {} links...".format(opt.dorkToUse, link_amount_to_search)
+                "searching Google using dork '{}' for a total of {} links...".format(
+                    dork_to_use, link_amount_to_search
+                )
             ))
             try:
                 search.search_multiple_pages(
-                    opt.dorkToUse, link_amount_to_search, proxy=proxy_to_use,
+                    dork_to_use, link_amount_to_search, proxy=proxy_to_use,
                     agent=agent_to_use, verbose=opt.runInVerbose, xforward=opt.forwardedForRandomIP
                 )
             except Exception as e:
