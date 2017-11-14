@@ -67,9 +67,12 @@ def detect_protection(url, **kwargs):
                         "it appears that the WAF/IDS/IPS check threw a DBMS error and may be vulnerable "
                         "to SQL injection attacks. it appears the backend DBMS is '{}'...".format(dbms), level=25
                     ))
+                    return None
 
         retval = []
         if status != 200 and "not found" not in html.lower():
+            if "Apache" in headers["Server"] and "you don't have permission" in html.lower():
+                return None
             file_list = [f for f in os.listdir(DETECT_FIREWALL_PATH) if not any(ex in f for ex in ["__init__", ".pyc"])]
             for item in file_list:
                 item = item[:-3]
