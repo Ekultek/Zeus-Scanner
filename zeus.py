@@ -380,7 +380,8 @@ if __name__ == "__main__":
             try:
                 search.search_multiple_pages(
                     dork_to_use, link_amount_to_search, proxy=proxy_to_use,
-                    agent=agent_to_use, verbose=opt.runInVerbose, xforward=opt.forwardedForRandomIP
+                    agent=agent_to_use, verbose=opt.runInVerbose,
+                    xforward=opt.forwardedForRandomIP, batch=opt.runInBatch
                 )
             except Exception as e:
                 if "Error 400" in str(e):

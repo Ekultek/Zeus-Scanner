@@ -566,6 +566,7 @@ def search_multiple_pages(query, link_amount, verbose=False, **kwargs):
     proxy = kwargs.get("proxy", None)
     agent = kwargs.get("agent", None)
     xforward = kwargs.get("xforward", False)
+    batch = kwargs.get("batch", False)
     attrib, desc = "a", "href"
     retval = set()
     search_engine = AUTHORIZED_SEARCH_ENGINES["search-results"]
@@ -573,6 +574,9 @@ def search_multiple_pages(query, link_amount, verbose=False, **kwargs):
     logger.warning(set_color(
         "searching multiple pages will not be done on Google...".format(search_engine), level=30
     ))
+
+    if not parse_blacklist(query, BLACKLIST_FILE_PATH, batch=batch):
+        shutdown()
 
     if not xforward:
         params = {
