@@ -31,13 +31,22 @@ def __tamper_payload(payload, tamper_type, warning=True, **kwargs):
     """
     add the tamper to the payload from the given tamper type
     """
+    verbose = kwargs.get("verbose", False)
     acceptable = list_tamper_scripts()
-    if tamper_type in acceptable:
-        tamper_name = "lib.tamper_scripts.{}_encode"
-        tamper_script = importlib.import_module(tamper_name.format(tamper_type))
-        return tamper_script.tamper(payload, warning=warning)
-    else:
-        raise InvalidTamperProvided()
+    tamper_list = tamper_type.split(",")
+    for tamper in tamper_list:
+        if warning:
+            if verbose:
+                lib.core.settings.logger.debug(lib.core.settings.set_color(
+                    "tampering payload with '{}'...".format(tamper), level=10
+                ))
+        if tamper in acceptable:
+            tamper_name = "lib.tamper_scripts.{}_encode"
+            tamper_script = importlib.import_module(tamper_name.format(tamper))
+            payload = tamper_script.tamper(payload, warning=warning)
+        else:
+            raise InvalidTamperProvided()
+    return payload
 
 
 def __load_payloads(filename="{}/etc/text_files/xss_payloads.txt"):
@@ -47,7 +56,7 @@ def __load_payloads(filename="{}/etc/text_files/xss_payloads.txt"):
     with open(filename.format(os.getcwd())) as payloads: return payloads.readlines()
 
 
-def create_urls(url, payload_list, tamper=None):
+def create_urls(url, payload_list, tamper=None, verbose=False):
     """
     create the tampered URL's, write them to a temporary file and read them from there
     """
@@ -58,9 +67,9 @@ def create_urls(url, payload_list, tamper=None):
             if tamper:
                 try:
                     if i < 1:
-                        payload = __tamper_payload(payload, tamper_type=tamper, warning=True)
+                        payload = __tamper_payload(payload, tamper_type=tamper, warning=True, verbose=verbose)
                     else:
-                        payload = __tamper_payload(payload, tamper_type=tamper, warning=False)
+                        payload = __tamper_payload(payload, tamper_type=tamper, warning=False, verbose=verbose)
                 except InvalidTamperProvided:
                     lib.core.settings.logger.error(lib.core.settings.set_color(
                         "you provided and invalid tamper script, acceptable tamper scripts are: {}...".format(
@@ -102,14 +111,16 @@ def scan_xss(url, agent=None, proxy=None):
     config_proxy = lib.core.settings.proxy_string_to_dict(proxy)
     config_headers = {"connection": "close", "user-agent": user_agent}
     xss_request = requests.get(url, proxies=config_proxy, headers=config_headers)
+    status = xss_request.status_code
     html_data = xss_request.content
     query = find_xss_script(url)
     for db in lib.core.settings.DBMS_ERRORS.keys():
         for item in lib.core.settings.DBMS_ERRORS[db]:
             if re.findall(item, html_data):
                 return "sqli", db
-    if query in html_data:
-        return True, None
+    if status != 404:
+        if query in html_data:
+            return True, None
     return False, None
 
 
@@ -137,7 +148,7 @@ def main_xss(start_url, proxy=None, agent=None, **kwargs):
     lib.core.settings.logger.info(lib.core.settings.set_color(
         "payloads will be written to a temporary file and read from there..."
     ))
-    filename = create_urls(start_url, payloads, tamper=tamper)
+    filename = create_urls(start_url, payloads, tamper=tamper, verbose=verbose)
     lib.core.settings.logger.info(lib.core.settings.set_color(
             "loaded URL's have been saved to '{}'...".format(filename), level=25
         ))

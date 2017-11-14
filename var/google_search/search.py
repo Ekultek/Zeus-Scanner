@@ -642,8 +642,14 @@ def search_multiple_pages(query, link_amount, verbose=False, **kwargs):
         request_issue_creation()
         shutdown()
 
-    logger.info(set_color(
-        "a total of {} URL(s) found out of the requested {}...".format(len(retval), link_amount), level=25
-    ))
-    write_to_log_file(retval, URL_LOG_PATH, "url-log-{}.log")
-    return list(retval) if len(retval) != 0 else None
+    if len(retval) > 0:
+        logger.info(set_color(
+            "a total of {} URL(s) found out of the requested {}...".format(len(retval), link_amount), level=25
+        ))
+        write_to_log_file(retval, URL_LOG_PATH, "url-log-{}.log")
+        return list(retval)
+    else:
+        logger.warning(set_color(
+            "did not find any links with given query '{}' writing to blacklist...".format(query), level=30
+        ))
+        write_to_log_file(query, BLACKLIST_FILE_PATH, ".blacklist")
