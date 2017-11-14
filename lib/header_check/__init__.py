@@ -247,6 +247,9 @@ def main_header_check(url, **kwargs):
                 ))
         for key in found_headers.iterkeys():
             protection[key] = found_headers[key]
+        logger.info(set_color(
+            "writing found headers to log file...", level=25
+        ))
         return write_to_log_file(protection, HEADER_RESULT_PATH, "{}-headers.json".format(replace_http(url)))
     else:
         logger.error(set_color(

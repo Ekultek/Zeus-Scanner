@@ -23,13 +23,15 @@ ca6935a72fd0527d15a78a17a35e56e8  ./bin/drivers/geckodriver-v0.19.0-linux64.tar.
 07cd383c8aef8ea5ef194a506141afd6  ./bin/drivers/geckodriver-v0.19.0-linux32.tar.gz
 6ea65a0160c21e144e92334acc2e3667  ./lib/firewall/anquanbao.py
 34b946ab1f9aaac397ba77d5f8c132b1  ./lib/firewall/cloudflare.py
-1d65a5d7708a3b365f3a518ae7064304  ./lib/firewall/modsecurity.py
+54815706261c32b57fbbdc99244b5cdd  ./lib/firewall/modsecurity.py
 6b370050b40d8c1d2221424f756c7842  ./lib/firewall/paloalto.py
 60973a0c2e34108dfb32c89ad46477b6  ./lib/firewall/sucuri.py
 1f303641d59686d544f2986ff74c6b31  ./lib/firewall/webseal.py
 783973a4c6af58907f6dbfe1b274c59c  ./lib/firewall/generic.py
 6ccf3a1df5aa6429cd3365b7b8ded8f4  ./lib/firewall/powerful.py
 c3f01fc8ff7dfe7759f63bf16b00f127  ./lib/firewall/wordfence.py
+2bfc3884ae96cc2443ebf94359b380c0  ./lib/firewall/cloudfront.py
+fde5445df5d77d245656adea96673cfa  ./lib/firewall/squid.py
 785c28da8b681a7e23964f99118b5aab  ./lib/tamper_scripts/obfuscateordinal_encode.py
 10bf1bc4ef0287d31633148fab557e8a  ./lib/tamper_scripts/uppercase_encode.py
 5b68de0ce3a783b870921b09b5222146  ./lib/tamper_scripts/hex_encode.py
@@ -59,7 +61,7 @@ ceb1b278b0861c976dfecc91cb64e53d  ./lib/attacks/xss_scan/__init__.py
 1faa2b5dfad6eb538bbfe42942d2a9da  ./lib/core/errors.py
 d41d8cd98f00b204e9800998ecf8427e  ./lib/core/__init__.py
 dc27f3a46931a5264b60e28601d1bc63  ./lib/core/settings.py
-a32f8f2a054ab687361bda8557ff63d4  ./lib/header_check/__init__.py
+376c0d9ebb943f539bb655fabc1bb8ba  ./lib/header_check/__init__.py
 d41d8cd98f00b204e9800998ecf8427e  ./var/google_search/__init__.py
 5974e78ce4035d14005fd1a00a3655d2  ./var/google_search/search.py
 d41d8cd98f00b204e9800998ecf8427e  ./var/__init__.py
