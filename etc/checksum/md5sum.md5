@@ -1,4 +1,4 @@
-2f22501746b4af13bc1d6f2dec5a013b  ./zeus.py
+325f37f1ff58a8777935749b2c3c6a7a  ./zeus.py
 4b32db388e8acda35570c734d27c950c  ./etc/scripts/launch_sqlmap.sh
 6ad5f22ec4a6f8324bfb1b01ab6d51ec  ./etc/scripts/cleanup.sh
 155c9482f690f1482f324a7ffd8b8098  ./etc/scripts/fix_pie.sh
@@ -9,7 +9,7 @@ d3ad89703575a712a0aeead2b176d8c5  ./etc/html/clickjacking_test_page.html
 7526750f8bd909ef08fa2c15d278c244  ./etc/xml/headers.xml
 642a77905d8bb4e5533e0e9c2137c0fa  ./etc/text_files/agents.txt
 82cc68f46539d0255f7ce14cd86cd49b  ./etc/text_files/link_ext.txt
-a3ee2d4610056c6fe270c2a74dda49f9  ./etc/text_files/dorks.txt
+b4ac1dab7fee43d1295b0d940e11fac1  ./etc/text_files/dorks.txt
 dc7bfc3d7b9b23340ee37806316bd770  ./etc/text_files/xss_payloads.txt
 cd9c70aa862df26e40c42cbe5909a4aa  ./etc/checksum/md5sum.md5
 15b70d0142602288c8d635a6a0ceb665  ./bin/version_info
@@ -26,7 +26,7 @@ ca6935a72fd0527d15a78a17a35e56e8  ./bin/drivers/geckodriver-v0.19.0-linux64.tar.
 1d65a5d7708a3b365f3a518ae7064304  ./lib/firewall/modsecurity.py
 6b370050b40d8c1d2221424f756c7842  ./lib/firewall/paloalto.py
 60973a0c2e34108dfb32c89ad46477b6  ./lib/firewall/sucuri.py
-ea6e622b8eaf83b4f717020b91530e71  ./lib/firewall/webseal.py
+1f303641d59686d544f2986ff74c6b31  ./lib/firewall/webseal.py
 783973a4c6af58907f6dbfe1b274c59c  ./lib/firewall/generic.py
 c3f01fc8ff7dfe7759f63bf16b00f127  ./lib/firewall/wordfence.py
 785c28da8b681a7e23964f99118b5aab  ./lib/tamper_scripts/obfuscateordinal_encode.py
@@ -45,7 +45,6 @@ a0fedc86cfb4a370e6c1a606010812ed  ./lib/tamper_scripts/space2null_encode.pyc
 694231b4c2f99406481c34ced85ddfe1  ./lib/tamper_scripts/base64_encode.py
 6ac38bec8c32eab57efa01f7a06dff14  ./lib/tamper_scripts/space2null_encode.py
 3b8c95a6a3b7cecce5118f2fb1ccc6b8  ./lib/tamper_scripts/appendnull_encode.py
-d41d8cd98f00b204e9800998ecf8427e  ./lib/__init__.py
 3308a53435cd255107a9301723844d6e  ./lib/attacks/clickjacking_scan/__init__.py
 d41d8cd98f00b204e9800998ecf8427e  ./lib/attacks/__init__.py
 7272a7fd0b0c2e9192bc4adb6154d2f0  ./lib/attacks/sqlmap_scan/__init__.py
@@ -58,10 +57,10 @@ b50e4b7fb9fdef374c00b7ab0ef913e9  ./lib/attacks/xss_scan/__init__.py
 21faf4679cdeaa731029a48f8963d6e7  ./lib/attacks/nmap_scan/nmap_opts.py
 1faa2b5dfad6eb538bbfe42942d2a9da  ./lib/core/errors.py
 d41d8cd98f00b204e9800998ecf8427e  ./lib/core/__init__.py
-11b1a4ae775662b6f40a2d60fec9ffc2  ./lib/core/settings.py
-e25de81c51e5572d29e3e161dd35f41d  ./lib/header_check/__init__.py
+a99547696486119eb3d2e1a0b4d4d684  ./lib/core/settings.py
+a32f8f2a054ab687361bda8557ff63d4  ./lib/header_check/__init__.py
 d41d8cd98f00b204e9800998ecf8427e  ./var/google_search/__init__.py
-2a7c4285914548b86593e6e000bdab32  ./var/google_search/search.py
+a5cd3c512cd77855423ca1e3f06d5667  ./var/google_search/search.py
 d41d8cd98f00b204e9800998ecf8427e  ./var/__init__.py
 d41d8cd98f00b204e9800998ecf8427e  ./var/auto_issue/__init__.py
 dadca85c232153021ba9ff253d8ee1d9  ./var/auto_issue/github.py
