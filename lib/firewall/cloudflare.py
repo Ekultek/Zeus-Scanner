@@ -16,5 +16,7 @@ def detect(content, **kwargs):
             return True
         if re.compile(r"\A__cfduid=", re.I).search(headers.get("Cookie")) is not None:
             return True
+        if re.compile(r"CF_RAY", re.I).search(str(headers)) is not None:
+            return True
     except Exception:
         pass
