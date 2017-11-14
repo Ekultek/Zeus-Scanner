@@ -4519,7 +4519,7 @@ intitle:"Merak Mail Server Web Administration" -ihackstuff.com
 intitle:"microsoft certificate services" inurl:certsrv
 intitle:"MikroTik RouterOS Managing Webpage"
 intitle:"MX Control Console" "If you can’t remember"
-intitle:"Novell Web Services" "GroupWise" -inurl:"doc/11924″ -.mil -.edu -.gov -filetype:pdf
+intitle:"Novell Web Services" "GroupWise" -inurl:"doc/11924" -.mil -.edu -.gov -filetype:pdf
 intitle:"Novell Web Services" intext:"Select a service and a language."
 intitle:"oMail-admin Administration – Login" -inurl:omnis.ch
 intitle:"OnLine Recruitment Program – Login"
