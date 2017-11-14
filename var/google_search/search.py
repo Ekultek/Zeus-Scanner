@@ -45,7 +45,9 @@ from lib.core.settings import (
     rewrite_all_paths,
     AUTHORIZED_SEARCH_ENGINES,
     MAX_PAGE_NUMBER,
-    NO_RESULTS_REGEX
+    NO_RESULTS_REGEX,
+    parse_blacklist,
+    BLACKLIST_FILE_PATH
 )
 
 try:
@@ -346,6 +348,12 @@ def parse_search_results(query, url_to_search, verbose=False, **kwargs):
 
     if verbose:
         logger.debug(set_color(
+            "parsing blacklist...", level=10
+        ))
+    parse_blacklist(query, BLACKLIST_FILE_PATH, batch=batch)
+
+    if verbose:
+        logger.debug(set_color(
             "checking for user-agent and proxy configuration...", level=10
         ))
 
@@ -541,8 +549,9 @@ def parse_search_results(query, url_to_search, verbose=False, **kwargs):
         write_to_log_file(true_retval, URL_LOG_PATH, "url-log-{}.log")
     else:
         logger.fatal(set_color(
-            "did not find any URLs with given query '{}'...".format(query), level=50
+            "did not find any URLs with given query '{}' writing query to blacklist...".format(query), level=50
         ))
+        write_to_log_file(query, BLACKLIST_FILE_PATH, ".blacklist", blacklist=True)
         shutdown()
     logger.info(set_color(
         "found a total of {} URLs with given query '{}'...".format(len(true_retval), query)

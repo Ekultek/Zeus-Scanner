@@ -55,7 +55,7 @@ CLONE = "https://github.com/ekultek/zeus-scanner.git"
 ISSUE_LINK = "https://github.com/ekultek/zeus-scanner/issues"
 
 # current version <major.minor.commit.patch ID>
-VERSION = "1.2.9.{}".format(PATCH_ID)
+VERSION = "1.2.10".format(PATCH_ID)
 
 # colors to output depending on the version
 VERSION_TYPE_COLORS = {"dev": 33, "stable": 92, "other": 30}
@@ -164,6 +164,9 @@ COOKIE_LOG_PATH = "{}/log/cookies".format(os.getcwd())
 
 # unknown firewall log path
 UNKNOWN_FIREWALL_FINGERPRINT_PATH = "{}/log/unknown-firewall".format(os.getcwd())
+
+# blacklisted forks, if your dork doesn't pull any URL's it'll be sent here
+BLACKLIST_FILE_PATH = "{}/log/blacklist".format(os.getcwd())
 
 # the current log file being used
 CURRENT_LOG_FILE_PATH = "{}/log".format(os.getcwd())
@@ -559,7 +562,7 @@ def fix_log_file(logfile=get_latest_log_file(CURRENT_LOG_FILE_PATH)):
             fixed.write(line + "\n")  # rewrite everything back to normal
 
 
-def write_to_log_file(data_to_write, path, filename):
+def write_to_log_file(data_to_write, path, filename, blacklist=False):
     """
     write all found data to a log file
     """
@@ -569,7 +572,7 @@ def write_to_log_file(data_to_write, path, filename):
             os.getcwd()
         ))) + 1)
     )
-    skip_log_schema = ("url-log", "blackwidow-log", "zeus-log", "extracted")
+    skip_log_schema = ("url-log", "blackwidow-log", "zeus-log", "extracted", ".blacklist")
     to_search = filename.split("-")[0]
     amount = len([f for f in os.listdir(path) if to_search in f])
     new_filename = "{}({}).{}".format(
@@ -584,6 +587,15 @@ def write_to_log_file(data_to_write, path, filename):
                 return write_to_log_file(data_to_write, path, new_filename)
         elif amount > 0 and not any(_ in filename for _ in list(skip_log_schema)):
             return write_to_log_file(data_to_write, path, new_filename)
+        elif blacklist:
+            items = log.readlines()
+            if any(d.strip() == data_to_write for d in items):
+                logger.info(set_color(
+                    "query already in blacklist..."
+                ))
+                return full_file_path
+            else:
+                log.write(data_to_write + "\n")
         else:
             if isinstance(data_to_write, list):
                 for item in data_to_write:
@@ -1020,3 +1032,28 @@ def run_attacks(url, **kwargs):
         logger.warning(set_color(
             "skipping '{}'...".format(url), level=30
         ))
+
+
+def parse_blacklist(dork, path, batch=False):
+    """
+    parse the built-in blacklist to see if your dork is already in there or not
+    """
+    create_dir(path)
+    dork = dork.strip()
+    full_path = "{}/.blacklist".format(path)
+    prompt_msg = (
+        "it appears your query '{}' is blacklisted (no usable sites found with it) "
+        "continuing will most likely result in finding no URL's, would you like to "
+        "continue anyways".format(dork)
+    )
+    with open(full_path, "a+") as log:
+        dorks = log.readlines()
+        if any(d.strip() == dork for d in dorks):
+            if not batch:
+                question = prompt(
+                    prompt_msg, opts="yN"
+                )
+                if not question.lower().startswith("y"):
+                    shutdown()
+            else:
+                prompt(prompt_msg, opts="yN", default="y")
