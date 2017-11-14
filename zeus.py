@@ -48,9 +48,7 @@ from lib.core.settings import (
     run_attacks,
 )
 
-warnings.filterwarnings(action="ignore", category=FutureWarning)
-warnings.filterwarnings(action="ignore", category=DeprecationWarning)
-warnings.filterwarnings(action="ignore", category=PendingDeprecationWarning)
+warnings.simplefilter("ignore")
 
 if __name__ == "__main__":
 
