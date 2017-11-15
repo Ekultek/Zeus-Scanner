@@ -71,8 +71,6 @@ def detect_protection(url, **kwargs):
 
         retval = []
         if status != 200 and "not found" not in html.lower():
-            if "Apache" in headers["Server"] and "you don't have permission" in html.lower():
-                return None
             file_list = [f for f in os.listdir(DETECT_FIREWALL_PATH) if not any(ex in f for ex in ["__init__", ".pyc"])]
             for item in file_list:
                 item = item[:-3]
@@ -198,6 +196,7 @@ def main_header_check(url, **kwargs):
         "strict-transport": ("protection against unencrypted connections (force HTTPS connection)", "HTTPS"),
         "x-frame": ("protection against clickjacking vulnerabilities", "CLICKJACKING"),
         "x-content": ("protection against MIME type attacks", "MIME"),
+        "public-key": ("protection to reduce success rates of MITM attacks", "MITM"),
         "content-security": ("protection against multiple attacks", "ALL")
     }
 

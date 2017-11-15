@@ -4,4 +4,5 @@
     <header name="X-Frame-Options"/>
     <header name="X-Content-Type-Options"/>
     <header name="Content-Security-Policy"/>
+    <header name="Public-Key-Pins"/>
 </headers>
