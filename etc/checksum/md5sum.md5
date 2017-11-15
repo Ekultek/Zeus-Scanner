@@ -14,7 +14,7 @@ dc7bfc3d7b9b23340ee37806316bd770  ./etc/text_files/xss_payloads.txt
 cd9c70aa862df26e40c42cbe5909a4aa  ./etc/checksum/md5sum.md5
 15b70d0142602288c8d635a6a0ceb665  ./bin/version_info
 d41d8cd98f00b204e9800998ecf8427e  ./bin/__init__.py
-ff2511effe21aa36002f37ed9bfe47ec  ./bin/unzip_gecko.py
+a622b354f81ee5d0bad88c1e8b2ba0f9  ./bin/unzip_gecko.py
 dc1eb4ebe0f372af48b5a9c107ebc68d  ./bin/drivers/geckodriver-v0.18.0-linux32.tar.gz
 be18faeea6e7db9db6990d8667e2298f  ./bin/drivers/geckodriver-v0.17.0-linux64.tar.gz
 79b1a158f96d29942a111c0905f1c807  ./bin/drivers/geckodriver-v0.17.0-linux32.tar.gz

@@ -120,6 +120,10 @@ def untar_gecko(filename="{}/bin/drivers/geckodriver-v0.{}.0-linux{}.tar.gz", ve
     arch_info = {"64bit": "64", "32bit": "32"}
     file_arch = arch_info[platform.architecture()[0]]
     ff_version = lib.core.settings.get_browser_version()
+    if isinstance(ff_version, str) or ff_version is None:
+        ff_version = lib.core.settings.prompt(
+            "enter your firefox browser version (if you don't know it run firefox --version"
+        )
     gecko_version = config_gecko_version(ff_version)
     if gecko_version is None:
         lib.core.settings.logger.fatal(lib.core.settings.set_color(
