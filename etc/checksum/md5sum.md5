@@ -63,7 +63,7 @@ ceb1b278b0861c976dfecc91cb64e53d  ./lib/attacks/xss_scan/__init__.py
 21faf4679cdeaa731029a48f8963d6e7  ./lib/attacks/nmap_scan/nmap_opts.py
 1faa2b5dfad6eb538bbfe42942d2a9da  ./lib/core/errors.py
 d41d8cd98f00b204e9800998ecf8427e  ./lib/core/__init__.py
-5392b02b920d752276b7c0e3720c4b16  ./lib/core/settings.py
+87904590ab380357ad31a1ee75a6d504  ./lib/core/settings.py
 f8dca2fa45acb95f7081546bf6aec025  ./lib/header_check/__init__.py
 d41d8cd98f00b204e9800998ecf8427e  ./var/google_search/__init__.py
 5974e78ce4035d14005fd1a00a3655d2  ./var/google_search/search.py
