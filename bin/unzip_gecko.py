@@ -69,11 +69,21 @@ def config_gecko_version(browser_version):
         (55, 54): 18,
         (53, 52, 51): 17
     }
-    major = browser_version[0]
-    for key in version_specs.keys():
-        for num in key:
-            if num == major:
-                return version_specs[key]
+    if isinstance(browser_version, (tuple, list, set)):
+        major = browser_version[0]
+        for key in version_specs.keys():
+            for num in key:
+                if num == major:
+                    return version_specs[key]
+    else:
+        if "." in browser_version:
+            major = browser_version.split(".")[0]
+        else:
+            major = browser_version
+        for key in version_specs.keys():
+            for num in key:
+                if num == int(major):
+                    return version_specs[key]
 
 
 def check_os(current=platform.platform()):
