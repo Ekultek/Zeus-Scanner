@@ -55,7 +55,7 @@ CLONE = "https://github.com/ekultek/zeus-scanner.git"
 ISSUE_LINK = "https://github.com/ekultek/zeus-scanner/issues"
 
 # current version <major.minor.commit.patch ID>
-VERSION = "1.2.15".format(PATCH_ID)
+VERSION = "1.2.16".format(PATCH_ID)
 
 # colors to output depending on the version
 VERSION_TYPE_COLORS = {"dev": 33, "stable": 92, "other": 30}
@@ -1058,3 +1058,21 @@ def parse_blacklist(dork, path, batch=False):
             else:
                 prompt(prompt_msg, opts="yN", default="y")
     return True
+
+
+def calculate_success(amount_of_urls):
+    """
+    calculate the success rate of the found links
+    """
+    success_percentage = ((amount_of_urls // 10) + 1) * 10
+    if success_percentage < 25:
+        success_rate = "low"
+    elif 25 < success_percentage < 50:
+        success_rate = "fair"
+    elif 50 < success_percentage < 75:
+        success_rate = "good"
+    elif 75 <= success_percentage <= 110:
+        success_rate = "great"
+    else:
+        success_rate = "outstanding"
+    return success_rate

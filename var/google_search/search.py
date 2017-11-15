@@ -47,7 +47,8 @@ from lib.core.settings import (
     MAX_PAGE_NUMBER,
     NO_RESULTS_REGEX,
     parse_blacklist,
-    BLACKLIST_FILE_PATH
+    BLACKLIST_FILE_PATH,
+    calculate_success
 )
 
 try:
@@ -345,6 +346,7 @@ def parse_search_results(query, url_to_search, verbose=False, **kwargs):
     forward_for = kwargs.get("forward_for", False)
     tor = kwargs.get("tor", False)
     batch = kwargs.get("batch", False)
+    show_success = kwargs.get("show_success", False)
 
     if verbose:
         logger.debug(set_color(
@@ -546,7 +548,13 @@ def parse_search_results(query, url_to_search, verbose=False, **kwargs):
             true_retval.add(url)
 
     if len(true_retval) != 0:
-        write_to_log_file(true_retval, URL_LOG_PATH, "url-log-{}.log")
+        file_path = write_to_log_file(true_retval, URL_LOG_PATH, "url-log-{}.log")
+        if show_success:
+            amount_of_urls = len(open(file_path).readlines())
+            success_rate = calculate_success(amount_of_urls)
+            logger.info(set_color(
+                "provided query has a {} success rate...".format(success_rate)
+            ))
     else:
         logger.fatal(set_color(
             "did not find any URLs with given query '{}' writing query to blacklist...".format(query), level=50
@@ -567,6 +575,7 @@ def search_multiple_pages(query, link_amount, verbose=False, **kwargs):
     agent = kwargs.get("agent", None)
     xforward = kwargs.get("xforward", False)
     batch = kwargs.get("batch", False)
+    show_success = kwargs.get("show_success", False)
     attrib, desc = "a", "href"
     retval = set()
     search_engine = AUTHORIZED_SEARCH_ENGINES["search-results"]
@@ -650,7 +659,13 @@ def search_multiple_pages(query, link_amount, verbose=False, **kwargs):
         logger.info(set_color(
             "a total of {} URL(s) found out of the requested {}...".format(len(retval), link_amount), level=25
         ))
-        write_to_log_file(retval, URL_LOG_PATH, "url-log-{}.log")
+        file_path = write_to_log_file(retval, URL_LOG_PATH, "url-log-{}.log")
+        if show_success:
+            amount_of_urls = len(open(file_path).readlines())
+            success_rate = calculate_success(amount_of_urls)
+            logger.info(set_color(
+                "provided query has a {} success rate...".format(success_rate)
+            ))
         return list(retval)
     else:
         logger.warning(set_color(

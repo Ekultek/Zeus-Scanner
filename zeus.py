@@ -163,6 +163,8 @@ if __name__ == "__main__":
                     help="Show the current version and exit")
     misc.add_option("-T", "--x-threads", dest="amountOfThreads", metavar="THREAD-AMOUNT", type=int,
                     help="Specify how many threads you want to pass")
+    misc.add_option("--show-success", dest="showSuccessRate", action="store_true",
+                    help="Calculate the dorks success rate and output the calculation in human readable form")
 
     parser.add_option_group(mandatory)
     parser.add_option_group(attacks)
@@ -330,7 +332,8 @@ if __name__ == "__main__":
                 search.parse_search_results(
                     opt.dorkToUse, search_engine, verbose=opt.runInVerbose, proxy=proxy_to_use,
                     agent=agent_to_use, pull_all=opt.noExclude, parse_webcache=opt.parseWebcache,
-                    forward_for=opt.forwardedForRandomIP, tor=opt.useTor, batch=opt.runInBatch
+                    forward_for=opt.forwardedForRandomIP, tor=opt.useTor, batch=opt.runInBatch,
+                    show_success=opt.showSuccessRate
                 )
             except InvalidProxyType:
                 supported_proxy_types = ["socks5", "socks4", "https", "http"]
@@ -381,7 +384,8 @@ if __name__ == "__main__":
                 search.search_multiple_pages(
                     dork_to_use, link_amount_to_search, proxy=proxy_to_use,
                     agent=agent_to_use, verbose=opt.runInVerbose,
-                    xforward=opt.forwardedForRandomIP, batch=opt.runInBatch
+                    xforward=opt.forwardedForRandomIP, batch=opt.runInBatch,
+                    show_success=opt.showSuccessRate
                 )
             except Exception as e:
                 if "Error 400" in str(e):

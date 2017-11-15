@@ -33,6 +33,8 @@ c3f01fc8ff7dfe7759f63bf16b00f127  ./lib/firewall/wordfence.py
 2bfc3884ae96cc2443ebf94359b380c0  ./lib/firewall/cloudfront.py
 fde5445df5d77d245656adea96673cfa  ./lib/firewall/squid.py
 9c3ec0cce44c4246b97b431e37e3dcc2  ./lib/firewall/aws.py
+e4eef006dd909c222b1b9f48826c3ef5  ./lib/firewall/pk.py
+6bbe2f6f6a2a1ddf0e416e94ec1f0763  ./lib/firewall/siteguard.py
 785c28da8b681a7e23964f99118b5aab  ./lib/tamper_scripts/obfuscateordinal_encode.py
 10bf1bc4ef0287d31633148fab557e8a  ./lib/tamper_scripts/uppercase_encode.py
 5b68de0ce3a783b870921b09b5222146  ./lib/tamper_scripts/hex_encode.py
