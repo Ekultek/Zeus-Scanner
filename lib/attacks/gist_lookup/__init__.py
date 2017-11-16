@@ -93,7 +93,7 @@ def github_gist_search_main(query, **kwargs):
     verbose = kwargs.get("verbose", False)
     thread = kwargs.get("do_threading", False)
     proc_num = kwargs.get("proc_num", 5)
-    page_set = kwargs.get("page_set", (1, 2, 3))
+    page_set = kwargs.get("page_set", (1, 2, 3, 4, 5))
     total_found = 0
 
     if verbose:
