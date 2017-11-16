@@ -48,7 +48,8 @@ from lib.core.settings import (
     NO_RESULTS_REGEX,
     parse_blacklist,
     BLACKLIST_FILE_PATH,
-    calculate_success
+    calculate_success,
+    REINSTALL_TOOL
 )
 
 try:
@@ -480,6 +481,24 @@ def parse_search_results(query, url_to_search, verbose=False, **kwargs):
             else:
                 logger.fatal(set_color(
                     "you will need to remove the geckodriver from /usr/bin and reinstall it...", level=50
+                ))
+                shutdown()
+        elif "Unable to find a matching set of capabilities" in str(e):
+            logger.fatal(set_color(
+                "it appears that firefox, selenium, and geckodriver are not playing nice with one another...", level=50
+            ))
+            question = prompt(
+                "would you like to attempt to resolve this issue automatically", opts="yN"
+            )
+            if question.lower().startswith("y"):
+                reinstall_command = shlex.split("sudo sh {}".format(REINSTALL_TOOL))
+                subprocess.call(reinstall_command)
+                rewrite_all_paths()
+                shutdown()
+            else:
+                logger.fatal(set_color(
+                    "you will need to reinstall firefox to a later version, update selenium, and reinstall the "
+                    "geckodriver to continue using Zeus...", level=50
                 ))
                 shutdown()
         else:

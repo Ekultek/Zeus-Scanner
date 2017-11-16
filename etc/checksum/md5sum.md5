@@ -3,6 +3,7 @@
 6ad5f22ec4a6f8324bfb1b01ab6d51ec  ./etc/scripts/cleanup.sh
 155c9482f690f1482f324a7ffd8b8098  ./etc/scripts/fix_pie.sh
 0e435c641bc636ac0b3d54e032d9cf6a  ./etc/scripts/install_nmap.sh
+74d7bee13890a9dd279bb857591647ce  ./etc/scripts/reinstall.sh
 66b11aa388ea909de7b212341259a318  ./etc/auths/git_auth
 8f686b05c5c5dfc02f0fcaa7ebc8677c  ./etc/auths/whois_auth
 d3ad89703575a712a0aeead2b176d8c5  ./etc/html/clickjacking_test_page.html
@@ -57,16 +58,16 @@ d41d8cd98f00b204e9800998ecf8427e  ./lib/attacks/__init__.py
 aa7268a8f085734a6c577c86440f7a1b  ./lib/attacks/sqlmap_scan/sqlmap_opts.py
 d41d8cd98f00b204e9800998ecf8427e  ./lib/attacks/whois_lookup/__init__.py
 9b2bd4904ec2385eb38a3b6cd59dbc99  ./lib/attacks/whois_lookup/whois.py
-3917cdce61918f3992fc682105367ce8  ./lib/attacks/admin_panel_finder/__init__.py
+6b9ba948ca5ba51ef3d8423e738c41ba  ./lib/attacks/admin_panel_finder/__init__.py
 ceb1b278b0861c976dfecc91cb64e53d  ./lib/attacks/xss_scan/__init__.py
 27358f26bda30d7356143c3ea1fa99c5  ./lib/attacks/nmap_scan/__init__.py
 21faf4679cdeaa731029a48f8963d6e7  ./lib/attacks/nmap_scan/nmap_opts.py
 1faa2b5dfad6eb538bbfe42942d2a9da  ./lib/core/errors.py
 d41d8cd98f00b204e9800998ecf8427e  ./lib/core/__init__.py
-f51a7a19c3c9c340f5adcaca7cfc2e09  ./lib/core/settings.py
+4b620b0aa18bc65fa95ec648bc70e1fa  ./lib/core/settings.py
 f8dca2fa45acb95f7081546bf6aec025  ./lib/header_check/__init__.py
 d41d8cd98f00b204e9800998ecf8427e  ./var/google_search/__init__.py
-5974e78ce4035d14005fd1a00a3655d2  ./var/google_search/search.py
+1c21d355668d4f503a1c4bc41b9f5124  ./var/google_search/search.py
 d41d8cd98f00b204e9800998ecf8427e  ./var/__init__.py
 d41d8cd98f00b204e9800998ecf8427e  ./var/auto_issue/__init__.py
 dadca85c232153021ba9ff253d8ee1d9  ./var/auto_issue/github.py

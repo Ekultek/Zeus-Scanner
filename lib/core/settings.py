@@ -55,7 +55,7 @@ CLONE = "https://github.com/ekultek/zeus-scanner.git"
 ISSUE_LINK = "https://github.com/ekultek/zeus-scanner/issues"
 
 # current version <major.minor.commit.patch ID>
-VERSION = "1.2.18.{}".format(PATCH_ID)
+VERSION = "1.2.19.{}".format(PATCH_ID)
 
 # colors to output depending on the version
 VERSION_TYPE_COLORS = {"dev": 33, "stable": 92, "other": 30}
@@ -116,6 +116,9 @@ LAUNCH_SQLMAP_API_TOOL = "{}/etc/scripts/launch_sqlmap_api.sh".format(os.getcwd(
 
 # path to nmap installer
 NMAP_INSTALLER_TOOL = "{}/etc/scripts/install_nmap.sh".format(os.getcwd())
+
+# perform a reinstallation of some dependencies
+REINSTALL_TOOL = "{}/etc/scripts/reinstall.sh".format(os.getcwd())
 
 # clickjacking HTML test page path
 CLICKJACKING_TEST_PAGE_PATH = "{}/etc/html/clickjacking_test_page.html".format(os.getcwd())

@@ -76,10 +76,11 @@ def check_for_externals(url, data_sep="-" * 30, **kwargs):
         lib.core.settings.logger.info(lib.core.settings.set_color(
             "found a sitemap, saving to file...", level=25
         ))
-        return lib.core.settings.write_to_log_file(data, lib.core.settings.SITEMAP_FILE_LOG_PATH,
-                                                   "{}-sitemap.xml".format(
-                                                       lib.core.settings.replace_http(url))
-                                                   )
+        return lib.core.settings.write_to_log_file(
+            data, lib.core.settings.SITEMAP_FILE_LOG_PATH, "{}-sitemap.xml".format(
+                                                       lib.core.settings.replace_http(url)
+            )
+        )
 
 
 def check_for_admin_page(url, exts, protocol="http://", **kwargs):
@@ -164,9 +165,10 @@ def check_for_admin_page(url, exts, protocol="http://", **kwargs):
     lib.core.settings.logger.warning(lib.core.settings.set_color(
         "only writing successful connections to log file...", level=30
     ))
-    lib.core.settings.write_to_log_file(list(connections), lib.core.settings.ADMIN_PAGE_FILE_PATH, "{}-admin-page.log".format(
-        lib.core.settings.replace_http(url)
-    ))
+    if len(connections) > 0:
+        lib.core.settings.write_to_log_file(list(connections), lib.core.settings.ADMIN_PAGE_FILE_PATH, "{}-admin-page.log".format(
+            lib.core.settings.replace_http(url)
+        ))
 
 
 def __load_extensions(filename="{}/etc/text_files/link_ext.txt"):
