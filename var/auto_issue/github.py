@@ -1,4 +1,3 @@
-import os
 import sys
 try:
     import urllib2  # python 2
@@ -7,25 +6,7 @@ except ImportError:
 import json
 import platform
 
-from base64 import b64decode
-
 import lib.core.settings
-
-
-def __get_encoded_string(filename="{}/etc/auths/git_auth"):
-    with open(filename.format(os.getcwd())) as data:
-        return data.read()
-
-
-def get_decode_num(data):
-    return data.split(":")[-1]
-
-
-def decode(n, token):
-    token = token.split(":")[0]
-    for _ in range(int(n)):
-        token = b64decode(token)
-    return token
 
 
 def request_issue_creation():
@@ -73,9 +54,7 @@ def request_issue_creation():
         "getting authorization..."
     ))
 
-    encoded = __get_encoded_string()
-    n = get_decode_num(encoded)
-    token = decode(n, encoded)
+    token = lib.core.settings.get_token(lib.core.settings.GITHUB_AUTH_PATH)
 
     current_log_file = lib.core.settings.get_latest_log_file(lib.core.settings.CURRENT_LOG_FILE_PATH)
     stacktrace = __extract_stacktrace(current_log_file)

@@ -8,6 +8,7 @@ import time
 import shlex
 import difflib
 import logging
+import base64
 import string
 import random
 import socket
@@ -32,6 +33,7 @@ from lib.attacks.admin_panel_finder import main
 from lib.attacks.xss_scan import main_xss
 from lib.attacks.whois_lookup.whois import whois_lookup_main
 from lib.attacks.clickjacking_scan import clickjacking_main
+from lib.attacks.gist_lookup import github_gist_search_main
 from lib.attacks.sqlmap_scan.sqlmap_opts import SQLMAP_API_OPTIONS
 from lib.attacks.nmap_scan.nmap_opts import NMAP_API_OPTS
 from lib.attacks import (
@@ -165,6 +167,9 @@ SPIDER_LOG_PATH = "{}/log/blackwidow-log".format(os.getcwd())
 # cookies log path
 COOKIE_LOG_PATH = "{}/log/cookies".format(os.getcwd())
 
+# log to write to for gist searching
+GIST_MATCH_LOG = "{}/log/gists".format(os.getcwd())
+
 # unknown firewall log path
 UNKNOWN_FIREWALL_FINGERPRINT_PATH = "{}/log/unknown-firewall".format(os.getcwd())
 
@@ -173,6 +178,12 @@ BLACKLIST_FILE_PATH = "{}/log/blacklist".format(os.getcwd())
 
 # the current log file being used
 CURRENT_LOG_FILE_PATH = "{}/log".format(os.getcwd())
+
+# github autohorization token path
+GITHUB_AUTH_PATH = "{}/etc/auths/git_auth".format(os.getcwd())
+
+# whois authorization token path
+WHOIS_AUTH_PATH = "{}/etc/auths/whois_auth".format(os.getcwd())
 
 # nmap's manual page for their options
 NMAP_MAN_PAGE_URL = "https://nmap.org/book/man-briefoptions.html"
@@ -209,6 +220,12 @@ AUTHORIZED_SEARCH_ENGINES = {
     "duckduckgo": "http://duckduckgo.com/html",
     "google": "http://google.com",
     "search-results": "http://www1.search-results.com/web?tpr={}&q={}&page={}"
+}
+
+GITHUB_GIST_SEARCH_URLS = {
+    "search": "https://api.github.com/gists/public?page={}&per_page=100",
+    "check_rate": "https://api.github.com/users/ZeusIssueReporter"
+
 }
 
 # extensions to exclude from the spider
@@ -575,7 +592,7 @@ def write_to_log_file(data_to_write, path, filename, blacklist=False):
             os.getcwd()
         ))) + 1)
     )
-    skip_log_schema = ("url-log", "blackwidow-log", "zeus-log", "extracted", ".blacklist")
+    skip_log_schema = ("url-log", "blackwidow-log", "zeus-log", "extracted", ".blacklist", "gist-match")
     to_search = filename.split("-")[0]
     amount = len([f for f in os.listdir(path) if to_search in f])
     new_filename = "{}({}).{}".format(
@@ -949,6 +966,7 @@ def run_attacks(url, **kwargs):
     verbose = kwargs.get("verbose", False)
     whois = kwargs.get("whois", False)
     clickjacking = kwargs.get("clickjacking", False)
+    github = kwargs.get("github", False)
     auto_start = kwargs.get("auto_start", False)
     sqlmap_arguments = kwargs.get("sqlmap_args", None)
     nmap_arguments = kwargs.get("nmap_args", None)
@@ -1029,6 +1047,9 @@ def run_attacks(url, **kwargs):
             if check_for_protection(PROTECTED, "clickjacking"):
                 clickjacking_main(url, agent=agent, proxy=proxy,
                                   forward=forwarded, batch=batch)
+        elif github:
+            query = replace_http(url)
+            github_gist_search_main(query, agent=agent, proxy=proxy, verbose=verbose)
         else:
             pass
     else:
@@ -1079,3 +1100,38 @@ def calculate_success(amount_of_urls):
     else:
         success_rate = "outstanding"
     return success_rate
+
+
+def __get_encoded_string(path):
+    """
+    get the encoded authorization string
+    """
+    with open(path.format(os.getcwd())) as log:
+        return log.read()
+
+
+def __get_n(encoded):
+    """
+    get the n'th number for decoding
+    """
+    return encoded.split(":")[-1]
+
+
+def __decode(encoded, n):
+    """
+    decode the string
+    """
+    token = encoded.split(":")[0]
+    for _ in range(0, n):
+        token = base64.b64decode(token)
+    return token
+
+
+def get_token(path):
+    """
+    get the authorization token
+    """
+    encoded = __get_encoded_string(path)
+    n = __get_n(encoded)
+    token = __decode(encoded, int(n))
+    return token

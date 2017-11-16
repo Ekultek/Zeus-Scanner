@@ -1,34 +1,8 @@
-import os
 import json
 import time
 import urllib2
 
-from base64 import b64decode
-
 import lib.core.settings
-
-
-def __get_encoded_string(path="{}/etc/auths/whois_auth"):
-    with open(path.format(os.getcwd())) as log:
-        return log.read()
-
-
-def __get_n(encoded):
-    return encoded.split(":")[-1]
-
-
-def __decode(encoded, n):
-    token = encoded.split(":")[0]
-    for _ in range(0, n):
-        token = b64decode(token)
-    return token
-
-
-def __get_token():
-    encoded = __get_encoded_string()
-    n = __get_n(encoded)
-    token = __decode(encoded, int(n))
-    return token
 
 
 def gather_raw_whois_info(domain):
@@ -37,7 +11,7 @@ def gather_raw_whois_info(domain):
     """
     auth_headers = {
         "Content-Type": "application/json",
-        "Authorization": "Token {}".format(__get_token()),
+        "Authorization": "Token {}".format(lib.core.settings.get_token(lib.core.settings.WHOIS_AUTH_PATH)),
     }
     request = urllib2.Request(
         lib.core.settings.WHOIS_JSON_LINK.format(domain), headers=auth_headers

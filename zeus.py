@@ -85,6 +85,8 @@ if __name__ == "__main__":
                        help="Perform a WhoIs lookup on the provided domain")
     attacks.add_option("-c", "--clickjacking", dest="performClickjackingScan", action="store_true",
                        help="Perform a clickjacking scan on a provided URL")
+    attacks.add_option("-g", "--github-search", dest="searchGithub", action="store_true",
+                       help="Perform a Github Gist search for any information on the found websites")
     attacks.add_option("--sqlmap-args", dest="sqlmapArguments", metavar="SQLMAP-ARGS",
                        help="Pass the arguments to send to the sqlmap API within quotes & "
                             "separated by a comma. IE 'dbms mysql, verbose 3, level 5'")
@@ -272,7 +274,8 @@ if __name__ == "__main__":
         options = [
             opt.runSqliScan, opt.runPortScan,
             opt.adminPanelFinder, opt.runXssScan,
-            opt.performWhoisLookup, opt.performClickjackingScan
+            opt.performWhoisLookup, opt.performClickjackingScan,
+            opt.searchGithub
         ]
         if any(options):
             with open(urls_to_use) as urls:
@@ -300,7 +303,7 @@ if __name__ == "__main__":
                             url.strip(),
                             sqlmap=opt.runSqliScan, nmap=opt.runPortScan,
                             xss=opt.runXssScan, whois=opt.performWhoisLookup, admin=opt.adminPanelFinder,
-                            clickjacking=opt.performClickjackingScan,
+                            clickjacking=opt.performClickjackingScan, github=opt.searchGithub,
                             verbose=opt.runInVerbose, batch=opt.runInBatch,
                             auto_start=opt.autoStartSqlmap, xforward=opt.forwardedForRandomIP,
                             sqlmap_args=opt.sqlmapArguments, nmap_args=opt.nmapArguments,
