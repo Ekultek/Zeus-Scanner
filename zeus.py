@@ -342,9 +342,16 @@ if __name__ == "__main__":
                     "proxy protocols are {} (IE socks5://127.0.0.1:9050)...".format(", ".join(supported_proxy_types)), level=50
                 ))
             except Exception as e:
-                logger.exception(set_color(
-                    "ran into exception '{}'...".format(e), level=50
-                ))
+                if "Permission denied:" in str(e):
+                    logger.fatal(set_color(
+                        "your permissions are not allowing Zeus to run, "
+                        "try running me with sudo...", level=50
+                    ))
+                    shutdown()
+                else:
+                    logger.exception(set_color(
+                        "ran into exception '{}'...".format(e), level=50
+                    ))
                 request_issue_creation()
                 pass
 

@@ -55,7 +55,7 @@ CLONE = "https://github.com/ekultek/zeus-scanner.git"
 ISSUE_LINK = "https://github.com/ekultek/zeus-scanner/issues"
 
 # current version <major.minor.commit.patch ID>
-VERSION = "1.2.19.{}".format(PATCH_ID)
+VERSION = "1.2.20.{}".format(PATCH_ID)
 
 # colors to output depending on the version
 VERSION_TYPE_COLORS = {"dev": 33, "stable": 92, "other": 30}
@@ -69,7 +69,7 @@ else:
     VERSION_STRING = "\033[92mv{}\033[0m(\033[{}m\033[1mrevision\033[0m)".format(VERSION, VERSION_TYPE_COLORS["other"])
 
 # zeus-scanners saying
-SAYING = "Advanced Dork Searching..."
+SAYING = "Advanced Reconnaissance..."
 
 # sexy banner
 BANNER = """\033[36m
