@@ -73,11 +73,11 @@ There are some requirements for this to be run successfully.
 ##### Basic requirements
 
  - `libxml2-dev`, `libxslt1-dev`, `python-dev` are required for the installation process
- - Firefox web browser is required as of now, I will be adding the functionality of most web browsers.
+ - Firefox web browser is required as of now, you will need Firefox version `<=57 >=51`. Full functionality for other browsers will eventually be added.
  - If you want to run sqlmap through the URL's you will need sqlmap somewhere on your system.
  - If you want to run a port scan using nmap on the URL's IP addresses. You will need nmap on your system.
  - [Geckodriver](https://github.com/mozilla/geckodriver) is required to run the firefox web browser and will be installed the first time you run. It will be added to your `/usr/bin` so that it can be run in your ENV PATH.
- - You must be `sudo` for the first time running this so that you can add the driver to your PATH, you also may need to run as `sudo` depending on your permissions.
+ - You must be `sudo` for the first time running this so that you can add the driver to your PATH, you also may need to run as `sudo` depending on your permissions. _NOTE:_ `Depending on permissions you may need to be sudo for any run involving the geckodriver`
  - `xvfb` is required by pyvirtualdisplay, it will be installed if not installed on your first run 
  
 ##### Python package requirements
