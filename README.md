@@ -35,19 +35,21 @@ Zeus is a advanced dork searching utility that is capable of bypassing search en
 
 ### Features
 
- - Multiple search engine compatibility (`DuckDuckGo`, `AOL`, `Bing`, `Google`)
- - Ban URL extraction (pull the true URL from the ban URL)
- - Google webcache URL extraction (extract the true URL from a webcache URL)
+ - Multiple search engine compatibility (default is `Google`)
+ - Ability to extract the URL from Google's ban URL thus bypassing IP blocks
+ - Ability to extract from Google's webcache URL
  - Proxy compatibility (`http`, `https`, `socks4`, `socks5`)
  - Tor proxy compatibility and Tor browser emulation
  - Parse `robots.txt`/`sitemap.xml` and save them to a file
  - Multiple vulnerability assessments (XSS, SQLi, clickjacking, port scanning, admin panel finding, whois lookups, and more)
  - Tamper scripts to obfuscate XSS tests
- - Ability to search multiple pages of Google, and use Google's API
  - Can run with a custom default user-agent, one of over 4000 random user-agents, or a personal user-agent
  - Automatic issue creation
  - Ability to crawl a webpage and pull all the links
  - Can run a singular dork, multiple dorks in a given file, or a random dork from a list of over 5000 carefully researched dorks
+ - Identify WAF/IPS/IDS protection
+ - Header protection enumeration to check what kind of protection is provided via HTTP headers
+ - Dork blacklisting when no sites are found with the search query, will save the query to a blacklist file
  - and much more...
 
 ### Screenshots
@@ -73,12 +75,12 @@ There are some requirements for this to be run successfully.
 ##### Basic requirements
 
  - `libxml2-dev`, `libxslt1-dev`, `python-dev` are required for the installation process
- - Firefox web browser is required as of now, you will need Firefox version `<=57 >=51`. Full functionality for other browsers will eventually be added.
+ - Firefox web browser is required as of now, you will need Firefox version `<=57 >=51` (between 51 and 57). Full functionality for other browsers will eventually be added.
  - If you want to run sqlmap through the URL's you will need sqlmap somewhere on your system.
  - If you want to run a port scan using nmap on the URL's IP addresses. You will need nmap on your system.
  - [Geckodriver](https://github.com/mozilla/geckodriver) is required to run the firefox web browser and will be installed the first time you run. It will be added to your `/usr/bin` so that it can be run in your ENV PATH.
  - You must be `sudo` for the first time running this so that you can add the driver to your PATH, you also may need to run as `sudo` depending on your permissions. _NOTE:_ `Depending on permissions you may need to be sudo for any run involving the geckodriver`
- - `xvfb` is required by pyvirtualdisplay, it will be installed if not installed on your first run 
+ - `xvfb` is required by `pyvirtualdisplay`, it will be installed if not installed on your first run 
  
 ##### Python package requirements
 
@@ -88,10 +90,8 @@ There are some requirements for this to be run successfully.
  - [whichcraft](https://github.com/spookyowl/witchcraft) package is required to check if nmap and sqlmap are on your system if you want to use them
  - [pyvirtualdisplay](https://pyvirtualdisplay.readthedocs.io/en/latest/) package is required to hide the browser display while finding the search URL
  - [lxml](https://lxml.readthedocs.io/en/latest/) is required to parse XML data for the sitemap and save it as such
- - [google-api-python-client](https://github.com/google/google-api-python-client) is required to search via Google's API client
  - [psutil](https://github.com/giampaolo/psutil) is required to search for running sqlmap API sessions
- - [httplib2](https://github.com/httplib2/httplib2) is required to allow user-agent changes during Google's API client searches
- - [beautifulsoup](https://www.crummy.com/software/BeautifulSoup/bs4/doc/) is required to pull all the HREF descriptor tags while using the blackwidow crawler
+ - [beautifulsoup](https://www.crummy.com/software/BeautifulSoup/bs4/doc/) is required to pull all the HREF descriptor tags and parse the HTML into an easily workable syntax
 
 ### Installation
 
@@ -102,19 +102,19 @@ You can download the latest [tar.gz](https://github.com/ekultek/zeus-scanner/tar
 ##### Ubuntu/Debian
 
 ```
-sudo apt-get install libxml2-dev libxslt1-dev python-dev &&  git clone https://github.com/ekultek/zeus-scanner.git && cd zeus-scanner && sudo pip install -r requirements.txt && sudo python zeus.py
+sudo apt-get install libxml2-dev libxslt1-dev python-dev &&  git clone https://github.com/ekultek/zeus-scanner.git && cd zeus-scanner && sudo pip2 install -r requirements.txt && sudo python zeus.py
 ``` 
  
 ##### centOS
 
 ```
-sudo apt-get install gcc python-devel libxml2-dev libxslt1-dev python-dev && git clone https://github.com/ekultek/zeus-scanner && cd zeus-scanner && sudo pip install -r requirements.txt && sudo python zeus.py
+sudo apt-get install gcc python-devel libxml2-dev libxslt1-dev python-dev && git clone https://github.com/ekultek/zeus-scanner.git && cd zeus-scanner && sudo pip2 install -r requirements.txt && sudo python zeus.py
 ```
 
 ##### Others
 
 ```
-sudo apt-get install libxml2-dev libxslt1-dev python-dev && git clone https://github.com/ekultek/zeus-scanner.git && cd zeus-scanner && sudo pip install -r requirements.txt && sudo python zeus.py
+sudo apt-get install libxml2-dev libxslt1-dev python-dev && git clone https://github.com/ekultek/zeus-scanner.git && cd zeus-scanner && sudo pip2 install -r requirements.txt && sudo python zeus.py
 ```
 
 This will install all the package requirements along with the geckodriver
@@ -124,8 +124,8 @@ This will install all the package requirements along with the geckodriver
 
 Zeus is created by a small team of developers that have an aspiration for information security and a strive to succeed. If you like Zeus and want to donate to our funding, we gladly and appreciatively accept donations via:
 
- - Bitcoin(BTC) via: `3DAQGcAQ194NGVs16Mmv75ip45CVuE8cZy`
+ - Bitcoin(BTC): `3DAQGcAQ194NGVs16Mmv75ip45CVuE8cZy`
  - [PayPal](https://www.paypal.me/ZeusScanner)
- - Or you can [Buy me a coffee](https://ko-fi.com/A28355P5)
+ - Or you can [Buy us a coffee](https://ko-fi.com/A28355P5)
  
 You can be assured that all donations will go towards Zeus funding to make it more reliable and even better, thank you from the Zeus development team
