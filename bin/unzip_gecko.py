@@ -65,7 +65,7 @@ def config_gecko_version(browser_version):
     figure out which gecko version you need
     """
     version_specs = {
-        (56,): 19,
+        (56, 57): 19,
         (55, 54): 18,
         (53, 52, 51): 17
     }
