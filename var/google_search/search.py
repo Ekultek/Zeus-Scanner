@@ -22,7 +22,8 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.proxy import *
 from selenium.webdriver.remote.errorhandler import (
     UnexpectedAlertPresentException,
-    ElementNotInteractableException
+    ElementNotInteractableException,
+    WebDriverException
 )
 
 from var.auto_issue.github import request_issue_creation
@@ -228,7 +229,7 @@ def get_urls(query, url, verbose=False, warning=True, **kwargs):
             ))
             profile = set_tor_browser_settings(profile, verbose=verbose, agent=user_agent, port=tor_port)
             browser = webdriver.Firefox(profile)
-    except OSError:
+    except (OSError, WebDriverException):
         if not tor:
             profile.set_preference("general.useragent.override", user_agent)
             browser = webdriver.Firefox(profile, proxy=proxy_to_use, executable_path=whichcraft.which("geckodriver"))
