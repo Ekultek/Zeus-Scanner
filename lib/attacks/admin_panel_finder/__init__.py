@@ -9,6 +9,7 @@ except ImportError:  # Python 3
 
 import requests
 
+import lib.core.common
 import lib.core.settings
 from var.auto_issue.github import request_issue_creation
 
@@ -71,12 +72,12 @@ def check_for_externals(url, data_sep="-" * 30, **kwargs):
         lib.core.settings.logger.info(lib.core.settings.set_color(
             "robots.txt page will be saved into a file...", level=25
         ))
-        return lib.core.settings.write_to_log_file(data, lib.core.settings.ROBOTS_PAGE_PATH, "{}-robots_text.log".format(url))
+        return lib.core.common.write_to_log_file(data, lib.core.settings.ROBOTS_PAGE_PATH, "{}-robots_text.log".format(url))
     elif sitemap:
         lib.core.settings.logger.info(lib.core.settings.set_color(
             "found a sitemap, saving to file...", level=25
         ))
-        return lib.core.settings.write_to_log_file(
+        return lib.core.common.write_to_log_file(
             data, lib.core.settings.SITEMAP_FILE_LOG_PATH, "{}-sitemap.xml".format(
                                                        lib.core.settings.replace_http(url)
             )
@@ -166,7 +167,7 @@ def check_for_admin_page(url, exts, protocol="http://", **kwargs):
         "only writing successful connections to log file...", level=30
     ))
     if len(connections) > 0:
-        lib.core.settings.write_to_log_file(list(connections), lib.core.settings.ADMIN_PAGE_FILE_PATH, "{}-admin-page.log".format(
+        lib.core.common.write_to_log_file(list(connections), lib.core.settings.ADMIN_PAGE_FILE_PATH, "{}-admin-page.log".format(
             lib.core.settings.replace_http(url)
         ))
 

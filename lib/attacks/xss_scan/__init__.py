@@ -9,6 +9,7 @@ except ImportError:
 
 import requests
 
+import lib.core.common
 import lib.core.settings
 from lib.core.errors import InvalidTamperProvided
 
@@ -109,7 +110,10 @@ def scan_xss(url, agent=None, proxy=None):
     """
     user_agent = agent or lib.core.settings.DEFAULT_USER_AGENT
     config_proxy = lib.core.settings.proxy_string_to_dict(proxy)
-    config_headers = {"connection": "close", "user-agent": user_agent}
+    config_headers = {
+        lib.core.common.HTTP_HEADER.CONNECTION: "close",
+        lib.core.common.HTTP_HEADER.USER_AGENT: user_agent
+    }
     xss_request = requests.get(url, proxies=config_proxy, headers=config_headers)
     status = xss_request.status_code
     html_data = xss_request.content

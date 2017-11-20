@@ -2,6 +2,7 @@ import json
 import time
 import urllib2
 
+import lib.core.common
 import lib.core.settings
 
 
@@ -10,8 +11,8 @@ def gather_raw_whois_info(domain):
     get the raw JSON data for from the whois API
     """
     auth_headers = {
-        "Content-Type": "application/json",
-        "Authorization": "Token {}".format(lib.core.settings.get_token(lib.core.settings.WHOIS_AUTH_PATH)),
+        lib.core.common.HTTP_HEADER.CONTENT_TYPE: "application/json",
+        lib.core.common.HTTP_HEADER.AUTHORIZATION: "Token {}".format(lib.core.settings.get_token(lib.core.settings.WHOIS_AUTH_PATH)),
     }
     request = urllib2.Request(
         lib.core.settings.WHOIS_JSON_LINK.format(domain), headers=auth_headers
@@ -77,7 +78,8 @@ def whois_lookup_main(domain, **kwargs):
         time.sleep(timeout)
     try:
         raw_information = gather_raw_whois_info(domain)
-    except Exception:
+    except Exception as e:
+        lib.core.settings.logger.exception(str(e))
         lib.core.settings.logger.error(lib.core.settings.set_color(
             "unable to produce information from WhoIs lookup...", level=40
         ))
@@ -97,7 +99,7 @@ def whois_lookup_main(domain, **kwargs):
                 "unable to display any information from WhoIs lookup on domain '{}'...".format(domain), level=50
             ))
             return None
-    lib.core.settings.write_to_log_file(
+    lib.core.common.write_to_log_file(
         raw_information, lib.core.settings.WHOIS_RESULTS_LOG_PATH,
         "{}-whois.json".format(domain)
     )

@@ -1,5 +1,7 @@
 import re
 
+from lib.core.common import HTTP_HEADER
+
 
 __item__ = "CloudFlare Web Application Firewall (CloudFlare)"
 
@@ -12,9 +14,9 @@ def detect(content, **kwargs):
         if detection.search(content) is not None:
             return True
     try:
-        if re.compile(r"cloudflare-nginx", re.I).search(headers.get("Server")) is not None:
+        if re.compile(r"cloudflare-nginx", re.I).search(headers.get(HTTP_HEADER.SERVER)) is not None:
             return True
-        if re.compile(r"\A__cfduid=", re.I).search(headers.get("Cookie")) is not None:
+        if re.compile(r"\A__cfduid=", re.I).search(headers.get(HTTP_HEADER.COOKIE)) is not None:
             return True
         if re.compile(r"CF_RAY", re.I).search(str(headers)) is not None:
             return True

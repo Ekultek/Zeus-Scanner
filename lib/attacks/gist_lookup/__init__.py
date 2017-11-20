@@ -4,6 +4,7 @@ import time
 import requests
 
 import lib.core.settings
+import lib.core.common
 
 
 def __check_remaining_rate_limit():
@@ -11,7 +12,7 @@ def __check_remaining_rate_limit():
     check how many requests you have left to run
     """
     url = lib.core.settings.GITHUB_GIST_SEARCH_URLS["check_rate"]
-    data = requests.get(url, params={"Authorization": "token {}".format(
+    data = requests.get(url, params={lib.core.common.HTTP_HEADER.AUTHORIZATION: "token {}".format(
         lib.core.settings.get_token(lib.core.settings.GITHUB_AUTH_PATH)
     )})
     remaining = data.headers["X-RateLimit-Remaining"]
@@ -31,8 +32,8 @@ def get_raw_data(page_set, proxy=None, agent=None, verbose=False):
     retval = set()
     url = lib.core.settings.GITHUB_GIST_SEARCH_URLS["search"]
     headers = {
-        "User-Agent": agent,
-        "Authorization": "token {}".format(lib.core.settings.get_token(lib.core.settings.GITHUB_AUTH_PATH)),
+        lib.core.common.HTTP_HEADER.USER_AGENT: agent,
+        lib.core.common.HTTP_HEADER.AUTHORIZATION: "token {}".format(lib.core.settings.get_token(lib.core.settings.GITHUB_AUTH_PATH)),
     }
     lib.core.settings.logger.info(lib.core.settings.set_color(
         "searching a total of {} pages of Gists...".format(page_set[-1])
@@ -81,7 +82,7 @@ def check_files_for_information(found_url, data_to_search):
             "found a match with given specifics, saving full Gist to log file..."
         ))
         total_found.add(found_url)
-        lib.core.settings.write_to_log_file(
+        lib.core.common.write_to_log_file(
             data.content, lib.core.settings.GIST_MATCH_LOG, "gist-match-{}.log"
         )
     return len(total_found)

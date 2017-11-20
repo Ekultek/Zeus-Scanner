@@ -1,5 +1,6 @@
 import requests
 
+import lib.core.common
 import lib.core.settings
 import var.auto_issue.github
 
@@ -8,7 +9,7 @@ class ClickJackingScanner(object):
 
     def __init__(self, url):
         self.url = url
-        self.safe = "X-Frame-Options"
+        self.safe = lib.core.common.HTTP_HEADER.X_FRAME_OPT
         self.html = open(lib.core.settings.CLICKJACKING_TEST_PAGE_PATH).read()
 
     def generate_html(self):
@@ -29,16 +30,16 @@ class ClickJackingScanner(object):
         if forward is not None:
             ip_addrs = lib.core.settings.create_random_ip()
             headers = {
-                "user-agent": agent,
-                "X-Forwarded-From": "{}, {}, {}".format(
+                lib.core.common.HTTP_HEADER.USER_AGENT: agent,
+                lib.core.common.HTTP_HEADER.X_FORWARDED_FROM: "{}, {}, {}".format(
                     ip_addrs[0], ip_addrs[1], ip_addrs[2]
                 ),
-                "Connection": "close"
+                lib.core.common.HTTP_HEADER.CONNECTION: "close"
             }
         else:
             headers = {
-                "user-agent": agent,
-                "Connection": "close"
+                lib.core.common.HTTP_HEADER.USER_AGENT: agent,
+                lib.core.common.HTTP_HEADER.CONNECTION: "close"
             }
         req = requests.get(self.url, headers=headers, proxies=lib.core.settings.proxy_string_to_dict(proxy))
         headers = req.headers
@@ -93,7 +94,7 @@ def clickjacking_main(url, **kwargs):
                 "it appears that provided URL '{}' is vulnerable to clickjacking, writing "
                 "to HTML file...".format(url), level=25
             ))
-            lib.core.settings.write_to_log_file(
+            lib.core.common.write_to_log_file(
                 data,
                 lib.core.settings.CLICKJACKING_RESULTS_PATH,
                 "{}-clickjacking.html".format(lib.core.settings.replace_http(url))

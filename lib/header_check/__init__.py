@@ -7,12 +7,15 @@ from xml.dom import minidom
 from requests.exceptions import ConnectionError
 
 from var.auto_issue.github import request_issue_creation
+from lib.core.common import (
+    write_to_log_file,
+    HTTP_HEADER
+)
 from lib.core.settings import (
     logger, set_color,
     HEADER_XML_DATA,
     proxy_string_to_dict,
     create_random_ip,
-    write_to_log_file,
     replace_http,
     HEADER_RESULT_PATH,
     COOKIE_LOG_PATH,
@@ -37,14 +40,14 @@ def detect_protection(url, **kwargs):
             create_random_ip()
         )
         headers = {
-            "Connection": "close",
-            "user-agent": agent,
-            "X-Forward-From": "{}, {}, {}".format(ip_list[0], ip_list[1], ip_list[2])
+            HTTP_HEADER.CONNECTION: "close",
+            HTTP_HEADER.USER_AGENT: agent,
+            HTTP_HEADER.X_FORWARDED_FROM: "{}, {}, {}".format(ip_list[0], ip_list[1], ip_list[2])
         }
     else:
         headers = {
-            "Connection": "close",
-            "user-agent": agent
+            HTTP_HEADER.CONNECTION: "close",
+            HTTP_HEADER.USER_AGENT: agent
         }
 
     url = "{} {}".format(url.strip(), PROTECTION_CHECK_PAYLOAD)
@@ -137,15 +140,15 @@ def load_headers(url, **kwargs):
         proxy = proxy_string_to_dict(proxy)
     if not xforward:
         header_value = {
-            "connection": "close",
-            "user-agent": agent
+            HTTP_HEADER.CONNECTION: "close",
+            HTTP_HEADER.USER_AGENT: agent
         }
     else:
         ip_list = create_random_ip(), create_random_ip(), create_random_ip()
         header_value = {
-            "connection": "close",
-            "user-agent": agent,
-            "X-Forwarded-For": "{}, {}, {}".format(
+            HTTP_HEADER.CONNECTION: "close",
+            HTTP_HEADER.USER_AGENT: agent,
+            HTTP_HEADER.X_FORWARDED_FROM: "{}, {}, {}".format(
                 ip_list[0], ip_list[1], ip_list[2]
             )
         }

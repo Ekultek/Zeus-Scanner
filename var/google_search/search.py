@@ -27,6 +27,10 @@ from selenium.webdriver.remote.errorhandler import (
 )
 
 from var.auto_issue.github import request_issue_creation
+from lib.core.common import (
+    write_to_log_file,
+    HTTP_HEADER
+)
 from lib.core.settings import (
     logger,
     set_color,
@@ -36,7 +40,6 @@ from lib.core.settings import (
     URL_REGEX,
     shutdown,
     URL_LOG_PATH,
-    write_to_log_file,
     prompt,
     EXTRACTED_URL_LOG,
     URL_EXCLUDES,
@@ -397,14 +400,14 @@ def parse_search_results(query, url_to_search, verbose=False, **kwargs):
             ))
 
         headers = {
-            "Connection": "close",
-            "user-agent": user_agent,
-            "X-Forwarded-For": "{}, {}, {}".format(ip_to_use[0], ip_to_use[1], ip_to_use[2])
+            HTTP_HEADER.CONNECTION: "close",
+            HTTP_HEADER.USER_AGENT: user_agent,
+            HTTP_HEADER.X_FORWARDED_FROM: "{}, {}, {}".format(ip_to_use[0], ip_to_use[1], ip_to_use[2])
         }
     else:
         headers = {
-            "Connection": "close",
-            "user-agent": user_agent
+            HTTP_HEADER.CONNECTION: "close",
+            HTTP_HEADER.USER_AGENT: user_agent
         }
     logger.info(set_color(
         "attempting to gather query URL..."

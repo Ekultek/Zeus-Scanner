@@ -3,7 +3,6 @@ import io
 import re
 import sys
 import glob
-import json
 import time
 import shlex
 import difflib
@@ -24,7 +23,6 @@ except ImportError:
 import psutil
 import requests
 import whichcraft
-from lxml import etree
 
 import bin.unzip_gecko
 import lib.core.errors
@@ -580,59 +578,6 @@ def fix_log_file(logfile=get_latest_log_file(CURRENT_LOG_FILE_PATH)):
     with open(logfile, "a+") as fixed:
         for line in retval.split("\n"):
             fixed.write(line + "\n")  # rewrite everything back to normal
-
-
-def write_to_log_file(data_to_write, path, filename, blacklist=False):
-    """
-    write all found data to a log file
-    """
-    create_dir(path.format(os.getcwd()))
-    full_file_path = "{}/{}".format(
-        path.format(os.getcwd()), filename.format(len(os.listdir(path.format(
-            os.getcwd()
-        ))) + 1)
-    )
-    skip_log_schema = ("url-log", "blackwidow-log", "zeus-log", "extracted", ".blacklist", "gist-match")
-    to_search = filename.split("-")[0]
-    amount = len([f for f in os.listdir(path) if to_search in f])
-    new_filename = "{}({}).{}".format(
-                    filename.split("-")[0], amount, filename.split(".")[-1]
-                )
-    with open(full_file_path, "a+") as log:
-        data = re.sub(r'\s+', '', log.read())
-        if re.match(r'^<.+>$', data):  # matches HTML and XML
-            try:
-                log.write(etree.tostring(data_to_write, pretty_print=True))
-            except TypeError:
-                return write_to_log_file(data_to_write, path, new_filename)
-        elif amount > 0 and not any(_ in filename for _ in list(skip_log_schema)):
-            return write_to_log_file(data_to_write, path, new_filename)
-        elif blacklist:
-            items = log.readlines()
-            if any(d.strip() == data_to_write for d in items):
-                logger.info(set_color(
-                    "query already in blacklist..."
-                ))
-                return full_file_path
-            else:
-                log.write(data_to_write + "\n")
-        else:
-            if isinstance(data_to_write, list):
-                for item in data_to_write:
-                    item = item.strip()
-                    log.write(str(item) + "\n")
-            elif isinstance(data_to_write, (tuple, set)):
-                for item in list(data_to_write):
-                    item = item.strip()
-                    log.write(str(item) + "\n")
-            elif isinstance(data_to_write, dict):
-                json.dump(data_to_write, log, sort_keys=True, indent=4)
-            else:
-                log.write(data_to_write + "\n")
-    logger.info(set_color(
-        "successfully wrote found items to '{}'...".format(full_file_path)
-    ))
-    return full_file_path
 
 
 def search_for_process(name):
