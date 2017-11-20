@@ -10,6 +10,7 @@ except ImportError:
 
 import requests
 
+import lib.core.common
 import lib.core.settings
 import lib.core.errors
 import lib.attacks
@@ -169,12 +170,12 @@ def sqlmap_scan_main(url, port=None, verbose=None, opts=None, auto_start=False):
             lib.core.settings.logger.error(lib.core.settings.set_color(
                 "there was a problem starting sqlmap API...", level=40
             ))
-            lib.core.settings.prompt(
+            lib.core.common.prompt(
                 "manually start the API and press enter when ready..."
             )
     else:
         if not is_started:
-            lib.core.settings.prompt(
+            lib.core.common.prompt(
                 "sqlmap API is not started, start it and press enter to continue..."
             )
     try:

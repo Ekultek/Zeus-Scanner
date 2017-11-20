@@ -26,6 +26,7 @@ import whichcraft
 
 import bin.unzip_gecko
 import lib.core.errors
+import lib.core.common
 
 from lib.attacks.admin_panel_finder import main
 from lib.attacks.xss_scan import main_xss
@@ -55,7 +56,7 @@ CLONE = "https://github.com/ekultek/zeus-scanner.git"
 ISSUE_LINK = "https://github.com/ekultek/zeus-scanner/issues"
 
 # current version <major.minor.commit.patch ID>
-VERSION = "1.2.24".format(PATCH_ID)
+VERSION = "1.2.25".format(PATCH_ID)
 
 # colors to output depending on the version
 VERSION_TYPE_COLORS = {"dev": 33, "stable": 92, "other": 30}
@@ -426,25 +427,6 @@ def proxy_string_to_dict(proxy_string):
     return retval
 
 
-def start_up():
-    """
-    start the program and display the time it was started
-    """
-    print(
-        "\n\n[*] starting up at {}..\n\n".format(time.strftime("%H:%M:%S"))
-    )
-
-
-def shutdown():
-    """
-    shut down the program and the time it stopped
-    """
-    print(
-        "\n\n[*] shutting down at {}..\n\n".format(time.strftime("%H:%M:%S"))
-    )
-    exit(0)
-
-
 def setup(verbose=False):
     """
     setup the application if it has not been setup yet
@@ -504,44 +486,6 @@ def grab_random_agent(agent_path="{}/etc/text_files/agents.txt", verbose=False):
     with open(agent_path.format(os.getcwd())) as agents:
         retval = random.choice(agents.readlines())
         return retval.strip()
-
-
-def prompt(question, opts=None, default=None):
-    """
-    ask a question
-    """
-    if opts is not None and default is None:
-        options = '/'.join(opts)
-        return raw_input(
-            "[{} {}] {}[{}]: ".format(
-                time.strftime("%H:%M:%S"),
-                "PROMPT", question, options
-            )
-        )
-    elif default is not None:
-        if opts is not None:
-            options = "/".join(opts)
-            print(
-                "[{} {}] {}[{}] {}".format(
-                    time.strftime("%H:%M:%S"), "PROMPT",
-                    question, options, default
-                )
-            )
-            return default
-        else:
-            print(
-                "[{} {}] {} {}".format(
-                    time.strftime("%H:%M:%S"), "PROMPT",
-                    question, default
-                )
-            )
-            return default
-    else:
-        return raw_input(
-            "[{} {}] {} ".format(
-                time.strftime("%H:%M:%S"), "PROMPT", question
-            )
-        )
 
 
 def find_application(application, opt="path"):
@@ -904,7 +848,7 @@ def deprecation(target_version, method, connect=True, *args, **kwargs):
                 )
             )
         )
-        shutdown()
+        lib.core.common.shutdown()
 
 
 def check_thread_num(number, batch=False, default=5):
@@ -919,7 +863,7 @@ def check_thread_num(number, batch=False, default=5):
     question_msg = "would you like to continue anyways"
     default_msg = "defaulting to 5 threads..."
     if not batch:
-        question = prompt(
+        question = lib.core.common.prompt(
             question_msg, opts="yN"
         )
         if question.lower().startswith("n"):
@@ -928,7 +872,7 @@ def check_thread_num(number, batch=False, default=5):
             ))
             return default
     else:
-        prompt(
+        lib.core.common.prompt(
             question_msg, opts="yN", default="n"
         )
         logger.info(set_color(
@@ -988,15 +932,15 @@ def run_attacks(url, **kwargs):
                 "you do not want to complete an entire search again "
                 "(IE -f /home/me/zeus-scanner/log/url-log/url-log-1.log)...", level=40
             ))
-            shutdown()
+            lib.core.common.shutdown()
 
     question_msg = "would you like to process found URL: '{}'".format(url)
     if not batch:
-        question = prompt(
+        question = lib.core.common.prompt(
             question_msg, opts="yN"
         )
     else:
-        question = prompt(
+        question = lib.core.common.prompt(
             question_msg, opts="yN", default="y"
         )
 
@@ -1057,13 +1001,13 @@ def parse_blacklist(dork, path, batch=False):
         dorks = log.readlines()
         if any(d.strip() == dork for d in dorks):
             if not batch:
-                question = prompt(
+                question = lib.core.common.prompt(
                     prompt_msg, opts="yN"
                 )
                 if not question.lower().startswith("y"):
-                    shutdown()
+                    lib.core.common.shutdown()
             else:
-                prompt(prompt_msg, opts="yN", default="y")
+                lib.core.common.prompt(prompt_msg, opts="yN", default="y")
     return True
 
 

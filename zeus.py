@@ -7,10 +7,6 @@ import shlex
 import optparse
 import warnings
 import subprocess
-try:
-    import http.client as http_client  # Python 3
-except ImportError:
-    import httplib as http_client  # Python 2
 
 from var import blackwidow
 from var.google_search import search
@@ -23,17 +19,19 @@ from lib.core.errors import (
     InvalidInputProvided,
     InvalidProxyType
 )
+from lib.core.common import (
+    start_up,
+    shutdown,
+    prompt
+)
 from lib.core.settings import (
     setup,
     BANNER,
-    start_up,
-    shutdown,
     logger,
     set_color,
     get_latest_log_file,
     CURRENT_LOG_FILE_PATH,
     URL_LOG_PATH,
-    prompt,
     get_random_dork,
     update_zeus,
     VERSION_STRING,
@@ -153,8 +151,6 @@ if __name__ == "__main__":
                                 "These options affect how the program will run")
     misc.add_option("--verbose", dest="runInVerbose", action="store_true",
                     help="Run the application in verbose mode (more output)")
-    misc.add_option("--show-requests", dest="showRequestInfo", action="store_true",
-                    help="Show all HTTP requests made by the application")
     misc.add_option("--batch", dest="runInBatch", action="store_true",
                     help="Skip the questions and run in default batch mode")
     misc.add_option("--update", dest="updateZeus", action="store_true",
@@ -243,12 +239,6 @@ if __name__ == "__main__":
     logger.info(set_color(
         "log file being saved to '{}'...".format(get_latest_log_file(CURRENT_LOG_FILE_PATH))
     ))
-
-    if opt.showRequestInfo:
-        logger.debug(set_color(
-            "showing all HTTP requests because --show-requests flag was used...", level=10
-        ))
-        http_client.HTTPConnection.debuglevel = 1
 
 
     def __run_attacks_main(**kwargs):

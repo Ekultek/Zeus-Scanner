@@ -29,7 +29,9 @@ from selenium.webdriver.remote.errorhandler import (
 from var.auto_issue.github import request_issue_creation
 from lib.core.common import (
     write_to_log_file,
-    HTTP_HEADER
+    HTTP_HEADER,
+    shutdown,
+    prompt
 )
 from lib.core.settings import (
     logger,
@@ -38,9 +40,7 @@ from lib.core.settings import (
     DEFAULT_USER_AGENT,
     URL_QUERY_REGEX,
     URL_REGEX,
-    shutdown,
     URL_LOG_PATH,
-    prompt,
     EXTRACTED_URL_LOG,
     URL_EXCLUDES,
     CLEANUP_TOOL_PATH,

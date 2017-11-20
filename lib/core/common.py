@@ -1,6 +1,7 @@
 import os
 import re
 import json
+import time
 
 from lxml import etree
 
@@ -30,7 +31,7 @@ class HTTP_HEADER:
     PROXY_CONNECTION = "Proxy-Connection"
     RANGE = "Range"
     REFERER = "Referer"
-    REFRESH = "Refresh"
+    REFRESH = "Refresh"  # Reference: http://stackoverflow.com/a/283794
     SERVER = "Server"
     SET_COOKIE = "Set-Cookie"
     TRANSFER_ENCODING = "Transfer-Encoding"
@@ -94,3 +95,60 @@ def write_to_log_file(data_to_write, path, filename, blacklist=False):
         "successfully wrote found items to '{}'...".format(full_file_path)
     ))
     return full_file_path
+
+
+def start_up():
+    """
+    start the program and display the time it was started
+    """
+    print(
+        "\n\n[*] starting up at {}..\n\n".format(time.strftime("%H:%M:%S"))
+    )
+
+
+def shutdown():
+    """
+    shut down the program and the time it stopped
+    """
+    print(
+        "\n\n[*] shutting down at {}..\n\n".format(time.strftime("%H:%M:%S"))
+    )
+    exit(0)
+
+
+def prompt(question, opts=None, default=None):
+    """
+    ask a question
+    """
+    if opts is not None and default is None:
+        options = '/'.join(opts)
+        return raw_input(
+            "[{} {}] {}[{}]: ".format(
+                time.strftime("%H:%M:%S"),
+                "PROMPT", question, options
+            )
+        )
+    elif default is not None:
+        if opts is not None:
+            options = "/".join(opts)
+            print(
+                "[{} {}] {}[{}] {}".format(
+                    time.strftime("%H:%M:%S"), "PROMPT",
+                    question, options, default
+                )
+            )
+            return default
+        else:
+            print(
+                "[{} {}] {} {}".format(
+                    time.strftime("%H:%M:%S"), "PROMPT",
+                    question, default
+                )
+            )
+            return default
+    else:
+        return raw_input(
+            "[{} {}] {} ".format(
+                time.strftime("%H:%M:%S"), "PROMPT", question
+            )
+        )

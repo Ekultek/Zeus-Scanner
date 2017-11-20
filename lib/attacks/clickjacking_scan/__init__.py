@@ -60,7 +60,7 @@ def clickjacking_main(url, **kwargs):
 
     if not batch:
         if lib.core.settings.URL_QUERY_REGEX.match(url):
-            question = lib.core.settings.prompt(
+            question = lib.core.common.prompt(
                 "it is recommended to use a URL without a GET(query) parameter, "
                 "heuristic testing has detected that the URL provided contains a "
                 "GET(query) parameter in it, would you like to continue", opts="yN"

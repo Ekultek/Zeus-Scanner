@@ -22,7 +22,7 @@ def __check_remaining_rate_limit():
             "if you need to do more requests it is recommended to run behind a proxy with a different "
             "user-agent (IE --proxy socks5://127.0.0.1:9050 --random-agent)...", level=40
         ))
-        lib.core.settings.shutdown()
+        lib.core.common.shutdown()
 
 
 def get_raw_data(page_set, proxy=None, agent=None, verbose=False):

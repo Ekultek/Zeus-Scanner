@@ -77,7 +77,7 @@ def create_urls(url, payload_list, tamper=None, verbose=False):
                             " | ".join(list_tamper_scripts()), level=40
                         )
                     ))
-                    lib.core.settings.shutdown()
+                    lib.core.common.shutdown()
             loaded_url = "{}{}\n".format(url.strip(), payload.strip())
             tmp.write(loaded_url)
     return tf_name
@@ -210,11 +210,11 @@ def main_xss(start_url, proxy=None, agent=None, **kwargs):
         ))
     question_msg = "would you like to keep the URL's saved for further testing"
     if not batch:
-        save = lib.core.settings.prompt(
+        save = lib.core.common.prompt(
             question_msg, opts="yN"
         )
     else:
-        save = lib.core.settings.prompt(
+        save = lib.core.common.prompt(
             question_msg, opts="yN", default="n"
         )
 

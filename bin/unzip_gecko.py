@@ -9,6 +9,7 @@ except ImportError:
 
 import whichcraft
 
+import lib.core.common
 import lib.core.settings
 
 
@@ -49,7 +50,7 @@ def find_tools(to_search=("sqlmap", "nmap"), directory="{}/bin/paths", filename=
             path_schema[item] = None
     for key, value in path_schema.iteritems():
         if value is None:
-            provided_path = lib.core.settings.prompt(
+            provided_path = lib.core.common.prompt(
                 "what is the full path to {} on your system".format(key)
             )
             path_schema[key] = provided_path
@@ -131,7 +132,7 @@ def untar_gecko(filename="{}/bin/drivers/geckodriver-v0.{}.0-linux{}.tar.gz", ve
     file_arch = arch_info[platform.architecture()[0]]
     ff_version = lib.core.settings.get_browser_version()
     if isinstance(ff_version, str) or ff_version is None:
-        ff_version = lib.core.settings.prompt(
+        ff_version = lib.core.common.prompt(
             "enter your firefox browser version (if you don't know it run firefox --version"
         )
     gecko_version = config_gecko_version(ff_version)
@@ -139,7 +140,7 @@ def untar_gecko(filename="{}/bin/drivers/geckodriver-v0.{}.0-linux{}.tar.gz", ve
         lib.core.settings.logger.fatal(lib.core.settings.set_color(
             "your current firefox version is not supported by Zeus...", level=50
         ))
-        lib.core.settings.shutdown()
+        lib.core.common.shutdown()
     gecko_full_filename = filename.format(os.getcwd(), gecko_version, file_arch)
     with open(lib.core.settings.GECKO_VERSION_INFO_PATH, "a+") as log:
         log.write(gecko_full_filename.split("/")[-1])

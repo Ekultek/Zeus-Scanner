@@ -71,7 +71,7 @@ class Blackwidow(object):
                         self.url, info_msg
                     ), level=50
                 ))
-                lib.core.settings.shutdown()
+                lib.core.common.shutdown()
             else:
                 lib.core.settings.logger.exception(lib.core.settings.set_color(
                     "failed to connect to '{}' received error '{}'...".format(
@@ -79,7 +79,7 @@ class Blackwidow(object):
                     ), level=50
                 ))
                 var.auto_issue.github.request_issue_creation()
-                lib.core.settings.shutdown()
+                lib.core.common.shutdown()
 
     def scrape_page_for_links(self, given_url, attribute="a", descriptor="href"):
         """

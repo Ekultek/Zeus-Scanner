@@ -6,6 +6,7 @@ except ImportError:
 import json
 import platform
 
+import lib.core.common
 import lib.core.settings
 
 
@@ -15,16 +16,16 @@ def request_issue_creation():
             "it appears that your checksums did not match, therefore it is assumed "
             "that you have edited some of the code, issue request denied...", level=50
         ))
-        lib.core.settings.shutdown()
+        lib.core.common.shutdown()
 
-    question = lib.core.settings.prompt(
+    question = lib.core.common.prompt(
         "would you like to create an anonymous issue and post it to Zeus's Github", opts="yN"
     )
     if question.lower().startswith("n"):
         lib.core.settings.logger.error(lib.core.settings.set_color(
             "Zeus has experienced an internal error and cannot continue, shutting down...", level=40
         ))
-        lib.core.settings.shutdown()
+        lib.core.common.shutdown()
 
     lib.core.settings.fix_log_file()
     lib.core.settings.logger.info(lib.core.settings.set_color(

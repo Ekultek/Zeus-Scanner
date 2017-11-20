@@ -55,11 +55,11 @@ def check_for_externals(url, data_sep="-" * 30, **kwargs):
         else:
             question_msg = "nothing interesting found in robots.txt would you like to display the entire page"
             if not batch:
-                to_display = lib.core.settings.prompt(
+                to_display = lib.core.common.prompt(
                     question_msg, opts="yN"
                 )
             else:
-                to_display = lib.core.settings.prompt(
+                to_display = lib.core.common.prompt(
                     question_msg, opts="yN", default="n"
                 )
 

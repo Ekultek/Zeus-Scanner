@@ -6,6 +6,7 @@ import subprocess
 
 import nmap
 
+import lib.core.common
 import lib.core.settings
 from var.auto_issue.github import request_issue_creation
 
@@ -137,7 +138,7 @@ def perform_port_scan(url, scanner=NmapHook, verbose=False, opts=None, **kwargs)
         lib.core.settings.logger.fatal(lib.core.settings.set_color(
             "nmap was not found on your system...", level=50
         ))
-        question = lib.core.settings.prompt(
+        question = lib.core.common.prompt(
             "would you like to automatically install it", opts="yN"
         )
         if question.lower().startswith("y"):
