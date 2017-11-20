@@ -7,6 +7,7 @@ import requests
 from bs4 import BeautifulSoup
 
 import lib.core.errors
+import lib.core.common
 import lib.core.settings
 import var.auto_issue.github
 
@@ -151,8 +152,8 @@ def blackwidow_main(url, **kwargs):
                 len(found), url
             )
         ))
-        lib.core.settings.write_to_log_file(found, path=lib.core.settings.SPIDER_LOG_PATH,
-                                            filename="blackwidow-log-{}.log")
+        lib.core.common.write_to_log_file(found, path=lib.core.settings.SPIDER_LOG_PATH,
+                                          filename=lib.core.settings.BLACKWIDOW_FILENAME)
     else:
         lib.core.settings.logger.fatal(lib.core.settings.set_color(
             "did not find any usable links from '{}'...".format(url), level=50

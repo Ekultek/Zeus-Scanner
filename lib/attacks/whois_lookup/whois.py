@@ -101,5 +101,5 @@ def whois_lookup_main(domain, **kwargs):
             return None
     lib.core.common.write_to_log_file(
         raw_information, lib.core.settings.WHOIS_RESULTS_LOG_PATH,
-        "{}-whois.json".format(domain)
+        lib.core.settings.WHOIS_LOOKUP_FILENAME.format(domain)
     )

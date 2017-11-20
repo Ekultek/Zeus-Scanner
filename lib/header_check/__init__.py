@@ -23,7 +23,10 @@ from lib.core.settings import (
     DETECT_FIREWALL_PATH,
     ISSUE_LINK,
     DBMS_ERRORS,
-    UNKNOWN_FIREWALL_FINGERPRINT_PATH
+    UNKNOWN_FIREWALL_FINGERPRINT_PATH,
+    UNKNOWN_FIREWALL_FILENAME,
+    COOKIE_FILENAME,
+    HEADERS_FILENAME
 )
 
 
@@ -94,9 +97,11 @@ def detect_protection(url, **kwargs):
                         "written to a log file...".format(ISSUE_LINK), level=30
                     ))
                     full_finger_print = "HTTP/1.1 {}\n{}\n{}".format(status, headers, html)
-                    write_to_log_file(full_finger_print, UNKNOWN_FIREWALL_FINGERPRINT_PATH, "{}-fingerprint.html".format(
-                        replace_http(url)
-                    ))
+                    write_to_log_file(
+                        full_finger_print, UNKNOWN_FIREWALL_FINGERPRINT_PATH, UNKNOWN_FIREWALL_FILENAME.format(
+                            replace_http(url)
+                        )
+                    )
         else:
             retval = None
 
@@ -162,12 +167,12 @@ def load_headers(url, **kwargs):
             cookie_value = req.cookies.values()
             write_to_log_file(
                 "{}={}".format(''.join(cookie_start), ''.join(cookie_value)),
-                COOKIE_LOG_PATH, "{}-cookie.log".format(replace_http(url))
+                COOKIE_LOG_PATH, COOKIE_FILENAME.format(replace_http(url))
             )
         except Exception:
             write_to_log_file(
                 [c for c in req.cookies.itervalues()], COOKIE_LOG_PATH,
-                "{}-cookie.log".format(replace_http(url))
+                COOKIE_FILENAME.format(replace_http(url))
             )
     return req.headers
 
@@ -252,7 +257,7 @@ def main_header_check(url, **kwargs):
         logger.info(set_color(
             "writing found headers to log file...", level=25
         ))
-        return write_to_log_file(protection, HEADER_RESULT_PATH, "{}-headers.json".format(replace_http(url)))
+        return write_to_log_file(protection, HEADER_RESULT_PATH, HEADERS_FILENAME.format(replace_http(url)))
     else:
         logger.error(set_color(
             "unable to retrieve headers for site '{}'...".format(url.strip()), level=40

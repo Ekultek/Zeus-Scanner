@@ -97,7 +97,7 @@ def clickjacking_main(url, **kwargs):
             lib.core.common.write_to_log_file(
                 data,
                 lib.core.settings.CLICKJACKING_RESULTS_PATH,
-                "{}-clickjacking.html".format(lib.core.settings.replace_http(url))
+                lib.core.settings.CLICKJACKING_FILENAME.format(lib.core.settings.replace_http(url))
             )
         else:
             lib.core.settings.logger.error(lib.core.settings.set_color(

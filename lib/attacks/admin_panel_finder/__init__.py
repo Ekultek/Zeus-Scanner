@@ -72,14 +72,18 @@ def check_for_externals(url, data_sep="-" * 30, **kwargs):
         lib.core.settings.logger.info(lib.core.settings.set_color(
             "robots.txt page will be saved into a file...", level=25
         ))
-        return lib.core.common.write_to_log_file(data, lib.core.settings.ROBOTS_PAGE_PATH, "{}-robots_text.log".format(url))
+        return lib.core.common.write_to_log_file(
+            data, lib.core.settings.ROBOTS_PAGE_PATH, lib.core.settings.ROBOTS_TXT_FILENAME.format(
+                lib.core.settings.replace_http(url)
+            )
+        )
     elif sitemap:
         lib.core.settings.logger.info(lib.core.settings.set_color(
             "found a sitemap, saving to file...", level=25
         ))
         return lib.core.common.write_to_log_file(
-            data, lib.core.settings.SITEMAP_FILE_LOG_PATH, "{}-sitemap.xml".format(
-                                                       lib.core.settings.replace_http(url)
+            data, lib.core.settings.SITEMAP_FILE_LOG_PATH, lib.core.settings.SITEMAP_FILENAME.format(
+                lib.core.settings.replace_http(url)
             )
         )
 
@@ -167,9 +171,11 @@ def check_for_admin_page(url, exts, protocol="http://", **kwargs):
         "only writing successful connections to log file...", level=30
     ))
     if len(connections) > 0:
-        lib.core.common.write_to_log_file(list(connections), lib.core.settings.ADMIN_PAGE_FILE_PATH, "{}-admin-page.log".format(
-            lib.core.settings.replace_http(url)
-        ))
+        lib.core.common.write_to_log_file(
+            list(connections), lib.core.settings.ADMIN_PAGE_FILE_PATH, lib.core.settings.ADMIN_PAGE_FILE_PATH.format(
+                lib.core.settings.replace_http(url)
+            )
+        )
 
 
 def __load_extensions(filename="{}/etc/text_files/link_ext.txt"):

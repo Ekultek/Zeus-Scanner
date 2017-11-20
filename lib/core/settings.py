@@ -55,7 +55,7 @@ CLONE = "https://github.com/ekultek/zeus-scanner.git"
 ISSUE_LINK = "https://github.com/ekultek/zeus-scanner/issues"
 
 # current version <major.minor.commit.patch ID>
-VERSION = "1.2.22.{}".format(PATCH_ID)
+VERSION = "1.2.24".format(PATCH_ID)
 
 # colors to output depending on the version
 VERSION_TYPE_COLORS = {"dev": 33, "stable": 92, "other": 30}
@@ -176,6 +176,44 @@ BLACKLIST_FILE_PATH = "{}/log/blacklist".format(os.getcwd())
 
 # the current log file being used
 CURRENT_LOG_FILE_PATH = "{}/log".format(os.getcwd())
+
+# filename for sitemap log file
+SITEMAP_FILENAME = "{}-sitemap.xml"
+
+# filename for robots.txt log file
+ROBOTS_TXT_FILENAME = "{}-robots_text.log"
+
+# filename for found admin pages log file
+ADMIN_PAGE_FILENAME = "{}-admin-page.log"
+
+# filename for clickjacking log file
+CLICKJACKING_FILENAME = "{}-clickjacking.html"
+
+# filename for gists log file
+GIST_FILENAME = "gist-match-{}.log"
+
+# filename for whois lookup log file
+WHOIS_LOOKUP_FILENAME = "{}-whois.json"
+
+# filename for unknown firewall log file
+UNKNOWN_FIREWALL_FILENAME = "{}-fingerprint.html"
+
+# filename for found cookies log
+COOKIE_FILENAME = "{}-cookie.log"
+
+# filename for found headers log
+HEADERS_FILENAME = "{}-headers.json"
+
+EXTRACTED_URL_FILENAME = "extracted-url-{}.log"
+
+# filename for the URL log
+URL_FILENAME = "url-log-{}.log"
+
+# filename for the blacklist log
+BLACKLIST_FILENAME = ".blacklist"
+
+# filename for the blackwidow crawler log
+BLACKWIDOW_FILENAME = "blackwidow-log-{}.log"
 
 # github autohorization token path
 GITHUB_AUTH_PATH = "{}/etc/auths/git_auth".format(os.getcwd())

@@ -53,7 +53,10 @@ from lib.core.settings import (
     parse_blacklist,
     BLACKLIST_FILE_PATH,
     calculate_success,
-    REINSTALL_TOOL
+    REINSTALL_TOOL,
+    EXTRACTED_URL_FILENAME,
+    URL_FILENAME,
+    BLACKLIST_FILENAME
 )
 
 try:
@@ -308,7 +311,7 @@ def get_urls(query, url, verbose=False, warning=True, **kwargs):
                 )
 
             if not str(do_continue).lower().startswith("n"):  # shutdown and write the URL to a file
-                write_to_log_file(retval, EXTRACTED_URL_LOG, "extracted-url-{}.log")
+                write_to_log_file(retval, EXTRACTED_URL_LOG, EXTRACTED_URL_FILENAME)
                 logger.info(set_color(
                     "it is advised to extract the URL's from the produced URL written to the above "
                     "(IE open the log, copy the url into firefox)...".format(retval)
@@ -571,7 +574,7 @@ def parse_search_results(query, url_to_search, verbose=False, **kwargs):
             true_retval.add(url)
 
     if len(true_retval) != 0:
-        file_path = write_to_log_file(true_retval, URL_LOG_PATH, "url-log-{}.log")
+        file_path = write_to_log_file(true_retval, URL_LOG_PATH, URL_FILENAME)
         if show_success:
             amount_of_urls = len(open(file_path).readlines())
             success_rate = calculate_success(amount_of_urls)
@@ -582,7 +585,7 @@ def parse_search_results(query, url_to_search, verbose=False, **kwargs):
         logger.fatal(set_color(
             "did not find any URLs with given query '{}' writing query to blacklist...".format(query), level=50
         ))
-        write_to_log_file(query, BLACKLIST_FILE_PATH, ".blacklist", blacklist=True)
+        write_to_log_file(query, BLACKLIST_FILE_PATH, BLACKLIST_FILENAME, blacklist=True)
         shutdown()
     logger.info(set_color(
         "found a total of {} URLs with given query '{}'...".format(len(true_retval), query)
@@ -666,7 +669,7 @@ def search_multiple_pages(query, link_amount, verbose=False, **kwargs):
         logger.error(set_color(
             "user aborted, dumping already found URL(s)...", level=40
         ))
-        write_to_log_file(retval, URL_LOG_PATH, "url-log-{}.log")
+        write_to_log_file(retval, URL_LOG_PATH, URL_FILENAME)
         logger.info(set_color(
             "found a total of {} URL(s)...".format(len(retval)), level=25
         ))
@@ -682,7 +685,7 @@ def search_multiple_pages(query, link_amount, verbose=False, **kwargs):
         logger.info(set_color(
             "a total of {} URL(s) found out of the requested {}...".format(len(retval), link_amount), level=25
         ))
-        file_path = write_to_log_file(retval, URL_LOG_PATH, "url-log-{}.log")
+        file_path = write_to_log_file(retval, URL_LOG_PATH, URL_FILENAME)
         if show_success:
             amount_of_urls = len(open(file_path).readlines())
             success_rate = calculate_success(amount_of_urls)
@@ -694,4 +697,4 @@ def search_multiple_pages(query, link_amount, verbose=False, **kwargs):
         logger.warning(set_color(
             "did not find any links with given query '{}' writing to blacklist...".format(query), level=30
         ))
-        write_to_log_file(query, BLACKLIST_FILE_PATH, ".blacklist")
+        write_to_log_file(query, BLACKLIST_FILE_PATH, BLACKLIST_FILENAME)

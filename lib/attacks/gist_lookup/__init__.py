@@ -83,7 +83,7 @@ def check_files_for_information(found_url, data_to_search):
         ))
         total_found.add(found_url)
         lib.core.common.write_to_log_file(
-            data.content, lib.core.settings.GIST_MATCH_LOG, "gist-match-{}.log"
+            data.content, lib.core.settings.GIST_MATCH_LOG, lib.core.settings.GIST_FILENAME
         )
     return len(total_found)
 
