@@ -33,6 +33,18 @@ def disclaimer():
         return False
 
 
+def parse_hosts(filepath="/etc/hosts"):
+    to_append = "127.0.0.1\tlocalhost"
+    appened = False
+    with open(filepath, "a+") as etc:
+        for line in etc:
+            if line.strip() == to_append:
+                appened = True
+        if not appened:
+            etc.seek(0)
+            etc.write(to_append + "\n")
+
+
 def find_tools(to_search=("sqlmap", "nmap"), directory="{}/bin/paths", filename="path_config.ini"):
     lib.core.settings.create_dir(directory.format(os.getcwd()))
     full_path = "{}/{}".format(
@@ -227,6 +239,7 @@ def main(rewrite="{}/bin/executed.txt", verbose=False):
         find_tools()
         check_xvfb()
         untar_gecko(verbose=verbose)
+        parse_hosts()
         if ensure_placed(verbose=verbose):
             with open(rewrite.format(os.getcwd()), "w") as rw:
                 rw.write("TRUE")
