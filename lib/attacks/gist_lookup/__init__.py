@@ -23,6 +23,10 @@ def __check_remaining_rate_limit():
             "user-agent (IE --proxy socks5://127.0.0.1:9050 --random-agent)...", level=40
         ))
         lib.core.common.shutdown()
+    else:
+        lib.core.settings.logger.warning(lib.core.settings.set_color(
+            "you have {} unauthenticated requests remaining...".format(remaining), level=30
+        ))
 
 
 def get_raw_data(page_set, proxy=None, agent=None, verbose=False):
@@ -63,10 +67,23 @@ def get_raw_data(page_set, proxy=None, agent=None, verbose=False):
 
 def check_files_for_information(found_url, data_to_search):
     """
-    check the files to see if they contain any of the information you specified
+    check the files to see if they contain any of the information that was specified
     """
-    # create a regex to search the data
-    data_regex = re.compile(data_to_search, re.I)
+    # create multiple regex types to ensure that we cover all our
+    # bases while we do the searching.
+    # this will make it so that if there is a match anywhere
+    # in anything, we'll find it.
+    if "www" in data_to_search:
+        # we need to create the query to be just the domain name
+        data_to_search = data_to_search.split(".")[1]
+    data_regex_schema = (
+        re.compile(r"{}".format(data_to_search), re.I),  # a regular match
+        re.compile(r"(http(s)?)(.//)?{}".format(data_to_search), re.I),  # match a URL containing our string
+        re.compile(r"(.)?{}(.)?".format(data_to_search), re.I),  # if it has anything around it
+        re.compile(r"\b{}".format(data_to_search), re.I),  # single boundary match
+        re.compile(r"\b{}\b".format(data_to_search), re.I),  # double boundary match
+        re.compile(r"{}*".format(data_to_search), re.I)  # wildcard match
+    )
     total_found = set()
     try:
         data = requests.get(found_url)
@@ -76,15 +93,15 @@ def check_files_for_information(found_url, data_to_search):
         ))
         time.sleep(3)
         data = requests.get(found_url)
-
-    if data_regex.search(data.content) is not None:
-        lib.core.settings.logger.info(lib.core.settings.set_color(
-            "found a match with given specifics, saving full Gist to log file..."
-        ))
-        total_found.add(found_url)
-        lib.core.common.write_to_log_file(
-            data.content, lib.core.settings.GIST_MATCH_LOG, lib.core.settings.GIST_FILENAME
-        )
+    for data_regex in data_regex_schema:
+        if data_regex.search(data.content) is not None:
+            lib.core.settings.logger.info(lib.core.settings.set_color(
+                "found a match with given specifics, saving full Gist to log file...", level=25
+            ))
+            total_found.add(found_url)
+            lib.core.common.write_to_log_file(
+                data.content, lib.core.settings.GIST_MATCH_LOG, lib.core.settings.GIST_FILENAME
+            )
     return len(total_found)
 
 
