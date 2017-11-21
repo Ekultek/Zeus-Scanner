@@ -31,25 +31,27 @@
 
 ### What is Zeus?
 
-Zeus is a advanced dork searching utility that is capable of bypassing search engine API calls, search engine captchas, and extracting the URL from Google's ban URL, thus bypassing IP bans. Zeus can use four different search engines (`DuckDuckGo`, `AOL`, `Bing`, and `Google`) to do the dork searching (_default is `Google`_). Zeus has a powerful built in URL parsing engine, automates a hidden web browser to pull the search URL before parsing, and can run multiple vulnerability assessments on the found URLs. Zeus comes complete with automatic issue creation, self correcting scripts, and a simple usage
+Zeus is an advanced reconnaissance utility designed to make web application reconnaissance simple. Zeus comes complete with a powerful built-in URL parsing engine, multiple search engine compatibility, the ability to extract URLs from both ban and webcache URLs, the ability to run multiple vulnerability assessments on the target, and is able to bypass search engine captchas. 
 
 ### Features
 
- - Multiple search engine compatibility (default is `Google`)
+ - A powerful built in URL parsing engine
+ - Multiple search engine compatibility (`DuckDuckGo`, `AOL`, `Bing`, and `Google` default is `Google`)
  - Ability to extract the URL from Google's ban URL thus bypassing IP blocks
  - Ability to extract from Google's webcache URL
  - Proxy compatibility (`http`, `https`, `socks4`, `socks5`)
  - Tor proxy compatibility and Tor browser emulation
  - Parse `robots.txt`/`sitemap.xml` and save them to a file
  - Multiple vulnerability assessments (XSS, SQLi, clickjacking, port scanning, admin panel finding, whois lookups, and more)
- - Tamper scripts to obfuscate XSS tests
+ - Tamper scripts to obfuscate XSS payloads
  - Can run with a custom default user-agent, one of over 4000 random user-agents, or a personal user-agent
- - Automatic issue creation
+ - Automatic issue creation when an unexpected error arises
  - Ability to crawl a webpage and pull all the links
  - Can run a singular dork, multiple dorks in a given file, or a random dork from a list of over 5000 carefully researched dorks
- - Identify WAF/IPS/IDS protection
- - Header protection enumeration to check what kind of protection is provided via HTTP headers
  - Dork blacklisting when no sites are found with the search query, will save the query to a blacklist file
+ - Identify WAF/IPS/IDS protection of over 20 different firewalls
+ - Header protection enumeration to check what kind of protection is provided via HTTP headers
+ - Saving cookies, headers, and other vital information to log files
  - and much more...
 
 ### Screenshots
