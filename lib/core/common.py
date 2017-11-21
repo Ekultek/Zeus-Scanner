@@ -38,6 +38,7 @@ class HTTP_HEADER:
     URI = "URI"
     USER_AGENT = "User-Agent"
     VIA = "Via"
+    X_CACHE = "X-Cache"
     X_POWERED_BY = "X-Powered-By"
     X_DATA_ORIGIN = "X-Data-Origin"
     X_FRAME_OPT = "X-Frame-Options"

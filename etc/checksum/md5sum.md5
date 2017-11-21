@@ -37,7 +37,7 @@ d41d8cd98f00b204e9800998ecf8427e  ./lib/__init__.py
 2bfc3884ae96cc2443ebf94359b380c0  ./lib/firewall/cloudfront.py
 d41d8cd98f00b204e9800998ecf8427e  ./lib/firewall/__init__.py
 24342e7de0c51595d593cef74d80d3a0  ./lib/firewall/sucuri.py
-9c3ec0cce44c4246b97b431e37e3dcc2  ./lib/firewall/aws.py
+7bc1ef02ddc94ec678a4ea14835e9af0  ./lib/firewall/aws.py
 1f303641d59686d544f2986ff74c6b31  ./lib/firewall/webseal.py
 e4eef006dd909c222b1b9f48826c3ef5  ./lib/firewall/pk.py
 6b370050b40d8c1d2221424f756c7842  ./lib/firewall/paloalto.py
@@ -47,6 +47,13 @@ c3f01fc8ff7dfe7759f63bf16b00f127  ./lib/firewall/wordfence.py
 6ccf3a1df5aa6429cd3365b7b8ded8f4  ./lib/firewall/powerful.py
 54815706261c32b57fbbdc99244b5cdd  ./lib/firewall/modsecurity.py
 fde5445df5d77d245656adea96673cfa  ./lib/firewall/squid.py
+1105bb1a4236f884548c6a013a51945e  ./lib/firewall/sonicwall.py
+9070b43428bd17fd5faf86995cb559a2  ./lib/firewall/stringray.py
+0c9cae75883a59d1a224e27339803dbe  ./lib/firewall/varnish.py
+8c4a95660ca3c142f3658a2df1146171  ./lib/firewall/yundun.py
+608ea8be34f9ec4c92c4e22eb0c5b39c  ./lib/firewall/yunsuo.py
+75da205112928437d8b3f451af16e7b8  ./lib/firewall/webknight.py
+95b908a21c0ff456ae59df4c6c189c54  ./lib/firewall/wallarm.py
 6ea65a0160c21e144e92334acc2e3667  ./lib/firewall/anquanbao.py
 ad238be8225c2791d82d4c7582afe820  ./lib/firewall/generic.py
 4f359db78f12132482f78a7426ea82df  ./lib/attacks/gist_lookup/__init__.py
@@ -61,7 +68,7 @@ a27929dffdf979f59675ad21ff5f77a6  ./lib/attacks/xss_scan/__init__.py
 fa40d9681c7c3024bd50ad12ef231d6d  ./lib/attacks/nmap_scan/__init__.py
 216999fa0e84866d5c1d96d5676034e4  ./lib/attacks/nmap_scan/nmap_opts.py
 1477efbe270c386057b0170faee4335f  ./lib/header_check/__init__.py
-10f45e11e9702c173ab019b3b0f004b5  ./lib/core/common.py
+833a08e289a14935e476742ec3a27e81  ./lib/core/common.py
 1faa2b5dfad6eb538bbfe42942d2a9da  ./lib/core/errors.py
 d41d8cd98f00b204e9800998ecf8427e  ./lib/core/__init__.py
 48a84b7da7d66b77f27e2ebc5270a30a  ./lib/core/settings.py
