@@ -405,7 +405,7 @@ def parse_search_results(query, url_to_search, verbose=False, **kwargs):
         headers = {
             HTTP_HEADER.CONNECTION: "close",
             HTTP_HEADER.USER_AGENT: user_agent,
-            HTTP_HEADER.X_FORWARDED_FROM: "{}, {}, {}".format(ip_to_use[0], ip_to_use[1], ip_to_use[2])
+            HTTP_HEADER.X_FORWARDED_FOR: "{}, {}, {}".format(ip_to_use[0], ip_to_use[1], ip_to_use[2])
         }
     else:
         headers = {

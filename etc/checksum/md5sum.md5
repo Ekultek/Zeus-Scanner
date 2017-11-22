@@ -1,4 +1,4 @@
-6287156b539d0cd67fdd050715f6ecd3  ./zeus.py
+79f00e0d6fbc7e8da033205394f2f0e5  ./zeus.py
 4b32db388e8acda35570c734d27c950c  ./etc/scripts/launch_sqlmap.sh
 6ad5f22ec4a6f8324bfb1b01ab6d51ec  ./etc/scripts/cleanup.sh
 74d7bee13890a9dd279bb857591647ce  ./etc/scripts/reinstall.sh
@@ -57,7 +57,7 @@ fde5445df5d77d245656adea96673cfa  ./lib/firewall/squid.py
 6ea65a0160c21e144e92334acc2e3667  ./lib/firewall/anquanbao.py
 ad238be8225c2791d82d4c7582afe820  ./lib/firewall/generic.py
 746f201907050843889975ace2dc66db  ./lib/attacks/gist_lookup/__init__.py
-566dc051ce3ac8b877a530fa53f47c66  ./lib/attacks/clickjacking_scan/__init__.py
+b981a5f1fddc740ec42351b59f16040b  ./lib/attacks/clickjacking_scan/__init__.py
 d41d8cd98f00b204e9800998ecf8427e  ./lib/attacks/__init__.py
 4fd64046da32edb2cefa6ba5f3ff5848  ./lib/attacks/sqlmap_scan/__init__.py
 5e5bb575014ebe613db6bf671d008cf8  ./lib/attacks/sqlmap_scan/sqlmap_opts.py
@@ -67,14 +67,14 @@ d41d8cd98f00b204e9800998ecf8427e  ./lib/attacks/whois_lookup/__init__.py
 a27929dffdf979f59675ad21ff5f77a6  ./lib/attacks/xss_scan/__init__.py
 fa40d9681c7c3024bd50ad12ef231d6d  ./lib/attacks/nmap_scan/__init__.py
 216999fa0e84866d5c1d96d5676034e4  ./lib/attacks/nmap_scan/nmap_opts.py
-1477efbe270c386057b0170faee4335f  ./lib/header_check/__init__.py
-833a08e289a14935e476742ec3a27e81  ./lib/core/common.py
+6c8768d487af7bc0b4bc0d4d0882691c  ./lib/header_check/__init__.py
+097ddbb1444de0c09535d02265152cf1  ./lib/core/common.py
 1faa2b5dfad6eb538bbfe42942d2a9da  ./lib/core/errors.py
 d41d8cd98f00b204e9800998ecf8427e  ./lib/core/__init__.py
-922da57ee1f9d9ba492484bcdde4eff7  ./lib/core/settings.py
-d41d8cd98f00b204e9800998ecf8427e  ./var/google_search/__init__.py
-ebe79f9647d78d519a0307aaaab1e425  ./var/google_search/search.py
+b4b487abccf2e7837329f5cec7b5081d  ./lib/core/settings.py
+10950ee27df3186646eeead8cb7f53a2  ./var/search/selenium_search.py
+7a1d9976db3e7d2923898c3065b9ca33  ./var/search/pgp_search.py
 d41d8cd98f00b204e9800998ecf8427e  ./var/__init__.py
 d41d8cd98f00b204e9800998ecf8427e  ./var/auto_issue/__init__.py
 a12d5ffa2d45347c86e5fab154a89943  ./var/auto_issue/github.py
-40228c36886e5908c4c78c945759bd50  ./var/blackwidow/__init__.py
+7f605eefd38c7404660e8266a7a52192  ./var/blackwidow/__init__.py

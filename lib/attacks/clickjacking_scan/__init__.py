@@ -31,7 +31,7 @@ class ClickJackingScanner(object):
             ip_addrs = lib.core.settings.create_random_ip()
             headers = {
                 lib.core.common.HTTP_HEADER.USER_AGENT: agent,
-                lib.core.common.HTTP_HEADER.X_FORWARDED_FROM: "{}, {}, {}".format(
+                lib.core.common.HTTP_HEADER.X_FORWARDED_FOR: "{}, {}, {}".format(
                     ip_addrs[0], ip_addrs[1], ip_addrs[2]
                 ),
                 lib.core.common.HTTP_HEADER.CONNECTION: "close"

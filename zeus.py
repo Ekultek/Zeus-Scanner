@@ -9,7 +9,7 @@ import warnings
 import subprocess
 
 from var import blackwidow
-from var.google_search import search
+from var.search import selenium_search
 from var.auto_issue.github import request_issue_creation
 from lib.header_check import main_header_check
 from lib.attacks.nmap_scan.nmap_opts import NMAP_API_OPTS
@@ -85,6 +85,8 @@ if __name__ == "__main__":
                        help="Perform a clickjacking scan on a provided URL")
     attacks.add_option("-g", "--github-search", dest="searchGithub", action="store_true",
                        help="Perform a Github Gist search for any information on the found websites")
+    attacks.add_option("-P", "--pgp", dest="pgpLookup", action="store_true",
+                       help="Perform a PGP public key lookup on the found URLs")
     attacks.add_option("--sqlmap-args", dest="sqlmapArguments", metavar="SQLMAP-ARGS",
                        help="Pass the arguments to send to the sqlmap API within quotes & "
                             "separated by a comma. IE 'dbms mysql, verbose 3, level 5'")
@@ -97,7 +99,7 @@ if __name__ == "__main__":
                        help="Show the arguments that the sqlmap API understands")
     attacks.add_option("--show-nmap", dest="showNmapArgs", action="store_true",
                        help="Show the arguments that nmap understands")
-    attacks.add_option("-P", "--show-possibles", dest="showAllConnections", action="store_true",
+    attacks.add_option("--show-possibles", dest="showAllConnections", action="store_true",
                        help="Show all connections made during the admin panel search")
     attacks.add_option("--tamper", dest="tamperXssPayloads", metavar="TAMPER-SCRIPT",
                        help="Send the XSS payloads through tampering before sending to the target")
@@ -265,7 +267,7 @@ if __name__ == "__main__":
             opt.runSqliScan, opt.runPortScan,
             opt.adminPanelFinder, opt.runXssScan,
             opt.performWhoisLookup, opt.performClickjackingScan,
-            opt.searchGithub
+            opt.searchGithub, opt.pgpLookup
         ]
         if any(options):
             with open(urls_to_use) as urls:
@@ -291,7 +293,7 @@ if __name__ == "__main__":
                         )
                         run_attacks(
                             url.strip(),
-                            sqlmap=opt.runSqliScan, nmap=opt.runPortScan,
+                            sqlmap=opt.runSqliScan, nmap=opt.runPortScan, pgp=opt.pgpLookup,
                             xss=opt.runXssScan, whois=opt.performWhoisLookup, admin=opt.adminPanelFinder,
                             clickjacking=opt.performClickjackingScan, github=opt.searchGithub,
                             verbose=opt.runInVerbose, batch=opt.runInBatch,
@@ -322,7 +324,7 @@ if __name__ == "__main__":
                 "starting dork scan with query '{}'...".format(opt.dorkToUse)
             ))
             try:
-                search.parse_search_results(
+                selenium_search.parse_search_results(
                     opt.dorkToUse, search_engine, verbose=opt.runInVerbose, proxy=proxy_to_use,
                     agent=agent_to_use, pull_all=opt.noExclude, parse_webcache=opt.parseWebcache,
                     forward_for=opt.forwardedForRandomIP, tor=opt.useTor, batch=opt.runInBatch,
@@ -381,7 +383,7 @@ if __name__ == "__main__":
                 )
             ))
             try:
-                search.search_multiple_pages(
+                selenium_search.search_multiple_pages(
                     dork_to_use, link_amount_to_search, proxy=proxy_to_use,
                     agent=agent_to_use, verbose=opt.runInVerbose,
                     xforward=opt.forwardedForRandomIP, batch=opt.runInBatch,
@@ -414,7 +416,7 @@ if __name__ == "__main__":
                         "starting dork scan with query '{}'...".format(dork)
                     ))
                     try:
-                        search.parse_search_results(
+                        selenium_search.parse_search_results(
                             dork, search_engine, verbose=opt.runInVerbose, proxy=proxy_to_use,
                             agent=agent_to_use, pull_all=opt.noExclude, parse_webcache=opt.parseWebcache,
                             tor=opt.useTor, batch=opt.runInBatch
@@ -439,7 +441,7 @@ if __name__ == "__main__":
                 "using random dork '{}' as the search query...".format(random_dork)
             ))
             try:
-                search.parse_search_results(
+                selenium_search.parse_search_results(
                     random_dork, search_engine, verbose=opt.runInVerbose,
                     proxy=proxy_to_use, agent=agent_to_use, pull_all=opt.noExclude, parse_webcache=opt.parseWebcache,
                     tor=opt.useTor, batch=opt.runInBatch

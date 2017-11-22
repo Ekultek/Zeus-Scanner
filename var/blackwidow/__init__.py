@@ -114,10 +114,6 @@ def blackwidow_main(url, **kwargs):
             lib.core.settings.create_random_ip(),
             lib.core.settings.create_random_ip()
         )
-        if verbose:
-            lib.core.settings.logger.debug(lib.core.settings.set_color(
-                "random IP addresses generated for header '{}'...".format(forward), level=10
-            ))
 
     if verbose:
         lib.core.settings.logger.debug(lib.core.settings.set_color(

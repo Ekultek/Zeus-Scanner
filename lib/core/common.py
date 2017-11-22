@@ -42,7 +42,7 @@ class HTTP_HEADER:
     X_POWERED_BY = "X-Powered-By"
     X_DATA_ORIGIN = "X-Data-Origin"
     X_FRAME_OPT = "X-Frame-Options"
-    X_FORWARDED_FROM = "X-Forwarded-From"
+    X_FORWARDED_FOR = "X-Forwarded-For"
 
 
 def write_to_log_file(data_to_write, path, filename, blacklist=False):
@@ -55,7 +55,10 @@ def write_to_log_file(data_to_write, path, filename, blacklist=False):
             os.getcwd()
         ))) + 1)
     )
-    skip_log_schema = ("url-log", "blackwidow-log", "zeus-log", "extracted", ".blacklist", "gist-match")
+    skip_log_schema = (
+        "url-log", "blackwidow-log", "zeus-log",
+        "extracted", ".blacklist", "gist-match"
+    )
     to_search = filename.split("-")[0]
     amount = len([f for f in os.listdir(path) if to_search in f])
     new_filename = "{}({}).{}".format(

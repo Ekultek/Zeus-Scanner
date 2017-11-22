@@ -28,17 +28,8 @@ import bin.unzip_gecko
 import lib.core.errors
 import lib.core.common
 
-from lib.attacks.admin_panel_finder import main
-from lib.attacks.xss_scan import main_xss
-from lib.attacks.whois_lookup.whois import whois_lookup_main
-from lib.attacks.clickjacking_scan import clickjacking_main
-from lib.attacks.gist_lookup import github_gist_search_main
 from lib.attacks.sqlmap_scan.sqlmap_opts import SQLMAP_API_OPTIONS
 from lib.attacks.nmap_scan.nmap_opts import NMAP_API_OPTS
-from lib.attacks import (
-    nmap_scan,
-    sqlmap_scan,
-)
 
 try:
     raw_input  # Python 2
@@ -46,7 +37,6 @@ except NameError:
     raw_input = input  # Python 3
 
 # get the master patch ID when a patch is pushed to the program
-
 PATCH_ID = str(subprocess.check_output(["git", "rev-parse", "origin/master"]))[:6]
 
 # clone link
@@ -56,7 +46,7 @@ CLONE = "https://github.com/ekultek/zeus-scanner.git"
 ISSUE_LINK = "https://github.com/ekultek/zeus-scanner/issues"
 
 # current version <major.minor.commit.patch ID>
-VERSION = "1.2.28".format(PATCH_ID)
+VERSION = "1.2.29".format(PATCH_ID)
 
 # colors to output depending on the version
 VERSION_TYPE_COLORS = {"dev": 33, "stable": 92, "other": 30}
@@ -172,8 +162,11 @@ GIST_MATCH_LOG = "{}/log/gists".format(os.getcwd())
 # unknown firewall log path
 UNKNOWN_FIREWALL_FINGERPRINT_PATH = "{}/log/unknown-firewall".format(os.getcwd())
 
-# blacklisted forks, if your dork doesn't pull any URL's it'll be sent here
+# blacklisted dorks, if your dork doesn't pull any URL's it'll be sent here
 BLACKLIST_FILE_PATH = "{}/log/blacklist".format(os.getcwd())
+
+# found PGP keys file path
+PGP_KEYS_FILE_PATH = "{}/log/pgp_keys".format(os.getcwd())
 
 # the current log file being used
 CURRENT_LOG_FILE_PATH = "{}/log".format(os.getcwd())
@@ -210,6 +203,9 @@ EXTRACTED_URL_FILENAME = "extracted-url-{}.log"
 # filename for the URL log
 URL_FILENAME = "url-log-{}.log"
 
+# filename to save the PGP keys
+PGP_KEY_FILENAME = "{}-{}.pgp"
+
 # filename for the blacklist log
 BLACKLIST_FILENAME = ".blacklist"
 
@@ -231,6 +227,9 @@ SQLMAP_MAN_PAGE_URL = "https://github.com/sqlmapproject/sqlmap/wiki/Usage"
 # whois API link
 WHOIS_JSON_LINK = "https://jsonwhoisapi.com/api/v1/whois?identifier={}"
 
+# PGP key identifier to ensure that the link we find is a PGP key
+PGP_IDENTIFIER_REGEX = re.compile(r"(0x)?[a-z0-9]{16}", re.I)
+
 # regex to find GET params in a URL, IE php?id=
 URL_QUERY_REGEX = re.compile(r"(.*)[?|#](.*){1}\=(.*)")
 
@@ -238,7 +237,7 @@ URL_QUERY_REGEX = re.compile(r"(.*)[?|#](.*){1}\=(.*)")
 URL_REGEX = re.compile(r"((https?):((//)|(\\\\))+([\w\d:#@%/;$()~_?\+-=\\\.&](#!)?)*)")
 
 # regex to discover if there are any results on the page
-NO_RESULTS_REGEX = re.compile("did not match with any results.", re.IGNORECASE)
+NO_RESULTS_REGEX = re.compile("did not match with any results.", re.I)
 
 # WAF/IDS/IPS checking payload
 PROTECTION_CHECK_PAYLOAD = (
@@ -256,9 +255,11 @@ AUTHORIZED_SEARCH_ENGINES = {
     "bing": "http://bing.com",
     "duckduckgo": "http://duckduckgo.com/html",
     "google": "http://google.com",
-    "search-results": "http://www1.search-results.com/web?tpr={}&q={}&page={}"
+    "search-results": "http://www1.search-results.com/web?tpr={}&q={}&page={}",
+    "pgp": "https://pgp.mit.edu/pks/lookup?search={}&op=index"
 }
 
+# search page for Gists and rate checking URL
 GITHUB_GIST_SEARCH_URLS = {
     "search": "https://api.github.com/gists/public?page={}&per_page=100",
     "check_rate": "https://api.github.com/users/ZeusIssueReporter"
@@ -790,6 +791,9 @@ def create_random_ip():
     generated = __get_nodes()
     if generated == "0.0.0.0" or "255.255.255.255":
         generated = __get_nodes()  # if it isn't a real IP regenerate it
+    logger.info(set_color(
+        "random IP address generated for header '{}'...".format(generated)
+    ))
     return generated
 
 
@@ -894,6 +898,7 @@ def run_attacks(url, **kwargs):
     whois = kwargs.get("whois", False)
     clickjacking = kwargs.get("clickjacking", False)
     github = kwargs.get("github", False)
+    pgp = kwargs.get("pgp", False)
     auto_start = kwargs.get("auto_start", False)
     sqlmap_arguments = kwargs.get("sqlmap_args", None)
     nmap_arguments = kwargs.get("nmap_args", None)
@@ -946,37 +951,47 @@ def run_attacks(url, **kwargs):
 
     if question.lower().startswith("y"):
         if sqlmap:
+            from lib.attacks import sqlmap_scan
             return sqlmap_scan.sqlmap_scan_main(
                 url.strip(), verbose=verbose,
                 opts=create_arguments(sqlmap=True, sqlmap_args=sqlmap_arguments, conf=conf_file), auto_start=auto_start)
         elif nmap:
+            from lib.attacks import nmap_scan
             url_ip_address = replace_http(url.strip())
             return nmap_scan.perform_port_scan(
                 url_ip_address, verbose=verbose,
                 opts=create_arguments(nmap=True, nmap_args=nmap_arguments)
             )
         elif admin:
+            from lib.attacks.admin_panel_finder import main
             main(
                 url, show=show_all, proc_num=threads,
                 verbose=verbose, do_threading=do_threading, batch=batch
             )
         elif xss:
+            from lib.attacks.xss_scan import main_xss
             if check_for_protection(PROTECTED, "xss"):
                 main_xss(
                     url, verbose=verbose, proxy=proxy,
                     agent=agent, tamper=tamper_script, batch=batch,
                 )
         elif whois:
+            from lib.attacks.whois_lookup.whois import whois_lookup_main
             whois_lookup_main(
                 url, verbose=verbose, timeout=timeout
             )
         elif clickjacking:
+            from lib.attacks.clickjacking_scan import clickjacking_main
             if check_for_protection(PROTECTED, "clickjacking"):
                 clickjacking_main(url, agent=agent, proxy=proxy,
                                   forward=forwarded, batch=batch)
         elif github:
+            from lib.attacks.gist_lookup import github_gist_search_main
             query = replace_http(url)
             github_gist_search_main(query, agent=agent, proxy=proxy, verbose=verbose)
+        elif pgp:
+            from var.search.pgp_search import pgp_main
+            pgp_main(url, verbose=verbose)
         else:
             pass
     else:
