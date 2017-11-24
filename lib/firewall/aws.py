@@ -14,9 +14,8 @@ def detect(content, **kwargs):
         re.compile(r"x.amz.id.\d+", re.I),
         re.compile(r"x.amz.request.id", re.I)
     )
-    if headers is not None:
-        for detection in detection_schema:
-            if detection.search(content) is not None:
-                return True
-            elif detection.search(str(headers)) is not None:
-                return True
+    for detection in detection_schema:
+        if detection.search(content) is not None:
+            return True
+        elif detection.search(str(headers)) is not None:
+            return True
