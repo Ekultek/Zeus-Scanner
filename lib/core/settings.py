@@ -46,7 +46,7 @@ CLONE = "https://github.com/ekultek/zeus-scanner.git"
 ISSUE_LINK = "https://github.com/ekultek/zeus-scanner/issues"
 
 # current version <major.minor.commit.patch ID>
-VERSION = "1.2.30.{}".format(PATCH_ID)
+VERSION = "1.2.31".format(PATCH_ID)
 
 # colors to output depending on the version
 VERSION_TYPE_COLORS = {"dev": 33, "stable": 92, "other": 30}
@@ -62,6 +62,14 @@ else:
 # zeus-scanners saying
 SAYING = "Advanced Reconnaissance..."
 
+# i had to create a banner because something not so good happened...
+DISCLAIMER = (
+    "[!] legal disclaimer: Usage of Zeus for exploiting, blackmailing, or attacking targets without "
+    "mutual consent is illegal. It is the end users responsibility to obey all laws, regulations, and "
+    "rules set forth by their state, country, or place of origin. Zeus developers take no responsibility "
+    "for any misuse or damage caused by the use of this program."
+)
+
 # sexy banner
 BANNER = """\033[36m
     __          __________                             __   
@@ -70,7 +78,7 @@ BANNER = """\033[36m
   \ \   /_____/  /     /\  ___/|  |  /\___ \  /_____/   / / 
    \_\          /_______ \___  >____//____  >          /_/  
                        \/   \/           \/  {}
-\t{}\n\t\t{}\033[0m""".format(VERSION_STRING, CLONE, SAYING)
+\t{}\n\t\t{}\033[0m\n\n\n{}""".format(VERSION_STRING, CLONE, SAYING, DISCLAIMER)
 
 # default user agent if another one isn't given
 # reference for best practices: https://docs.developer.amazonservices.com/en_US/dev_guide/DG_UserAgentHeader.html
