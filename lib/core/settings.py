@@ -46,7 +46,7 @@ CLONE = "https://github.com/ekultek/zeus-scanner.git"
 ISSUE_LINK = "https://github.com/ekultek/zeus-scanner/issues"
 
 # current version <major.minor.commit.patch ID>
-VERSION = "1.2.31".format(PATCH_ID)
+VERSION = "1.2.32".format(PATCH_ID)
 
 # colors to output depending on the version
 VERSION_TYPE_COLORS = {"dev": 33, "stable": 92, "other": 30}
@@ -291,7 +291,7 @@ SPIDER_EXT_EXCLUDE = (
     "sil", "smv", "so", "sub", "swf", "tar", "tbz2", "tga", "tgz", "tif", "tiff", "tlz", "ts", "ttf", "uvh",
     "uvi", "uvm", "uvp", "uvs", "uvu", "viv", "vob", "war", "wav", "wax", "wbmp", "wdp", "weba", "webm", "webp",
     "whl", "wm", "wma", "wmv", "wmx", "woff", "woff2", "wvx", "xbm", "xif", "xls", "xlsx", "xlt", "xm", "xpi",
-    "xpm", "xwd", "xz", "z", "zip", "zipx"
+    "xpm", "xwd", "xz", "z", "zip", "zipx", "gov"
 )
 
 # urls to exclude from being grabbed during the searching
@@ -301,7 +301,8 @@ URL_EXCLUDES = (
     "www.google", "mail.google", "accounts.google",
     "schema.org", "www.<b", "https://cid-", "https://<strong",  # these are some weird things that get pulled up?
     "plus.google", "www.w3.org", "schemas.live.com",
-    "torproject.org", "search-results.com", "index.com"
+    "torproject.org", "search-results.com", "index.com",
+    "gov"
 )
 
 # regular expressions used for DBMS recognition based on error message response
