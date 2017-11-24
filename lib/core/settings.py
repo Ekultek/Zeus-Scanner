@@ -46,7 +46,7 @@ CLONE = "https://github.com/ekultek/zeus-scanner.git"
 ISSUE_LINK = "https://github.com/ekultek/zeus-scanner/issues"
 
 # current version <major.minor.commit.patch ID>
-VERSION = "1.2.29".format(PATCH_ID)
+VERSION = "1.2.30.{}".format(PATCH_ID)
 
 # colors to output depending on the version
 VERSION_TYPE_COLORS = {"dev": 33, "stable": 92, "other": 30}
@@ -103,7 +103,7 @@ FIX_PROGRAM_INSTALL_PATH = "{}/etc/scripts/fix_pie.sh".format(os.getcwd())
 CLEANUP_TOOL_PATH = "{}/etc/scripts/cleanup.sh".format(os.getcwd())
 
 # path to tool to launch sqlmap API
-LAUNCH_SQLMAP_API_TOOL = "{}/etc/scripts/launch_sqlmap_api.sh".format(os.getcwd())
+LAUNCH_SQLMAP_API_TOOL = "{}/etc/scripts/launch_sqlmap.sh".format(os.getcwd())
 
 # path to nmap installer
 NMAP_INSTALLER_TOOL = "{}/etc/scripts/install_nmap.sh".format(os.getcwd())
@@ -198,6 +198,7 @@ COOKIE_FILENAME = "{}-cookie.log"
 # filename for found headers log
 HEADERS_FILENAME = "{}-headers.json"
 
+# filename for extracted IP ban URLs
 EXTRACTED_URL_FILENAME = "extracted-url-{}.log"
 
 # filename for the URL log
