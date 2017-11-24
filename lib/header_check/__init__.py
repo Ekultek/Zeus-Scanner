@@ -153,7 +153,7 @@ def load_headers(url, **kwargs):
         header_value = {
             HTTP_HEADER.CONNECTION: "close",
             HTTP_HEADER.USER_AGENT: agent,
-            HTTP_HEADER.X_FORWARDED_FROM: "{}, {}, {}".format(
+            HTTP_HEADER.X_FORWARDED_FOR: "{}, {}, {}".format(
                 ip_list[0], ip_list[1], ip_list[2]
             )
         }
