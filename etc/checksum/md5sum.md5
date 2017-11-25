@@ -71,8 +71,9 @@ fa40d9681c7c3024bd50ad12ef231d6d  ./lib/attacks/nmap_scan/__init__.py
 097ddbb1444de0c09535d02265152cf1  ./lib/core/common.py
 1faa2b5dfad6eb538bbfe42942d2a9da  ./lib/core/errors.py
 d41d8cd98f00b204e9800998ecf8427e  ./lib/core/__init__.py
-b06572893b98ebad648ca048b98ec2ba  ./lib/core/settings.py
-10950ee27df3186646eeead8cb7f53a2  ./var/search/selenium_search.py
+08b9809eec3689f0d4661366fc08b454  ./lib/core/settings.py
+9ba84ab8e80011d7d7f7e017ef103f43  ./var/search/__init__.py
+617570f36f8525ba3b2768cceae87951  ./var/search/selenium_search.py
 7a1d9976db3e7d2923898c3065b9ca33  ./var/search/pgp_search.py
 d41d8cd98f00b204e9800998ecf8427e  ./var/__init__.py
 d41d8cd98f00b204e9800998ecf8427e  ./var/auto_issue/__init__.py

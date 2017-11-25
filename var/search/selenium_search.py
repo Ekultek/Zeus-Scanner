@@ -14,18 +14,15 @@ except ImportError:
     )
 
 import requests
-import whichcraft
 from bs4 import BeautifulSoup
-from selenium import webdriver
 from pyvirtualdisplay import Display
 from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.common.proxy import *
 from selenium.webdriver.remote.errorhandler import (
     UnexpectedAlertPresentException,
     ElementNotInteractableException,
-    WebDriverException
 )
 
+import var.search
 from var.auto_issue.github import request_issue_creation
 from lib.core.common import (
     write_to_log_file,
@@ -93,65 +90,6 @@ def extract_ip_ban(url):
     return unquote(retval)
 
 
-def set_tor_browser_settings(ff_browser, default_port="9050", **kwargs):
-    """
-    set the Firefox browser settings to mimic the Tor browser
-    """
-    port = kwargs.get("port", None)
-    verbose = kwargs.get("verbose", False)
-    user_agent = kwargs.get("agent", None)
-    if port is not None:
-        port = port
-    else:
-        port = default_port
-    if verbose:
-        logger.debug(set_color(
-            "tor port set to '{}'...".format(port), level=10
-        ))
-    preferences = {
-        "privacy": [
-            # set the privacy settings
-            ("places.history.enabled", False),
-            ("privacy.clearOnShutdown.offlineApps", True),
-            ("privacy.clearOnShutdown.passwords", True),
-            ("privacy.clearOnShutdown.siteSettings", True),
-            ("privacy.sanitize.sanitizeOnShutdown", True),
-            ("signon.rememberSignons", False),
-            ("network.cookie.lifetimePolicy", 2),
-            ("network.dns.disablePrefetch", True),
-            ("network.http.sendRefererHeader", 0)
-        ],
-        "proxy": [
-            # set the proxy settings
-            ("network.proxy.type", 1),
-            ("network.proxy.socks_version", 5),
-            ("network.proxy.socks", '127.0.0.1'),
-            ("network.proxy.socks_port", int(port)),
-            ("network.proxy.socks_remote_dns", True)
-        ],
-        "javascript": [
-            # disabled the javascript settings
-            ("javascript.enabled", False)
-        ],
-        "download": [
-            # get a speed increase by not downloading the images
-            ("permissions.default.image", 2)
-        ],
-        "user-agent": [
-            # set the user agent settings
-            ("general.useragent.override", user_agent)
-        ]
-    }
-    for preference in preferences.iterkeys():
-        if verbose:
-            logger.debug(set_color(
-                "setting '{}' preference(s)...".format(preference), level=10
-            ))
-        for setting in preferences[preference]:
-            ff_browser.set_preference(setting[0], setting[1])
-    return ff_browser
-
-
 def extract_webcache_url(webcache_url, splitter="+"):
     """
     extract the true URL from Google's webcache URL's
@@ -166,7 +104,7 @@ def extract_webcache_url(webcache_url, splitter="+"):
     return None
 
 
-def get_urls(query, url, verbose=False, warning=True, **kwargs):
+def get_urls(query, url, verbose=False, **kwargs):
     """
       Bypass Google captchas and Google API by using selenium-webdriver to gather
       the Google URL. This will open a robot controlled browser window and attempt
@@ -176,74 +114,13 @@ def get_urls(query, url, verbose=False, warning=True, **kwargs):
     proxy, user_agent = kwargs.get("proxy", None), kwargs.get("user_agent", None)
     tor, tor_port = kwargs.get("tor", False), kwargs.get("tor_port", None)
     batch = kwargs.get("batch", False)
-    if verbose:
-        logger.debug(set_color(
-            "setting up the virtual display to hide the browser...", level=10
-        ))
-    if tor:
-        if "google" in url:
-            logger.warning(set_color(
-                "using Google with tor will most likely result in a ban URL...", level=30
-            ))
+    logger.info(set_color(
+        "setting up virtual display to hide the browser..."
+    ))
     ff_display = Display(visible=0, size=(800, 600))
     ff_display.start()
-    logger.info(set_color(
-        "firefox browser display will be hidden while it performs the query..."
-    ))
-    if warning:
-        logger.warning(set_color(
-            "your web browser will be automated in order for Zeus to successfully "
-            "bypass captchas and API calls. this is done in order to grab the URL "
-            "from the search and parse the results. please give selenium time to "
-            "finish it's task...", level=30
-        ))
-    if verbose:
-        logger.debug(set_color(
-            "running selenium-webdriver and launching browser...", level=10
-        ))
-
-    if verbose:
-        logger.debug(set_color(
-            "adjusting selenium-webdriver user-agent to '{}'...".format(user_agent), level=10
-        ))
-    if not tor and proxy is not None:
-        proxy_type = proxy.keys()
-        proxy_to_use = Proxy({
-            "proxyType": ProxyType.MANUAL,
-            "httpProxy": proxy[proxy_type[0]],
-            "ftpProxy": proxy[proxy_type[0]],
-            "sslProxy": proxy[proxy_type[0]],
-            "noProxy": ""
-        })
-        if verbose:
-            logger.debug(set_color(
-                "setting selenium proxy to '{}'...".format(
-                    ''.join(proxy_type) + "://" + ''.join(proxy.values())
-                ), level=10
-            ))
-    else:
-        proxy_to_use = None
-
-    try:
-        profile = webdriver.FirefoxProfile()
-        if not tor:
-            profile.set_preference("general.useragent.override", user_agent)
-            browser = webdriver.Firefox(profile, proxy=proxy_to_use)
-        else:
-            logger.info(set_color(
-                "setting tor browser settings..."
-            ))
-            profile = set_tor_browser_settings(profile, verbose=verbose, agent=user_agent, port=tor_port)
-            browser = webdriver.Firefox(profile)
-    except (OSError, WebDriverException):
-        if not tor:
-            profile.set_preference("general.useragent.override", user_agent)
-            browser = webdriver.Firefox(profile, proxy=proxy_to_use, executable_path=whichcraft.which("geckodriver"))
-        else:
-            profile = set_tor_browser_settings(profile, verbose=verbose, agent=user_agent, port=tor_port)
-            browser = webdriver.Firefox(profile, executable_path=whichcraft.which("geckodriver"))
-
-    logger.info(set_color("browser will open shortly..."))
+    browser = var.search.SetBrowser(agent=user_agent, proxy=proxy, tor=tor).set_browser()
+    logger.info(set_color("browser will open shortly...", level=25))
     browser.get(url)
     if verbose:
         logger.debug(set_color(
@@ -254,8 +131,9 @@ def get_urls(query, url, verbose=False, warning=True, **kwargs):
         "searching search engine using query '{}'...".format(url, query)
     ))
     try:
+        # enter the text you want to search and hit enter
         search.send_keys(query)
-        search.send_keys(Keys.RETURN)  # hit return after you enter search text
+        search.send_keys(Keys.RETURN)
         if not tor:
             time.sleep(3)
         else:
@@ -264,9 +142,10 @@ def get_urls(query, url, verbose=False, warning=True, **kwargs):
             ))
             time.sleep(10)
     except ElementNotInteractableException:
+        # get rid of the popup box and hit enter after entering the text to search
         browser.execute_script("document.querySelectorAll('label.boxed')[1].click()")
         search.send_keys(query)
-        search.send_keys(Keys.RETURN)  # hit return after you enter search text
+        search.send_keys(Keys.RETURN)
         time.sleep(3)
     except UnicodeDecodeError:
         logger.error(set_color(
@@ -285,11 +164,13 @@ def get_urls(query, url, verbose=False, warning=True, **kwargs):
         logger.warning(set_color(
             "alert present, closing...", level=30
         ))
+        # discover the alert and close it before continuing
         alert = browser.switch_to.alert
         alert.accept()
         retval = browser.current_url
     ban_url_schema = ["http://ipv6.google.com", "http://ipv4.google.com"]
-    if any(u in retval for u in ban_url_schema):  # if you got IP banned
+    # if you have been IP banned, we'll extract the URL from it
+    if any(u in retval for u in ban_url_schema):
         logger.warning(set_color(
             "it appears that Google is attempting to block your IP address, attempting bypass...", level=30
         ))
@@ -310,7 +191,8 @@ def get_urls(query, url, verbose=False, warning=True, **kwargs):
                     question_msg, opts="yN", default="n"
                 )
 
-            if not str(do_continue).lower().startswith("n"):  # shutdown and write the URL to a file
+            # shutdown and write the URL to a file
+            if not str(do_continue).lower().startswith("n"):
                 write_to_log_file(retval, EXTRACTED_URL_LOG, EXTRACTED_URL_FILENAME)
                 logger.info(set_color(
                     "it is advised to extract the URL's from the produced URL written to the above "
@@ -318,7 +200,9 @@ def get_urls(query, url, verbose=False, warning=True, **kwargs):
                 ))
                 shutdown()
         except Exception as e:
-            browser.close()  # stop all the random rogue processes
+            # stop all the random rogue processes, this isn't guaranteed to stop the processes
+            # that's why we have the clean up script in case this fails
+            browser.close()
             ff_display.stop()
             logger.exception(set_color(
                 "zeus was unable to extract the correct URL from the ban URL '{}', "
@@ -367,7 +251,7 @@ def parse_search_results(query, url_to_search, verbose=False, **kwargs):
             "checking for user-agent and proxy configuration...", level=10
         ))
 
-    if not parse_webcache:
+    if not parse_webcache and "google" in url_to_search:
         logger.warning(set_color(
             "will not parse webcache URL's (to parse webcache pass -W)...", level=30
         ))
