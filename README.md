@@ -26,6 +26,7 @@
 - [Open a pull request](https://github.com/Ekultek/Zeus-Scanner/compare)
   - [Contribution guidelines](https://github.com/Ekultek/Zeus-Scanner/blob/master/.github/CONTRIBUTING.md)
 - [Donations to Zeus](https://github.com/Ekultek/Zeus-Scanner#donations)
+- [Shoutouts](https://github.com/Ekultek/Zeus-Scanner#shoutouts)
 
 # Zeus-Scanner
 
