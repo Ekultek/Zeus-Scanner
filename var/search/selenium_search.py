@@ -1,5 +1,4 @@
 import os
-import re
 import time
 import shlex
 import subprocess
@@ -27,6 +26,7 @@ from var.auto_issue.github import request_issue_creation
 from lib.core.common import (
     write_to_log_file,
     HTTP_HEADER,
+    URLParser,
     shutdown,
     prompt
 )
@@ -53,55 +53,14 @@ from lib.core.settings import (
     REINSTALL_TOOL,
     EXTRACTED_URL_FILENAME,
     URL_FILENAME,
-    BLACKLIST_FILENAME
+    BLACKLIST_FILENAME,
+    IP_BAN_REGEX
 )
 
 try:
     unicode
 except NameError:
     unicode = str
-
-
-def strip_leftovers(url, possibles):
-    """
-    strip leftover HTML tags and random garbage data that is sometimes found in the URL's
-    """
-    for p in possibles:
-        if p in url:
-            url = url.split(p)[0]
-    return url
-
-
-def extract_ip_ban(url):
-    """
-    bypass Google's IP blocking by extracting the true URL from the ban URL.
-    """
-    url = unquote(url)
-    constant_splitter = "continue="
-    content_separators = ("Fid", "&gs_")
-    to_use_separator = None
-    retval = None
-    url_data_list = url.split(constant_splitter)
-    for item in url_data_list:
-        for sep in content_separators:
-            if sep in item:
-                to_use_separator = sep
-        retval = item.split(to_use_separator)[0]
-    return unquote(retval)
-
-
-def extract_webcache_url(webcache_url, splitter="+"):
-    """
-    extract the true URL from Google's webcache URL's
-    """
-    webcache_url = unquote(webcache_url)
-    webcache_regex = re.compile(r"cache:(.{,16})?:")
-    data = webcache_regex.split(webcache_url)
-    to_extract = data[2].split(splitter)
-    extracted_to_test = to_extract[0]
-    if URL_REGEX.match(extracted_to_test):
-        return extracted_to_test
-    return None
 
 
 def get_urls(query, url, verbose=False, **kwargs):
@@ -168,14 +127,13 @@ def get_urls(query, url, verbose=False, **kwargs):
         alert = browser.switch_to.alert
         alert.accept()
         retval = browser.current_url
-    ban_url_schema = ["http://ipv6.google.com", "http://ipv4.google.com"]
     # if you have been IP banned, we'll extract the URL from it
-    if any(u in retval for u in ban_url_schema):
+    if IP_BAN_REGEX.search(retval) is not None:
         logger.warning(set_color(
             "it appears that Google is attempting to block your IP address, attempting bypass...", level=30
         ))
         try:
-            retval = extract_ip_ban(retval)
+            retval = URLParser(retval).extract_ip_ban_url()
             question_msg = (
                 "zeus was able to successfully extract the URL from Google's ban URL "
                 "it is advised to shutdown zeus and attempt to extract the URL's manually. "
@@ -228,7 +186,7 @@ def parse_search_results(query, url_to_search, verbose=False, **kwargs):
     """
       Parse a webpage from Google for URL's with a GET(query) parameter
     """
-    possible_leftovers = ("<", ">", ";", ",")
+    possible_leftovers = URLParser(None).possible_leftovers
     splitter = "&amp;"
     retval = set()
     query_url = None
@@ -440,16 +398,16 @@ def parse_search_results(query, url_to_search, verbose=False, **kwargs):
     true_retval = set()
     for url in list(retval):
         if any(l in url for l in possible_leftovers):
-            url = strip_leftovers(url, list(possible_leftovers))
+            url = URLParser(url).strip_url_leftovers()
         if parse_webcache:
             if "webcache" in url:
                 logger.info(set_color(
                     "found a webcache URL, extracting..."
                 ))
-                url = extract_webcache_url(url)
+                url = URLParser(url).extract_webcache_url()
                 if verbose:
                     logger.debug(set_color(
-                        "found '{}'...".format(url), level=10
+                        "found '{}'...".format(url), level=15
                     ))
                 true_retval.add(url)
             else:
