@@ -84,7 +84,7 @@ class SetBrowser(object):
 
     def set_browser(self):
         """
-        set up the browser
+        set the browser settings
         """
         profile = webdriver.FirefoxProfile()
         try:
@@ -92,7 +92,6 @@ class SetBrowser(object):
                 logger.info(set_color(
                     "setting the browser..."
                 ))
-                # override the user-agent to be our person one
                 profile = profile.set_preference("general.useragent.override", self.agent)
                 browser = webdriver.Firefox(profile, proxy=self.__set_proxy())
             else:

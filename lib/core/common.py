@@ -2,6 +2,14 @@ import os
 import re
 import json
 import time
+try:
+    from urllib import (  # python 2
+        unquote
+    )
+except ImportError:
+    from urllib.parse import (  # python 3
+        unquote
+    )
 
 from lxml import etree
 
@@ -43,6 +51,55 @@ class HTTP_HEADER:
     X_DATA_ORIGIN = "X-Data-Origin"
     X_FRAME_OPT = "X-Frame-Options"
     X_FORWARDED_FOR = "X-Forwarded-For"
+
+
+class URLParser(object):
+
+    def __init__(self, url):
+        self.url = url
+        self.url_match_regex = re.compile(r"((https?):((//)|(\\\\))+([\w\d:#@%/;$()~_?\+-=\\\.&](#!)?)*)")
+        self.webcache_regex = re.compile(r"cache:(.{,16})?:")
+        self.possible_leftovers = ("<", ">", ";", ",")
+        self.webcache_schema = "webcache"
+        self.constant_ip_ban_splitter = "continue="
+        self.content_ip_ban_seperator = ("Fid", "&gs_")
+
+    def extract_webcache_url(self, splitter="+"):
+        """
+        extract the URL from Google's webcache URL
+        """
+        url = self.url
+        data = self.webcache_regex.split(url)
+        to_extract = data[2].split(splitter)
+        extracted = to_extract[0]
+        if self.url_match_regex.match(extracted):
+            return extracted
+        return None
+
+    def extract_ip_ban_url(self):
+        """
+        extract the true URL from Google's IP ban URL
+        """
+        url = unquote(self.url)
+        to_use_separator = None
+        retval_url = None
+        url_data_list = url.split(self.constant_ip_ban_splitter)
+        for item in url_data_list:
+            for sep in list(self.content_ip_ban_seperator):
+                if sep in item:
+                    to_use_separator = sep
+            retval_url = item.split(to_use_separator)
+        return unquote(retval_url[0])
+
+    def strip_url_leftovers(self):
+        """
+        strip any leftovers that come up with the URL every now and then
+        """
+        url = self.url
+        for possible in self.possible_leftovers:
+            if possible in url:
+                url = url.split(possible)[0]
+        return url
 
 
 def write_to_log_file(data_to_write, path, filename, blacklist=False):

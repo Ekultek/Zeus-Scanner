@@ -46,7 +46,7 @@ CLONE = "https://github.com/ekultek/zeus-scanner.git"
 ISSUE_LINK = "https://github.com/ekultek/zeus-scanner/issues"
 
 # current version <major.minor.commit.patch ID>
-VERSION = "1.2.33".format(PATCH_ID)
+VERSION = "1.2.34.{}".format(PATCH_ID)
 
 # colors to output depending on the version
 VERSION_TYPE_COLORS = {"dev": 33, "stable": 92, "other": 30}
@@ -245,6 +245,9 @@ URL_QUERY_REGEX = re.compile(r"(.*)[?|#](.*){1}\=(.*)")
 # regex to recognize a URL
 URL_REGEX = re.compile(r"((https?):((//)|(\\\\))+([\w\d:#@%/;$()~_?\+-=\\\.&](#!)?)*)")
 
+# regex to match Google's IP ban URL
+IP_BAN_REGEX = re.compile(r"http(s)?.//ipv\d{1}.google.[a-z]{1,5}.", re.I)
+
 # regex to discover if there are any results on the page
 NO_RESULTS_REGEX = re.compile("did not match with any results.", re.I)
 
@@ -399,6 +402,7 @@ def set_color(org_string, level=None):
     """
     color_levels = {
         10: "\033[36m{}\033[0m",         # DEBUG
+        15: "\033[1m\033[36m{}\033[0m",  # GOOD DEBUG INFO
         20: "\033[32m{}\033[0m",         # INFO *default
         25: "\033[1m\033[32m{}\033[0m",  # GOOD INFO
         30: "\033[33m{}\033[0m",         # WARNING
