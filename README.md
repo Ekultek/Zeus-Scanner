@@ -131,3 +131,9 @@ Zeus is created by a small team of developers that have an aspiration for inform
  - Or you can [Buy us a coffee](https://ko-fi.com/A28355P5)
  
 You can be assured that all donations will go towards Zeus funding to make it more reliable and even better, thank you from the Zeus development team
+
+### Shoutouts
+
+##### [OpenSource Projects](https://www.facebook.com/opensourceprojects/)
+
+OpenSource Projects is a Facebook community page who's goal is to give developers, new and old, a easy and simple place to share their opensource contributions and projects. I personally think this is an awesome idea, I know how hard it is to get your code noticed by people and support these guys 100%. Go ahead and give them a like [here](https://www.facebook.com/opensourceprojects/). They will share any opensource project you send them for free. Thank you OpenSource Projects for giving developers a place to share work with one another!
