@@ -5,7 +5,8 @@ from selenium.webdriver.remote.errorhandler import WebDriverException
 
 from lib.core.settings import (
     logger,
-    set_color
+    set_color,
+    DEFAULT_USER_AGENT
 )
 
 
@@ -16,7 +17,7 @@ class SetBrowser(object):
     """
 
     def __init__(self, **kwargs):
-        self.agent = kwargs.get("agent", None)
+        self.agent = kwargs.get("agent", DEFAULT_USER_AGENT)
         self.proxy = kwargs.get("proxy", None)
         # self.xforward = kwargs.get("xforward", False) # TODO:/
         self.tor = kwargs.get("tor", False)
