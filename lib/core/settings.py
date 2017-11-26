@@ -46,7 +46,7 @@ CLONE = "https://github.com/ekultek/zeus-scanner.git"
 ISSUE_LINK = "https://github.com/ekultek/zeus-scanner/issues"
 
 # current version <major.minor.commit.patch ID>
-VERSION = "1.2.35".format(PATCH_ID)
+VERSION = "1.2.36".format(PATCH_ID)
 
 # colors to output depending on the version
 VERSION_TYPE_COLORS = {"dev": 33, "stable": 92, "other": 30}
@@ -1097,3 +1097,23 @@ def get_token(path):
     n = __get_n(encoded)
     token = __decode(encoded, int(n))
     return token
+
+
+def tails(file_object, last_lines=35):
+    """
+    return the last `n` lines of a file, much like the Unix
+    tails command
+    """
+    with open(file_object) as file_object:
+        assert last_lines >= 0
+        pos, lines = last_lines+1, []
+        while len(lines) <= last_lines:
+            try:
+                file_object.seek(-pos, 2)
+            except IOError:
+                file_object.seek(0)
+                break
+            finally:
+                lines = list(file_object)
+            pos *= 2
+    return "".join(lines[-last_lines:])

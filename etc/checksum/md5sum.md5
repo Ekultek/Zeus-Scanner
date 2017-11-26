@@ -71,11 +71,11 @@ e11185d7dd3d6c94d7f4ddbcfd1d26cc  ./lib/header_check/__init__.py
 45fc5f5847a3a9909cbd5e0add7b4586  ./lib/core/common.py
 1faa2b5dfad6eb538bbfe42942d2a9da  ./lib/core/errors.py
 d41d8cd98f00b204e9800998ecf8427e  ./lib/core/__init__.py
-db185dc79cdb6baa6c0949788204421c  ./lib/core/settings.py
+e85aeb86ed1e341c65d3916e80e264f0  ./lib/core/settings.py
 9989b7122c79a4cd38be1e00adab5187  ./var/search/__init__.py
 cd16c7e4eb550b2c8531dee993eb4c2a  ./var/search/selenium_search.py
 63ba132381a0cc2d7629852bd5e4aa17  ./var/search/pgp_search.py
 d41d8cd98f00b204e9800998ecf8427e  ./var/__init__.py
 d41d8cd98f00b204e9800998ecf8427e  ./var/auto_issue/__init__.py
-a12d5ffa2d45347c86e5fab154a89943  ./var/auto_issue/github.py
+0c11c16126baf789388a661bbbefb149  ./var/auto_issue/github.py
 7f605eefd38c7404660e8266a7a52192  ./var/blackwidow/__init__.py

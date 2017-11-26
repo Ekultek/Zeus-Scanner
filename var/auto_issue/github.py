@@ -1,3 +1,4 @@
+import re
 import sys
 try:
     import urllib2  # python 2
@@ -6,8 +7,33 @@ except ImportError:
 import json
 import platform
 
+import requests
+from bs4 import BeautifulSoup
+
 import lib.core.common
 import lib.core.settings
+
+
+def find_url(params, search="https://github.com/ekultek/zeus-scanner/issues"):
+    """
+    get the URL that your issue is created at
+    """
+    retval = "https://github.com{}"
+    href = None
+    searcher = re.compile(params, re.I)
+    req = requests.get(search)
+    status, html = req.status_code, req.content
+    if status == 200:
+        split_information = str(html).split("\n")
+        for i, line in enumerate(split_information):
+            if searcher.search(line) is not None:
+                href = split_information[i-1]
+    if href is not None:
+        soup = BeautifulSoup(href, "html.parser")
+        for item in soup.findAll("a"):
+            link = item.get("href")
+            return retval.format(link)
+    return None
 
 
 def request_issue_creation():
@@ -60,8 +86,9 @@ def request_issue_creation():
     current_log_file = lib.core.settings.get_latest_log_file(lib.core.settings.CURRENT_LOG_FILE_PATH)
     stacktrace = __extract_stacktrace(current_log_file)
     identifier = lib.core.settings.create_identifier()
-    issue_title = "{} ({})".format(stacktrace.split("\n")[-2], identifier)
+    issue_title = "Unhandled exception ({})".format(identifier)
     ff_version = lib.core.settings.get_browser_version()
+    log_file_information = lib.core.settings.tails(current_log_file)
 
     issue_data = {
         "title": issue_title,
@@ -78,7 +105,7 @@ def request_issue_creation():
                      str(stacktrace),
                      str(platform.platform()),
                      " ".join(sys.argv),
-                     open(current_log_file).read()
+                     log_file_information
                 ),
     }
 
@@ -94,7 +121,9 @@ def request_issue_creation():
         urllib2.urlopen(req, timeout=10).read()
         lib.core.settings.logger.info(lib.core.settings.set_color(
             "issue has been created successfully with the following name '{}', your unique identifier "
-            "for this issue is '{}'...".format(issue_title, identifier)
+            "for this issue is '{}' and the URL to your issue is '{}'...".format(
+                issue_title, identifier, find_url(identifier)
+            )
         ))
     except Exception as e:
         lib.core.settings.logger.exception(lib.core.settings.set_color(
