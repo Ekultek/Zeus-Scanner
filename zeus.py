@@ -533,9 +533,10 @@ if __name__ == "__main__":
             ))
             request_issue_creation()
     except KeyboardInterrupt:
-        logger.error(set_color(
-            "user aborted process...", level=40
+        logger.fatal(set_color(
+            "user aborted process...", level=50
         ))
+        shutdown()
     except UnboundLocalError:
         logger.warning(set_color(
             "do not interrupt the browser when selenium is running, "
