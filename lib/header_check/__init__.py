@@ -9,6 +9,8 @@ from requests.exceptions import ConnectionError
 from var.auto_issue.github import request_issue_creation
 from lib.core.common import (
     write_to_log_file,
+    shutdown,
+    pause,
     HTTP_HEADER
 )
 from lib.core.settings import (
@@ -205,60 +207,64 @@ def main_header_check(url, **kwargs):
         "x-frame": ("protection against clickjacking vulnerabilities", "CLICKJACKING"),
         "x-content": ("protection against MIME type attacks", "MIME"),
         "public-key": ("protection to reduce success rates of MITM attacks", "MITM"),
-        "content-security": ("protection against multiple attacks", "ALL")
+        "content-security": ("header protection against multiple attack types", "ALL")
     }
 
-    if identify:
-        logger.info(set_color(
-            "checking if target URL is protected by some kind of WAF/IPS/IDS..."
-        ))
-        identified = detect_protection(url, proxy=proxy, agent=agent, verbose=verbose, xforward=xforward)
-        if identified is None:
-            logger.info(set_color(
-                "no WAF/IDS/IPS has been identified on target URL...", level=25
-            ))
-        else:
-            logger.warning(set_color(
-                "the target URL WAF/IDS/IPS has been identified as '{}'...".format(identified), level=30
-            ))
-
-    if verbose:
-        logger.debug(set_color(
-            "loading XML data...", level=10
-        ))
-    comparable_headers = load_xml_data(HEADER_XML_DATA)
-    logger.info(set_color(
-        "attempting to get request headers for '{}'...".format(url.strip())
-    ))
     try:
-        found_headers = load_headers(url, proxy=proxy, agent=agent, xforward=xforward)
-    except (ConnectionError, Exception) as e:
-        if "Read timed out." or "Connection reset by peer" in str(e):
-            found_headers = None
-        else:
-            logger.exception(set_color(
-                "Zeus has hit an unexpected error and cannot continue '{}'...".format(e), level=50
+        if identify:
+            logger.info(set_color(
+                "checking if target URL is protected by some kind of WAF/IPS/IDS..."
             ))
-            request_issue_creation()
+            identified = detect_protection(url, proxy=proxy, agent=agent, verbose=verbose, xforward=xforward)
+            if identified is None:
+                logger.info(set_color(
+                    "no WAF/IDS/IPS has been identified on target URL...", level=25
+                ))
+            else:
+                logger.warning(set_color(
+                    "the target URL WAF/IDS/IPS has been identified as '{}'...".format(identified), level=30
+                ))
 
-    if found_headers is not None:
         if verbose:
             logger.debug(set_color(
-                "fetched {}...".format(found_headers), level=10
+                "loading XML data...", level=10
             ))
-        headers_established = [str(h) for h in compare_headers(found_headers, comparable_headers)]
-        for key in definition.iterkeys():
-            if any(key in h.lower() for h in headers_established):
-                logger.warning(set_color(
-                    "provided target has {}...".format(definition[key][0]), level=30
-                ))
-        for key in found_headers.iterkeys():
-            protection[key] = found_headers[key]
+        comparable_headers = load_xml_data(HEADER_XML_DATA)
         logger.info(set_color(
-            "writing found headers to log file...", level=25
+            "attempting to get request headers for '{}'...".format(url.strip())
         ))
-        return write_to_log_file(protection, HEADER_RESULT_PATH, HEADERS_FILENAME.format(replace_http(url)))
-    else:
-        logger.error(set_color(
-            "unable to retrieve headers for site '{}'...".format(url.strip()), level=40
-        ))
+        try:
+            found_headers = load_headers(url, proxy=proxy, agent=agent, xforward=xforward)
+        except (ConnectionError, Exception) as e:
+            if "Read timed out." or "Connection reset by peer" in str(e):
+                found_headers = None
+            else:
+                logger.exception(set_color(
+                    "Zeus has hit an unexpected error and cannot continue '{}'...".format(e), level=50
+                ))
+                request_issue_creation()
+
+        if found_headers is not None:
+            if verbose:
+                logger.debug(set_color(
+                    "fetched {}...".format(found_headers), level=10
+                ))
+            headers_established = [str(h) for h in compare_headers(found_headers, comparable_headers)]
+            for key in definition.iterkeys():
+                if any(key in h.lower() for h in headers_established):
+                    logger.warning(set_color(
+                        "provided target has {}...".format(definition[key][0]), level=30
+                    ))
+            for key in found_headers.iterkeys():
+                protection[key] = found_headers[key]
+            logger.info(set_color(
+                "writing found headers to log file...", level=25
+            ))
+            return write_to_log_file(protection, HEADER_RESULT_PATH, HEADERS_FILENAME.format(replace_http(url)))
+        else:
+            logger.error(set_color(
+                "unable to retrieve headers for site '{}'...".format(url.strip()), level=40
+            ))
+    except KeyboardInterrupt:
+        if not pause():
+            shutdown()
