@@ -46,7 +46,7 @@ CLONE = "https://github.com/ekultek/zeus-scanner.git"
 ISSUE_LINK = "https://github.com/ekultek/zeus-scanner/issues"
 
 # current version <major.minor.commit.patch ID>
-VERSION = "1.2.34.{}".format(PATCH_ID)
+VERSION = "1.2.35".format(PATCH_ID)
 
 # colors to output depending on the version
 VERSION_TYPE_COLORS = {"dev": 33, "stable": 92, "other": 30}
@@ -156,7 +156,7 @@ EXTRACTED_URL_LOG = "{}/log/extracted-url-log".format(os.getcwd())
 URL_LOG_PATH = "{}/log/url-log".format(os.getcwd())
 
 # log path for port scans
-PORT_SCAN_LOG_PATH = "{}/log/scanner-log".format(os.getcwd())
+PORT_SCAN_LOG_PATH = "{}/log/nmap-scan-log".format(os.getcwd())
 
 # blackwidow log path
 SPIDER_LOG_PATH = "{}/log/blackwidow-log".format(os.getcwd())
@@ -220,6 +220,9 @@ BLACKLIST_FILENAME = ".blacklist"
 
 # filename for the blackwidow crawler log
 BLACKWIDOW_FILENAME = "blackwidow-log-{}.log"
+
+# filename for nmap scans
+NMAP_FILENAME = "nmap-scan-results-{}.json"
 
 # github autohorization token path
 GITHUB_AUTH_PATH = "{}/etc/auths/git_auth".format(os.getcwd())
@@ -305,7 +308,7 @@ URL_EXCLUDES = (
     "schema.org", "www.<b", "https://cid-", "https://<strong",  # these are some weird things that get pulled up?
     "plus.google", "www.w3.org", "schemas.live.com",
     "torproject.org", "search-results.com", "index.com",
-    "gov"
+    "gov", ".gov", "facebook.com", "instagram.com", "snapchat"
 )
 
 # regular expressions used for DBMS recognition based on error message response
@@ -500,7 +503,10 @@ def grab_random_agent(agent_path="{}/etc/text_files/agents.txt", verbose=False):
         ))
     with open(agent_path.format(os.getcwd())) as agents:
         retval = random.choice(agents.readlines())
-        return retval.strip()
+    logger.info(set_color(
+        "random agent being used '{}'...".format(retval.strip())
+    ))
+    return retval.strip()
 
 
 def find_application(application, opt="path"):
@@ -833,10 +839,10 @@ def check_for_protection(protected, attack_type):
         items = [item.lower() for item in protected]
 
         if attack_type in items or "all" in items:
-            protected.clear()  # clear the set
             logger.warning(set_color(
                 "provided target seems to have protection against this attack type...", level=30
             ))
+            protected.clear()  # clear the set
         return True
 
 
