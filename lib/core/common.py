@@ -177,7 +177,7 @@ def shutdown():
     exit(0)
 
 
-def prompt(question, opts=None, default=None):
+def prompt(question, opts=None, default=None, paused=False):
     """
     ask a question
     """
@@ -207,9 +207,30 @@ def prompt(question, opts=None, default=None):
                 )
             )
             return default
+    elif opts is None and default is None and paused:
+        opts = "[(s)kip (e)xit]"
+        question_ = raw_input(
+            "[{} {}] {} {}: ".format(
+                time.strftime("%H:%M:%S"), "PROMPT", question, opts
+            )
+        )
+        if question_.lower().startswith("s"):
+            return True
+        return False
     else:
         return raw_input(
             "[{} {}] {} ".format(
                 time.strftime("%H:%M:%S"), "PROMPT", question
             )
         )
+
+
+def pause():
+    """
+    interactive pause function, as of now you are only able to skip and exit
+    from this function
+    """
+    message = "program has been paused, how do you want to proceed?"
+    return prompt(
+        message, paused=True
+    )
