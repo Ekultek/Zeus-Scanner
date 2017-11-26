@@ -227,6 +227,9 @@ def sqlmap_scan_main(url, port=None, verbose=None, opts=None, auto_start=False):
             "the server port and try again...".format(e), level=50
         ))
         pass
+    except KeyboardInterrupt:
+        if not lib.core.common.pause():
+            lib.core.common.shutdown()
     except Exception as e:
         if "HTTPConnectionPool(host='127.0.0.1'" in str(e):
             lib.core.settings.logger.error(lib.core.settings.set_color(

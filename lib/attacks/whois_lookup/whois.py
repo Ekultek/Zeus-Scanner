@@ -71,35 +71,40 @@ def whois_lookup_main(domain, **kwargs):
     verbose = kwargs.get("verbose", False)
     timeout = kwargs.get("timeout", None)
     domain = lib.core.settings.replace_http(domain)
-    lib.core.settings.logger.info(lib.core.settings.set_color(
-        "performing WhoIs lookup on given domain '{}'...".format(domain)
-    ))
-    if timeout is not None:
-        time.sleep(timeout)
+
     try:
-        raw_information = gather_raw_whois_info(domain)
-    except Exception as e:
-        lib.core.settings.logger.exception(str(e))
-        lib.core.settings.logger.error(lib.core.settings.set_color(
-            "unable to produce information from WhoIs lookup...", level=40
+        lib.core.settings.logger.info(lib.core.settings.set_color(
+            "performing WhoIs lookup on given domain '{}'...".format(domain)
         ))
-        return None
-    lib.core.settings.logger.info(lib.core.settings.set_color(
-        "discovered raw information...", level=25
-    ))
-    lib.core.settings.logger.info(lib.core.settings.set_color(
-        "gathering interesting information..."
-    ))
-    interesting_data = get_interesting(raw_information)
-    if verbose:
+        if timeout is not None:
+            time.sleep(timeout)
         try:
-            human_readable_display(domain, interesting_data)
-        except (ValueError, Exception):
+            raw_information = gather_raw_whois_info(domain)
+        except Exception as e:
+            lib.core.settings.logger.exception(str(e))
             lib.core.settings.logger.error(lib.core.settings.set_color(
-                "unable to display any information from WhoIs lookup on domain '{}'...".format(domain), level=50
+                "unable to produce information from WhoIs lookup...", level=40
             ))
             return None
-    lib.core.common.write_to_log_file(
-        raw_information, lib.core.settings.WHOIS_RESULTS_LOG_PATH,
-        lib.core.settings.WHOIS_LOOKUP_FILENAME.format(domain)
-    )
+        lib.core.settings.logger.info(lib.core.settings.set_color(
+            "discovered raw information...", level=25
+        ))
+        lib.core.settings.logger.info(lib.core.settings.set_color(
+            "gathering interesting information..."
+        ))
+        interesting_data = get_interesting(raw_information)
+        if verbose:
+            try:
+                human_readable_display(domain, interesting_data)
+            except (ValueError, Exception):
+                lib.core.settings.logger.error(lib.core.settings.set_color(
+                    "unable to display any information from WhoIs lookup on domain '{}'...".format(domain), level=50
+                ))
+                return None
+        lib.core.common.write_to_log_file(
+            raw_information, lib.core.settings.WHOIS_RESULTS_LOG_PATH,
+            lib.core.settings.WHOIS_LOOKUP_FILENAME.format(domain)
+        )
+    except KeyboardInterrupt:
+        if not lib.core.common.pause():
+            lib.core.common.shutdown()

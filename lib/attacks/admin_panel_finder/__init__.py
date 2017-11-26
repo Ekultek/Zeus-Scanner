@@ -167,10 +167,10 @@ def check_for_admin_page(url, exts, protocol="http://", **kwargs):
                 "did not find any possible connections to {}'s "
                 "admin page".format(url), level=50
             ))
-    lib.core.settings.logger.warning(lib.core.settings.set_color(
-        "only writing successful connections to log file...", level=30
-    ))
     if len(connections) > 0:
+        lib.core.settings.logger.warning(lib.core.settings.set_color(
+            "only writing successful connections to log file...", level=30
+        ))
         lib.core.common.write_to_log_file(
             list(connections), lib.core.settings.ADMIN_PAGE_FILE_PATH, lib.core.settings.ADMIN_PAGE_FILE_PATH.format(
                 lib.core.settings.replace_http(url)
@@ -194,44 +194,49 @@ def main(url, show=False, verbose=False, **kwargs):
     do_threading = kwargs.get("do_threading", False)
     proc_num = kwargs.get("proc_num", 5)
     batch = kwargs.get("batch", False)
-    lib.core.settings.logger.info(lib.core.settings.set_color(
-        "parsing robots.txt..."
-    ))
-    results = check_for_externals(url, robots=True, batch=batch)
-    if not results:
-        lib.core.settings.logger.warning(lib.core.settings.set_color(
-            "seems like this page is either blocking access to robots.txt or it does not exist...", level=30
+
+    try:
+        lib.core.settings.logger.info(lib.core.settings.set_color(
+            "parsing robots.txt..."
         ))
-    lib.core.settings.logger.info(lib.core.settings.set_color(
-        "checking for a sitemap..."
-    ))
-    check_for_externals(url, sitemap=True)
-    lib.core.settings.logger.info(lib.core.settings.set_color(
-        "loading extensions..."
-    ))
-    extensions = __load_extensions()
-    if verbose:
-        lib.core.settings.logger.debug(lib.core.settings.set_color(
-            "loaded a total of {} extensions...".format(len(extensions)), level=10
+        results = check_for_externals(url, robots=True, batch=batch)
+        if not results:
+            lib.core.settings.logger.warning(lib.core.settings.set_color(
+                "seems like this page is either blocking access to robots.txt or it does not exist...", level=30
+            ))
+        lib.core.settings.logger.info(lib.core.settings.set_color(
+            "checking for a sitemap..."
         ))
-    lib.core.settings.logger.info(lib.core.settings.set_color(
-        "attempting to bruteforce admin panel..."
-    ))
-    if do_threading:
-        lib.core.settings.logger.warning(lib.core.settings.set_color(
-            "starting {} threads, you will not be able to end the process until "
-            "it is completed...".format(proc_num), level=30
+        check_for_externals(url, sitemap=True)
+        lib.core.settings.logger.info(lib.core.settings.set_color(
+            "loading extensions..."
         ))
-        tasks = []
-        for _ in range(0, proc_num):
-            t = threading.Thread(target=check_for_admin_page, args=(url, extensions), kwargs={
-                "verbose": verbose,
-                "show_possibles": show
-            })
-            t.daemon = True
-            tasks.append(t)
-        for thread in tasks:
-            thread.start()
-            thread.join()
-    else:
-        check_for_admin_page(url, extensions, show_possibles=show, verbose=verbose)
+        extensions = __load_extensions()
+        if verbose:
+            lib.core.settings.logger.debug(lib.core.settings.set_color(
+                "loaded a total of {} extensions...".format(len(extensions)), level=10
+            ))
+        lib.core.settings.logger.info(lib.core.settings.set_color(
+            "attempting to bruteforce admin panel..."
+        ))
+        if do_threading:
+            lib.core.settings.logger.warning(lib.core.settings.set_color(
+                "starting {} threads, you will not be able to end the process until "
+                "it is completed...".format(proc_num), level=30
+            ))
+            tasks = []
+            for _ in range(0, proc_num):
+                t = threading.Thread(target=check_for_admin_page, args=(url, extensions), kwargs={
+                    "verbose": verbose,
+                    "show_possibles": show
+                })
+                t.daemon = True
+                tasks.append(t)
+            for thread in tasks:
+                thread.start()
+                thread.join()
+        else:
+            check_for_admin_page(url, extensions, show_possibles=show, verbose=verbose)
+    except KeyboardInterrupt:
+        if not lib.core.common.pause():
+            lib.core.common.shutdown()

@@ -105,7 +105,9 @@ def clickjacking_main(url, **kwargs):
                     url
                 ), level=40
             ))
-
+    except KeyboardInterrupt:
+        if not lib.core.common.pause():
+            lib.core.common.shutdown()
     except Exception as e:  # until I figure out the errors, we'll just make issues about them
         lib.core.settings.logger.exception(lib.core.settings.set_color(
             "Zeus failed to process the clickjacking test and received "

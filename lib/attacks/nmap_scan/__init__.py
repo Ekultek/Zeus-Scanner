@@ -1,5 +1,4 @@
 import json
-import os
 import socket
 import shlex
 import subprocess
@@ -19,20 +18,15 @@ class NmapHook(object):
 
     NM = nmap.PortScanner()
 
-    def __init__(self, ip, verbose=False, pretty=True,
-                 dirname="{}/log/scanner-log".format(os.getcwd()), filename="nmap_scan-results-{}.json",
-                 opts=None):
+    def __init__(self, ip, **kwargs):
         self.ip = ip
-        self.verbose = verbose
-        self.pretty = pretty
-        self.dir = dirname
-        self.file = filename
-        if opts is None:
-            self.opts = ""
-        else:
-            self.opts = " ".join(opts)
+        self.verbose = kwargs.get("verbose", False)
+        self.pretty = kwargs.get("pretty", True)
+        self.dir = lib.core.settings.PORT_SCAN_LOG_PATH
+        self.file = lib.core.settings.NMAP_FILENAME
+        self.opts = kwargs.get("opts", "")
 
-    def _get_all_info(self):
+    def get_all_info(self):
         """
         get all the information from the scan
         """
@@ -89,10 +83,13 @@ def find_nmap(item_name="nmap"):
     return lib.core.settings.find_application(item_name)
 
 
-def perform_port_scan(url, scanner=NmapHook, verbose=False, opts=None, **kwargs):
+def perform_port_scan(url, scanner=NmapHook, **kwargs):
     """
     main function that will initalize the port scanning
     """
+    verbose = kwargs.get("verbose", False)
+    opts = kwargs.get("opts", None)
+
     url = url.strip()
     lib.core.settings.logger.info(lib.core.settings.set_color(
         "attempting to find IP address for hostname '{}'...".format(url)
@@ -116,7 +113,7 @@ def perform_port_scan(url, scanner=NmapHook, verbose=False, opts=None, **kwargs)
         ))
         try:
             data = scanner(found_ip_address, opts=opts)
-            json_data = data._get_all_info()
+            json_data = data.get_all_info()
             data.show_open_ports(json_data)
             file_path = data.send_to_file(json_data)
             lib.core.settings.logger.info(lib.core.settings.set_color(
@@ -128,6 +125,9 @@ def perform_port_scan(url, scanner=NmapHook, verbose=False, opts=None, **kwargs)
                     url, found_ip_address
                 ), level=50
             ))
+        except KeyboardInterrupt:
+            if not lib.core.common.pause():
+                lib.core.common.shutdown()
         except Exception as e:
             lib.core.settings.logger.exception(lib.core.settings.set_color(
                 "ran into exception '{}', cannot continue quitting...".format(e), level=50

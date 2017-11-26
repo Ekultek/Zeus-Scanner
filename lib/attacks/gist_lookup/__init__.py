@@ -54,11 +54,13 @@ def get_raw_data(page_set, proxy=None, agent=None, verbose=False):
             gist_file = item["files"]
             gist_filename = gist_file.keys()
             try:
-                if verbose:
-                    lib.core.settings.logger.debug(lib.core.settings.set_color(
-                        "found filename '{}'...".format(''.join(gist_filename)), level=10
-                    ))
-                retval.add(gist_file[''.join(gist_filename)]["raw_url"])
+                skip_schema = ("-", " ", "")
+                if not any(s == gist_filename for s in skip_schema):
+                    if verbose:
+                        lib.core.settings.logger.debug(lib.core.settings.set_color(
+                            "found filename '{}'...".format(''.join(gist_filename)), level=10
+                        ))
+                    retval.add(gist_file[''.join(gist_filename)]["raw_url"])
             # sometimes the URL doesn't like being pulled, so we'll just skip those ones
             except Exception:
                 pass
@@ -110,44 +112,48 @@ def github_gist_search_main(query, **kwargs):
     agent = kwargs.get("agent", None)
     verbose = kwargs.get("verbose", False)
     thread = kwargs.get("do_threading", False)
-    proc_num = kwargs.get("proc_num", 5)
+    proc_num = kwargs.get("proc_num", 5)  # TODO:/
     page_set = kwargs.get("page_set", (1, 2, 3, 4, 5))
     total_found = 0
 
-    if verbose:
-        lib.core.settings.logger.debug(lib.core.settings.set_color(
-            "checking if you have exceeded your search limit...", level=10
-        ))
-    __check_remaining_rate_limit()
-    lib.core.settings.logger.info(lib.core.settings.set_color(
-        "searching Github Gists for '{}'...".format(query)
-    ))
-    gathered_links = get_raw_data(page_set, proxy=proxy, agent=agent, verbose=verbose)
-    lib.core.settings.logger.info(lib.core.settings.set_color(
-        "pulled a total of {} URL's to search...".format(len(gathered_links)), level=25
-    ))
-    if not thread:
+    try:
+        if verbose:
+            lib.core.settings.logger.debug(lib.core.settings.set_color(
+                "checking if you have exceeded your search limit...", level=10
+            ))
+        __check_remaining_rate_limit()
         lib.core.settings.logger.info(lib.core.settings.set_color(
-            "performing Github Gist search, this will probably take awhile..."
+            "searching Github Gists for '{}'...".format(query)
         ))
-        for url in gathered_links:
-            total = check_files_for_information(url, query)
-            total_found += total
-    else:
-        lib.core.settings.logger.warning(lib.core.settings.set_color(
-            "multi-threading is not implemented yet...", level=35
-        ))
+        gathered_links = get_raw_data(page_set, proxy=proxy, agent=agent, verbose=verbose)
         lib.core.settings.logger.info(lib.core.settings.set_color(
-            "performing Github Gist search, this will probably take awhile..."
+            "pulled a total of {} URL's to search...".format(len(gathered_links)), level=25
         ))
-        for url in gathered_links:
-            total = check_files_for_information(url, query)
-            total_found += total
-    if total_found > 0:
-        lib.core.settings.logger.info(lib.core.settings.set_color(
-            "found a total of {} interesting Gists...".format(total_found)
-        ))
-    else:
-        lib.core.settings.logger.warning(lib.core.settings.set_color(
-            "did not find any interesting Gists...", level=30
-        ))
+        if not thread:
+            lib.core.settings.logger.info(lib.core.settings.set_color(
+                "performing Github Gist search, this will probably take awhile..."
+            ))
+            for url in gathered_links:
+                total = check_files_for_information(url, query)
+                total_found += total
+        else:
+            lib.core.settings.logger.warning(lib.core.settings.set_color(
+                "multi-threading is not implemented yet...", level=35
+            ))
+            lib.core.settings.logger.info(lib.core.settings.set_color(
+                "performing Github Gist search, this will probably take awhile..."
+            ))
+            for url in gathered_links:
+                total = check_files_for_information(url, query)
+                total_found += total
+        if total_found > 0:
+            lib.core.settings.logger.info(lib.core.settings.set_color(
+                "found a total of {} interesting Gists...".format(total_found)
+            ))
+        else:
+            lib.core.settings.logger.warning(lib.core.settings.set_color(
+                "did not find any interesting Gists...", level=30
+            ))
+    except KeyboardInterrupt:
+        if not lib.core.common.pause():
+            lib.core.common.shutdown()
