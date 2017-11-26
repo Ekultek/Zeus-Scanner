@@ -73,12 +73,13 @@ def get_urls(query, url, verbose=False, **kwargs):
     proxy, user_agent = kwargs.get("proxy", None), kwargs.get("user_agent", None)
     tor, tor_port = kwargs.get("tor", False), kwargs.get("tor_port", None)
     batch = kwargs.get("batch", False)
+    xforward = kwargs.get("xforward", False)
     logger.info(set_color(
         "setting up virtual display to hide the browser..."
     ))
     ff_display = Display(visible=0, size=(800, 600))
     ff_display.start()
-    browser = var.search.SetBrowser(agent=user_agent, proxy=proxy, tor=tor).set_browser()
+    browser = var.search.SetBrowser(agent=user_agent, proxy=proxy, tor=tor, xforward=xforward).set_browser()
     logger.info(set_color("browser will open shortly...", level=25))
     browser.get(url)
     if verbose:
@@ -260,7 +261,7 @@ def parse_search_results(query, url_to_search, verbose=False, **kwargs):
     try:
         query_url = get_urls(
             query, url_to_search, verbose=verbose, user_agent=user_agent, proxy=proxy_string,
-            tor=tor, batch=batch
+            tor=tor, batch=batch, xforward=forward_for
         )
     except Exception as e:
         if "'/usr/lib/firefoxdriver/webdriver.xpi'" in str(e):

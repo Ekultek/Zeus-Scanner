@@ -3,9 +3,11 @@ from selenium import webdriver
 from selenium.webdriver.common.proxy import *
 from selenium.webdriver.remote.errorhandler import WebDriverException
 
+from lib.core.common import HTTP_HEADER
 from lib.core.settings import (
     logger,
     set_color,
+    create_random_ip,
     DEFAULT_USER_AGENT
 )
 
@@ -19,7 +21,7 @@ class SetBrowser(object):
     def __init__(self, **kwargs):
         self.agent = kwargs.get("agent", DEFAULT_USER_AGENT)
         self.proxy = kwargs.get("proxy", None)
-        # self.xforward = kwargs.get("xforward", False) # TODO:/
+        self.xforward = kwargs.get("xforward", False)
         self.tor = kwargs.get("tor", False)
         self.tor_port = kwargs.get("port", 9050)
 
@@ -83,6 +85,41 @@ class SetBrowser(object):
                 ff_browser.set_preference(setting[0], setting[1])
         return ff_browser
 
+    def __set_x_forward(self, profile):
+        """
+        set the X-Forwarded-For headers for selenium, this can only be done
+        if you are using a profile for Firefox, and ONLY IN FIREFOX.
+        """
+        ip_list = (
+            create_random_ip(),
+            create_random_ip(),
+            create_random_ip()
+        )
+        # references:
+        # https://eveningsamurai.wordpress.com/2013/11/21/changing-http-headers-for-a-selenium-webdriver-request/
+        # https://stackoverflow.com/questions/6478672/how-to-send-an-http-requestheader-using-selenium-2/22238398#22238398
+        # https://blog.giantgeek.com/?p=1455
+
+        # amount of headers to modify
+        profile.set_preference("modifyheaders.headers.count", 1)
+        # action to take on the headers
+        profile.set_preference("modifyheaders.headers.action0", "Add")
+        # header name, in this case it's `X-Forwarded-For`
+        profile.set_preference("modifyheaders.headers.name0", HTTP_HEADER.X_FORWARDED_FOR)
+        # header value, in this case, it's 3 random IP addresses
+        profile.set_preference("modifyheaders.headers.value0", "{}, {}, {}".format(
+            ip_list[0], ip_list[1], ip_list[2]
+        ))
+        # enable the header modification
+        profile.set_preference("modifyheaders.headers.enabled0", True)
+        # send it through the configuration
+        profile.set_preference("modifyheaders.config.active", True)
+        # turn it on from the new configuration
+        profile.set_preference("modifyheaders.config.alwaysOn", True)
+        # as always, change the user agent
+        profile.set_preference("general.useragent.override", self.agent)
+        return profile
+
     def set_browser(self):
         """
         set the browser settings
@@ -93,7 +130,10 @@ class SetBrowser(object):
                 logger.info(set_color(
                     "setting the browser..."
                 ))
-                profile = profile.set_preference("general.useragent.override", self.agent)
+                profile.set_preference("general.useragent.override", self.agent)
+                browser = webdriver.Firefox(profile, proxy=self.__set_proxy())
+            elif self.xforward:
+                profile = self.__set_x_forward(profile)
                 browser = webdriver.Firefox(profile, proxy=self.__set_proxy())
             else:
                 logger.info(set_color(
@@ -103,9 +143,12 @@ class SetBrowser(object):
                 browser = webdriver.Firefox(profile)
         except (OSError, WebDriverException):
             if not self.tor:
-                profile = profile.set_preference("general.useragent.override", self.agent)
+                profile.set_preference("general.useragent.override", self.agent)
                 browser = webdriver.Firefox(profile, proxy=self.__set_proxy(),
                                             executable_path=whichcraft.which("geckodriver"))
+            elif self.xforward:
+                profile = self.__set_x_forward(profile)
+                browser = webdriver.Firefox(profile, proxy=self.__set_proxy())
             else:
                 profile = self.__tor_browser_emulation(profile)
                 browser = webdriver.Firefox(profile, executable_path=whichcraft.which("geckodriver"))

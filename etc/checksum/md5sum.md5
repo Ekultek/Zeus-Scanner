@@ -71,9 +71,9 @@ e11185d7dd3d6c94d7f4ddbcfd1d26cc  ./lib/header_check/__init__.py
 45fc5f5847a3a9909cbd5e0add7b4586  ./lib/core/common.py
 1faa2b5dfad6eb538bbfe42942d2a9da  ./lib/core/errors.py
 d41d8cd98f00b204e9800998ecf8427e  ./lib/core/__init__.py
-086bf2b15a72771d87ba4bc8c52e2827  ./lib/core/settings.py
-a2ff723e08c865330249c484cdf91e66  ./var/search/__init__.py
-cd16c7e4eb550b2c8531dee993eb4c2a  ./var/search/selenium_search.py
+299e7ca9950a04fca62f958bd31a2abb  ./lib/core/settings.py
+9a02e5b913d210350545ac26510a63c9  ./var/search/__init__.py
+8402f23a2586b6f684fb1c3c04c4386f  ./var/search/selenium_search.py
 63ba132381a0cc2d7629852bd5e4aa17  ./var/search/pgp_search.py
 d41d8cd98f00b204e9800998ecf8427e  ./var/__init__.py
 d41d8cd98f00b204e9800998ecf8427e  ./var/auto_issue/__init__.py
