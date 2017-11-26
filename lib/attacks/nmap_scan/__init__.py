@@ -30,6 +30,8 @@ class NmapHook(object):
         """
         get all the information from the scan
         """
+        if isinstance(self.opts, (list, tuple)):
+            self.opts = ""
         scanned_data = self.NM.scan(self.ip, arguments=self.opts)
         if self.pretty:
             scanned_data = json.dumps(scanned_data, indent=4, sort_keys=True)
