@@ -53,12 +53,8 @@ class Blackwidow(object):
         try:
             attempt = requests.get(self.url, params=self.headers, proxies=self.proxy)
             if attempt.status_code == 200:
-                return "ok"
-            raise lib.core.errors.SpiderTestFailure(
-                "failed to connect to '{}', received status code: {}".format(
-                    self.url, attempt.status_code
-                )
-            )
+                return ("ok", None)
+            return ("fail", attempt.status_code)
         except Exception as e:
             if "Max retries exceeded with url" in str(e):
                 info_msg = ""
@@ -133,10 +129,29 @@ def blackwidow_main(url, **kwargs):
         lib.core.settings.logger.debug(lib.core.settings.set_color(
             "testing connection to the URL...", level=10
         ))
-    crawler.test_connection()
-    if verbose:
-        lib.core.settings.logger.debug(lib.core.settings.set_color(
-            "connection satisfied, continuing process...", level=10
+    test_code = crawler.test_connection()
+    if not test_code[0] == "ok":
+        error_msg = (
+            "connection test failed with status code: {}, reason: '{}'. "
+            "test connection needs to pass, try a different link..."
+        )
+        for error_code in lib.core.common.STATUS_CODES.keys():
+            if error_code == test_code[1]:
+                lib.core.settings.logger.fatal(lib.core.settings.set_color(
+                    error_msg.format(
+                        test_code[1], lib.core.common.STATUS_CODES[error_code].title()
+                    ), level=50
+                ))
+                lib.core.common.shutdown()
+        lib.core.settings.logger.fatal(lib.core.settings.set_color(
+            error_msg.format(
+                test_code[1], lib.core.common.STATUS_CODES["other"].title()
+            ), level=50
+        ))
+        lib.core.common.shutdown()
+    else:
+        lib.core.settings.logger.info(lib.core.settings.set_color(
+            "connection test succeeded, continuing...", level=25
         ))
     lib.core.settings.logger.info(lib.core.settings.set_color(
         "crawling given URL '{}' for links...".format(url)
@@ -146,7 +161,7 @@ def blackwidow_main(url, **kwargs):
         lib.core.settings.logger.info(lib.core.settings.set_color(
             "found a total of {} links from given URL '{}'...".format(
                 len(found), url
-            )
+            ), level=25
         ))
         lib.core.common.write_to_log_file(found, path=lib.core.settings.SPIDER_LOG_PATH,
                                           filename=lib.core.settings.BLACKWIDOW_FILENAME)

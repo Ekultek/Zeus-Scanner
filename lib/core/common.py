@@ -15,6 +15,15 @@ from lxml import etree
 
 import lib.core.settings
 
+# reference https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
+STATUS_CODES = {
+    200: "OK", 300: "multiple choices", 302: "not found",
+    400: "bad request", 401: "unauthorized", 403: "forbidden",
+    404: "not found", 405: "method not allowed", 500: "internal server error",
+    501: "not implemented", 502: "bad gateway", 503: "service unavailable",
+    "other": "unexpected error code"
+}
+
 
 class HTTP_HEADER:
     ACCEPT = "Accept"

@@ -68,14 +68,14 @@ b5cd5e913cc62112776153bdf0f60fa4  ./lib/attacks/xss_scan/__init__.py
 63c45495ec1ed2e98946bef514d8805e  ./lib/attacks/nmap_scan/__init__.py
 216999fa0e84866d5c1d96d5676034e4  ./lib/attacks/nmap_scan/nmap_opts.py
 e11185d7dd3d6c94d7f4ddbcfd1d26cc  ./lib/header_check/__init__.py
-45fc5f5847a3a9909cbd5e0add7b4586  ./lib/core/common.py
+9a2bb0d52f64e12d5a63ce83874ea74a  ./lib/core/common.py
 1faa2b5dfad6eb538bbfe42942d2a9da  ./lib/core/errors.py
 d41d8cd98f00b204e9800998ecf8427e  ./lib/core/__init__.py
-299e7ca9950a04fca62f958bd31a2abb  ./lib/core/settings.py
+5318e70bd8aac1f24ce9735b3a5faf7c  ./lib/core/settings.py
 9a02e5b913d210350545ac26510a63c9  ./var/search/__init__.py
 8402f23a2586b6f684fb1c3c04c4386f  ./var/search/selenium_search.py
 63ba132381a0cc2d7629852bd5e4aa17  ./var/search/pgp_search.py
 d41d8cd98f00b204e9800998ecf8427e  ./var/__init__.py
 d41d8cd98f00b204e9800998ecf8427e  ./var/auto_issue/__init__.py
 0c11c16126baf789388a661bbbefb149  ./var/auto_issue/github.py
-7f605eefd38c7404660e8266a7a52192  ./var/blackwidow/__init__.py
+df0c4467256fb6fb7ab6c40209e4ab6d  ./var/blackwidow/__init__.py
