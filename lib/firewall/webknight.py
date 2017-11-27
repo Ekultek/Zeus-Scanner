@@ -16,7 +16,6 @@ def detect(content, **kwargs):
     if status is not None:
         if status == 999:
             return True
-    if headers is not None:
-        for detection in detection_schema:
-            if detection.search(headers.get(HTTP_HEADER.SERVER)) is not None:
-                return True
+    for detection in detection_schema:
+        if detection.search(headers.get(HTTP_HEADER.SERVER, "")) is not None:
+            return True

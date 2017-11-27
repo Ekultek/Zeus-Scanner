@@ -11,7 +11,6 @@ def detect(content, **kwargs):
         re.compile(r"cloudfront", re.I),
         re.compile(r"X-Amz-Cf-Id", re.I)
     )
-    if headers is not None:
-        for detection in detection_schema:
-            if detection.search(str(headers)) is not None:
-                return True
+    for detection in detection_schema:
+        if detection.search(str(headers)) is not None:
+            return True

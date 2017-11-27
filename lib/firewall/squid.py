@@ -1,5 +1,7 @@
 import re
 
+from lib.core.common import HTTP_HEADER
+
 
 __item__ = "Squid Proxy (IDS)"
 
@@ -9,17 +11,13 @@ def detect(content, **kwargs):
     headers = kwargs.get("headers", None)
     detection_schema = (
         re.compile(r"squid", re.I),
-        re.compile(r"Access control configuration prevents", re.I)
+        re.compile(r"Access control configuration prevents", re.I),
+        re.compile(r"X.Squid.Error", re.I),
     )
     for detection in detection_schema:
         if detection.search(content) is not None:
             return True
-    if headers is not None:
-        headers = str(headers)
-        detection_schema = (
-            re.compile(r"X.Squid.Error", re.I),
-            re.compile(r"squid", re.I)
-        )
-        for detection in detection_schema:
-            if detection.search(headers) is not None:
-                return True
+        if detection.search(headers.get(HTTP_HEADER.SERVER, "")) is not None:
+            return True
+        if detection.search(str(headers)) is not None:
+            return True

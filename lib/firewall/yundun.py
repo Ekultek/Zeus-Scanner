@@ -13,7 +13,7 @@ def detect(content, **kwargs):
     )
     if headers is not None:
         for detection in detection_schema:
-            if detection.search(headers.get(HTTP_HEADER.X_CACHE)) is not None:
+            if detection.search(headers.get(HTTP_HEADER.X_CACHE, "")) is not None:
                 return True
-            if detection.search(headers.get(HTTP_HEADER.SERVER)) is not None:
+            if detection.search(headers.get(HTTP_HEADER.SERVER, "")) is not None:
                 return True

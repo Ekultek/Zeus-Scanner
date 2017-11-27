@@ -78,41 +78,48 @@ def detect_protection(url, **kwargs):
                     return None
 
         retval = []
-        if status != 200 and "not found" not in html.lower():
-            file_list = [f for f in os.listdir(DETECT_FIREWALL_PATH) if not any(ex in f for ex in ["__init__", ".pyc"])]
-            for item in file_list:
-                item = item[:-3]
-                detection_name = "lib.firewall.{}"
-                detection_name = detection_name.format(item)
-                detection_name = importlib.import_module(detection_name)
-                if detection_name.detect(html, headers=headers, status=status):
-                    retval.append(detection_name.__item__)
-            if len(retval) > 1:
-                if "Generic (Unknown)" in retval:
-                    item = retval.index("Generic (Unknown)")
-                    del retval[item]
-            else:
-                if retval[0] == "Generic (Unknown)":
+        file_list = [f for f in os.listdir(DETECT_FIREWALL_PATH) if not any(ex in f for ex in ["__init__", ".pyc"])]
+        for item in file_list:
+            item = item[:-3]
+            if verbose:
+                logger.debug(set_color(
+                    "loading script '{}'...".format(item), level=10
+                ))
+            detection_name = "lib.firewall.{}"
+            detection_name = detection_name.format(item)
+            detection_name = importlib.import_module(detection_name)
+            if detection_name.detect(html, headers=headers, status=status) is True:
+                retval.append(detection_name.__item__)
+        if len(retval) != 0:
+            if len(retval) >= 2:
+                try:
+                    del retval[retval.index("Generic (Unknown)")]
+                except:
                     logger.warning(set_color(
-                        "identified WAF/IDS/IPS is unknown to Zeus, if you know the firewall and the context "
-                        "of the firewall, please create an issue ({}), fingerprint of the firewall will be "
-                        "written to a log file...".format(ISSUE_LINK), level=30
+                        "multiple firewalls identified ({}), displaying most likely...".format(
+                            ", ".join(retval)
+                        ), level=30
                     ))
-                    full_finger_print = "HTTP/1.1 {}\n{}\n{}".format(status, headers, html)
-                    write_to_log_file(
-                        full_finger_print, UNKNOWN_FIREWALL_FINGERPRINT_PATH, UNKNOWN_FIREWALL_FILENAME.format(
-                            replace_http(url)
-                        )
-                    )
+                    del retval[retval.index(retval[1])]
+            if retval[0] == "Generic (Unknown)":
+                logger.warning(set_color(
+                    "discovered firewall is unknown to Zeus, saving fingerprint to file. "
+                    "if you know the details or the context of the firewall please create "
+                    "an issue with the fingerprint, or a pull request with the script...", level=30
+                ))
+                fingerprint = "<!---\nStatus: {}\nHeaders: {}\n--->\n{}".format(
+                    status, headers, html
+                )
+                write_to_log_file(fingerprint, UNKNOWN_FIREWALL_FINGERPRINT_PATH, UNKNOWN_FIREWALL_FILENAME)
+            return "".join(retval) if isinstance(retval, list) else retval
         else:
-            retval = None
-
-        return ''.join(retval) if isinstance(retval, list) else retval
+            return None
 
     except Exception as e:
+        print logger.exception(e)
         if "Read timed out." or "Connection reset by peer" in str(e):
             logger.warning(set_color(
-                "detection request timed out, assuming no protection and continuing...", level=30
+                "detection request failed, assuming no protection and continuing...", level=30
             ))
             return None
         else:
@@ -222,7 +229,7 @@ def main_header_check(url, **kwargs):
                 ))
             else:
                 logger.warning(set_color(
-                    "the target URL WAF/IDS/IPS has been identified as '{}'...".format(identified), level=30
+                    "the target URL WAF/IDS/IPS has been identified as '{}'...".format(identified), level=35
                 ))
 
         if verbose:

@@ -1,5 +1,6 @@
 import re
 
+from lib.core.common import HTTP_HEADER
 
 __item__ = "Sucuri Firewall (Sucuri Cloudproxy)"
 
@@ -15,7 +16,5 @@ def detect(content, **kwargs):
     for detection in detection_schema:
         if detection.search(content) is not None:
             return True
-    if headers is not None:
-        headers = str(headers)
-        if re.compile(r"X-Sucuri-ID", re.I).search(headers) is not None:
+        if re.compile(r"X-Sucuri-ID", re.I).search(headers.get(HTTP_HEADER.SERVER, "")) is not None:
             return True
