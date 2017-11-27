@@ -116,7 +116,6 @@ def detect_protection(url, **kwargs):
             return None
 
     except Exception as e:
-        print logger.exception(e)
         if "Read timed out." or "Connection reset by peer" in str(e):
             logger.warning(set_color(
                 "detection request failed, assuming no protection and continuing...", level=30
