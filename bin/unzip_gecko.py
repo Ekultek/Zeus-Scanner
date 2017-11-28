@@ -159,7 +159,7 @@ def untar_gecko(filename="{}/bin/drivers/geckodriver-v0.{}.0-linux{}.tar.gz", ve
     tar = tarfile.open(filename.format(os.getcwd(), gecko_version, file_arch), "r:gz")
     if verbose:
         lib.core.settings.logger.debug(lib.core.settings.set_color(
-            "extracting the correct driver for your architecture '{}...", level=10
+            "extracting the correct driver for your architecture...", level=10
         ))
     try:
         tar.extractall("/usr/bin")
