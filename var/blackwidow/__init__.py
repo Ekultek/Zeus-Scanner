@@ -51,7 +51,8 @@ class Blackwidow(object):
         make sure the connection is good before you continue
         """
         try:
-            attempt = requests.get(self.url, params=self.headers, proxies=self.proxy)
+            # verify=False will take care of SSLErrors
+            attempt = requests.get(self.url, params=self.headers, proxies=self.proxy, verify=False)
             if attempt.status_code == 200:
                 return ("ok", None)
             return ("fail", attempt.status_code)

@@ -1,12 +1,14 @@
 import os
 import re
 import importlib
+import unicodedata
 
 import requests
 from xml.dom import minidom
 from requests.exceptions import ConnectionError
 
 from var.auto_issue.github import request_issue_creation
+from lib.core.cache import cache
 from lib.core.common import (
     write_to_log_file,
     shutdown,
@@ -32,6 +34,7 @@ from lib.core.settings import (
 )
 
 
+@cache
 def detect_protection(url, **kwargs):
     verbose = kwargs.get("verbose", False)
     agent = kwargs.get("agent", None)
@@ -68,12 +71,13 @@ def detect_protection(url, **kwargs):
 
         html, status, headers = protection_check_req.content, protection_check_req.status_code, protection_check_req.headers
 
-        for dbms in DBMS_ERRORS:  # make sure there are no DBMS errors in the HTML
+        # make sure there are no DBMS errors in the HTML
+        for dbms in DBMS_ERRORS:
             for regex in DBMS_ERRORS[dbms]:
                 if re.compile(regex).search(html) is not None:
-                    logger.info(set_color(
+                    logger.warning(set_color(
                         "it appears that the WAF/IDS/IPS check threw a DBMS error and may be vulnerable "
-                        "to SQL injection attacks. it appears the backend DBMS is '{}'...".format(dbms), level=25
+                        "to SQL injection attacks. it appears the backend DBMS is '{}'...".format(dbms), level=30
                     ))
                     return None
 
@@ -94,7 +98,7 @@ def detect_protection(url, **kwargs):
             if len(retval) >= 2:
                 try:
                     del retval[retval.index("Generic (Unknown)")]
-                except:
+                except (Exception, IndexError):
                     logger.warning(set_color(
                         "multiple firewalls identified ({}), displaying most likely...".format(
                             ", ".join(retval)
@@ -105,9 +109,11 @@ def detect_protection(url, **kwargs):
                 logger.warning(set_color(
                     "discovered firewall is unknown to Zeus, saving fingerprint to file. "
                     "if you know the details or the context of the firewall please create "
-                    "an issue with the fingerprint, or a pull request with the script...", level=30
+                    "an issue ({}) with the fingerprint, or a pull request with the script...".format(
+                        ISSUE_LINK
+                    ), level=30
                 ))
-                fingerprint = "<!---\nStatus: {}\nHeaders: {}\n--->\n{}".format(
+                fingerprint = "<!---\nHTTP 1.1\nStatus Code: {}\nHTTP Headers: {}\n--->\n{}".format(
                     status, headers, html
                 )
                 write_to_log_file(fingerprint, UNKNOWN_FIREWALL_FINGERPRINT_PATH, UNKNOWN_FIREWALL_FILENAME)
@@ -143,11 +149,13 @@ def load_xml_data(path, start_node="header", search_node="name"):
 
 def load_headers(url, **kwargs):
     """
-    load the URL headers
+    load the HTTP headers
     """
     agent = kwargs.get("agent", None)
     proxy = kwargs.get("proxy", None)
     xforward = kwargs.get("xforward", False)
+
+    literal_match = re.compile(r"\\(\X(\d+)?\w+)?", re.I)
 
     if proxy is not None:
         proxy = proxy_string_to_dict(proxy)
@@ -182,7 +190,23 @@ def load_headers(url, **kwargs):
                 [c for c in req.cookies.itervalues()], COOKIE_LOG_PATH,
                 COOKIE_FILENAME.format(replace_http(url))
             )
-    return req.headers
+    retval = {}
+    do_not_use = []
+    http_headers = req.headers
+    for header in http_headers:
+        try:
+            # test to see if there are any unicode errors in the string
+            retval[header] = unicodedata.normalize("NFKD", u"{}".format(http_headers[header])).encode("ascii", errors="ignore")
+        # just to be safe, we're going to put all the possible Unicode errors into a tuple
+        except (UnicodeEncodeError, UnicodeDecodeError, UnicodeError, UnicodeTranslateError, UnicodeWarning):
+            # if there are, we're going to append them to a `do_not_use` list
+            do_not_use.append(header)
+    retval.clear()
+    for head in http_headers:
+        # if the header is in the list, we skip it
+        if head not in do_not_use:
+            retval[head] = http_headers[head]
+    return retval
 
 
 def compare_headers(found_headers, comparable_headers):
@@ -222,6 +246,7 @@ def main_header_check(url, **kwargs):
                 "checking if target URL is protected by some kind of WAF/IPS/IDS..."
             ))
             identified = detect_protection(url, proxy=proxy, agent=agent, verbose=verbose, xforward=xforward)
+
             if identified is None:
                 logger.info(set_color(
                     "no WAF/IDS/IPS has been identified on target URL...", level=25

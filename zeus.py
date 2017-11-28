@@ -285,7 +285,7 @@ if __name__ == "__main__":
                             ), level=25
                         ))
                         logger.info(set_color(
-                            "checking URL headers..."
+                            "checking for HTTP headers..."
                         ))
                         main_header_check(
                             url, verbose=opt.runInVerbose, agent=agent_to_use,
