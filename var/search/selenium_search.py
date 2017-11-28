@@ -15,6 +15,7 @@ except ImportError:
 import requests
 from bs4 import BeautifulSoup
 from pyvirtualdisplay import Display
+from requests.exceptions import ConnectionError
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.remote.errorhandler import (
     UnexpectedAlertPresentException,
@@ -364,7 +365,16 @@ def parse_search_results(query, url_to_search, verbose=False, **kwargs):
     ))
 
     logger.info(set_color(proxy_string_info))
-    req = requests.get(query_url, proxies=proxy_string, params=headers)
+
+    try:
+        req = requests.get(query_url, proxies=proxy_string, params=headers)
+    except ConnectionError:
+        logger.warning(set_color(
+            "target machine refused connection, delaying and trying again..."
+        ))
+        time.sleep(3)
+        req = requests.get(query_url, proxies=proxy_string, params=headers)
+
     logger.info(set_color(user_agent_info))
     req.headers.update(headers)
     found_urls = URL_REGEX.findall(req.text)
@@ -481,7 +491,7 @@ def search_multiple_pages(query, link_amount, verbose=False, **kwargs):
                     "currently on page {} of search results...".format(
                         page_number
                     )
-            ))
+                ))
             page_request = requests.get(
                 search_engine.format(page_number, query, page_number), params=params,
                 proxies=proxy_string_to_dict(proxy)
