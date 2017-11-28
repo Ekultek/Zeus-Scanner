@@ -46,7 +46,7 @@ CLONE = "https://github.com/ekultek/zeus-scanner.git"
 ISSUE_LINK = "https://github.com/ekultek/zeus-scanner/issues"
 
 # current version <major.minor.commit.patch ID>
-VERSION = "1.3.1.{}".format(PATCH_ID)
+VERSION = "1.3.2".format(PATCH_ID)
 
 # colors to output depending on the version
 VERSION_TYPE_COLORS = {"dev": 33, "stable": 92, "other": 30}
@@ -176,6 +176,9 @@ BLACKLIST_FILE_PATH = "{}/log/blacklist".format(os.getcwd())
 # found PGP keys file path
 PGP_KEYS_FILE_PATH = "{}/log/pgp_keys".format(os.getcwd())
 
+# found sqli sites file path
+SQLI_SITES_FILEPATH = "{}/log/sqli-sites".format(os.getcwd())
+
 # the current log file being used
 CURRENT_LOG_FILE_PATH = "{}/log".format(os.getcwd())
 
@@ -187,6 +190,9 @@ ROBOTS_TXT_FILENAME = "{}-robots_text.log"
 
 # filename for found admin pages log file
 ADMIN_PAGE_FILENAME = "{}-admin-page.log"
+
+# sites found to be possible SQL injection vulnerable
+SQLI_FOUND_FILENAME = "sqli-sites.log"
 
 # filename for clickjacking log file
 CLICKJACKING_FILENAME = "{}-clickjacking.html"

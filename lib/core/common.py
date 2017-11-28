@@ -123,7 +123,8 @@ def write_to_log_file(data_to_write, path, filename, blacklist=False):
     )
     skip_log_schema = (
         "url-log", "blackwidow-log", "zeus-log",
-        "extracted", ".blacklist", "gist-match"
+        "extracted", ".blacklist", "gist-match",
+        "sqli-sites"
     )
     to_search = filename.split("-")[0]
     amount = len([f for f in os.listdir(path) if to_search in f])
