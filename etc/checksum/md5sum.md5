@@ -56,8 +56,11 @@ cb45428e92485b759ff5cb46a0be9c73  ./lib/firewall/yunsuo.py
 bbd8b4c6100070d420d48dc7dfc297eb  ./lib/firewall/webknight.py
 95b908a21c0ff456ae59df4c6c189c54  ./lib/firewall/wallarm.py
 8fc8d62377bebbfa7ca4d70a79eab115  ./lib/firewall/bigip.py
+73c1727e604ec6e00541687bfc64c0d6  ./lib/firewall/akamai.py
+7af3ee8615c7dc761f050e0ba638eaef  ./lib/firewall/armor.py
+81a29a14d72980a306fbaec0dc772048  ./lib/firewall/fortigate.py
 6ea65a0160c21e144e92334acc2e3667  ./lib/firewall/anquanbao.py
-7f4e3ba2f459926fc77bcddc17b933aa  ./lib/firewall/generic.py
+22a0ad8f2fa1a16b651cb5ae37ca9b0d  ./lib/firewall/generic.py
 cf236a16c7869282f55dd4c5ad6347a5  ./lib/attacks/gist_lookup/__init__.py
 7183dbd7106ecb436176cebcca4e499f  ./lib/attacks/clickjacking_scan/__init__.py
 d41d8cd98f00b204e9800998ecf8427e  ./lib/attacks/__init__.py
@@ -69,11 +72,11 @@ d2846e039fefee741db24dd64f7bd50e  ./lib/attacks/admin_panel_finder/__init__.py
 b5cd5e913cc62112776153bdf0f60fa4  ./lib/attacks/xss_scan/__init__.py
 63c45495ec1ed2e98946bef514d8805e  ./lib/attacks/nmap_scan/__init__.py
 216999fa0e84866d5c1d96d5676034e4  ./lib/attacks/nmap_scan/nmap_opts.py
-b6f5f8e43c1e480329b66e193bd91751  ./lib/header_check/__init__.py
-9a2bb0d52f64e12d5a63ce83874ea74a  ./lib/core/common.py
+6f5d4adc7777b6696d4b290367364a38  ./lib/header_check/__init__.py
+777fef12812b6363a21b244f775dced1  ./lib/core/common.py
 1faa2b5dfad6eb538bbfe42942d2a9da  ./lib/core/errors.py
 d41d8cd98f00b204e9800998ecf8427e  ./lib/core/__init__.py
-b522fe8e1060ea226bce5247bb498b97  ./lib/core/settings.py
+4eb65902897194b09bda974d855bc495  ./lib/core/settings.py
 4b507b34677b414b8338475fea2c012a  ./lib/core/cache.py
 9a02e5b913d210350545ac26510a63c9  ./var/search/__init__.py
 1c11255dbb09c0889dd0aa739a437f95  ./var/search/selenium_search.py
