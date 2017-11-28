@@ -30,7 +30,9 @@ from lib.core.settings import (
     UNKNOWN_FIREWALL_FINGERPRINT_PATH,
     UNKNOWN_FIREWALL_FILENAME,
     COOKIE_FILENAME,
-    HEADERS_FILENAME
+    HEADERS_FILENAME,
+    SQLI_FOUND_FILENAME,
+    SQLI_SITES_FILEPATH
 )
 
 
@@ -77,8 +79,10 @@ def detect_protection(url, **kwargs):
                 if re.compile(regex).search(html) is not None:
                     logger.warning(set_color(
                         "it appears that the WAF/IDS/IPS check threw a DBMS error and may be vulnerable "
-                        "to SQL injection attacks. it appears the backend DBMS is '{}'...".format(dbms), level=30
+                        "to SQL injection attacks. it appears the backend DBMS is '{}', site will be "
+                        "saved for further processing...".format(dbms), level=30
                     ))
+                    write_to_log_file(url, SQLI_SITES_FILEPATH, SQLI_FOUND_FILENAME)
                     return None
 
         retval = []
