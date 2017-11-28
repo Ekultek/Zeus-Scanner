@@ -370,7 +370,7 @@ def parse_search_results(query, url_to_search, verbose=False, **kwargs):
         req = requests.get(query_url, proxies=proxy_string, params=headers)
     except ConnectionError:
         logger.warning(set_color(
-            "target machine refused connection, delaying and trying again..."
+            "target machine refused connection, delaying and trying again...", level=30
         ))
         time.sleep(3)
         req = requests.get(query_url, proxies=proxy_string, params=headers)
