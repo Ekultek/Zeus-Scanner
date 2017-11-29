@@ -2,6 +2,8 @@ import os
 import re
 import json
 import time
+import shlex
+import subprocess
 try:
     from urllib import (  # python 2
         unquote
@@ -244,3 +246,23 @@ def pause():
     return prompt(
         message, paused=True
     )
+
+
+def run_fix(message, command, fail_message, exit_process=False):
+    """
+    run the fix script for the program
+    """
+    do_fix = prompt(
+        message, opts="yN"
+    )
+    if do_fix.lower().startswith("y"):
+        cmd = shlex.split(command)
+        subprocess.call(cmd)
+        if exit_process:
+            lib.core.settings.logger.info(lib.core.settings.set_color(
+                "command completed successfully, should be safe to re-run Zeus..."
+            ))
+    else:
+        lib.core.settings.logger.fatal(lib.core.settings.set_color(
+            fail_message, level=50
+        ))

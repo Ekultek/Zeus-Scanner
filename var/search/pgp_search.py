@@ -165,9 +165,9 @@ def pgp_main(query, verbose=False):
             html = obtain_html(
                 lib.core.settings.AUTHORIZED_SEARCH_ENGINES["pgp"], query, agent=lib.core.settings.DEFAULT_USER_AGENT
             )
-        except ReadTimeout:
+        except (Exception, ReadTimeout):
             lib.core.settings.logger.warning(lib.core.settings.set_color(
-                "connection timed out, assuming no PGP keys...", level=30
+                "connection failed, assuming no PGP keys...", level=30
             ))
             html = None
         if html is not None:

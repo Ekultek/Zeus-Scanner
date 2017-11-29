@@ -1,7 +1,5 @@
 import json
 import socket
-import shlex
-import subprocess
 
 import nmap
 
@@ -140,17 +138,8 @@ def perform_port_scan(url, scanner=NmapHook, **kwargs):
         lib.core.settings.logger.fatal(lib.core.settings.set_color(
             "nmap was not found on your system...", level=50
         ))
-        question = lib.core.common.prompt(
-            "would you like to automatically install it", opts="yN"
+        lib.core.common.run_fix(
+            "would you like to automatically install it",
+            "sudo sh {}".format(lib.core.settings.NMAP_INSTALLER_TOOL),
+            "nmap is not installed, please install it in order to continue..."
         )
-        if question.lower().startswith("y"):
-            install_nmap_command = shlex.split("sudo sh {}".format(lib.core.settings.NMAP_INSTALLER_TOOL))
-            subprocess.call(install_nmap_command)
-            lib.core.settings.logger.info(lib.core.settings.set_color(
-                "nmap has been successfully installed, re-running...", level=25
-            ))
-            perform_port_scan(url, verbose=verbose, opts=opts)
-        else:
-            lib.core.settings.logger.fatal(lib.core.settings.set_color(
-                "nmap is not installed, please install it in order to continue...", level=50
-            ))

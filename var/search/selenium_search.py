@@ -1,7 +1,5 @@
 import os
 import time
-import shlex
-import subprocess
 
 try:
     from urllib import (  # python 2
@@ -29,7 +27,8 @@ from lib.core.common import (
     HTTP_HEADER,
     URLParser,
     shutdown,
-    prompt
+    prompt,
+    run_fix
 )
 from lib.core.settings import (
     logger,
@@ -271,49 +270,28 @@ def parse_search_results(query, url_to_search, verbose=False, **kwargs):
                 "check your installation and make sure it is in /usr/lib, if you "
                 "find it there, restart your system and try again...", level=50
             ))
-        elif "connection refused" in str(e):
+        elif "connection refused" in str(e).lower():
             logger.fatal(set_color(
                 "there are to many sessions of firefox opened and selenium cannot "
                 "create a new one...", level=50
             ))
-            do_autoclean = prompt(
-                "would you like to attempt to auto clean the open sessions", opts="yN"
+            run_fix(
+                "would you like to attempt to auto clean the open sessions",
+                "sudo sh {}".format(CLEANUP_TOOL_PATH),
+                "kill off the open sessions of firefox and re-run Zeus...",
+                exit_process=True
             )
-            if do_autoclean.lower().startswith("y"):
-                logger.warning(set_color(
-                    "this will kill all instances of the firefox web browser...", level=30
-                ))
-                auto_clean_command = shlex.split("sudo sh {}".format(CLEANUP_TOOL_PATH))
-                subprocess.call(auto_clean_command)
-                logger.info(set_color(
-                    "all open sessions of firefox killed, it should be safe to re-run "
-                    "Zeus..."
-                ))
-            else:
-                logger.warning(set_color(
-                    "kill off the open sessions of firefox and re-run Zeus...", level=30
-                ))
-            shutdown()
         elif "Program install error!" in str(e):
-            do_fix = prompt(
+            logger.error(set_color(
                 "seems the program is having some trouble installing would you like "
-                "to try and automatically fix this issue", opts="yN"
+                "to try and automatically fix this issue", level=40
+            ))
+            run_fix(
+                "would you like to attempt to fix this issue automatically",
+                "sudo sh {}".format(FIX_PROGRAM_INSTALL_PATH),
+                "you can manually try and re-install Xvfb to fix the problem...",
+                exit_process=True
             )
-            if do_fix.lower().startswith("y"):
-                logger.info(set_color(
-                    "attempting to reinstall failing dependency..."
-                ))
-                do_fix_command = shlex.split("sudo sh {}".format(FIX_PROGRAM_INSTALL_PATH))
-                subprocess.call(do_fix_command)
-                logger.info(set_color(
-                    "successfully installed, you should be good to re-run Zeus..."
-                ))
-                shutdown()
-            else:
-                logger.info(set_color(
-                    "you can automatically try and re-install Xvfb to fix the problem..."
-                ))
-                shutdown()
         elif "Message: Reached error page:" in str(e):
             logger.fatal(set_color(
                 "geckodriver has hit an error that usually means it needs to be reinstalled...", level=50
@@ -338,20 +316,13 @@ def parse_search_results(query, url_to_search, verbose=False, **kwargs):
             logger.fatal(set_color(
                 "it appears that firefox, selenium, and geckodriver are not playing nice with one another...", level=50
             ))
-            question = prompt(
-                "would you like to attempt to resolve this issue automatically", opts="yN"
+            run_fix(
+                "would you like to attempt to resolve this issue automatically",
+                "sudo sh {}".format(REINSTALL_TOOL),
+                ("you will need to reinstall firefox to a later version, update selenium, and reinstall the "
+                 "geckodriver to continue using Zeus..."),
+                exit_process=True
             )
-            if question.lower().startswith("y"):
-                reinstall_command = shlex.split("sudo sh {}".format(REINSTALL_TOOL))
-                subprocess.call(reinstall_command)
-                rewrite_all_paths()
-                shutdown()
-            else:
-                logger.fatal(set_color(
-                    "you will need to reinstall firefox to a later version, update selenium, and reinstall the "
-                    "geckodriver to continue using Zeus...", level=50
-                ))
-                shutdown()
         else:
             logger.exception(set_color(
                 "{} failed to gather the URL from search engine, caught exception '{}' "
