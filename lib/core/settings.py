@@ -46,7 +46,7 @@ CLONE = "https://github.com/ekultek/zeus-scanner.git"
 ISSUE_LINK = "https://github.com/ekultek/zeus-scanner/issues"
 
 # current version <major.minor.commit.patch ID>
-VERSION = "1.3.4.{}".format(PATCH_ID)
+VERSION = "1.3.5.{}".format(PATCH_ID)
 
 # colors to output depending on the version
 VERSION_TYPE_COLORS = {"dev": 33, "stable": 92, "other": 30}
@@ -1105,7 +1105,7 @@ def get_token(path):
     return token
 
 
-def tails(file_object, last_lines=35):
+def tails(file_object, last_lines=50):
     """
     return the last `n` lines of a file, much like the Unix
     tails command

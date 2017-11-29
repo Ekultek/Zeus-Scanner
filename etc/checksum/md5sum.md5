@@ -76,7 +76,7 @@ b5cd5e913cc62112776153bdf0f60fa4  ./lib/attacks/xss_scan/__init__.py
 39221756c132732dbdc2b14772dcab11  ./lib/core/common.py
 1faa2b5dfad6eb538bbfe42942d2a9da  ./lib/core/errors.py
 d41d8cd98f00b204e9800998ecf8427e  ./lib/core/__init__.py
-571cc38c0e47f4395d34a749e92d42a7  ./lib/core/settings.py
+48e4cd38111bad891e2f221b50cd4fb0  ./lib/core/settings.py
 4b507b34677b414b8338475fea2c012a  ./lib/core/cache.py
 9a02e5b913d210350545ac26510a63c9  ./var/search/__init__.py
 0545ee54ade186681b25d157fb32f350  ./var/search/selenium_search.py
