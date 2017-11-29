@@ -17,3 +17,6 @@ class InvalidInputProvided(Exception): pass
 
 
 class InvalidTamperProvided(Exception): pass
+
+
+class PortScanTimeOutException(Exception): pass

@@ -132,7 +132,7 @@ if __name__ == "__main__":
     search_items.add_option("--x-forward", dest="forwardedForRandomIP", action="store_true",
                             help="Add a header called 'X-Forwarded-For' with three random IP addresses")
     search_items.add_option("--time-sec", dest="controlTimeout", metavar="SECONDS", type=int,
-                            help="Control the sleep time to the WhoIS lookup to prevent errors")
+                            help="Control the sleep and timeout times in relevant situations")
 
     # obfuscation options
     anon = optparse.OptionGroup(parser, "Anonymity arguments",

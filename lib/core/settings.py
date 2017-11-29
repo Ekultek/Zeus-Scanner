@@ -46,7 +46,7 @@ CLONE = "https://github.com/ekultek/zeus-scanner.git"
 ISSUE_LINK = "https://github.com/ekultek/zeus-scanner/issues"
 
 # current version <major.minor.commit.patch ID>
-VERSION = "1.3.5.{}".format(PATCH_ID)
+VERSION = "1.3.6".format(PATCH_ID)
 
 # colors to output depending on the version
 VERSION_TYPE_COLORS = {"dev": 33, "stable": 92, "other": 30}
@@ -985,7 +985,7 @@ def run_attacks(url, **kwargs):
             from lib.attacks import nmap_scan
             url_ip_address = replace_http(url.strip())
             return nmap_scan.perform_port_scan(
-                url_ip_address, verbose=verbose,
+                url_ip_address, verbose=verbose, timeout=timeout,
                 opts=create_arguments(nmap=True, nmap_args=nmap_arguments)
             )
         elif admin:
@@ -1123,3 +1123,11 @@ def tails(file_object, last_lines=50):
                 lines = list(file_object)
             pos *= 2
     return "".join(lines[-last_lines:])
+
+
+def convert_to_minutes(seconds):
+    """
+    convert an amount of seconds to minutes and seconds
+    """
+    import time
+    return time.strftime("%M:%S", time.gmtime(seconds))

@@ -4,7 +4,9 @@ import socket
 import nmap
 
 import lib.core.common
+import lib.core.errors
 import lib.core.settings
+import lib.core.decorators
 from var.auto_issue.github import request_issue_creation
 
 
@@ -53,10 +55,11 @@ class NmapHook(object):
         spacer_data = {4: " " * 8, 6: " " * 6, 8: " " * 4}
         lib.core.settings.logger.info(lib.core.settings.set_color("finding data for IP '{}'...".format(self.ip)))
         json_data = json.loads(json_data)["scan"]
+        host = json_data[self.ip]["hostnames"][0]["name"]
         print(
             "{}\nScanned: {} ({})\tStatus: {}\nProtocol: {}\n".format(
                 sep, self.ip,
-                json_data[self.ip]["hostnames"][0]["name"],
+                host if host is not "" or None else "unknown",
                 json_data[self.ip]["status"]["state"],
                 "TCP"
             )
@@ -89,57 +92,73 @@ def perform_port_scan(url, scanner=NmapHook, **kwargs):
     """
     verbose = kwargs.get("verbose", False)
     opts = kwargs.get("opts", None)
+    timeout_time = kwargs.get("timeout", None)
 
-    url = url.strip()
-    lib.core.settings.logger.info(lib.core.settings.set_color(
-        "attempting to find IP address for hostname '{}'...".format(url)
-    ))
-    found_ip_address = socket.gethostbyname(url)
-    lib.core.settings.logger.info(lib.core.settings.set_color(
-        "found IP address for given URL -> '{}'...".format(found_ip_address), level=25
-    ))
-    if verbose:
-        lib.core.settings.logger.debug(lib.core.settings.set_color(
-            "checking for nmap on your system...", level=10
+    if timeout_time is None:
+        timeout_time = 120
+
+    with lib.core.decorators.TimeOut(seconds=timeout_time):
+        lib.core.settings.logger.warning(lib.core.settings.set_color(
+            "if the port scan is not completed in {}(m) it will timeout...".format(
+                lib.core.settings.convert_to_minutes(timeout_time)
+            ), level=30
         ))
-    nmap_exists = "".join(find_nmap())
-    if nmap_exists:
+        url = url.strip()
+        lib.core.settings.logger.info(lib.core.settings.set_color(
+            "attempting to find IP address for hostname '{}'...".format(url)
+        ))
+        found_ip_address = socket.gethostbyname(url)
+        lib.core.settings.logger.info(lib.core.settings.set_color(
+            "found IP address for given URL -> '{}'...".format(found_ip_address), level=25
+        ))
         if verbose:
             lib.core.settings.logger.debug(lib.core.settings.set_color(
-                "nmap has been found under '{}'...".format(nmap_exists), level=10
+                "checking for nmap on your system...", level=10
             ))
-        lib.core.settings.logger.info(lib.core.settings.set_color(
-            "starting port scan on IP address '{}'...".format(found_ip_address)
-        ))
-        try:
-            data = scanner(found_ip_address, opts=opts)
-            json_data = data.get_all_info()
-            data.show_open_ports(json_data)
-            file_path = data.send_to_file(json_data)
+        nmap_exists = "".join(find_nmap())
+        if nmap_exists:
+            if verbose:
+                lib.core.settings.logger.debug(lib.core.settings.set_color(
+                    "nmap has been found under '{}'...".format(nmap_exists), level=10
+                ))
             lib.core.settings.logger.info(lib.core.settings.set_color(
-                "port scan completed, all data saved to JSON file under '{}'...".format(file_path)
+                "starting port scan on IP address '{}'...".format(found_ip_address)
             ))
-        except KeyError:
+            try:
+                data = scanner(found_ip_address, opts=opts)
+                json_data = data.get_all_info()
+                data.show_open_ports(json_data)
+                file_path = data.send_to_file(json_data)
+                lib.core.settings.logger.info(lib.core.settings.set_color(
+                    "port scan completed, all data saved to JSON file under '{}'...".format(file_path)
+                ))
+            except KeyError:
+                lib.core.settings.logger.fatal(lib.core.settings.set_color(
+                    "no port information found for '{}({})'...".format(
+                        url, found_ip_address
+                    ), level=50
+                ))
+            except KeyboardInterrupt:
+                if not lib.core.common.pause():
+                    lib.core.common.shutdown()
+            except lib.core.errors.PortScanTimeOutException:
+                lib.core.settings.logger.error(lib.core.settings.set_color(
+                    "port scan is taking to long and has hit the timeout, you "
+                    "can increase this time by passing the --time-sec flag (IE "
+                    "--time-sec 300)...", level=40
+                ))
+            except Exception as e:
+                lib.core.settings.logger.exception(lib.core.settings.set_color(
+                    "ran into exception '{}', cannot continue quitting...".format(e), level=50
+                ))
+                request_issue_creation()
+                pass
+        else:
             lib.core.settings.logger.fatal(lib.core.settings.set_color(
-                "no port information found for '{}({})'...".format(
-                    url, found_ip_address
-                ), level=50
+                "nmap was not found on your system...", level=50
             ))
-        except KeyboardInterrupt:
-            if not lib.core.common.pause():
-                lib.core.common.shutdown()
-        except Exception as e:
-            lib.core.settings.logger.exception(lib.core.settings.set_color(
-                "ran into exception '{}', cannot continue quitting...".format(e), level=50
-            ))
-            request_issue_creation()
-            pass
-    else:
-        lib.core.settings.logger.fatal(lib.core.settings.set_color(
-            "nmap was not found on your system...", level=50
-        ))
-        lib.core.common.run_fix(
-            "would you like to automatically install it",
-            "sudo sh {}".format(lib.core.settings.NMAP_INSTALLER_TOOL),
-            "nmap is not installed, please install it in order to continue..."
-        )
+            lib.core.common.run_fix(
+                "would you like to automatically install it",
+                "sudo sh {}".format(lib.core.settings.NMAP_INSTALLER_TOOL),
+                "nmap is not installed, please install it in order to continue..."
+            )

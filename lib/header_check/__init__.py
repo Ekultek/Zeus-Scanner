@@ -8,7 +8,7 @@ from xml.dom import minidom
 from requests.exceptions import ConnectionError
 
 from var.auto_issue.github import request_issue_creation
-from lib.core.cache import cache
+from lib.core.decorators import cache
 from lib.core.common import (
     write_to_log_file,
     shutdown,
