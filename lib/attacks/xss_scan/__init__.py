@@ -168,8 +168,13 @@ def main_xss(start_url, proxy=None, agent=None, **kwargs):
         with open(filename) as urls:
             for i, url in enumerate(urls.readlines(), start=1):
                 url = url.strip()
-                result = scan_xss(url, proxy=proxy, agent=agent)
                 payload = find_xss_script(url)
+                try:
+                    result = scan_xss(url, proxy=proxy, agent=agent)
+                except requests.exceptions.ConnectionError:
+                    lib.core.settings.logger.error(lib.core.settings.set_color(
+                        "payload '{}' caused a connection error, assuming no good and continuing...".format(payload), level=40
+                    ))
                 if verbose:
                     lib.core.settings.logger.info(lib.core.settings.set_color(
                         "trying payload '{}'...".format(payload)

@@ -31,11 +31,6 @@ def cache(func):
     @wraps(func)
     def func_wrapper(*args, **kwargs):
         if args in __cache:
-            lib.core.settings.logger.warning(lib.core.settings.set_color(
-                "cached detection has shown that the target URL WAF/IPS/IDS is '{}'...".format(
-                    __cache[args]
-                ), level=35
-            ))
             return __cache[args]
         else:
             __to_cache = func(*args, **kwargs)

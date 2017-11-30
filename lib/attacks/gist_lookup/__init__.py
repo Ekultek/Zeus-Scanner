@@ -96,6 +96,9 @@ def check_files_for_information(found_url, data_to_search):
         time.sleep(3)
         data = requests.get(found_url)
     for data_regex in data_regex_schema:
+        lib.core.settings.logger.info(lib.core.settings.set_color(
+            "running with regex '{}'...".format(data_regex.pattern), level=25
+        ))
         if data_regex.search(data.content) is not None:
             lib.core.settings.logger.info(lib.core.settings.set_color(
                 "found a match with given specifics, saving full Gist to log file...", level=25

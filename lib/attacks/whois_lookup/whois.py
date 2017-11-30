@@ -80,8 +80,7 @@ def whois_lookup_main(domain, **kwargs):
             time.sleep(timeout)
         try:
             raw_information = gather_raw_whois_info(domain)
-        except Exception as e:
-            lib.core.settings.logger.exception(str(e))
+        except Exception:
             lib.core.settings.logger.error(lib.core.settings.set_color(
                 "unable to produce information from WhoIs lookup...", level=40
             ))

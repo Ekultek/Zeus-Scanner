@@ -46,7 +46,7 @@ CLONE = "https://github.com/ekultek/zeus-scanner.git"
 ISSUE_LINK = "https://github.com/ekultek/zeus-scanner/issues"
 
 # current version <major.minor.commit.patch ID>
-VERSION = "1.3.9.{}".format(PATCH_ID)
+VERSION = "1.3.10.{}".format(PATCH_ID)
 
 # colors to output depending on the version
 VERSION_TYPE_COLORS = {"dev": 33, "stable": 92, "other": 30}
@@ -337,14 +337,16 @@ DBMS_ERRORS = {
 
 
 # this has to be the first function so that I can use it in the logger settings below
-def create_log_name(log_path="{}/log", filename="zeus-log-{}.log", matcher="zeus-log"):
+def create_log_name(log_path="{}/log", filename="zeus-log-{}.log", matcher="zeus"):
     """
     create the current log file name by figuring out how many files are there
     """
     if not os.path.exists(log_path.format(os.getcwd())):
         os.mkdir(log_path.format(os.getcwd()))
-    find_file_amount = len([f for f in os.listdir(log_path.format(os.getcwd())) if matcher in f])
-    full_log_path = "{}/{}".format(log_path.format(os.getcwd()), filename.format(find_file_amount + 1))
+    find_file_amount = len(
+        [f for f in os.listdir(log_path.format(os.getcwd())) if matcher in f and not os.path.isdir(f)]
+    ) + 1
+    full_log_path = "{}/{}".format(log_path.format(os.getcwd()), filename.format(find_file_amount))
     return full_log_path
 
 

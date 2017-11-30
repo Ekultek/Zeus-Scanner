@@ -105,10 +105,12 @@ def detect_protection(url, **kwargs):
                 except (Exception, IndexError):
                     logger.warning(set_color(
                         "multiple firewalls identified ({}), displaying most likely...".format(
-                            ", ".join(retval)
+                            ", ".join([item.split("(")[0] for item in retval])
                         ), level=30
                     ))
                     del retval[retval.index(retval[1])]
+                    if len(retval) >= 2:
+                        del retval[retval.index(retval[1])]
             if retval[0] == "Generic (Unknown)":
                 logger.warning(set_color(
                     "discovered firewall is unknown to Zeus, saving fingerprint to file. "
@@ -159,7 +161,7 @@ def load_headers(url, **kwargs):
     proxy = kwargs.get("proxy", None)
     xforward = kwargs.get("xforward", False)
 
-    literal_match = re.compile(r"\\(\X(\d+)?\w+)?", re.I)
+    # literal_match = re.compile(r"\\(\X(\d+)?\w+)?", re.I)
 
     if proxy is not None:
         proxy = proxy_string_to_dict(proxy)
@@ -203,13 +205,15 @@ def load_headers(url, **kwargs):
             retval[header] = unicodedata.normalize("NFKD", u"{}".format(http_headers[header])).encode("ascii", errors="ignore")
         # just to be safe, we're going to put all the possible Unicode errors into a tuple
         except (UnicodeEncodeError, UnicodeDecodeError, UnicodeError, UnicodeTranslateError, UnicodeWarning):
-            # if there are, we're going to append them to a `do_not_use` list
+            # if there are any errors, we're going to append them to a `do_not_use` list
             do_not_use.append(header)
+    # clear the dict so we can re-add to it
     retval.clear()
     for head in http_headers:
         # if the header is in the list, we skip it
         if head not in do_not_use:
             retval[head] = http_headers[head]
+    # return a dict of safe unicodeless HTTP headers
     return retval
 
 
