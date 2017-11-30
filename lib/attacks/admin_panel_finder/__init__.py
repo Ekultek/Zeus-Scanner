@@ -8,6 +8,10 @@ except ImportError:  # Python 3
     from urllib2 import urlopen, HTTPError
 
 import requests
+from requests.exceptions import (
+    ConnectionError,
+    TooManyRedirects
+)
 
 import lib.core.common
 import lib.core.settings
@@ -33,11 +37,19 @@ def check_for_externals(url, data_sep="-" * 30, **kwargs):
         lib.core.settings.logger.debug(lib.core.settings.set_color(
             "currently searching for a '{}'...".format(currently_searching), level=10
         ))
-    url = lib.core.settings.replace_http(url)
-    full_url = "{}{}{}".format("http://", url, currently_searching)
-    conn = requests.get(full_url)
-    data = conn.content
-    code = conn.status_code
+
+    try:
+        url = lib.core.settings.replace_http(url)
+        full_url = "{}{}{}".format("http://", url, currently_searching)
+        conn = requests.get(full_url)
+        data = conn.content
+        code = conn.status_code
+    except (TooManyRedirects, ConnectionError):
+        lib.core.settings.logger.error(lib.core.settings.set_color(
+            "connection to '{}' failed, assuming does not exist and continuing...", level=40
+        ))
+        return False
+
     if code == 404:
         lib.core.settings.logger.error(lib.core.settings.set_color(
             "unable to connect to '{}', assuming does not exist and continuing...".format(
