@@ -46,7 +46,7 @@ def check_for_externals(url, data_sep="-" * 30, **kwargs):
         code = conn.status_code
     except (TooManyRedirects, ConnectionError):
         lib.core.settings.logger.error(lib.core.settings.set_color(
-            "connection to '{}' failed, assuming does not exist and continuing...", level=40
+            "connection to '{}' failed, assuming does not exist and continuing...".format(full_url), level=40
         ))
         return False
 
