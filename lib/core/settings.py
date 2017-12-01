@@ -46,7 +46,7 @@ CLONE = "https://github.com/ekultek/zeus-scanner.git"
 ISSUE_LINK = "https://github.com/ekultek/zeus-scanner/issues"
 
 # current version <major.minor.commit.patch ID>
-VERSION = "1.3.10.{}".format(PATCH_ID)
+VERSION = "1.3.11.{}".format(PATCH_ID)
 
 # colors to output depending on the version
 VERSION_TYPE_COLORS = {"dev": 33, "stable": 92, "other": 30}
@@ -314,7 +314,8 @@ URL_EXCLUDES = (
     "schema.org", "www.<b", "https://cid-", "https://<strong",  # these are some weird things that get pulled up?
     "plus.google", "www.w3.org", "schemas.live.com",
     "torproject.org", "search-results.com", "index.com",
-    "gov", ".gov", "facebook.com", "instagram.com", "snapchat"
+    "gov", ".gov", "facebook.com", "instagram.com", "snapchat",
+    "stackoverflow", "stackexchange", "github.com"
 )
 
 # regular expressions used for DBMS recognition based on error message response

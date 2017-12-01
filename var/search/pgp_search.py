@@ -125,18 +125,23 @@ def get_pgp_keys(url_list, query, attribute="pre", **kwargs):
                 )
             ))
         identifiers.append(lib.core.settings.PGP_IDENTIFIER_REGEX.search(str(url)).group())
-        req = requests.get(
-            url,
-            params=__set_headers(agent=agent, xforward=xforward),
-            proxies=lib.core.settings.proxy_string_to_dict(proxy),
-            timeout=10
-        )
-        status, html = req.status_code, req.content
-        if status == 200:
-            soup = BeautifulSoup(html, "html.parser")
-            context = soup.findAll(attribute)[0]
-            if identity_matcher.search(str(context)) is not None:
-                extracted_keys.add(context)
+        try:
+            req = requests.get(
+                url,
+                params=__set_headers(agent=agent, xforward=xforward),
+                proxies=lib.core.settings.proxy_string_to_dict(proxy),
+                timeout=10
+            )
+            status, html = req.status_code, req.content
+            if status == 200:
+                soup = BeautifulSoup(html, "html.parser")
+                context = soup.findAll(attribute)[0]
+                if identity_matcher.search(str(context)) is not None:
+                    extracted_keys.add(context)
+        except ReadTimeout:
+            lib.core.settings.logger.error(lib.core.settings.set_color(
+                "PGP key failed connection, assuming no good and skipping...", level=40
+            ))
     for i, k in enumerate(extracted_keys):
         pgp_key = str(k).split("<{}>".format(attribute))  # split the string by the tag
         pgp_key = pgp_key[1].split("</{}>".format(attribute))[0]  # split it again by the end tag

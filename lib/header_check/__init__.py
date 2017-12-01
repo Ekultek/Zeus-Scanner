@@ -161,7 +161,7 @@ def load_headers(url, **kwargs):
     proxy = kwargs.get("proxy", None)
     xforward = kwargs.get("xforward", False)
 
-    # literal_match = re.compile(r"\\(\X(\d+)?\w+)?", re.I)
+    literal_match = re.compile(r"\\(\X(\d+)?\w+)?", re.I)
 
     if proxy is not None:
         proxy = proxy_string_to_dict(proxy)
@@ -201,8 +201,17 @@ def load_headers(url, **kwargs):
     http_headers = req.headers
     for header in http_headers:
         try:
-            # test to see if there are any unicode errors in the string
-            retval[header] = unicodedata.normalize("NFKD", u"{}".format(http_headers[header])).encode("ascii", errors="ignore")
+            # check for Unicode in the string, this is just a safety net in case something is missed
+            # chances are nothing will be matched
+            if literal_match.search(header) is not None:
+                retval[header] = unicodedata.normalize(
+                    "NFKD", u"{}".format(http_headers[header])
+                ).encode("ascii", errors="ignore")
+            else:
+                # test to see if there are any unicode errors in the string
+                retval[header] = unicodedata.normalize(
+                    "NFKD", u"{}".format(http_headers[header])
+                ).encode("ascii", errors="ignore")
         # just to be safe, we're going to put all the possible Unicode errors into a tuple
         except (UnicodeEncodeError, UnicodeDecodeError, UnicodeError, UnicodeTranslateError, UnicodeWarning):
             # if there are any errors, we're going to append them to a `do_not_use` list
@@ -244,6 +253,8 @@ def main_header_check(url, **kwargs):
         "strict-transport": ("protection against unencrypted connections (force HTTPS connection)", "HTTPS"),
         "x-frame": ("protection against clickjacking vulnerabilities", "CLICKJACKING"),
         "x-content": ("protection against MIME type attacks", "MIME"),
+        "x-csrf": ("protection against Cross-Site Forgery attacks", "CSRF"),
+        "x-xsrf": ("protection against Cross-Site Forgery attacks", "CSRF"),
         "public-key": ("protection to reduce success rates of MITM attacks", "MITM"),
         "content-security": ("header protection against multiple attack types", "ALL")
     }

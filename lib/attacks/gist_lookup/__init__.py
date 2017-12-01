@@ -96,16 +96,15 @@ def check_files_for_information(found_url, data_to_search):
         time.sleep(3)
         data = requests.get(found_url)
     for data_regex in data_regex_schema:
-        lib.core.settings.logger.info(lib.core.settings.set_color(
-            "running with regex '{}'...".format(data_regex.pattern), level=25
-        ))
         if data_regex.search(data.content) is not None:
             lib.core.settings.logger.info(lib.core.settings.set_color(
                 "found a match with given specifics, saving full Gist to log file...", level=25
             ))
             total_found.add(found_url)
             lib.core.common.write_to_log_file(
-                data.content, lib.core.settings.GIST_MATCH_LOG, lib.core.settings.GIST_FILENAME
+                data.content, lib.core.settings.GIST_MATCH_LOG, lib.core.settings.GIST_FILENAME.format(
+                    lib.core.settings.replace_http(data_to_search)
+                )
             )
     return len(total_found)
 
@@ -115,7 +114,7 @@ def github_gist_search_main(query, **kwargs):
     agent = kwargs.get("agent", None)
     verbose = kwargs.get("verbose", False)
     thread = kwargs.get("do_threading", False)
-    proc_num = kwargs.get("proc_num", 5)  # TODO:/
+    # proc_num = kwargs.get("proc_num", 5)  # TODO:/
     page_set = kwargs.get("page_set", (1, 2, 3, 4, 5))
     total_found = 0
 

@@ -59,7 +59,7 @@ class NmapHook(object):
         print(
             "{}\nScanned: {} ({})\tStatus: {}\nProtocol: {}\n".format(
                 sep, self.ip,
-                host if host is not "" or None else "unknown",
+                host if host is not "" or None or len(host) == 0 else "unknown",
                 json_data[self.ip]["status"]["state"],
                 "TCP"
             )
@@ -107,7 +107,10 @@ def perform_port_scan(url, scanner=NmapHook, **kwargs):
         lib.core.settings.logger.info(lib.core.settings.set_color(
             "attempting to find IP address for hostname '{}'...".format(url)
         ))
-        found_ip_address = socket.gethostbyname(url)
+        try:
+            found_ip_address = socket.gethostbyname(url)
+        except socket.gaierror:
+            found_ip_address = socket.gethostbyname_ex(url)
         lib.core.settings.logger.info(lib.core.settings.set_color(
             "found IP address for given URL -> '{}'...".format(found_ip_address), level=25
         ))

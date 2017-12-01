@@ -11,17 +11,17 @@ allintitle:\"Test page for Apache Installation\"
 allintitle:admin.php
 allintitle:"Welcome to the Cyclades"
 allinurl: admin mdb
-allinurl: admin mdb 
+allinurl: admin mdb
 allinurl:".r{}_vti_cnf/"
 allinurl:"/*/_vti_pvt/" | allinurl:"/*/_vti_cnf/"
 allinurl:"exchange/logon.asp"
 allinurl:"index.php" "site=sglinks"
 allinurl:.br/index.php?loc=
 allinurl:/examples/jsp/snp/snoop.jsp
-allinurl:/examples/jsp/snp/snoop.jsp 
+allinurl:/examples/jsp/snp/snoop.jsp
 allinurl:/index.php?file= site:*.dk
 allinurl:/index.php?page= site:*.dk
-allinurl:\"/*/_vti_pvt/\" | allinurl:\"/*/_vti_cnf/\" 
+allinurl:\"/*/_vti_pvt/\" | allinurl:\"/*/_vti_cnf/\"
 allinurl:admin mdb
 allinurl:auth_user_file.txt
 allinurl:cdkey.txt
@@ -29,7 +29,7 @@ allinurl:control/multiview
 allinurl:install/install.php
 allinurl:intranet admin
 allinurl:servlet/SnoopServlet
-allinurl:servlet/SnoopServlet 
+allinurl:servlet/SnoopServlet
 allinurl:wps/portal/ login
 allinurl:"exchange/logon.asp"
 allinurl:"index.php" "site=sglinks"
@@ -77,16 +77,16 @@ ext:ini intext:env.ini
 ext:jbf jbf
 ext:ldif ldif
 ext:ldif ldif
-ext:log   "Software: Microsoft Internet Information Services *.*"
+ext:log "Software: Microsoft Internet Information Services *.*"
 ext:log "Software: Microsoft   Internet Information
 ext:log "Software: Microsoft Internet Information
 ext:log "Software: Microsoft Internet Information Services *.*"
 ext:log \"Software: Microsoft Internet Information Services *.*\"
 ext:log "Software: Microsoft Internet Information Services *.*"
-ext:mdb   inurl:*.mdb inurl:fpdb shop.mdb
 ext:mdb inurl:*.mdb inurl:fpdb shop.mdb
 ext:mdb inurl:*.mdb inurl:fpdb shop.mdb
-ext:nsf   nsf -gov -mil
+ext:mdb inurl:*.mdb inurl:fpdb shop.mdb
+ext:nsf nsf -gov -mil
 ext:nsf nsf -gov -mil
 ext:nsf nsf -gov -mil
 ext:passwd -intext:the -sample -example
@@ -111,7 +111,7 @@ ext:vmx   vmx
 ext:vmx vmx
 ext:vmx vmx
 ext:yml database inurl:config
-extqi pqi   -database
+extqi pqi -database
 extqi pqi -database
 extqi pqi -database
 ez Publish administration
@@ -404,8 +404,8 @@ index.of passlist
 index.of perform.ini mIRC IRC ini file can list IRC usernames and
 index.of.dcim 
 index.of.password 
-intext:" -FrontPage-" ext:pwd inurl:(service | authors | administrators | users)
-intext:""BiTBOARD v2.0" BiTSHiFTERS Bulletin Board"
+intext:"-FrontPage-" ext:pwd inurl:(service | authors | administrators | users)
+intext:"BiTBOARD v2.0" BiTSHiFTERS Bulletin Board"
 intext:"# -FrontPage-" ext:pwd inurl:(service | authors | administrators | users) "# -FrontPage-" inurl:service.pwd
 intext:"#mysql dump" filetype:sql
 intext:"#mysql dump" filetype:sql 21232f297a57a5a743894a0e4a801fc3
@@ -653,8 +653,7 @@ intext:"Welcome to" inurl:"cp" intitle:"H-SPHERE" inurl:"begin.html" -Fee
 intext:"enable password 7″
 intext:"enable secret 5 $"
 intext:"vbulletin" inurl:admincp
-intextpassword | passcode)   intextusername | userid | user) filetype:csv
-intextpassword | passcode) intextusername | userid | user) filetype:csv 
+intext (password | passcode) intextusername | userid | user) filetype:csv
 intitle: "index of" passwd passwd.bak
 intitle:"*- HP WBEM Login" | "You are being prompted to provide login account information for *" | "Please provide the information requested and press
 intitle:"--- VIDEO WEB SERVER ---" intext:"Video Web Server" "Any time & Any
