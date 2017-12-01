@@ -46,7 +46,7 @@ CLONE = "https://github.com/ekultek/zeus-scanner.git"
 ISSUE_LINK = "https://github.com/ekultek/zeus-scanner/issues"
 
 # current version <major.minor.commit.patch ID>
-VERSION = "1.3.11.{}".format(PATCH_ID)
+VERSION = "1.3.12.{}".format(PATCH_ID)
 
 # colors to output depending on the version
 VERSION_TYPE_COLORS = {"dev": 33, "stable": 92, "other": 30}
@@ -182,6 +182,9 @@ SQLI_SITES_FILEPATH = "{}/log/sqli-sites".format(os.getcwd())
 # the current log file being used
 CURRENT_LOG_FILE_PATH = "{}/log".format(os.getcwd())
 
+# nmap scan log path
+NMAP_LOG_FILE_PATH = "{}/log/nmap-scan-log".format(os.getcwd())
+
 # filename for sitemap log file
 SITEMAP_FILENAME = "{}-sitemap.xml"
 
@@ -228,7 +231,7 @@ BLACKLIST_FILENAME = ".blacklist"
 BLACKWIDOW_FILENAME = "blackwidow-log-{}.log"
 
 # filename for nmap scans
-NMAP_FILENAME = "nmap-scan-results-{}.json"
+NMAP_FILENAME = "{}-nmap-scan-results.json"
 
 # github autohorization token path
 GITHUB_AUTH_PATH = "{}/etc/auths/git_auth".format(os.getcwd())

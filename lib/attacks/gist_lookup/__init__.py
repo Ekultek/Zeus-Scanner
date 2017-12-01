@@ -79,12 +79,18 @@ def check_files_for_information(found_url, data_to_search):
         # we need to create the query to be just the domain name
         data_to_search = data_to_search.split(".")[1]
     data_regex_schema = (
-        re.compile(r"{}".format(data_to_search), re.I),  # a regular match
-        re.compile(r"(http(s)?)(.//)?{}".format(data_to_search), re.I),  # match a URL containing our string
-        re.compile(r"(.)?{}(.)?".format(data_to_search), re.I),  # if it has anything around it
-        re.compile(r"\b{}".format(data_to_search), re.I),  # single boundary match
-        re.compile(r"\b{}\b".format(data_to_search), re.I),  # double boundary match
-        re.compile(r"{}*".format(data_to_search), re.I)  # wildcard match
+        # a normal regex with our string
+        re.compile(r"{}".format(data_to_search), re.I),
+        # match a URL with or without www
+        re.compile(r"(http(s)?)?(.//)?(www.)?{}".format(data_to_search), re.I),
+        # match our string and any random character around it (I like to call it the tittyex)
+        re.compile(r"(.)?{}(.)?".format(data_to_search), re.I),
+        # single boundary match, checks if it's inside of something else
+        re.compile(r"\b{}".format(data_to_search), re.I),
+        # double boundary, same as above but with another boundary
+        re.compile(r"\b{}\b".format(data_to_search), re.I),
+        # wildcard match
+        re.compile(r"{}*".format(data_to_search), re.I)
     )
     total_found = set()
     try:
@@ -98,7 +104,9 @@ def check_files_for_information(found_url, data_to_search):
     for data_regex in data_regex_schema:
         if data_regex.search(data.content) is not None:
             lib.core.settings.logger.info(lib.core.settings.set_color(
-                "found a match with given specifics, saving full Gist to log file...", level=25
+                "found a match with given specifics ('{}'), saving full Gist to log file...".format(
+                    data_regex.pattern
+                ), level=25
             ))
             total_found.add(found_url)
             lib.core.common.write_to_log_file(

@@ -5,4 +5,6 @@
     <header name="X-Content-Type-Options"/>
     <header name="Content-Security-Policy"/>
     <header name="Public-Key-Pins"/>
+    <header name="X-Csrf-Token"/>
+    <header name="X-Xsrf-Token"/>
 </headers>

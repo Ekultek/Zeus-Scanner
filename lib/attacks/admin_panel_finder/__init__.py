@@ -136,11 +136,13 @@ def check_for_admin_page(url, exts, protocol="http://", **kwargs):
                     ))
                     possible_connections.add(true_url)
                 else:
-                    lib.core.settings.logger.error(lib.core.settings.set_color(
-                        "failed to connect got error code {}...".format(
-                            data[2]
-                        ), level=40
-                    ))
+                    for error_code in lib.core.common.STATUS_CODES.iterkeys():
+                        if int(data[2].split(":")[0]) == error_code:
+                            lib.core.settings.logger.error(lib.core.settings.set_color(
+                                "failed to connect got error code {} (reason: {})...".format(
+                                     data[2], lib.core.common.STATUS_CODES[error_code]
+                                ), level=40
+                             ))
         except Exception as e:
             if verbose:
                 if "<urlopen error timed out>" or "timeout: timed out" in str(e):

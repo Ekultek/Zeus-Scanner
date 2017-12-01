@@ -41,11 +41,10 @@ class NmapHook(object):
         """
         send all the information to a JSON file for further use
         """
-        lib.core.settings.create_dir(self.dir)
-        full_nmap_path = "{}/{}".format(self.dir, self.file.format(self.ip))
-        with open(full_nmap_path, "a+") as log:
-            log.write(data)
-        return full_nmap_path
+        lib.core.common.write_to_log_file(
+            data, lib.core.settings.NMAP_LOG_FILE_PATH,
+            lib.core.settings.NMAP_FILENAME.format(self.ip)
+        )
 
     def show_open_ports(self, json_data, sep="-" * 30):
         """
@@ -59,7 +58,7 @@ class NmapHook(object):
         print(
             "{}\nScanned: {} ({})\tStatus: {}\nProtocol: {}\n".format(
                 sep, self.ip,
-                host if host is not "" or None or len(host) == 0 else "unknown",
+                host if host is not "" or None or not len(host) == 0 else "unknown",
                 json_data[self.ip]["status"]["state"],
                 "TCP"
             )
@@ -107,6 +106,8 @@ def perform_port_scan(url, scanner=NmapHook, **kwargs):
         lib.core.settings.logger.info(lib.core.settings.set_color(
             "attempting to find IP address for hostname '{}'...".format(url)
         ))
+        if "www" not in url:
+            url = "www.{}".format(url)
         try:
             found_ip_address = socket.gethostbyname(url)
         except socket.gaierror:

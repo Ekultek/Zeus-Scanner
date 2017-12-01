@@ -136,6 +136,23 @@ def main_xss(start_url, proxy=None, agent=None, **kwargs):
     verbose = kwargs.get("verbose", False)
     batch = kwargs.get("batch", False)
 
+    question_msg = (
+        "it appears that heuristic tests have shown this URL may not be a good "
+        "candidate to perform XSS tests on, would you like to continue anyways"
+    )
+    if not batch:
+        if not lib.core.settings.URL_QUERY_REGEX.match(start_url):
+            question = lib.core.common.prompt(
+                question_msg, opts="yN"
+            )
+    else:
+        question = lib.core.common.prompt(
+            question_msg, opts="yN", default="y"
+        )
+
+    if not question.lower().startswith("y"):
+        return
+
     try:
         if tamper:
             lib.core.settings.logger.info(lib.core.settings.set_color(
@@ -171,7 +188,7 @@ def main_xss(start_url, proxy=None, agent=None, **kwargs):
                 payload = find_xss_script(url)
                 try:
                     result = scan_xss(url, proxy=proxy, agent=agent)
-                except requests.exceptions.ConnectionError:
+                except (requests.exceptions.ConnectionError, requests.exceptions.TooManyRedirects):
                     lib.core.settings.logger.error(lib.core.settings.set_color(
                         "payload '{}' caused a connection error, assuming no good and continuing...".format(payload), level=40
                     ))
@@ -214,7 +231,7 @@ def main_xss(start_url, proxy=None, agent=None, **kwargs):
             lib.core.settings.logger.error(lib.core.settings.set_color(
                 "host '{}' does not appear to be vulnerable to XSS attacks...".format(start_url)
             ))
-        question_msg = "would you like to keep the URL's saved for further testing"
+        question_msg = "would you like to keep the created URLs saved for further testing"
         if not batch:
             save = lib.core.common.prompt(
                 question_msg, opts="yN"
