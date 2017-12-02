@@ -12,10 +12,10 @@ def __check_remaining_rate_limit():
     check how many requests you have left to run
     """
     url = lib.core.settings.GITHUB_GIST_SEARCH_URLS["check_rate"]
-    data = requests.get(url, params={lib.core.common.HTTP_HEADER.AUTHORIZATION: "token {}".format(
+    _, _, data, headers = lib.core.common.get_page(url, auth="token {}".format(
         lib.core.settings.get_token(lib.core.settings.GITHUB_AUTH_PATH)
-    )})
-    remaining = data.headers["X-RateLimit-Remaining"]
+    ))
+    remaining = headers["X-RateLimit-Remaining"]
     if int(remaining) == 0:
         lib.core.settings.logger.error(lib.core.settings.set_color(
             "Github only allows 60 unauthenticated requests per hour, you have hit that limit "
@@ -45,7 +45,7 @@ def get_raw_data(page_set, proxy=None, agent=None, verbose=False):
     if proxy is not None:
         proxy = lib.core.settings.proxy_string_to_dict(proxy)
     for page in list(page_set):
-        data = requests.get(url.format(page), params=headers, proxies=proxy)
+        _, _, data, _ = lib.core.common.get_page(url.format(page), agent=agent, proxy=proxy)
         # load the found info into JSON format
         # so we can pull using keys
         data = json.loads(data.content)
@@ -94,13 +94,13 @@ def check_files_for_information(found_url, data_to_search):
     )
     total_found = set()
     try:
-        data = requests.get(found_url)
+        _, _, data, _ = lib.core.common.get_page(found_url)
     except requests.exceptions.ConnectionError:
         lib.core.settings.logger.warning(lib.core.settings.set_color(
             "to many requests are being sent to quickly, adding sleep time...", level=30
         ))
         time.sleep(3)
-        data = requests.get(found_url)
+        _, _, data, _ = lib.core.common.get_page(found_url)
     for data_regex in data_regex_schema:
         if data_regex.search(data.content) is not None:
             lib.core.settings.logger.info(lib.core.settings.set_color(

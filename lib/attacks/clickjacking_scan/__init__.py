@@ -1,5 +1,3 @@
-import requests
-
 import lib.core.common
 import lib.core.settings
 import var.auto_issue.github
@@ -41,7 +39,7 @@ class ClickJackingScanner(object):
                 lib.core.common.HTTP_HEADER.USER_AGENT: agent,
                 lib.core.common.HTTP_HEADER.CONNECTION: "close"
             }
-        req = requests.get(self.url, headers=headers, proxies=lib.core.settings.proxy_string_to_dict(proxy))
+        req, _, _, headers = lib.core.common.get_page(self.url, headers=headers, proxy=proxy)
         headers = req.headers
         if self.safe in headers:
             return False

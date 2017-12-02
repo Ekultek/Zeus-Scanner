@@ -108,23 +108,15 @@ def scan_xss(url, agent=None, proxy=None):
     chance that the URL is vulnerable to XSS attacks. Usually what will happen is the payload will
     be tampered or encoded if the site is not vulnerable
     """
-    user_agent = agent or lib.core.settings.DEFAULT_USER_AGENT
-    config_proxy = lib.core.settings.proxy_string_to_dict(proxy)
-    config_headers = {
-        lib.core.common.HTTP_HEADER.CONNECTION: "close",
-        lib.core.common.HTTP_HEADER.USER_AGENT: user_agent
-    }
 
     try:
-        xss_request = requests.get(url, proxies=config_proxy, headers=config_headers)
+        _, status, html_data, _ = lib.core.common.get_page(url, agent=agent, proxy=proxy)
     except requests.exceptions.ChunkedEncodingError:
         lib.core.settings.logger.warning(lib.core.settings.set_color(
             "encoding seems to be messed up, trying the request again...", level=30
         ))
-        xss_request = requests.get(url, proxies=config_proxy, headers=config_headers)
+        _, status, html_data, _ = lib.core.common.get_page(url, agent=agent, proxy=proxy)
 
-    status = xss_request.status_code
-    html_data = xss_request.content
     query = find_xss_script(url)
     for db in lib.core.settings.DBMS_ERRORS.keys():
         for item in lib.core.settings.DBMS_ERRORS[db]:
@@ -149,10 +141,9 @@ def main_xss(start_url, proxy=None, agent=None, **kwargs):
         "candidate to perform XSS tests on, would you like to continue anyways"
     )
     if not batch:
-        if not lib.core.settings.URL_QUERY_REGEX.match(start_url):
-            question = lib.core.common.prompt(
-                question_msg, opts="yN"
-            )
+        question = lib.core.common.prompt(
+            question_msg, opts="yN"
+        ) if not lib.core.settings.URL_QUERY_REGEX.match(start_url) else "y"
     else:
         question = lib.core.common.prompt(
             question_msg, opts="yN", default="y"

@@ -3,7 +3,6 @@ import sys
 reload(sys)
 sys.setdefaultencoding("utf-8")  # this will take care of most of the Unicode errors.
 
-import requests
 from bs4 import BeautifulSoup
 
 import lib.core.errors
@@ -23,17 +22,6 @@ class Blackwidow(object):
         self.forward = forward or None
         self.proxy = lib.core.settings.proxy_string_to_dict(proxy) or None
         self.user_agent = user_agent or lib.core.settings.DEFAULT_USER_AGENT
-        if self.forward is not None:
-            self.headers = {
-                "user-agent": self.user_agent,
-                "X-Forwarded-For": "{}, {}, {}".format(
-                    self.forward[0], self.forward[1], self.forward[2]
-                )
-            }
-        else:
-            self.headers = {
-                "user-agent": self.user_agent
-            }
 
     @staticmethod
     def get_url_ext(url):
@@ -52,10 +40,13 @@ class Blackwidow(object):
         """
         try:
             # verify=False will take care of SSLErrors
-            attempt = requests.get(self.url, params=self.headers, proxies=self.proxy, verify=False)
-            if attempt.status_code == 200:
-                return ("ok", None)
-            return ("fail", attempt.status_code)
+            attempt, status, _, _ = lib.core.common.get_page(
+                self.url, agent=self.user_agent, xforward=self.forward, skip_verf=True,
+                proxy=self.proxy
+            )
+            if status == 200:
+                return "ok", None
+            return "fail", attempt.status_code
         except Exception as e:
             if "Max retries exceeded with url" in str(e):
                 info_msg = ""
@@ -84,8 +75,9 @@ class Blackwidow(object):
         """
         unique_links = set()
         true_url = lib.core.settings.replace_http(given_url)
-        req = requests.get(given_url, params=self.headers, proxies=self.proxy)
-        html_page = req.content
+        _, status, html_page, _ = lib.core.common.get_page(
+            given_url, agent=self.user_agent, proxy=self.proxy
+        )
         soup = BeautifulSoup(html_page, "html.parser")
         for link in soup.findAll(attribute):
             found_redirect = str(link.get(descriptor)).decode("unicode_escape")

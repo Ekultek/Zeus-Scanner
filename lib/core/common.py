@@ -13,6 +13,7 @@ except ImportError:
         unquote
     )
 
+import requests
 from lxml import etree
 
 import lib.core.settings
@@ -281,3 +282,55 @@ def run_fix(message, command, fail_message, exit_process=False):
         lib.core.settings.logger.fatal(lib.core.settings.set_color(
             fail_message, level=50
         ))
+
+
+def get_page(url, **kwargs):
+    agent = kwargs.get("agent", None)
+    proxy = kwargs.get("proxy", None)
+    xforward = kwargs.get("xforward", False)
+    auth = kwargs.get("auth", None)
+    skip_verf = kwargs.get("skip_verf", False)
+
+    if agent is None:
+        agent = lib.core.settings.DEFAULT_USER_AGENT
+
+    if xforward:
+        ip_list = (
+            lib.core.settings.create_random_ip(),
+            lib.core.settings.create_random_ip(),
+            lib.core.settings.create_random_ip()
+        )
+        headers = {
+            HTTP_HEADER.CONNECTION: "close",
+            HTTP_HEADER.USER_AGENT: agent,
+            HTTP_HEADER.X_FORWARDED_FOR: "{}, {}, {}".format(
+                ip_list[0], ip_list[1], ip_list[2]
+            )
+        }
+    elif auth:
+        headers = {
+            HTTP_HEADER.CONNECTION: "close",
+            HTTP_HEADER.USER_AGENT: agent,
+            HTTP_HEADER.AUTHORIZATION: "{}".format(
+                auth
+            )
+        }
+    else:
+        headers = {
+            HTTP_HEADER.CONNECTION: "close",
+            HTTP_HEADER.USER_AGENT: agent
+        }
+
+    if proxy is not None:
+        proxies = {
+            "https": proxy,
+            "http": proxy
+        }
+    else:
+        proxies = {}
+
+    req = requests.get(url, params=headers, proxies=proxies, verify=False if skip_verf else True)
+    status = req.status_code
+    html = req.content
+    headers = req.headers
+    return req, status, html, headers
