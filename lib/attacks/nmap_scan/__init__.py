@@ -106,15 +106,15 @@ def perform_port_scan(url, scanner=NmapHook, **kwargs):
         lib.core.settings.logger.info(lib.core.settings.set_color(
             "attempting to find IP address for hostname '{}'...".format(url)
         ))
-        if "www" not in url:
-            url = "www.{}".format(url)
+
         try:
             found_ip_address = socket.gethostbyname(url)
         except socket.gaierror:
-            found_ip_address = socket.gethostbyname_ex(url)
-        lib.core.settings.logger.info(lib.core.settings.set_color(
-            "found IP address for given URL -> '{}'...".format(found_ip_address), level=25
-        ))
+            lib.core.settings.logger.fatal(lib.core.settings.set_color(
+                "failed to gather IP address for URL '{}'...".format(url)
+            ))
+            return
+
         if verbose:
             lib.core.settings.logger.debug(lib.core.settings.set_color(
                 "checking for nmap on your system...", level=10

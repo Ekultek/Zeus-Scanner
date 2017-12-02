@@ -114,7 +114,15 @@ def scan_xss(url, agent=None, proxy=None):
         lib.core.common.HTTP_HEADER.CONNECTION: "close",
         lib.core.common.HTTP_HEADER.USER_AGENT: user_agent
     }
-    xss_request = requests.get(url, proxies=config_proxy, headers=config_headers)
+
+    try:
+        xss_request = requests.get(url, proxies=config_proxy, headers=config_headers)
+    except requests.exceptions.ChunkedEncodingError:
+        lib.core.settings.logger.warning(lib.core.settings.set_color(
+            "encoding seems to be messed up, trying the request again...", level=30
+        ))
+        xss_request = requests.get(url, proxies=config_proxy, headers=config_headers)
+
     status = xss_request.status_code
     html_data = xss_request.content
     query = find_xss_script(url)

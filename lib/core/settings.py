@@ -46,7 +46,7 @@ CLONE = "https://github.com/ekultek/zeus-scanner.git"
 ISSUE_LINK = "https://github.com/ekultek/zeus-scanner/issues"
 
 # current version <major.minor.commit.patch ID>
-VERSION = "1.3.12.{}".format(PATCH_ID)
+VERSION = "1.3.13.{}".format(PATCH_ID)
 
 # colors to output depending on the version
 VERSION_TYPE_COLORS = {"dev": 33, "stable": 92, "other": 30}
@@ -201,7 +201,7 @@ SQLI_FOUND_FILENAME = "sqli-sites.log"
 CLICKJACKING_FILENAME = "{}-clickjacking.html"
 
 # filename for gists log file
-GIST_FILENAME = "gist-match-{}.log"
+GIST_FILENAME = "{}-gist-match.log"
 
 # filename for whois lookup log file
 WHOIS_LOOKUP_FILENAME = "{}-whois.json"

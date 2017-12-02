@@ -70,14 +70,14 @@ d41d8cd98f00b204e9800998ecf8427e  ./lib/attacks/__init__.py
 7bc7a6f3e85651aab3588f087563eded  ./lib/attacks/whois_lookup/__init__.py
 8ec72bb33df998e32b925e3060d9d17a  ./lib/attacks/whois_lookup/whois.py
 67ac65be1b4394ad80ec0fd3472c5309  ./lib/attacks/admin_panel_finder/__init__.py
-75652b6197e9775e58e177f5e2fc680c  ./lib/attacks/xss_scan/__init__.py
-75652b6197e9775e58e177f5e2fc680c  ./lib/attacks/nmap_scan/__init__.py
+2904026c0a34de2bd2eef63c75e3f67e  ./lib/attacks/xss_scan/__init__.py
+7642d078fe304a7ca8bfaaa070a0cb31  ./lib/attacks/nmap_scan/__init__.py
 216999fa0e84866d5c1d96d5676034e4  ./lib/attacks/nmap_scan/nmap_opts.py
 888686098a0850750f2435d0e1645944  ./lib/header_check/__init__.py
 0721c655d433dbc170756f3e40a786cf  ./lib/core/common.py
 4433353fb5c55578391d8b4006191ee8  ./lib/core/errors.py
 d41d8cd98f00b204e9800998ecf8427e  ./lib/core/__init__.py
-5f7fd52c614f1a0f280191592d4b08b3  ./lib/core/settings.py
+1e26c0e7492ca6a18a10e70369c55e99  ./lib/core/settings.py
 801a4f7ac892b74676c649bd4844ccdb  ./lib/core/decorators.py
 9a02e5b913d210350545ac26510a63c9  ./var/search/__init__.py
 0545ee54ade186681b25d157fb32f350  ./var/search/selenium_search.py
