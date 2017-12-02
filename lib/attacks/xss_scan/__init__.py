@@ -196,7 +196,11 @@ def main_xss(start_url, proxy=None, agent=None, **kwargs):
                 payload = find_xss_script(url)
                 try:
                     result = scan_xss(url, proxy=proxy, agent=agent)
-                except (requests.exceptions.ConnectionError, requests.exceptions.TooManyRedirects):
+                except (
+                        requests.exceptions.ConnectionError,
+                        requests.exceptions.TooManyRedirects,
+                        requests.exceptions.ReadTimeout
+                ):
                     lib.core.settings.logger.error(lib.core.settings.set_color(
                         "payload '{}' caused a connection error, assuming no good and continuing...".format(payload), level=40
                     ))
