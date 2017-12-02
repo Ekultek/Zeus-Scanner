@@ -7,7 +7,7 @@
 
 # Helpful links directory
 
-- [Translations]()
+- [Translations](https://github.com/Ekultek/Zeus-Scanner#translations)
 - [What is Zeus](https://github.com/Ekultek/Zeus-Scanner#zeus-scanner)
 - [Zeus's features](https://github.com/Ekultek/Zeus-Scanner#features)
 - [Requirements and installation](https://github.com/Ekultek/Zeus-Scanner#requirements)
@@ -143,5 +143,5 @@ OpenSource Projects is a Facebook community page who's goal is to give developer
 
 ### Translations
  
- - [Spanish]()
+ - [Spanish](https://github.com/Ekultek/Zeus-Scanner/blob/master/.github/translations/README-spanish.md)
  
