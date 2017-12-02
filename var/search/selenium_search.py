@@ -147,7 +147,7 @@ def get_urls(query, url, verbose=False, **kwargs):
                 )
             else:
                 do_continue = prompt(
-                    question_msg, opts="yN", default="n"
+                    question_msg, opts="yN", default="y"
                 )
 
             # shutdown and write the URL to a file

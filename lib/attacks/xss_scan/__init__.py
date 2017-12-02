@@ -187,6 +187,36 @@ def main_xss(start_url, proxy=None, agent=None, **kwargs):
                 payload = find_xss_script(url)
                 try:
                     result = scan_xss(url, proxy=proxy, agent=agent)
+                    if verbose:
+                        lib.core.settings.logger.info(lib.core.settings.set_color(
+                            "trying payload '{}'...".format(payload)
+                        ))
+                    if result[0] != "sqli" and result[0] is True:
+                        success.add(url)
+                        if verbose:
+                            lib.core.settings.logger.debug(lib.core.settings.set_color(
+                                "payload '{}' appears to be usable...".format(payload), level=15
+                            ))
+                    elif result[0] is "sqli":
+                        if i <= 1:
+                            lib.core.settings.logger.error(lib.core.settings.set_color(
+                                "loaded URL '{}' threw a DBMS error and appears to be injectable, test for "
+                                "SQL injection, backend DBMS appears to be '{}'...".format(
+                                    url, result[1]
+                                ), level=40
+                            ))
+                        else:
+                            if verbose:
+                                lib.core.settings.logger.error(lib.core.settings.set_color(
+                                    "SQL error discovered...", level=40
+                                ))
+                    else:
+                        if verbose:
+                            lib.core.settings.logger.debug(lib.core.settings.set_color(
+                                "host '{}' does not appear to be vulnerable to XSS attacks with payload '{}'...".format(
+                                    start_url, payload
+                                ), level=10
+                            ))
                 except (
                         requests.exceptions.ConnectionError,
                         requests.exceptions.TooManyRedirects,
@@ -195,36 +225,7 @@ def main_xss(start_url, proxy=None, agent=None, **kwargs):
                     lib.core.settings.logger.error(lib.core.settings.set_color(
                         "payload '{}' caused a connection error, assuming no good and continuing...".format(payload), level=40
                     ))
-                if verbose:
-                    lib.core.settings.logger.info(lib.core.settings.set_color(
-                        "trying payload '{}'...".format(payload)
-                    ))
-                if result[0] != "sqli" and result[0] is True:
-                    success.add(url)
-                    if verbose:
-                        lib.core.settings.logger.debug(lib.core.settings.set_color(
-                            "payload '{}' appears to be usable...".format(payload), level=15
-                        ))
-                elif result[0] is "sqli":
-                    if i <= 1:
-                        lib.core.settings.logger.error(lib.core.settings.set_color(
-                            "loaded URL '{}' threw a DBMS error and appears to be injectable, test for SQL injection, "
-                            "backend DBMS appears to be '{}'...".format(
-                                url, result[1]
-                            ), level=40
-                        ))
-                    else:
-                        if verbose:
-                            lib.core.settings.logger.error(lib.core.settings.set_color(
-                                "SQL error discovered...", level=40
-                            ))
-                else:
-                    if verbose:
-                        lib.core.settings.logger.debug(lib.core.settings.set_color(
-                            "host '{}' does not appear to be vulnerable to XSS attacks with payload '{}'...".format(
-                                start_url, payload
-                            ), level=10
-                        ))
+
         if len(success) != 0:
             lib.core.settings.logger.info(lib.core.settings.set_color(
                 "possible XSS scripts to be used:", level=25

@@ -40,7 +40,7 @@ def check_for_externals(url, data_sep="-" * 30, **kwargs):
     try:
         url = lib.core.settings.replace_http(url)
         full_url = "{}{}{}".format("http://", url, currently_searching)
-        _, data, code, _ = lib.core.common.get_page(full_url)
+        _, code, data, _ = lib.core.common.get_page(full_url)
     except (TooManyRedirects, ConnectionError):
         lib.core.settings.logger.error(lib.core.settings.set_color(
             "connection to '{}' failed, assuming does not exist and continuing...".format(full_url), level=40

@@ -44,14 +44,14 @@ def request_issue_creation():
         ))
         lib.core.common.shutdown()
 
-    question = lib.core.common.prompt(
+    '''question = lib.core.common.prompt(
         "would you like to create an anonymous issue and post it to Zeus's Github", opts="yN"
     )
     if question.lower().startswith("n"):
         lib.core.settings.logger.error(lib.core.settings.set_color(
             "Zeus has experienced an internal error and cannot continue, shutting down...", level=40
         ))
-        lib.core.common.shutdown()
+        lib.core.common.shutdown()'''
 
     lib.core.settings.fix_log_file()
     lib.core.settings.logger.info(lib.core.settings.set_color(

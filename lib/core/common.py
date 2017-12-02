@@ -329,7 +329,7 @@ def get_page(url, **kwargs):
     else:
         proxies = {}
 
-    req = requests.get(url, params=headers, proxies=proxies, verify=False if skip_verf else True)
+    req = requests.get(url, params=headers, proxies=proxies, verify=False if skip_verf else True, timeout=20)
     status = req.status_code
     html = req.content
     headers = req.headers

@@ -3,7 +3,6 @@ import re
 import importlib
 import unicodedata
 
-import requests
 from xml.dom import minidom
 from requests.exceptions import ConnectionError
 
@@ -13,13 +12,11 @@ from lib.core.common import (
     write_to_log_file,
     shutdown,
     pause,
-    HTTP_HEADER
+    get_page,
 )
 from lib.core.settings import (
     logger, set_color,
     HEADER_XML_DATA,
-    proxy_string_to_dict,
-    create_random_ip,
     replace_http,
     HEADER_RESULT_PATH,
     COOKIE_LOG_PATH,
@@ -43,23 +40,6 @@ def detect_protection(url, **kwargs):
     proxy = kwargs.get("proxy", None)
     xforward = kwargs.get("xforward", False)
 
-    if xforward:
-        ip_list = (
-            create_random_ip(),
-            create_random_ip(),
-            create_random_ip()
-        )
-        headers = {
-            HTTP_HEADER.CONNECTION: "close",
-            HTTP_HEADER.USER_AGENT: agent,
-            HTTP_HEADER.X_FORWARDED_FOR: "{}, {}, {}".format(ip_list[0], ip_list[1], ip_list[2])
-        }
-    else:
-        headers = {
-            HTTP_HEADER.CONNECTION: "close",
-            HTTP_HEADER.USER_AGENT: agent
-        }
-
     url = "{} {}".format(url.strip(), PROTECTION_CHECK_PAYLOAD)
 
     if verbose:
@@ -67,11 +47,7 @@ def detect_protection(url, **kwargs):
             "attempting connection to '{}'...".format(url), level=10
         ))
     try:
-        protection_check_req = requests.get(
-            url, params=headers, proxies=proxy_string_to_dict(proxy), timeout=20
-        )
-
-        html, status, headers = protection_check_req.content, protection_check_req.status_code, protection_check_req.headers
+        _, status, html, headers = get_page(url, agent=agent, proxy=proxy, xforward=xforward)
 
         # make sure there are no DBMS errors in the HTML
         for dbms in DBMS_ERRORS:
@@ -163,23 +139,7 @@ def load_headers(url, **kwargs):
 
     literal_match = re.compile(r"\\(\X(\d+)?\w+)?", re.I)
 
-    if proxy is not None:
-        proxy = proxy_string_to_dict(proxy)
-    if not xforward:
-        header_value = {
-            HTTP_HEADER.CONNECTION: "close",
-            HTTP_HEADER.USER_AGENT: agent
-        }
-    else:
-        ip_list = create_random_ip(), create_random_ip(), create_random_ip()
-        header_value = {
-            HTTP_HEADER.CONNECTION: "close",
-            HTTP_HEADER.USER_AGENT: agent,
-            HTTP_HEADER.X_FORWARDED_FOR: "{}, {}, {}".format(
-                ip_list[0], ip_list[1], ip_list[2]
-            )
-        }
-    req = requests.get(url, params=header_value, proxies=proxy, timeout=10)
+    req, _, _, _ = get_page(url, agent=agent, proxy=proxy)
     if len(req.cookies) > 0:
         logger.info(set_color(
             "found a request cookie, saving to file...", level=25
