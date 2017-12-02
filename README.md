@@ -144,4 +144,5 @@ OpenSource Projects is a Facebook community page who's goal is to give developer
 ### Translations
  
  - [Spanish](https://github.com/Ekultek/Zeus-Scanner/blob/master/.github/translations/README-spanish.md)
- 
+ - [Russian](https://github.com/Ekultek/Zeus-Scanner/blob/master/.github/translations/README-russian.md)
+ - [French](https://github.com/Ekultek/Zeus-Scanner/blob/master/.github/translations/README-french.md)
