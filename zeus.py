@@ -26,24 +26,24 @@ from lib.core.common import (
 )
 from lib.core.settings import (
     setup,
-    BANNER,
     logger,
     set_color,
     get_latest_log_file,
-    CURRENT_LOG_FILE_PATH,
-    URL_LOG_PATH,
     get_random_dork,
     update_zeus,
-    VERSION_STRING,
-    URL_REGEX, URL_QUERY_REGEX,
-    NMAP_MAN_PAGE_URL,
-    SQLMAP_MAN_PAGE_URL,
     fix_log_file,
-    SPIDER_LOG_PATH,
     config_headers,
     config_search_engine,
     find_running_opts,
     run_attacks,
+    CURRENT_LOG_FILE_PATH,
+    SPIDER_LOG_PATH,
+    VERSION_STRING,
+    URL_REGEX, URL_QUERY_REGEX,
+    NMAP_MAN_PAGE_URL,
+    SQLMAP_MAN_PAGE_URL,
+    URL_LOG_PATH,
+    BANNER
 )
 
 warnings.simplefilter("ignore")

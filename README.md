@@ -7,6 +7,7 @@
 
 # Helpful links directory
 
+- [Translations]()
 - [What is Zeus](https://github.com/Ekultek/Zeus-Scanner#zeus-scanner)
 - [Zeus's features](https://github.com/Ekultek/Zeus-Scanner#features)
 - [Requirements and installation](https://github.com/Ekultek/Zeus-Scanner#requirements)
@@ -138,3 +139,9 @@ You can be assured that all donations will go towards Zeus funding to make it mo
 ##### [OpenSource Projects](https://www.facebook.com/opensourceprojects/)
 
 OpenSource Projects is a Facebook community page who's goal is to give developers, new and old, a easy and simple place to share their opensource contributions and projects. I personally think this is an awesome idea, I know how hard it is to get your code noticed by people and support these guys 100%. Go ahead and give them a like [here](https://www.facebook.com/opensourceprojects/). They will share any opensource project you send them for free. Thank you OpenSource Projects for giving developers a place to share work with one another!
+
+
+### Translations
+ 
+ - [Spanish]()
+ 
