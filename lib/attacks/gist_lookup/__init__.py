@@ -1,73 +1,68 @@
 import re
-import json
-import time
-import requests
+
+from bs4 import BeautifulSoup
 
 import lib.core.settings
 import lib.core.common
 
 
-def __check_remaining_rate_limit():
+def __create_url(redirect, template="https://gist.github.com{}"):
     """
-    check how many requests you have left to run
+    create the URL for the Gists
     """
-    url = lib.core.settings.GITHUB_GIST_SEARCH_URLS["check_rate"]
-    _, _, data, headers = lib.core.common.get_page(url, auth="token {}".format(
-        lib.core.settings.get_token(lib.core.settings.GITHUB_AUTH_PATH)
-    ))
-    remaining = headers["X-RateLimit-Remaining"]
-    if int(remaining) == 0:
-        lib.core.settings.logger.error(lib.core.settings.set_color(
-            "Github only allows 60 unauthenticated requests per hour, you have hit that limit "
-            "if you need to do more requests it is recommended to run behind a proxy with a different "
-            "user-agent (IE --proxy socks5://127.0.0.1:9050 --random-agent)...", level=40
-        ))
-        lib.core.common.shutdown()
-    else:
-        lib.core.settings.logger.warning(lib.core.settings.set_color(
-            "you have {} unauthenticated requests remaining...".format(remaining), level=30
-        ))
+    return template.format(redirect)
 
 
-def get_raw_data(page_set, proxy=None, agent=None, verbose=False):
+def get_raw_html(redirect, verbose=False):
+    """
+    get the raw HTML of the Gist plus the URL for it
+    """
+    tag, descriptor = "a", "href"
+    raw_gist_regex = re.compile(r".raw.[a-z0-9]{40}", re.I)
+    _, status, html, _ = lib.core.common.get_page(redirect)
+    soup = BeautifulSoup(html, "html.parser")
+    for link in soup.findAll(tag):
+        raw_gist_redirect = link.get(descriptor)
+        if raw_gist_regex.search(str(raw_gist_redirect)) is not None:
+            url = __create_url(raw_gist_redirect)
+            if verbose:
+                lib.core.settings.logger.debug(lib.core.settings.set_color(
+                    "found raw Gist URL '{}'...".format(url), level=10
+                ))
+            _, _, html, _ = lib.core.common.get_page(url)
+            raw_soup = BeautifulSoup(html, "html.parser")
+            return raw_soup, url
+
+
+def get_links(page_set, proxy=None, agent=None):
     """
     parse 10 pages of Github gists and use them
     """
-    retval = set()
-    url = lib.core.settings.GITHUB_GIST_SEARCH_URLS["search"]
-    headers = {
-        lib.core.common.HTTP_HEADER.USER_AGENT: agent,
-        lib.core.common.HTTP_HEADER.AUTHORIZATION: "token {}".format(lib.core.settings.get_token(lib.core.settings.GITHUB_AUTH_PATH)),
-    }
-    lib.core.settings.logger.info(lib.core.settings.set_color(
-        "searching a total of {} pages of Gists...".format(page_set[-1])
-    ))
-    if proxy is not None:
-        proxy = lib.core.settings.proxy_string_to_dict(proxy)
-    for page in list(page_set):
-        _, _, data, _ = lib.core.common.get_page(url.format(page), agent=agent, proxy=proxy)
-        # load the found info into JSON format
-        # so we can pull using keys
-        data = json.loads(data.content)
-        for item in data:
-            # get the URL to the raw data so we can search it
-            gist_file = item["files"]
-            gist_filename = gist_file.keys()
-            try:
-                skip_schema = ("-", " ", "")
-                if not any(s == gist_filename for s in skip_schema):
-                    if verbose:
-                        lib.core.settings.logger.debug(lib.core.settings.set_color(
-                            "found filename '{}'...".format(''.join(gist_filename)), level=10
-                        ))
-                    retval.add(gist_file[''.join(gist_filename)]["raw_url"])
-            # sometimes the URL doesn't like being pulled, so we'll just skip those ones
-            except Exception:
-                pass
-    return retval
+    redirects, retval = set(), set()
+    gist_search_url = "https://gist.github.com/discover?page={}"
+    tag, descriptor = "a", "href"
+    gist_regex = re.compile(r"[a-f0-9]{32}", re.I)
+    gist_skip_schema = ("stargazers", "forks", "#comments")
+    for i in range(page_set):
+        lib.core.settings.logger.info(lib.core.settings.set_color(
+            "fetching all Gists on page #{}...".format(i+1)
+        ))
+        _, status, html, _ = lib.core.common.get_page(
+            gist_search_url.format(i+1), proxy=proxy, agent=agent
+        )
+        soup = BeautifulSoup(html, "html.parser")
+        for link in soup.findAll(tag):
+            redirect = link.get(descriptor)
+            if not any(s in redirect for s in gist_skip_schema):
+                if gist_regex.search(redirect) is not None:
+                    if not any(protocol in redirect for protocol in ["https://", "http://"]):
+                        redirects.add(__create_url(redirect))
+                    else:
+                        redirects.add(redirect)
+    return redirects
 
 
-def check_files_for_information(found_url, data_to_search):
+def check_files_for_information(url, data_to_search, query):
     """
     check the files to see if they contain any of the information that was specified
     """
@@ -75,95 +70,68 @@ def check_files_for_information(found_url, data_to_search):
     # bases while we do the searching.
     # this will make it so that if there is a match anywhere
     # in anything, we'll find it.
-    if "www" in data_to_search:
-        # we need to create the query to be just the domain name
-        data_to_search = data_to_search.split(".")[1]
+    data_to_search = str(data_to_search)
     data_regex_schema = (
-        # a normal regex with our string
-        re.compile(r"{}".format(data_to_search), re.I),
         # match a URL with or without www
-        re.compile(r"(http(s)?)?(.//)?(www.)?{}".format(data_to_search), re.I),
+        re.compile(r"(http(s)?)?(.//)?(www.)?{}".format(query), re.I),
         # match our string and any random character around it (I like to call it the tittyex)
-        re.compile(r"(.)?{}(.)?".format(data_to_search), re.I),
+        re.compile(r"(.)?{}(.)?".format(query), re.I),
         # single boundary match, checks if it's inside of something else
-        re.compile(r"\b{}".format(data_to_search), re.I),
+        re.compile(r"\b{}".format(query), re.I),
         # double boundary, same as above but with another boundary
-        re.compile(r"\b{}\b".format(data_to_search), re.I),
+        re.compile(r"\b{}\b".format(query), re.I),
         # wildcard match
-        re.compile(r"{}*".format(data_to_search), re.I)
+        re.compile(r"{}*".format(query), re.I),
+        # normal match
+        re.compile(r"{}".format(query), re.I)
     )
-    total_found = set()
-    try:
-        _, _, data, _ = lib.core.common.get_page(found_url)
-    except requests.exceptions.ConnectionError:
-        lib.core.settings.logger.warning(lib.core.settings.set_color(
-            "to many requests are being sent to quickly, adding sleep time...", level=30
-        ))
-        time.sleep(3)
-        _, _, data, _ = lib.core.common.get_page(found_url)
-    for data_regex in data_regex_schema:
-        if data_regex.search(data.content) is not None:
+    for regex in list(data_regex_schema):
+        if regex.search(data_to_search) is not None:
             lib.core.settings.logger.info(lib.core.settings.set_color(
-                "found a match with given specifics ('{}'), saving full Gist to log file...".format(
-                    data_regex.pattern
+                "found match with given specifics ('{}'), saving Gist to file...".format(
+                    regex.pattern
                 ), level=25
             ))
-            total_found.add(found_url)
             lib.core.common.write_to_log_file(
-                data.content, lib.core.settings.GIST_MATCH_LOG, lib.core.settings.GIST_FILENAME.format(
-                    lib.core.settings.replace_http(data_to_search)
-                )
+                data_to_search,
+                lib.core.settings.GIST_MATCH_LOG,
+                lib.core.settings.GIST_FILENAME.format(query)
             )
-    return len(total_found)
 
 
 def github_gist_search_main(query, **kwargs):
+    """
+    main function for searching Gists
+    """
     proxy = kwargs.get("proxy", None)
     agent = kwargs.get("agent", None)
     verbose = kwargs.get("verbose", False)
-    thread = kwargs.get("do_threading", False)
-    # proc_num = kwargs.get("proc_num", 5)  # TODO:/
-    page_set = kwargs.get("page_set", (1, 2, 3, 4, 5))
-    total_found = 0
+    page_set = kwargs.get("page_set", 10)
 
     try:
+        lib.core.settings.logger.info(lib.core.settings.set_color(
+            "searching a total of {} pages of Gists for '{}'...".format(
+                page_set, query
+            )
+        ))
+
+        if "www." in query:
+            query = query.split(".")[1]
+
+        links = get_links(page_set, proxy=proxy, agent=agent)
         if verbose:
             lib.core.settings.logger.debug(lib.core.settings.set_color(
-                "checking if you have exceeded your search limit...", level=10
+                "found a total of {} links to search...".format(
+                    len(links)
+                ), level=15
             ))
-        __check_remaining_rate_limit()
-        lib.core.settings.logger.info(lib.core.settings.set_color(
-            "searching Github Gists for '{}'...".format(query)
-        ))
-        gathered_links = get_raw_data(page_set, proxy=proxy, agent=agent, verbose=verbose)
-        lib.core.settings.logger.info(lib.core.settings.set_color(
-            "pulled a total of {} URL's to search...".format(len(gathered_links)), level=25
-        ))
-        if not thread:
-            lib.core.settings.logger.info(lib.core.settings.set_color(
-                "performing Github Gist search, this will probably take awhile..."
-            ))
-            for url in gathered_links:
-                total = check_files_for_information(url, query)
-                total_found += total
-        else:
-            lib.core.settings.logger.warning(lib.core.settings.set_color(
-                "multi-threading is not implemented yet...", level=35
-            ))
-            lib.core.settings.logger.info(lib.core.settings.set_color(
-                "performing Github Gist search, this will probably take awhile..."
-            ))
-            for url in gathered_links:
-                total = check_files_for_information(url, query)
-                total_found += total
-        if total_found > 0:
-            lib.core.settings.logger.info(lib.core.settings.set_color(
-                "found a total of {} interesting Gists...".format(total_found)
-            ))
-        else:
-            lib.core.settings.logger.warning(lib.core.settings.set_color(
-                "did not find any interesting Gists...", level=30
-            ))
+        for link in list(links):
+            gist, gist_link = get_raw_html(link, verbose=verbose)
+            check_files_for_information(gist_link, gist, query)
     except KeyboardInterrupt:
         if not lib.core.common.pause():
             lib.core.common.shutdown()
+    except Exception as e:
+        lib.core.settings.logger.exception(lib.core.settings.set_color(
+            "Gist search has failed with error '{}'...".format(str(e)), level=50
+        ))
