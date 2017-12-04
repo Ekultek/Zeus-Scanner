@@ -77,7 +77,7 @@ ac942d36f7d78c249e587417736e88e6  ./lib/header_check/__init__.py
 cd8e35cfd995d0a93892cfc83f01dea7  ./lib/core/common.py
 4433353fb5c55578391d8b4006191ee8  ./lib/core/errors.py
 d41d8cd98f00b204e9800998ecf8427e  ./lib/core/__init__.py
-e5cba9d37cf54d14255a81da1fa83f90  ./lib/core/settings.py
+37fc631a9597a8e68c4208b2026d2458  ./lib/core/settings.py
 de4254c5e40f7aa4fb81e0608f758a2c  ./lib/core/decorators.py
 9a02e5b913d210350545ac26510a63c9  ./var/search/__init__.py
 1ed3c450e620ff1edd8b0864179fdea7  ./var/search/selenium_search.py
