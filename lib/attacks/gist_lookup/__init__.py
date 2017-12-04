@@ -1,9 +1,10 @@
 import re
+import sys
 
 from bs4 import BeautifulSoup
 
-import lib.core.settings
 import lib.core.common
+import lib.core.settings
 
 
 def __create_url(redirect, template="https://gist.github.com{}"):
@@ -20,18 +21,22 @@ def get_raw_html(redirect, verbose=False):
     tag, descriptor = "a", "href"
     raw_gist_regex = re.compile(r".raw.[a-z0-9]{40}", re.I)
     _, status, html, _ = lib.core.common.get_page(redirect)
-    soup = BeautifulSoup(html, "html.parser")
-    for link in soup.findAll(tag):
-        raw_gist_redirect = link.get(descriptor)
-        if raw_gist_regex.search(str(raw_gist_redirect)) is not None:
-            url = __create_url(raw_gist_redirect)
-            if verbose:
-                lib.core.settings.logger.debug(lib.core.settings.set_color(
-                    "found raw Gist URL '{}'...".format(url), level=10
-                ))
-            _, _, html, _ = lib.core.common.get_page(url)
-            raw_soup = BeautifulSoup(html, "html.parser")
-            return raw_soup, url
+
+    if status == 200:
+        soup = BeautifulSoup(html, "html.parser")
+        for link in soup.findAll(tag):
+            raw_gist_redirect = link.get(descriptor)
+            if raw_gist_regex.search(str(raw_gist_redirect)) is not None:
+                url = __create_url(raw_gist_redirect)
+                if verbose:
+                    lib.core.settings.logger.debug(lib.core.settings.set_color(
+                        "found raw Gist URL '{}'...".format(url), level=10
+                    ))
+                _, _, html, _ = lib.core.common.get_page(url)
+                raw_soup = BeautifulSoup(html, "html.parser")
+                return raw_soup, url
+    else:
+        return None, None
 
 
 def get_links(page_set, proxy=None, agent=None):
@@ -43,6 +48,7 @@ def get_links(page_set, proxy=None, agent=None):
     tag, descriptor = "a", "href"
     gist_regex = re.compile(r"[a-f0-9]{32}", re.I)
     gist_skip_schema = ("stargazers", "forks", "#comments")
+
     for i in range(page_set):
         lib.core.settings.logger.info(lib.core.settings.set_color(
             "fetching all Gists on page #{}...".format(i+1)
@@ -50,19 +56,27 @@ def get_links(page_set, proxy=None, agent=None):
         _, status, html, _ = lib.core.common.get_page(
             gist_search_url.format(i+1), proxy=proxy, agent=agent
         )
-        soup = BeautifulSoup(html, "html.parser")
-        for link in soup.findAll(tag):
-            redirect = link.get(descriptor)
-            if not any(s in redirect for s in gist_skip_schema):
-                if gist_regex.search(redirect) is not None:
-                    if not any(protocol in redirect for protocol in ["https://", "http://"]):
-                        redirects.add(__create_url(redirect))
-                    else:
-                        redirects.add(redirect)
+        if status == 200:
+            soup = BeautifulSoup(html, "html.parser")
+            for link in soup.findAll(tag):
+                redirect = link.get(descriptor)
+                if not any(s in redirect for s in gist_skip_schema):
+                    if gist_regex.search(redirect) is not None:
+                        if not any(protocol in redirect for protocol in ["https://", "http://"]):
+                            redirects.add(__create_url(redirect))
+                        else:
+                            redirects.add(redirect)
+        else:
+            lib.core.settings.logger.warning(lib.core.settings.set_color(
+                "page #{} failed to load with status code {} (reason '{}')...".format(
+                    i+1, status, lib.core.common.STATUS_CODES[int(status)]
+                ), level=30
+            ))
+            continue
     return redirects
 
 
-def check_files_for_information(url, data_to_search, query):
+def check_files_for_information(data_to_search, query):
     """
     check the files to see if they contain any of the information that was specified
     """
@@ -99,6 +113,7 @@ def check_files_for_information(url, data_to_search, query):
             )
 
 
+# @lib.core.decorators.tail_call_optimized
 def github_gist_search_main(query, **kwargs):
     """
     main function for searching Gists
@@ -107,6 +122,11 @@ def github_gist_search_main(query, **kwargs):
     agent = kwargs.get("agent", None)
     verbose = kwargs.get("verbose", False)
     page_set = kwargs.get("page_set", 10)
+
+    # there seems to be a recursion issue in this function,
+    # so until I get this figured out, we're going to change
+    # the maximum recursion of the system when we get here
+    sys.setrecursionlimit(1500)
 
     try:
         lib.core.settings.logger.info(lib.core.settings.set_color(
@@ -126,8 +146,9 @@ def github_gist_search_main(query, **kwargs):
                 ), level=15
             ))
         for link in list(links):
-            gist, gist_link = get_raw_html(link, verbose=verbose)
-            check_files_for_information(gist_link, gist, query)
+            if link is not None:
+                gist, gist_link = get_raw_html(link, verbose=verbose)
+                check_files_for_information(gist, query)
     except KeyboardInterrupt:
         if not lib.core.common.pause():
             lib.core.common.shutdown()

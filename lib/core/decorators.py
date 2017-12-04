@@ -6,6 +6,7 @@ import lib.core.settings
 
 
 class TimeOut:
+
     def __init__(self, seconds=1, error_message='Timeout'):
         self.seconds = seconds
         self.error_message = error_message

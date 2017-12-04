@@ -11,6 +11,7 @@ import requests
 
 import lib.core.common
 import lib.core.settings
+import lib.core.decorators
 from lib.core.errors import InvalidTamperProvided
 
 
@@ -109,22 +110,34 @@ def scan_xss(url, agent=None, proxy=None):
     be tampered or encoded if the site is not vulnerable
     """
 
-    try:
-        _, status, html_data, _ = lib.core.common.get_page(url, agent=agent, proxy=proxy)
-    except requests.exceptions.ChunkedEncodingError:
-        lib.core.settings.logger.warning(lib.core.settings.set_color(
-            "encoding seems to be messed up, trying the request again...", level=30
-        ))
-        _, status, html_data, _ = lib.core.common.get_page(url, agent=agent, proxy=proxy)
+    retry_flags = 3
+    auto_assign = "http://{}"
+    url_verification = re.compile(r"http(s)?", re.I)
 
-    query = find_xss_script(url)
-    for db in lib.core.settings.DBMS_ERRORS.keys():
-        for item in lib.core.settings.DBMS_ERRORS[db]:
-            if re.findall(item, html_data):
-                return "sqli", db
-    if status != 404:
-        if query in html_data:
-            return True, None
+    if url_verification.search(url) is None:
+        lib.core.settings.logger.warning(lib.core.settings.set_color(
+            "protocol missing from URL, automatically assigning protocol...", level=30
+        ))
+        url = auto_assign.format(url)
+
+    while retry_flags > 0:
+        try:
+            _, status, html_data, _ = lib.core.common.get_page(url, agent=agent, proxy=proxy)
+            query = find_xss_script(url)
+            for db in lib.core.settings.DBMS_ERRORS.keys():
+                for item in lib.core.settings.DBMS_ERRORS[db]:
+                    if re.findall(item, html_data):
+                        return "sqli", db
+            if status != 404:
+                if query in html_data:
+                    return True, None
+            retry_flags -= 1
+        except requests.exceptions.ChunkedEncodingError:
+            lib.core.settings.logger.warning(lib.core.settings.set_color(
+                "encoding seems to be messed up, retrying request...", level=30
+            ))
+            retry_flags -= 1
+
     return False, None
 
 
