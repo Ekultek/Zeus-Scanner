@@ -9,7 +9,8 @@ except ImportError:  # Python 3
 
 from requests.exceptions import (
     ConnectionError,
-    TooManyRedirects
+    TooManyRedirects,
+    ReadTimeout
 )
 
 import lib.core.common
@@ -41,7 +42,7 @@ def check_for_externals(url, data_sep="-" * 30, **kwargs):
         url = lib.core.settings.replace_http(url)
         full_url = "{}{}{}".format("http://", url, currently_searching)
         _, code, data, _ = lib.core.common.get_page(full_url)
-    except (TooManyRedirects, ConnectionError):
+    except (TooManyRedirects, ConnectionError, ReadTimeout):
         lib.core.settings.logger.error(lib.core.settings.set_color(
             "connection to '{}' failed, assuming does not exist and continuing...".format(full_url), level=40
         ))
