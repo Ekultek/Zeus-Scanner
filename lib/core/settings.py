@@ -14,7 +14,6 @@ import socket
 import struct
 import platform
 import subprocess
-
 try:
     import ConfigParser  # python 2
 except ImportError:
@@ -46,7 +45,7 @@ CLONE = "https://github.com/ekultek/zeus-scanner.git"
 ISSUE_LINK = "https://github.com/ekultek/zeus-scanner/issues"
 
 # current version <major.minor.commit.patch ID>
-VERSION = "1.3.18.{}".format(PATCH_ID)
+VERSION = "1.4".format(PATCH_ID)
 
 # colors to output depending on the version
 VERSION_TYPE_COLORS = {"dev": 33, "stable": 92, "other": 30}
@@ -64,10 +63,9 @@ SAYING = "Advanced Reconnaissance..."
 
 # i had to create a banner because something not so good happened...
 DISCLAIMER = (
-    "[!] legal disclaimer: Usage of Zeus for exploiting, blackmailing, or attacking targets without "
-    "mutual consent is illegal. It is the end users responsibility to obey all laws, regulations, and "
-    "rules set forth by their state, country, or place of origin. Zeus developers take no responsibility "
-    "for any misuse or damage caused by the use of this program."
+    "[!] legal disclaimer: Usage of Zeus for attacking targets without prior mutual consent is illegal. "
+    "It is the end user's responsibility to obey all applicable local, state and federal laws. "
+    "Developers assume no liability and are not responsible for any misuse or damage caused by this program."
 )
 
 # sexy banner
@@ -272,6 +270,9 @@ PROTECTION_CHECK_PAYLOAD = (
 
 # scripts to detect the WAF/IDS/IPS
 DETECT_FIREWALL_PATH = "{}/lib/firewall".format(os.getcwd())
+
+# path to run the plugins detection scripts
+DETECT_PLUGINS_PATH = "{}/lib/plugins".format(os.getcwd())
 
 # search engines that the application can use
 AUTHORIZED_SEARCH_ENGINES = {
