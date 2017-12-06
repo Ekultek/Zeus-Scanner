@@ -246,7 +246,7 @@ def main_xss(start_url, proxy=None, agent=None, **kwargs):
             lib.core.settings.create_tree(start_url, list(success))
         else:
             lib.core.settings.logger.error(lib.core.settings.set_color(
-                "host '{}' does not appear to be vulnerable to XSS attacks...".format(start_url)
+                "host '{}' does not appear to be vulnerable to XSS attacks...".format(start_url), level=40
             ))
         question_msg = "would you like to keep the created URLs saved for further testing"
         if not batch:
