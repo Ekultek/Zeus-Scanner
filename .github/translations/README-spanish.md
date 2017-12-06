@@ -98,7 +98,7 @@ Hay algunos requisitos para que esto se ejecute con éxito.
  
 ### Instalación
 
-Puede descargar la última [tar.gz](https://github.com/ekultek/zeus-scanner/tarball/master), la última [zip](https://github.com/ekultek/zeus-scanner/zipball/master), o puede encontrar la versión estable actual [aquí](https://github.com/Ekultek/Zeus-Scanner/releases/tag/v1.3). Alternativamente, puede instalar la última versión de desarrollo siguiendo las instrucciones que mejor se adapten a su sistema operativo:
+Puede descargar la última [tar.gz](https://github.com/ekultek/zeus-scanner/tarball/master), la última [zip](https://github.com/ekultek/zeus-scanner/zipball/master), o puede encontrar la versión estable actual [aquí](https://github.com/Ekultek/Zeus-Scanner/releases). Alternativamente, puede instalar la última versión de desarrollo siguiendo las instrucciones que mejor se adapten a su sistema operativo:
 
 **_NOTA: (opcional pero muy recomendable)_ ** agregue sqlmap y nmap a su RUTA del entorno moviéndolos a `/usr/bin` o agregándolos a la RUTA a través de la terminal
 
