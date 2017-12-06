@@ -73,12 +73,11 @@ def create_urls(url, payload_list, tamper=None, verbose=False):
                     else:
                         payload = __tamper_payload(payload, tamper_type=tamper, warning=False, verbose=verbose)
                 except InvalidTamperProvided:
-                    lib.core.settings.logger.error(lib.core.settings.set_color(
+                    lib.core.settings.logger.warning(lib.core.settings.set_color(
                         "you provided and invalid tamper script, acceptable tamper scripts are: {}...".format(
                             " | ".join(list_tamper_scripts()), level=40
                         )
                     ))
-                    lib.core.common.shutdown()
             loaded_url = "{}{}\n".format(url.strip(), payload.strip())
             tmp.write(loaded_url)
     return tf_name
@@ -110,7 +109,6 @@ def scan_xss(url, agent=None, proxy=None):
     be tampered or encoded if the site is not vulnerable
     """
 
-    retry_flags = 3
     auto_assign = "http://{}"
     url_verification = re.compile(r"http(s)?", re.I)
 
@@ -120,25 +118,19 @@ def scan_xss(url, agent=None, proxy=None):
         ))
         url = auto_assign.format(url)
 
-    while retry_flags > 0:
-        try:
-            _, status, html_data, _ = lib.core.common.get_page(url, agent=agent, proxy=proxy)
-            query = find_xss_script(url)
-            for db in lib.core.settings.DBMS_ERRORS.keys():
-                for item in lib.core.settings.DBMS_ERRORS[db]:
-                    if re.findall(item, html_data):
-                        return "sqli", db
-            if status != 404:
-                if query in html_data:
-                    return True, None
-            retry_flags -= 1
-        except requests.exceptions.ChunkedEncodingError:
-            lib.core.settings.logger.warning(lib.core.settings.set_color(
-                "encoding seems to be messed up, retrying request...", level=30
-            ))
-            retry_flags -= 1
-
-    return False, None
+    try:
+        _, status, html_data, _ = lib.core.common.get_page(url, agent=agent, proxy=proxy)
+        query = find_xss_script(url)
+        for db in lib.core.settings.DBMS_ERRORS.keys():
+            for item in lib.core.settings.DBMS_ERRORS[db]:
+                if re.findall(item, html_data):
+                    return "sqli", db
+        if status != 404:
+            if query in html_data:
+                return True, None
+        return False, None
+    except (requests.exceptions.ChunkedEncodingError, requests.exceptions.ConnectionError):
+        return False, None
 
 
 def main_xss(start_url, proxy=None, agent=None, **kwargs):

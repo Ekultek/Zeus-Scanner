@@ -84,6 +84,8 @@ c4ac50a3f3550c62219e7e4f38d4b496  ./lib/plugins/1024.py
 76a1d1decfb872bfafdf510c656f113a  ./lib/plugins/rssfeed.py
 320f0db977c85b477ba1ea78b140cb8a  ./lib/plugins/4images.py
 35dc8b7da4becb60662aab3c48a9210b  ./lib/plugins/openxchange.py
+353db8b22c031433ea73a12943927557  ./lib/plugins/clipbucket.py
+ce3b79dc80e369ffd55d2cbe90e6a0ab  ./lib/plugins/mssqlreportmanager.py
 b5ff3286060c0bbc0fe1f0f591131c9c  ./lib/attacks/gist_lookup/__init__.py
 86224bd899c2a2438042cbdc077dc4cc  ./lib/attacks/clickjacking_scan/__init__.py
 d41d8cd98f00b204e9800998ecf8427e  ./lib/attacks/__init__.py
@@ -92,7 +94,7 @@ d41d8cd98f00b204e9800998ecf8427e  ./lib/attacks/__init__.py
 7bc7a6f3e85651aab3588f087563eded  ./lib/attacks/whois_lookup/__init__.py
 8ec72bb33df998e32b925e3060d9d17a  ./lib/attacks/whois_lookup/whois.py
 916b768e783ff771bce80bd6f5112d4f  ./lib/attacks/admin_panel_finder/__init__.py
-52942c7b33ff696901f5a4201ba4507f  ./lib/attacks/xss_scan/__init__.py
+f87f388a9ded1cd8a7e333353652c4df  ./lib/attacks/xss_scan/__init__.py
 6b8ad5d11aa7f1e2b5f993ca3dde1975  ./lib/attacks/nmap_scan/__init__.py
 216999fa0e84866d5c1d96d5676034e4  ./lib/attacks/nmap_scan/nmap_opts.py
 8ef704ee0460fdec5ea03f47036664fe  ./lib/header_check/__init__.py
@@ -100,7 +102,7 @@ d2f8777360a73a412ef158eff2fdf631  ./lib/core/common.py
 4433353fb5c55578391d8b4006191ee8  ./lib/core/errors.py
 38d8ce4aec42ec147b44a36c69b15ea8  ./lib/core/parse.py
 d41d8cd98f00b204e9800998ecf8427e  ./lib/core/__init__.py
-f3b7a9cae1668e883541b388107f07c4  ./lib/core/settings.py
+62f71741205d25ab425f5ef32b39423a  ./lib/core/settings.py
 de4254c5e40f7aa4fb81e0608f758a2c  ./lib/core/decorators.py
 9a02e5b913d210350545ac26510a63c9  ./var/search/__init__.py
 83928f6c090722d87a905a447cb51aed  ./var/search/selenium_search.py
