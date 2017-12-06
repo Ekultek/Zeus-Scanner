@@ -46,7 +46,7 @@ def get_charset(html, headers, **kwargs):
         content = headers.get(HTTP_HEADER.CONTENT_TYPE, "")
         charset = charset_regex.search(content)
         if charset is not None:
-            return charset
+            return charset.group(1)
     return None
 
 

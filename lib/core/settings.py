@@ -45,7 +45,7 @@ CLONE = "https://github.com/ekultek/zeus-scanner.git"
 ISSUE_LINK = "https://github.com/ekultek/zeus-scanner/issues"
 
 # current version <major.minor.commit.patch ID>
-VERSION = "1.4".format(PATCH_ID)
+VERSION = "1.4.1.{}".format(PATCH_ID)
 
 # colors to output depending on the version
 VERSION_TYPE_COLORS = {"dev": 33, "stable": 92, "other": 30}
@@ -320,7 +320,7 @@ URL_EXCLUDES = (
     "torproject.org", "search-results.com", "index.com",
     "gov", ".gov", "facebook.com", "instagram.com", "snapchat",
     "stackoverflow", "stackexchange", "github.com", "apple.com",
-    "http://my."
+    "http://my.", "root.cern"
 )
 
 # regular expressions used for DBMS recognition based on error message response

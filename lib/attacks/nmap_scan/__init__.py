@@ -41,7 +41,7 @@ class NmapHook(object):
         """
         send all the information to a JSON file for further use
         """
-        lib.core.common.write_to_log_file(
+        return lib.core.common.write_to_log_file(
             data, lib.core.settings.NMAP_LOG_FILE_PATH,
             lib.core.settings.NMAP_FILENAME.format(self.ip)
         )
@@ -55,10 +55,11 @@ class NmapHook(object):
         lib.core.settings.logger.info(lib.core.settings.set_color("finding data for IP '{}'...".format(self.ip)))
         json_data = json.loads(json_data)["scan"]
         host = json_data[self.ip]["hostnames"][0]["name"]
+        host_skip = (not len(host) == 0, " ", "", None)
         print(
             "{}\nScanned: {} ({})\tStatus: {}\nProtocol: {}\n".format(
                 sep, self.ip,
-                host if host is not "" or None or not len(host) == 0 else "unknown",
+                host if host != any(s for s in list(host_skip)) else "unknown",
                 json_data[self.ip]["status"]["state"],
                 "TCP"
             )

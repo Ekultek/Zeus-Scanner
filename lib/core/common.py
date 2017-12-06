@@ -24,7 +24,7 @@ STATUS_CODES = {
     200: "OK", 201: "created", 202: "accepted", 203: "non-authoritative information",
     204: "no content", 205: "reset content", 206: "partial content",
     207: "multi-status", 208: "already reported", 226: "IM used",
-    300: "multiple choices", 301: "moved permanently",  302: "not found",
+    300: "multiple choices", 301: "moved permanently",  302: "found redirect",
     303: "see other", 304: "not modified", 305: "use proxy",
     306: "switch proxy", 308: "permanent redirect",
     400: "bad request", 401: "unauthorized", 402: "payment required",
@@ -329,7 +329,14 @@ def get_page(url, **kwargs):
     else:
         proxies = {}
 
-    req = requests.get(url, params=headers, proxies=proxies, verify=False if skip_verf else True, timeout=20)
+    if proxy is not None and "127.0.0.1" in proxy:
+        lib.core.settings.logger.warning(lib.core.settings.set_color(
+            "timeout has been set to 40s due to Tor being used..."
+        ))
+        req = requests.get(url, params=headers, proxies=proxies, verify=False, timeout=40)
+    else:
+        req = requests.get(url, params=headers, proxies=proxies, verify=False, timeout=20)
+
     status = req.status_code
     html = req.content
     headers = req.headers
