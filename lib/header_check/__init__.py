@@ -13,6 +13,7 @@ from lib.core.common import (
     shutdown,
     pause,
     get_page,
+    HTTP_HEADER
 )
 from lib.core.settings import (
     logger, set_color,
@@ -29,26 +30,35 @@ from lib.core.settings import (
     COOKIE_FILENAME,
     HEADERS_FILENAME,
     SQLI_FOUND_FILENAME,
-    SQLI_SITES_FILEPATH
+    SQLI_SITES_FILEPATH,
+    DETECT_PLUGINS_PATH
 )
 
 
-@cache
-def detect_protection(url, **kwargs):
-    verbose = kwargs.get("verbose", False)
-    agent = kwargs.get("agent", None)
-    proxy = kwargs.get("proxy", None)
-    xforward = kwargs.get("xforward", False)
+def get_charset(html, headers, **kwargs):
+    """
+    detect the target URL charset
+    """
+    charset_regex = re.compile(r'charset=[\"]?([a-zA-Z0-9_-]+)', re.I)
+    charset = charset_regex.search(html)
+    if charset is not None:
+        return charset.group(1)
+    else:
+        content = headers.get(HTTP_HEADER.CONTENT_TYPE, "")
+        charset = charset_regex.search(content)
+        if charset is not None:
+            return charset
+    return None
 
-    url = "{} {}".format(url.strip(), PROTECTION_CHECK_PAYLOAD)
+
+def detect_protection(url, status, html, headers, **kwargs):
+    verbose = kwargs.get("verbose", False)
 
     if verbose:
         logger.debug(set_color(
             "attempting connection to '{}'...".format(url), level=10
         ))
     try:
-        _, status, html, headers = get_page(url, agent=agent, proxy=proxy, xforward=xforward)
-
         # make sure there are no DBMS errors in the HTML
         for dbms in DBMS_ERRORS:
             for regex in DBMS_ERRORS[dbms]:
@@ -117,6 +127,41 @@ def detect_protection(url, **kwargs):
             return None
 
 
+def detect_plugins(html, headers, **kwargs):
+    verbose = kwargs.get("verbose", False)
+
+    try:
+        retval = []
+        plugin_skip_schema = ("__init__", ".pyc")
+        plugin_file_list = [f for f in os.listdir(DETECT_PLUGINS_PATH) if not any(s in f for s in plugin_skip_schema)]
+        for plugin in plugin_file_list:
+            plugin = plugin[:-3]
+            if verbose:
+                logger.debug(set_color(
+                    "loading script '{}'...".format(plugin), level=10
+                ))
+            plugin_detection = "lib.plugins.{}"
+            plugin_detection = plugin_detection.format(plugin)
+            plugin_detection = importlib.import_module(plugin_detection)
+            if plugin_detection.search(html, headers=headers) is True:
+                retval.append((plugin_detection.__product__, plugin_detection.__description__))
+        if len(retval) > 0:
+            return retval
+        return None
+    except Exception as e:
+        logger.exception(str(e))
+        if "Read timed out." or "Connection reset by peer" in str(e):
+            logger.warning(set_color(
+                "plugin request failed, assuming no plugins and continuing...", level=30
+            ))
+            return None
+        else:
+            logger.exception(set_color(
+                "plugin detection has failed with error {}...".format(str(e))
+            ))
+            request_issue_creation()
+
+
 def load_xml_data(path, start_node="header", search_node="name"):
     """
     load the XML data
@@ -129,17 +174,12 @@ def load_xml_data(path, start_node="header", search_node="name"):
     return retval
 
 
-def load_headers(url, **kwargs):
+def load_headers(url, req, **kwargs):
     """
     load the HTTP headers
     """
-    agent = kwargs.get("agent", None)
-    proxy = kwargs.get("proxy", None)
-    xforward = kwargs.get("xforward", False)
-
     literal_match = re.compile(r"\\(\X(\d+)?\w+)?", re.I)
 
-    req, _, _, _ = get_page(url, agent=agent, proxy=proxy)
     if len(req.cookies) > 0:
         logger.info(set_color(
             "found a request cookie, saving to file...", level=25
@@ -205,7 +245,9 @@ def main_header_check(url, **kwargs):
     agent = kwargs.get("agent", None)
     proxy = kwargs.get("proxy", None)
     xforward = kwargs.get("xforward", False)
-    identify = kwargs.get("identify", True)
+    identify_waf = kwargs.get("identify_waf", True)
+    identify_plugins = kwargs.get("identify_plugins", True)
+    show_description = kwargs.get("show_description", False)
 
     protection = {"hostname": url}
     definition = {
@@ -219,20 +261,60 @@ def main_header_check(url, **kwargs):
         "content-security": ("header protection against multiple attack types", "ALL")
     }
 
+    req, status, html, headers = get_page(url, proxy=proxy, agent=agent, xforward=xforward)
+
     try:
-        if identify:
+        logger.info(set_color(
+            "detecting target charset..."
+        ))
+        charset = get_charset(url, headers)
+        if charset is not None:
+            logger.info(set_color(
+                "target charset appears to be '{}'...".format(charset), level=25
+            ))
+        else:
+            logger.warning(set_color(
+                "unable to detect target charset...", level=30
+            ))
+        if identify_waf:
+            waf_url = "{} {}".format(url, PROTECTION_CHECK_PAYLOAD)
+            _, waf_status, waf_html, waf_headers = get_page(waf_url, xforward=xforward, proxy=proxy, agent=agent)
             logger.info(set_color(
                 "checking if target URL is protected by some kind of WAF/IPS/IDS..."
             ))
-            identified = detect_protection(url, proxy=proxy, agent=agent, verbose=verbose, xforward=xforward)
+            identified_waf = detect_protection(url, waf_status, waf_html, waf_headers, verbose=verbose)
 
-            if identified is None:
+            if identified_waf is None:
                 logger.info(set_color(
                     "no WAF/IDS/IPS has been identified on target URL...", level=25
                 ))
             else:
                 logger.warning(set_color(
-                    "the target URL WAF/IDS/IPS has been identified as '{}'...".format(identified), level=35
+                    "the target URL WAF/IDS/IPS has been identified as '{}'...".format(identified_waf), level=35
+                ))
+
+        if identify_plugins:
+            logger.info(set_color(
+                "attempting to identify plugins..."
+            ))
+            identified_plugin = detect_plugins(html, headers, verbose=verbose)
+            if identified_plugin is not None:
+                for plugin in identified_plugin:
+                    if show_description:
+                        logger.info(set_color(
+                            "possible plugin identified as '{}' (description: '{}')...".format(
+                                plugin[0], plugin[1]
+                            ), level=25
+                        ))
+                    else:
+                        logger.info(set_color(
+                            "possible plugin identified as '{}'...".format(
+                                plugin[0]
+                            ), level=25
+                        ))
+            else:
+                logger.warning(set_color(
+                    "no known plugins identified on target...", level=30
                 ))
 
         if verbose:
@@ -244,7 +326,7 @@ def main_header_check(url, **kwargs):
             "attempting to get request headers for '{}'...".format(url.strip())
         ))
         try:
-            found_headers = load_headers(url, proxy=proxy, agent=agent, xforward=xforward)
+            found_headers = load_headers(url, req)
         except (ConnectionError, Exception) as e:
             if "Read timed out." or "Connection reset by peer" in str(e):
                 found_headers = None
