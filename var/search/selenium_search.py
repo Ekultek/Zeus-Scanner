@@ -88,7 +88,7 @@ def get_urls(query, url, verbose=False, **kwargs):
         ))
     search = browser.find_element_by_name('q')
     logger.info(set_color(
-        "searching search engine using query '{}'...".format(url, query)
+        "searching search engine using query '{}'...".format(query)
     ))
     try:
         # enter the text you want to search and hit enter
