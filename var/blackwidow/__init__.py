@@ -55,14 +55,14 @@ class Blackwidow(object):
                 else:
                     info_msg += ""
                 lib.core.settings.logger.fatal(lib.core.settings.set_color(
-                    "provided website '{}' is refusing connection{}...".format(
+                    "provided website '{}' is refusing connection{}".format(
                         self.url, info_msg
                     ), level=50
                 ))
                 lib.core.common.shutdown()
             else:
                 lib.core.settings.logger.exception(lib.core.settings.set_color(
-                    "failed to connect to '{}' received error '{}'...".format(
+                    "failed to connect to '{}' received error '{}'".format(
                         self.url, e
                     ), level=50
                 ))
@@ -106,27 +106,27 @@ def blackwidow_main(url, **kwargs):
 
     if verbose:
         lib.core.settings.logger.debug(lib.core.settings.set_color(
-            "settings user-agent to '{}'...".format(agent), level=10
+            "settings user-agent to '{}'".format(agent), level=10
         ))
     if proxy is not None:
         if verbose:
             lib.core.settings.logger.debug(lib.core.settings.set_color(
-                "running behind proxy '{}'...".format(proxy), level=10
+                "running behind proxy '{}'".format(proxy), level=10
             ))
     lib.core.settings.create_dir("{}/{}".format(os.getcwd(), "log/blackwidow-log"))
     lib.core.settings.logger.info(lib.core.settings.set_color(
-        "starting blackwidow on '{}'...".format(url)
+        "starting blackwidow on '{}'".format(url)
     ))
     crawler = Blackwidow(url, user_agent=agent, proxy=proxy, forward=forward)
     if verbose:
         lib.core.settings.logger.debug(lib.core.settings.set_color(
-            "testing connection to the URL...", level=10
+            "testing connection to the URL", level=10
         ))
     test_code = crawler.test_connection()
     if not test_code[0] == "ok":
         error_msg = (
             "connection test failed with status code: {}, reason: '{}'. "
-            "test connection needs to pass, try a different link..."
+            "test connection needs to pass, try a different link"
         )
         for error_code in lib.core.common.STATUS_CODES.keys():
             if error_code == test_code[1]:
@@ -144,15 +144,15 @@ def blackwidow_main(url, **kwargs):
         lib.core.common.shutdown()
     else:
         lib.core.settings.logger.info(lib.core.settings.set_color(
-            "connection test succeeded, continuing...", level=25
+            "connection test succeeded, continuing", level=25
         ))
     lib.core.settings.logger.info(lib.core.settings.set_color(
-        "crawling given URL '{}' for links...".format(url)
+        "crawling given URL '{}' for links".format(url)
     ))
     found = crawler.scrape_page_for_links(url)
     if len(found) > 0:
         lib.core.settings.logger.info(lib.core.settings.set_color(
-            "found a total of {} links from given URL '{}'...".format(
+            "found a total of {} links from given URL '{}'".format(
                 len(found), url
             ), level=25
         ))
@@ -160,5 +160,5 @@ def blackwidow_main(url, **kwargs):
                                           filename=lib.core.settings.BLACKWIDOW_FILENAME)
     else:
         lib.core.settings.logger.fatal(lib.core.settings.set_color(
-            "did not find any usable links from '{}'...".format(url), level=50
+            "did not find any usable links from '{}'".format(url), level=50
         ))

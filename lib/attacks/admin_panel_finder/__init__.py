@@ -35,7 +35,7 @@ def check_for_externals(url, data_sep="-" * 30, **kwargs):
     currently_searching = ext[robots if robots else sitemap]
     if verbose:
         lib.core.settings.logger.debug(lib.core.settings.set_color(
-            "currently searching for a '{}'...".format(currently_searching), level=10
+            "currently searching for a '{}'".format(currently_searching), level=10
         ))
 
     try:
@@ -44,13 +44,13 @@ def check_for_externals(url, data_sep="-" * 30, **kwargs):
         _, code, data, _ = lib.core.common.get_page(full_url)
     except (TooManyRedirects, ConnectionError, ReadTimeout):
         lib.core.settings.logger.error(lib.core.settings.set_color(
-            "connection to '{}' failed, assuming does not exist and continuing...".format(full_url), level=40
+            "connection to '{}' failed, assuming does not exist and continuing".format(full_url), level=40
         ))
         return False
 
     if code == 404:
         lib.core.settings.logger.error(lib.core.settings.set_color(
-            "unable to connect to '{}', assuming does not exist and continuing...".format(
+            "unable to connect to '{}', assuming does not exist and continuing".format(
                 full_url
             ), level=40
         ))
@@ -80,7 +80,7 @@ def check_for_externals(url, data_sep="-" * 30, **kwargs):
                     )
                 )
         lib.core.settings.logger.info(lib.core.settings.set_color(
-            "robots.txt page will be saved into a file...", level=25
+            "robots.txt page will be saved into a file", level=25
         ))
         return lib.core.common.write_to_log_file(
             data, lib.core.settings.ROBOTS_PAGE_PATH, lib.core.settings.ROBOTS_TXT_FILENAME.format(
@@ -89,7 +89,7 @@ def check_for_externals(url, data_sep="-" * 30, **kwargs):
         )
     elif sitemap:
         lib.core.settings.logger.info(lib.core.settings.set_color(
-            "found a sitemap, saving to file...", level=25
+            "found a sitemap, saving to file", level=25
         ))
         return lib.core.common.write_to_log_file(
             data, lib.core.settings.SITEMAP_FILE_LOG_PATH, lib.core.settings.SITEMAP_FILENAME.format(
@@ -114,12 +114,12 @@ def check_for_admin_page(url, exts, protocol="http://", **kwargs):
         true_url = "{}{}{}".format(protocol, stripped_url, ext)
         if verbose:
             lib.core.settings.logger.debug(lib.core.settings.set_color(
-                "trying '{}'...".format(true_url), level=10
+                "trying '{}'".format(true_url), level=10
             ))
         try:
             urlopen(true_url, timeout=5)
             lib.core.settings.logger.info(lib.core.settings.set_color(
-                "connected successfully to '{}'...".format(true_url), level=25
+                "connected successfully to '{}'".format(true_url), level=25
             ))
             connections.add(true_url)
         except HTTPError as e:
@@ -127,7 +127,7 @@ def check_for_admin_page(url, exts, protocol="http://", **kwargs):
             if verbose:
                 if "Access Denied" in str(e):
                     lib.core.settings.logger.warning(lib.core.settings.set_color(
-                        "got access denied, possible control panel found without external access on '{}'...".format(
+                        "got access denied, possible control panel found without external access on '{}'".format(
                             true_url
                         ),
                         level=30
@@ -137,7 +137,7 @@ def check_for_admin_page(url, exts, protocol="http://", **kwargs):
                     for error_code in lib.core.common.STATUS_CODES.iterkeys():
                         if int(data[2].split(":")[0]) == error_code:
                             lib.core.settings.logger.error(lib.core.settings.set_color(
-                                "failed to connect got error code {} (reason: {})...".format(
+                                "failed to connect got error code {} (reason: {})".format(
                                      data[2], lib.core.common.STATUS_CODES[error_code]
                                 ), level=40
                              ))
@@ -145,33 +145,33 @@ def check_for_admin_page(url, exts, protocol="http://", **kwargs):
             if verbose:
                 if "<urlopen error timed out>" or "timeout: timed out" in str(e):
                     lib.core.settings.logger.warning(lib.core.settings.set_color(
-                        "connection timed out assuming won't connect and skipping...", level=30
+                        "connection timed out assuming won't connect and skipping", level=30
                     ))
                 else:
                     lib.core.settings.logger.exception(lib.core.settings.set_color(
-                        "failed to connect with unexpected error '{}'...".format(str(e)), level=50
+                        "failed to connect with unexpected error '{}'".format(str(e)), level=50
                     ))
                     request_issue_creation()
     possible_connections, connections = list(possible_connections), list(connections)
-    data_msg = "found {} possible connections(s) and {} successful connection(s)..."
+    data_msg = "found {} possible connections(s) and {} successful connection(s)"
     lib.core.settings.logger.info(lib.core.settings.set_color(
         data_msg.format(len(possible_connections), len(connections))
     ))
     if len(connections) > 0:
         # create the connection tree if we got some connections
         lib.core.settings.logger.info(lib.core.settings.set_color(
-            "creating connection tree..."
+            "creating connection tree"
         ))
         lib.core.settings.create_tree(url, connections)
     else:
         lib.core.settings.logger.fatal(lib.core.settings.set_color(
             "did not receive any successful connections to the admin page of "
-            "{}...".format(url), level=50
+            "{}".format(url), level=50
         ))
     if show_possibles:
         if len(possible_connections) > 0:
             lib.core.settings.logger.info(lib.core.settings.set_color(
-                "creating possible connection tree..."
+                "creating possible connection tree"
             ))
             lib.core.settings.create_tree(url, possible_connections)
         else:
@@ -181,7 +181,7 @@ def check_for_admin_page(url, exts, protocol="http://", **kwargs):
             ))
     if len(connections) > 0:
         lib.core.settings.logger.warning(lib.core.settings.set_color(
-            "only writing successful connections to log file...", level=30
+            "only writing successful connections to log file", level=30
         ))
         lib.core.common.write_to_log_file(
             list(connections),
@@ -211,32 +211,32 @@ def main(url, show=False, verbose=False, **kwargs):
 
     try:
         lib.core.settings.logger.info(lib.core.settings.set_color(
-            "parsing robots.txt..."
+            "parsing robots.txt"
         ))
         results = check_for_externals(url, robots=True, batch=batch)
         if not results:
             lib.core.settings.logger.warning(lib.core.settings.set_color(
-                "seems like this page is either blocking access to robots.txt or it does not exist...", level=30
+                "seems like this page is either blocking access to robots.txt or it does not exist", level=30
             ))
         lib.core.settings.logger.info(lib.core.settings.set_color(
-            "checking for a sitemap..."
+            "checking for a sitemap"
         ))
         check_for_externals(url, sitemap=True)
         lib.core.settings.logger.info(lib.core.settings.set_color(
-            "loading extensions..."
+            "loading extensions"
         ))
         extensions = __load_extensions()
         if verbose:
             lib.core.settings.logger.debug(lib.core.settings.set_color(
-                "loaded a total of {} extensions...".format(len(extensions)), level=10
+                "loaded a total of {} extensions".format(len(extensions)), level=10
             ))
         lib.core.settings.logger.info(lib.core.settings.set_color(
-            "attempting to bruteforce admin panel..."
+            "attempting to bruteforce admin panel"
         ))
         if do_threading:
             lib.core.settings.logger.warning(lib.core.settings.set_color(
                 "starting {} threads, you will not be able to end the process until "
-                "it is completed...".format(proc_num), level=30
+                "it is completed".format(proc_num), level=30
             ))
             tasks = []
             for _ in range(0, proc_num):

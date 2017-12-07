@@ -162,7 +162,7 @@ def write_to_log_file(data_to_write, path, filename, blacklist=False):
             items = log.readlines()
             if any(d.strip() == data_to_write for d in items):
                 lib.core.settings.logger.info(lib.core.settings.set_color(
-                    "query already in blacklist..."
+                    "query already in blacklist"
                 ))
                 return full_file_path
             else:
@@ -181,7 +181,7 @@ def write_to_log_file(data_to_write, path, filename, blacklist=False):
             else:
                 log.write(data_to_write + "\n")
     lib.core.settings.logger.info(lib.core.settings.set_color(
-        "successfully wrote found items to '{}'...".format(full_file_path)
+        "successfully wrote found items to '{}'".format(full_file_path)
     ))
     return full_file_path
 
@@ -276,7 +276,7 @@ def run_fix(message, command, fail_message, exit_process=False):
         subprocess.call(cmd)
         if exit_process:
             lib.core.settings.logger.info(lib.core.settings.set_color(
-                "command completed successfully, should be safe to re-run Zeus..."
+                "command completed successfully, should be safe to re-run Zeus"
             ))
     else:
         lib.core.settings.logger.fatal(lib.core.settings.set_color(
@@ -331,7 +331,7 @@ def get_page(url, **kwargs):
 
     if proxy is not None and "127.0.0.1" in proxy:
         lib.core.settings.logger.warning(lib.core.settings.set_color(
-            "timeout has been set to 40s due to Tor being used..."
+            "timeout has been set to 40s due to Tor being used"
         ))
         req = requests.get(url, params=headers, proxies=proxies, verify=False, timeout=40)
     else:

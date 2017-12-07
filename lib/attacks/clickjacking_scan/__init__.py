@@ -65,7 +65,7 @@ def clickjacking_main(url, **kwargs):
             )
             if question.lower().startswith("n"):
                 lib.core.settings.logger.info(lib.core.settings.set_color(
-                    "automatically removing all queries from URL..."
+                    "automatically removing all queries from URL"
                 ))
                 url = "http://{}".format(lib.core.settings.replace_http(url, complete=True))
 
@@ -73,14 +73,14 @@ def clickjacking_main(url, **kwargs):
 
     if verbose:
         lib.core.settings.logger.debug(lib.core.settings.set_color(
-            "generating HTML...", level=10
+            "generating HTML", level=10
         ))
 
     data = scanner.generate_html()
 
     if verbose:
         lib.core.settings.logger.debug(lib.core.settings.set_color(
-            "HTML generated successfully...", level=10
+            "HTML generated successfully", level=10
         ))
         print("{}\n{}\n{}".format("-" * 30, data, "-" * 30))
 
@@ -90,7 +90,7 @@ def clickjacking_main(url, **kwargs):
         if results:
             lib.core.settings.logger.info(lib.core.settings.set_color(
                 "it appears that provided URL '{}' is vulnerable to clickjacking, writing "
-                "to HTML file...".format(url), level=25
+                "to HTML file".format(url), level=25
             ))
             lib.core.common.write_to_log_file(
                 data,
@@ -99,7 +99,7 @@ def clickjacking_main(url, **kwargs):
             )
         else:
             lib.core.settings.logger.error(lib.core.settings.set_color(
-                "provided URL '{}' seems to have the correct protection from clickjacking...".format(
+                "provided URL '{}' seems to have the correct protection from clickjacking".format(
                     url
                 ), level=40
             ))
@@ -109,6 +109,6 @@ def clickjacking_main(url, **kwargs):
     except Exception as e:  # until I figure out the errors, we'll just make issues about them
         lib.core.settings.logger.exception(lib.core.settings.set_color(
             "Zeus failed to process the clickjacking test and received "
-            "error code '{}'...".format(e), level=50
+            "error code '{}'".format(e), level=50
         ))
         var.auto_issue.github.request_issue_creation()

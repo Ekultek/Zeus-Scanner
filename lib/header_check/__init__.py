@@ -16,7 +16,8 @@ from lib.core.common import (
     shutdown,
     pause,
     get_page,
-    HTTP_HEADER
+    HTTP_HEADER,
+    STATUS_CODES
 )
 from lib.core.settings import (
     logger, set_color,
@@ -56,11 +57,6 @@ def get_charset(html, headers, **kwargs):
 
 def detect_protection(url, status, html, headers, **kwargs):
     verbose = kwargs.get("verbose", False)
-
-    if verbose:
-        logger.debug(set_color(
-            "attempting connection to '{}'...".format(url), level=10
-        ))
     try:
         # make sure there are no DBMS errors in the HTML
         for dbms in DBMS_ERRORS:
@@ -69,7 +65,7 @@ def detect_protection(url, status, html, headers, **kwargs):
                     logger.warning(set_color(
                         "it appears that the WAF/IDS/IPS check threw a DBMS error and may be vulnerable "
                         "to SQL injection attacks. it appears the backend DBMS is '{}', site will be "
-                        "saved for further processing...".format(dbms), level=30
+                        "saved for further processing".format(dbms), level=30
                     ))
                     write_to_log_file(url, SQLI_SITES_FILEPATH, SQLI_FOUND_FILENAME)
                     return None
@@ -80,7 +76,7 @@ def detect_protection(url, status, html, headers, **kwargs):
             item = item[:-3]
             if verbose:
                 logger.debug(set_color(
-                    "loading script '{}'...".format(item), level=10
+                    "loading script '{}'".format(item), level=10
                 ))
             detection_name = "lib.firewall.{}"
             detection_name = detection_name.format(item)
@@ -93,7 +89,7 @@ def detect_protection(url, status, html, headers, **kwargs):
                     del retval[retval.index("Generic (Unknown)")]
                 except (Exception, IndexError):
                     logger.warning(set_color(
-                        "multiple firewalls identified ({}), displaying most likely...".format(
+                        "multiple firewalls identified ({}), displaying most likely".format(
                             ", ".join([item.split("(")[0] for item in retval])
                         ), level=30
                     ))
@@ -104,7 +100,7 @@ def detect_protection(url, status, html, headers, **kwargs):
                 logger.warning(set_color(
                     "discovered firewall is unknown to Zeus, saving fingerprint to file. "
                     "if you know the details or the context of the firewall please create "
-                    "an issue ({}) with the fingerprint, or a pull request with the script...".format(
+                    "an issue ({}) with the fingerprint, or a pull request with the script".format(
                         ISSUE_LINK
                     ), level=30
                 ))
@@ -119,12 +115,12 @@ def detect_protection(url, status, html, headers, **kwargs):
     except Exception as e:
         if any(err in str(e) for err in ["Read timed out.", "Connection reset by peer"]):
             logger.warning(set_color(
-                "detection request failed, assuming no protection and continuing...", level=30
+                "detection request failed, assuming no protection and continuing", level=30
             ))
             return None
         else:
             logger.exception(set_color(
-                "Zeus ran into an unexpected error '{}'...".format(e), level=50
+                "Zeus ran into an unexpected error '{}'".format(e), level=50
             ))
             request_issue_creation()
             return None
@@ -141,7 +137,7 @@ def detect_plugins(html, headers, **kwargs):
             plugin = plugin[:-3]
             if verbose:
                 logger.debug(set_color(
-                    "loading script '{}'...".format(plugin), level=10
+                    "loading script '{}'".format(plugin), level=10
                 ))
             plugin_detection = "lib.plugins.{}"
             plugin_detection = plugin_detection.format(plugin)
@@ -155,12 +151,12 @@ def detect_plugins(html, headers, **kwargs):
         logger.exception(str(e))
         if "Read timed out." or "Connection reset by peer" in str(e):
             logger.warning(set_color(
-                "plugin request failed, assuming no plugins and continuing...", level=30
+                "plugin request failed, assuming no plugins and continuing", level=30
             ))
             return None
         else:
             logger.exception(set_color(
-                "plugin detection has failed with error {}...".format(str(e))
+                "plugin detection has failed with error {}".format(str(e))
             ))
             request_issue_creation()
 
@@ -185,7 +181,7 @@ def load_headers(url, req, **kwargs):
 
     if len(req.cookies) > 0:
         logger.info(set_color(
-            "found a request cookie, saving to file...", level=25
+            "found a request cookie, saving to file", level=25
         ))
         try:
             cookie_start = req.cookies.keys()
@@ -251,6 +247,7 @@ def main_header_check(url, **kwargs):
     identify_waf = kwargs.get("identify_waf", True)
     identify_plugins = kwargs.get("identify_plugins", True)
     show_description = kwargs.get("show_description", False)
+    attempts = kwargs.get("attempts", 3)
 
     default_sleep_time = 5
     protection = {"hostname": url}
@@ -269,65 +266,70 @@ def main_header_check(url, **kwargs):
         req, status, html, headers = get_page(url, proxy=proxy, agent=agent, xforward=xforward)
 
         logger.info(set_color(
-            "detecting target charset..."
+            "detecting target charset"
         ))
-        charset = get_charset(url, headers)
+        charset = get_charset(html, headers)
         if charset is not None:
             logger.info(set_color(
-                "target charset appears to be '{}'...".format(charset), level=25
+                "target charset appears to be '{}'".format(charset), level=25
             ))
         else:
             logger.warning(set_color(
-                "unable to detect target charset...", level=30
+                "unable to detect target charset", level=30
             ))
         if identify_waf:
-            waf_url = "{} {}".format(url, PROTECTION_CHECK_PAYLOAD)
+            waf_url = "{} {}".format(url.strip(), PROTECTION_CHECK_PAYLOAD)
             _, waf_status, waf_html, waf_headers = get_page(waf_url, xforward=xforward, proxy=proxy, agent=agent)
             logger.info(set_color(
-                "checking if target URL is protected by some kind of WAF/IPS/IDS..."
+                "checking if target URL is protected by some kind of WAF/IPS/IDS"
             ))
+            if verbose:
+                logger.debug(set_color(
+                    "attempting connection to '{}'".format(waf_url), level=10
+                ))
+
             identified_waf = detect_protection(url, waf_status, waf_html, waf_headers, verbose=verbose)
 
             if identified_waf is None:
                 logger.info(set_color(
-                    "no WAF/IDS/IPS has been identified on target URL...", level=25
+                    "no WAF/IDS/IPS has been identified on target URL", level=25
                 ))
             else:
                 logger.warning(set_color(
-                    "the target URL WAF/IDS/IPS has been identified as '{}'...".format(identified_waf), level=35
+                    "the target URL WAF/IDS/IPS has been identified as '{}'".format(identified_waf), level=35
                 ))
 
         if identify_plugins:
             logger.info(set_color(
-                "attempting to identify plugins..."
+                "attempting to identify plugins"
             ))
             identified_plugin = detect_plugins(html, headers, verbose=verbose)
             if identified_plugin is not None:
                 for plugin in identified_plugin:
                     if show_description:
                         logger.info(set_color(
-                            "possible plugin identified as '{}' (description: '{}')...".format(
+                            "possible plugin identified as '{}' (description: '{}')".format(
                                 plugin[0], plugin[1]
                             ), level=25
                         ))
                     else:
                         logger.info(set_color(
-                            "possible plugin identified as '{}'...".format(
+                            "possible plugin identified as '{}'".format(
                                 plugin[0]
                             ), level=25
                         ))
             else:
                 logger.warning(set_color(
-                    "no known plugins identified on target...", level=30
+                    "no known plugins identified on target", level=30
                 ))
 
         if verbose:
             logger.debug(set_color(
-                "loading XML data...", level=10
+                "loading XML data", level=10
             ))
         comparable_headers = load_xml_data(HEADER_XML_DATA)
         logger.info(set_color(
-            "attempting to get request headers for '{}'...".format(url.strip())
+            "attempting to get request headers for '{}'".format(url.strip())
         ))
         try:
             found_headers = load_headers(url, req)
@@ -336,52 +338,56 @@ def main_header_check(url, **kwargs):
                 found_headers = None
             else:
                 logger.exception(set_color(
-                    "Zeus has hit an unexpected error and cannot continue '{}'...".format(e), level=50
+                    "Zeus has hit an unexpected error and cannot continue '{}'".format(e), level=50
                 ))
                 request_issue_creation()
 
         if found_headers is not None:
             if verbose:
                 logger.debug(set_color(
-                    "fetched {}...".format(found_headers), level=10
+                    "fetched {}".format(found_headers), level=10
                 ))
             headers_established = [str(h) for h in compare_headers(found_headers, comparable_headers)]
             for key in definition.iterkeys():
                 if any(key in h.lower() for h in headers_established):
                     logger.warning(set_color(
-                        "provided target has {}...".format(definition[key][0]), level=30
+                        "provided target has {}".format(definition[key][0]), level=30
                     ))
             for key in found_headers.iterkeys():
                 protection[key] = found_headers[key]
             logger.info(set_color(
-                "writing found headers to log file...", level=25
+                "writing found headers to log file", level=25
             ))
             return write_to_log_file(protection, HEADER_RESULT_PATH, HEADERS_FILENAME.format(replace_http(url)))
         else:
             logger.error(set_color(
-                "unable to retrieve headers for site '{}'...".format(url.strip()), level=40
+                "unable to retrieve headers for site '{}'".format(url.strip()), level=40
             ))
     except ConnectionError:
+        attempts = attempts - 1
+        if attempts == 0:
+            return False
         logger.warning(set_color(
-            "target actively refused the connection, sleeping for {}s and retrying...".format(
+            "target actively refused the connection, sleeping for {}s and retrying the request".format(
                 default_sleep_time
             ), level=30
         ))
         time.sleep(default_sleep_time)
         main_header_check(
             url, proxy=proxy, agent=agent, xforward=xforward, show_description=show_description,
-            identify_plugins=identify_plugins, identify_waf=identify_waf, verbose=verbose
+            identify_plugins=identify_plugins, identify_waf=identify_waf, verbose=verbose,
+            attempts=attempts
         )
     except ReadTimeout:
         logger.error(set_color(
-            "meta-data retrieval failed due to target URL timing out, skipping...", level=40
+            "meta-data retrieval failed due to target URL timing out, skipping", level=40
         ))
     except KeyboardInterrupt:
         if not pause():
             shutdown()
     except Exception as e:
         logger.exception(set_color(
-            "meta-data retrieval failed with unexpected error '{}'...".format(
+            "meta-data retrieval failed with unexpected error '{}'".format(
                 str(e)
             ), level=50
         ))

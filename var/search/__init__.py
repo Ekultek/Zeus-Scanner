@@ -128,7 +128,7 @@ class SetBrowser(object):
         try:
             if not self.tor:
                 logger.info(set_color(
-                    "setting the browser..."
+                    "setting the browser"
                 ))
                 profile.set_preference("general.useragent.override", self.agent)
                 browser = webdriver.Firefox(profile, proxy=self.__set_proxy())
@@ -137,7 +137,7 @@ class SetBrowser(object):
                 browser = webdriver.Firefox(profile, proxy=self.__set_proxy())
             else:
                 logger.info(set_color(
-                    "setting the Tor browser emulation..."
+                    "setting the Tor browser emulation"
                 ))
                 profile = self.__tor_browser_emulation(profile)
                 browser = webdriver.Firefox(profile)

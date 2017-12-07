@@ -10,7 +10,7 @@ def tamper(payload, **kwargs):
     if warning:
         logger.warning(set_color(
             "obfuscating the payloads by ordinal equivalents may increase the risk "
-            "of false positives...", level=30
+            "of false positives", level=30
         ))
 
     retval = ""

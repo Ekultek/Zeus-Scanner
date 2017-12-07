@@ -221,7 +221,7 @@ class ZeusParser(OptionParser):
                 )
             print("\n")
             lib.core.settings.logger.info(lib.core.settings.set_color(
-                "for more information about sqlmap arguments, see here '{}'...".format(
+                "for more information about sqlmap arguments, see here '{}'".format(
                     lib.core.settings.SQLMAP_MAN_PAGE_URL
                 )
             ))
@@ -240,7 +240,7 @@ class ZeusParser(OptionParser):
                 )
             print("\n")
             lib.core.settings.logger.info(lib.core.settings.set_color(
-                "for more information on what the arguments do please see here '{}'...".format(
+                "for more information on what the arguments do please see here '{}'".format(
                     lib.core.settings.NMAP_MAN_PAGE_URL
                 )
             ))
@@ -249,7 +249,7 @@ class ZeusParser(OptionParser):
         # update the program
         if opt.updateZeus:
             lib.core.settings.logger.info(lib.core.settings.set_color(
-                "update in progress..."
+                "update in progress"
             ))
             lib.core.settings.update_zeus()
             lib.core.common.shutdown()

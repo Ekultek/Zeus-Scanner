@@ -52,7 +52,7 @@ class NmapHook(object):
         """
         # have to create a spacer or the output comes out funky..
         spacer_data = {4: " " * 8, 6: " " * 6, 8: " " * 4}
-        lib.core.settings.logger.info(lib.core.settings.set_color("finding data for IP '{}'...".format(self.ip)))
+        lib.core.settings.logger.info(lib.core.settings.set_color("finding data for IP '{}'".format(self.ip)))
         json_data = json.loads(json_data)["scan"]
         host = json_data[self.ip]["hostnames"][0]["name"]
         host_skip = (not len(host) == 0, " ", "", None)
@@ -99,35 +99,35 @@ def perform_port_scan(url, scanner=NmapHook, **kwargs):
 
     with lib.core.decorators.TimeOut(seconds=timeout_time):
         lib.core.settings.logger.warning(lib.core.settings.set_color(
-            "if the port scan is not completed in {}(m) it will timeout...".format(
+            "if the port scan is not completed in {}(m) it will timeout".format(
                 lib.core.settings.convert_to_minutes(timeout_time)
             ), level=30
         ))
         url = url.strip()
         lib.core.settings.logger.info(lib.core.settings.set_color(
-            "attempting to find IP address for hostname '{}'...".format(url)
+            "attempting to find IP address for hostname '{}'".format(url)
         ))
 
         try:
             found_ip_address = socket.gethostbyname(url)
         except socket.gaierror:
             lib.core.settings.logger.fatal(lib.core.settings.set_color(
-                "failed to gather IP address for URL '{}'...".format(url)
+                "failed to gather IP address for URL '{}'".format(url)
             ))
             return
 
         if verbose:
             lib.core.settings.logger.debug(lib.core.settings.set_color(
-                "checking for nmap on your system...", level=10
+                "checking for nmap on your system", level=10
             ))
         nmap_exists = "".join(find_nmap())
         if nmap_exists:
             if verbose:
                 lib.core.settings.logger.debug(lib.core.settings.set_color(
-                    "nmap has been found under '{}'...".format(nmap_exists), level=10
+                    "nmap has been found under '{}'".format(nmap_exists), level=10
                 ))
             lib.core.settings.logger.info(lib.core.settings.set_color(
-                "starting port scan on IP address '{}'...".format(found_ip_address)
+                "starting port scan on IP address '{}'".format(found_ip_address)
             ))
             try:
                 data = scanner(found_ip_address, opts=opts)
@@ -135,11 +135,11 @@ def perform_port_scan(url, scanner=NmapHook, **kwargs):
                 data.show_open_ports(json_data)
                 file_path = data.send_to_file(json_data)
                 lib.core.settings.logger.info(lib.core.settings.set_color(
-                    "port scan completed, all data saved to JSON file under '{}'...".format(file_path)
+                    "port scan completed, all data saved to JSON file under '{}'".format(file_path)
                 ))
             except KeyError:
                 lib.core.settings.logger.fatal(lib.core.settings.set_color(
-                    "no port information found for '{}({})'...".format(
+                    "no port information found for '{}({})'".format(
                         url, found_ip_address
                     ), level=50
                 ))
@@ -150,20 +150,20 @@ def perform_port_scan(url, scanner=NmapHook, **kwargs):
                 lib.core.settings.logger.error(lib.core.settings.set_color(
                     "port scan is taking to long and has hit the timeout, you "
                     "can increase this time by passing the --time-sec flag (IE "
-                    "--time-sec 300)...", level=40
+                    "--time-sec 300)", level=40
                 ))
             except Exception as e:
                 lib.core.settings.logger.exception(lib.core.settings.set_color(
-                    "ran into exception '{}', cannot continue quitting...".format(e), level=50
+                    "ran into exception '{}', cannot continue quitting".format(e), level=50
                 ))
                 request_issue_creation()
                 pass
         else:
             lib.core.settings.logger.fatal(lib.core.settings.set_color(
-                "nmap was not found on your system...", level=50
+                "nmap was not found on your system", level=50
             ))
             lib.core.common.run_fix(
                 "would you like to automatically install it",
                 "sudo sh {}".format(lib.core.settings.NMAP_INSTALLER_TOOL),
-                "nmap is not installed, please install it in order to continue..."
+                "nmap is not installed, please install it in order to continue"
             )

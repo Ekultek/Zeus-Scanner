@@ -111,7 +111,7 @@ class SqlmapHook(object):
         if current_status != "running":
             raise lib.core.errors.SqlmapFailedStart(
                 "sqlmap API failed to start the run, check the client and see what "
-                "the problem is and try again..."
+                "the problem is and try again"
             )
         already_displayed = set()
         while current_status == "running":
@@ -156,7 +156,7 @@ def sqlmap_scan_main(url, port=None, verbose=None, opts=None, auto_start=False):
 
     if auto_start:
         lib.core.settings.logger.info(lib.core.settings.set_color(
-            "attempting to launch sqlmap API..."
+            "attempting to launch sqlmap API"
         ))
         sqlmap_api_command = shlex.split("sudo sh {} p {}".format(
             lib.core.settings.LAUNCH_SQLMAP_API_TOOL, "".join(found_path)
@@ -164,58 +164,58 @@ def sqlmap_scan_main(url, port=None, verbose=None, opts=None, auto_start=False):
         subprocess.Popen(sqlmap_api_command, stdout=subprocess.PIPE)
         if is_started:
             lib.core.settings.logger.info(lib.core.settings.set_color(
-                "sqlmap API is up and running, continuing process..."
+                "sqlmap API is up and running, continuing process"
             ))
         else:
             lib.core.settings.logger.error(lib.core.settings.set_color(
-                "there was a problem starting sqlmap API...", level=40
+                "there was a problem starting sqlmap API", level=40
             ))
             lib.core.common.prompt(
-                "manually start the API and press enter when ready..."
+                "manually start the API and press enter when ready"
             )
     else:
         if not is_started:
             lib.core.common.prompt(
-                "sqlmap API is not started, start it and press enter to continue..."
+                "sqlmap API is not started, start it and press enter to continue"
             )
     try:
         sqlmap_scan = SqlmapHook(url, port=port)
         lib.core.settings.logger.info(lib.core.settings.set_color(
-            "initializing new sqlmap scan with given URL '{}'...".format(url)
+            "initializing new sqlmap scan with given URL '{}'".format(url)
         ))
         sqlmap_scan.init_new_scan()
         if verbose:
             lib.core.settings.logger.debug(lib.core.settings.set_color(
-                "scan initialized...", level=10
+                "scan initialized", level=10
             ))
         lib.core.settings.logger.info(lib.core.settings.set_color(
-            "gathering sqlmap API scan ID..."
+            "gathering sqlmap API scan ID"
         ))
         api_id = sqlmap_scan.get_scan_id()
         if verbose:
             lib.core.settings.logger.debug(lib.core.settings.set_color(
-                "current sqlmap scan ID: '{}'...".format(api_id), level=10
+                "current sqlmap scan ID: '{}'".format(api_id), level=10
             ))
         lib.core.settings.logger.info(lib.core.settings.set_color(
-            "starting sqlmap scan on url: '{}'...".format(url), level=25
+            "starting sqlmap scan on url: '{}'".format(url), level=25
         ))
         if opts:
             if verbose:
                 lib.core.settings.logger.debug(lib.core.settings.set_color(
-                    "using arguments: '{}'...".format(opts), level=10
+                    "using arguments: '{}'".format(opts), level=10
                 ))
             lib.core.settings.logger.info(lib.core.settings.set_color(
-                "adding arguments to sqlmap API..."
+                "adding arguments to sqlmap API"
             ))
         else:
             if verbose:
                 lib.core.settings.logger.debug(lib.core.settings.set_color(
-                    "no arguments passed, skipping...", level=10
+                    "no arguments passed, skipping", level=10
                 ))
         lib.core.settings.logger.warning(lib.core.settings.set_color(
             "please keep in mind that this is the API, output will "
             "not be saved to log file, it may take a little longer "
-            "to finish processing, launching sqlmap...", level=30
+            "to finish processing, launching sqlmap", level=30
         ))
         sqlmap_scan.start_scan(api_id, opts=opts)
         print("-" * 30)
@@ -224,7 +224,7 @@ def sqlmap_scan_main(url, port=None, verbose=None, opts=None, auto_start=False):
     except requests.exceptions.HTTPError as e:
         lib.core.settings.logger.exception(lib.core.settings.set_color(
             "ran into error '{}', seems you didn't start the server, check "
-            "the server port and try again...".format(e), level=50
+            "the server port and try again".format(e), level=50
         ))
         pass
     except KeyboardInterrupt:
@@ -236,7 +236,7 @@ def sqlmap_scan_main(url, port=None, verbose=None, opts=None, auto_start=False):
                 "sqlmap API is not started, did you forget to start it? "
                 "You will need to open a new terminal, cd into sqlmap, and "
                 "run `python sqlmapapi.py -s` otherwise pass the correct flags "
-                "to auto start the API...", level=40
+                "to auto start the API", level=40
             ))
             pass
         else:

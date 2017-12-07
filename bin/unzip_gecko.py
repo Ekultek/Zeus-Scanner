@@ -28,7 +28,7 @@ def disclaimer():
     else:
         lib.core.settings.logger.fatal(lib.core.settings.set_color(
             "you have not agreed with the terms of service, so "
-            "Zeus will shut down now...", level=50
+            "Zeus will shut down now", level=50
         ))
         return False
 
@@ -114,7 +114,7 @@ def check_xvfb(exc="Xvfb"):
     """
     if whichcraft.which(exc) is None:
         lib.core.settings.logger.info(lib.core.settings.set_color(
-            "installing Xvfb, required by pyvirutaldisplay..."
+            "installing Xvfb, required by pyvirutaldisplay"
         ))
         subprocess.call(["sudo", "apt-get", "install", "xvfb"])
     else:
@@ -150,7 +150,7 @@ def untar_gecko(filename="{}/bin/drivers/geckodriver-v0.{}.0-linux{}.tar.gz", ve
     gecko_version = config_gecko_version(ff_version)
     if gecko_version is None:
         lib.core.settings.logger.fatal(lib.core.settings.set_color(
-            "your current firefox version is not supported by Zeus...", level=50
+            "your current firefox version is not supported by Zeus", level=50
         ))
         lib.core.common.shutdown()
     gecko_full_filename = filename.format(os.getcwd(), gecko_version, file_arch)
@@ -159,30 +159,30 @@ def untar_gecko(filename="{}/bin/drivers/geckodriver-v0.{}.0-linux{}.tar.gz", ve
     tar = tarfile.open(filename.format(os.getcwd(), gecko_version, file_arch), "r:gz")
     if verbose:
         lib.core.settings.logger.debug(lib.core.settings.set_color(
-            "extracting the correct driver for your architecture...", level=10
+            "extracting the correct driver for your architecture", level=10
         ))
     try:
         tar.extractall("/usr/bin")
         if verbose:
             lib.core.settings.logger.debug(lib.core.settings.set_color(
                 "driver extracted into /usr/bin (you may change this, but ensure that it "
-                "is in your PATH)...", level=10
+                "is in your PATH)", level=10
             ))
     except IOError as e:
         if "Text file busy" in str(e):
             lib.core.settings.logger.info(lib.core.settings.set_color(
-                "the driver is already installed..."
+                "the driver is already installed"
             ))
             tar.close()
             pass
     except Exception as e:
         if "[Errno 13] Permission denied: '/usr/bin/geckodriver'" in str(e):
             lib.core.settings.logger.exception(lib.core.settings.set_color(
-                "first run must be ran as root (sudo python zeus.py)...", level=50
+                "first run must be ran as root (sudo python zeus.py)", level=50
             ))
         else:
             lib.core.settings.logger.exception(lib.core.settings.set_color(
-                "ran into exception '{}', logged to current log file...".format(e), level=50
+                "ran into exception '{}', logged to current log file".format(e), level=50
             ))
         exit(-1)
     tar.close()
@@ -194,7 +194,7 @@ def ensure_placed(item="geckodriver", verbose=False):
     """
     if verbose:
         lib.core.settings.logger.debug(lib.core.settings.set_color(
-            "ensuring that the driver exists in your system path...", level=10
+            "ensuring that the driver exists in your system path", level=10
         ))
     if not whichcraft.which(item):
         lib.core.settings.logger.fatal(lib.core.settings.set_color(
@@ -206,7 +206,7 @@ def ensure_placed(item="geckodriver", verbose=False):
     else:
         if verbose:
             lib.core.settings.logger.debug(lib.core.settings.set_color(
-                "driver exists, continuing...", level=10
+                "driver exists, continuing", level=10
             ))
         return True
 
@@ -217,24 +217,24 @@ def main(rewrite="{}/bin/executed.txt", verbose=False):
     """
     if verbose:
         lib.core.settings.logger.debug(lib.core.settings.set_color(
-            "verifying operating system...", level=10
+            "verifying operating system", level=10
         ))
     if not check_os():
         raise NotImplementedError(lib.core.settings.set_color(
             "as of now, Zeus requires Linux to run successfully "
             "your current operating system '{}' is not implemented "
-            "yet...".format(platform.platform()), level=50
+            "yet".format(platform.platform()), level=50
         ))
     if check_if_run():
         if not disclaimer():
             exit(1)
         lib.core.settings.logger.info(lib.core.settings.set_color(
             "seems this is your first time running the application, "
-            "doing setup please wait..."
+            "doing setup please wait"
         ))
         if verbose:
             lib.core.settings.logger.debug(lib.core.settings.set_color(
-                "checking if xvfb is on your system...", level=10
+                "checking if xvfb is on your system", level=10
             ))
         find_tools()
         check_xvfb()
@@ -244,10 +244,10 @@ def main(rewrite="{}/bin/executed.txt", verbose=False):
             with open(rewrite.format(os.getcwd()), "w") as rw:
                 rw.write("TRUE")
         lib.core.settings.logger.info(lib.core.settings.set_color(
-            "done, continuing process..."
+            "done, continuing process"
         ))
     else:
         if verbose:
             lib.core.settings.logger.debug(lib.core.settings.set_color(
-                "already ran, skipping...", level=10
+                "already ran, skipping", level=10
             ))

@@ -9,7 +9,7 @@ def tamper(payload, **kwargs):
     if warning:
         logger.warning(set_color(
             "NULL encoding tamper scripts may increase the possibility of not finding vulnerabilities "
-            "in otherwise vulnerable sites...", level=30
+            "in otherwise vulnerable sites", level=30
         ))
 
     retval = ""

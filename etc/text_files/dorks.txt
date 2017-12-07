@@ -68,7 +68,7 @@ ext:ics ics
 ext:inc "pwd=" "UID="
 ext:inc "pwd=" "UID="
 ext:ini   intext:env.ini
-ext:ini Version=... password
+ext:ini Version= password
 ext:ini Version=4.0.0.4 password
 ext:ini eudora.ini
 ext:ini eudora.ini
@@ -755,7 +755,6 @@ intitle:"Remote Desktop Web Connection" inurl:tsweb
 intitle:"Retina Report" "CONFIDENTIAL INFORMATION"
 intitle:"SFXAdmin - sfx_global" | intitle:"SFXAdmin - sfx_local" | intitle:"SFXAdmin - sfx_test"
 intitle:"SHOUTcast Administrator" inurl:admin.cgi
-intitle:"SWW link" "Please wait....."
 intitle:"Samba Web Administration Tool" intext:"Help Workgroup"
 intitle:"SuSE Linux Openexchange Server" "Please activate Javas?ri?t!"
 intitle:"Supero Doctor III" -inurl:supermicro

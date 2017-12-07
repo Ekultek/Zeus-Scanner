@@ -12,7 +12,7 @@ def tamper(payload, **kwargs):
     if warning:
         logger.warning(set_color(
             "enclosing brackets is meant to be used as an obfuscation "
-            "against an already valid vulnerable site...", level=30
+            "against an already valid vulnerable site", level=30
         ))
 
     to_enclose = string.digits

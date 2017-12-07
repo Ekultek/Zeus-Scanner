@@ -45,7 +45,7 @@ CLONE = "https://github.com/ekultek/zeus-scanner.git"
 ISSUE_LINK = "https://github.com/ekultek/zeus-scanner/issues"
 
 # current version <major.minor.commit.patch ID>
-VERSION = "1.4.3.{}".format(PATCH_ID)
+VERSION = "1.4.4.{}".format(PATCH_ID)
 
 # colors to output depending on the version
 VERSION_TYPE_COLORS = {"dev": 33, "stable": 92, "other": 30}
@@ -465,7 +465,7 @@ def setup(verbose=False):
     """
     if verbose:
         logger.debug(set_color(
-            "checking if the application has been run before...", level=10
+            "checking if the application has been run before", level=10
         ))
     bin.unzip_gecko.main(verbose=verbose)
 
@@ -513,12 +513,12 @@ def grab_random_agent(agent_path="{}/etc/text_files/agents.txt", verbose=False):
     """
     if verbose:
         logger.debug(set_color(
-            "grabbing random user-agent from '{}'...".format(agent_path.format(os.getcwd())), level=10
+            "grabbing random user-agent from '{}'".format(agent_path.format(os.getcwd())), level=10
         ))
     with open(agent_path.format(os.getcwd())) as agents:
         retval = random.choice(agents.readlines())
     logger.info(set_color(
-        "random agent being used '{}'...".format(retval.strip())
+        "random agent being used '{}'".format(retval.strip())
     ))
     return retval.strip()
 
@@ -555,7 +555,7 @@ def update_zeus():
         return os.system("git pull origin master")
     else:
         logger.fatal(set_color(
-            "no git repository found in directory, unable to update automatically..."
+            "no git repository found in directory, unable to update automatically"
         ))
 
 
@@ -613,21 +613,21 @@ def get_browser_version():
     obtain the firefox browser version, this is necessary because zeus can only handle certain versions.
     """
     logger.info(set_color(
-        "attempting to get firefox browser version..."
+        "attempting to get firefox browser version"
     ))
     try:
         firefox_version_command = shlex.split("firefox --version")
         output = subprocess.check_output(firefox_version_command)
     except (OSError, Exception):
         logger.error(set_color(
-            "failed to run firefox...", level=50
+            "failed to run firefox", level=50
         ))
         return "failed to start"
     try:
         major, minor = map(int, re.search(r"(\d+).(\d+)", output).groups())
     except (ValueError, Exception):
         logger.error(set_color(
-            "failed to parse '{}' for version number...".format(output), level=50
+            "failed to parse '{}' for version number".format(output), level=50
         ))
         return "failed to gather"
     return major, minor
@@ -647,7 +647,7 @@ def config_headers(**kwargs):
     elif rand_proxy is not None:
         if verbose:
             logger.debug(set_color(
-                "loading random proxy from '{}'...".format(rand_proxy), level=10
+                "loading random proxy from '{}'".format(rand_proxy), level=10
             ))
         with open(rand_proxy) as proxies:
             possible = proxies.readlines()
@@ -693,8 +693,8 @@ def config_search_engine(**kwargs):
     ddg = kwargs.get("ddg", False)
     enum = kwargs.get("enum", None)
 
-    non_default_msg = "specified to use non-default search engine..."
-    se_message = "using '{}' as the search engine..."
+    non_default_msg = "specified to use non-default search engine"
+    se_message = "using '{}' as the search engine"
     if ddg:
         if verbose:
             logger.debug(set_color(
@@ -706,7 +706,7 @@ def config_search_engine(**kwargs):
         se = AUTHORIZED_SEARCH_ENGINES["duckduckgo"]
     elif aol:
         logger.warning(set_color(
-            "AOL will take a little longer due to pop-ups...", level=30
+            "AOL will take a little longer due to pop-ups", level=30
         ))
         if verbose:
             logger.debug(set_color(
@@ -727,16 +727,16 @@ def config_search_engine(**kwargs):
         se = AUTHORIZED_SEARCH_ENGINES["bing"]
     elif enum is not None:
         logger.info(set_color(
-            "running enumeration on given file '{}'...".format(enum)
+            "running enumeration on given file '{}'".format(enum)
         ))
         se = None
     else:
         if verbose:
             logger.debug(set_color(
-                "using default search engine (Google)...", level=10
+                "using default search engine (Google)", level=10
             ))
         logger.info(set_color(
-            "using default search engine..."
+            "using default search engine"
         ))
         se = AUTHORIZED_SEARCH_ENGINES["google"]
     return se
@@ -753,7 +753,7 @@ def create_arguments(**kwargs):
     conf_file = kwargs.get("conf", None)
 
     logger.info(set_color(
-        "creating arguments for {}...".format("sqlmap" if sqlmap else "nmap")
+        "creating arguments for {}".format("sqlmap" if sqlmap else "nmap")
     ))
     retval = []
     splitter = {"sqlmap": ",", "nmap": "|"}
@@ -765,7 +765,7 @@ def create_arguments(**kwargs):
                     if o.lower() == opt[0]:
                         retval.append((o, opt[1]))
     elif sqlmap:
-        warn_msg = "option '{}' is not recognized by sqlmap API, skipping..."
+        warn_msg = "option '{}' is not recognized by sqlmap API, skipping"
         if sqlmap_args is not None:
             for line in sqlmap_args.split(splitter["sqlmap"]):
                 try:
@@ -788,7 +788,7 @@ def create_arguments(**kwargs):
                         ))
 
     elif nmap:
-        warning_msg = "option {} is not known by the nmap api, skipping..."
+        warning_msg = "option {} is not known by the nmap api, skipping"
         if nmap_args is not None:
             for line in nmap_args.split(splitter["nmap"]):
                 try:
@@ -826,7 +826,7 @@ def create_random_ip():
     if generated == "0.0.0.0" or "255.255.255.255":
         generated = __get_nodes()  # if it isn't a real IP regenerate it
     logger.info(set_color(
-        "random IP address generated for header '{}'...".format(generated)
+        "random IP address generated for header '{}'".format(generated)
     ))
     return generated
 
@@ -854,7 +854,7 @@ def check_for_protection(protected, attack_type):
 
         if attack_type in items or "all" in items:
             logger.warning(set_color(
-                "provided target seems to have protection against this attack type...", level=30
+                "provided target seems to have protection against this attack type", level=30
             ))
             protected.clear()  # clear the set
         return True
@@ -868,7 +868,7 @@ def deprecation(target_version, method, connect=True, *args, **kwargs):
         print(
             "[{} DEPRECATION] {}".format(
                 time.strftime("%H:%M:%S"), set_color(
-                    "{} will be deprecated by version {}...".format(
+                    "{} will be deprecated by version {}".format(
                         method.__name__, target_version
                     ), level=35
                 )
@@ -880,7 +880,7 @@ def deprecation(target_version, method, connect=True, *args, **kwargs):
             "[{} DEPRECATION] {}".format(
                 time.strftime("%H:%M:%S"), set_color(
                     "{} has been deprecated and will no longer work, "
-                    "this attack type will be completely removed by v{}...".format(
+                    "this attack type will be completely removed by v{}".format(
                         method.__name__, target_version
                     ), level=35
                 )
@@ -896,10 +896,10 @@ def check_thread_num(number, batch=False, default=5):
     logger.warning(set_color(
         "you have specified {} threads, it is highly advised to not go over {} threads, "
         "doing so will most likely not give a significant performance increase and also "
-        "will most likely cause unforeseen issues...".format(number, MAX_THREADS), level=30
+        "will most likely cause unforeseen issues".format(number, MAX_THREADS), level=30
     ))
     question_msg = "would you like to continue anyways"
-    default_msg = "defaulting to 5 threads..."
+    default_msg = "defaulting to 5 threads"
     if not batch:
         question = lib.core.common.prompt(
             question_msg, opts="yN"
@@ -969,7 +969,7 @@ def run_attacks(url, **kwargs):
                 "as of now only 1 attack is supported at a time, choose "
                 "your attack and try again. You can use the -f flag if "
                 "you do not want to complete an entire search again "
-                "(IE -f /home/me/zeus-scanner/log/url-log/url-log-1.log)...", level=40
+                "(IE -f /home/me/zeus-scanner/log/url-log/url-log-1.log)", level=40
             ))
             lib.core.common.shutdown()
 
@@ -1030,7 +1030,7 @@ def run_attacks(url, **kwargs):
             pass
     else:
         logger.warning(set_color(
-            "skipping '{}'...".format(url), level=30
+            "skipping '{}'".format(url), level=30
         ))
 
 

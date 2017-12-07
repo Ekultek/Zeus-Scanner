@@ -11,6 +11,6 @@ def tamper(payload, **kwargs):
     if warning:
         logger.warning(set_color(
             "base64 tamper scripts may increase the possibility of not finding vulnerabilities "
-            "in otherwise vulnerable sites...", level=30
+            "in otherwise vulnerable sites", level=30
         ))
     return base64.b64encode(payload)

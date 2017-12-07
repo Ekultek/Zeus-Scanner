@@ -109,18 +109,18 @@ def get_pgp_keys(url_list, query, attribute="pre", **kwargs):
     identity_matcher = re.compile(r"\bbegin.pgp.public.key.block", re.I)
     amount_left = len(url_list)
     lib.core.settings.logger.info(lib.core.settings.set_color(
-        "checking a maximum of {} PGP keys...".format(amount_to_search)
+        "checking a maximum of {} PGP keys".format(amount_to_search)
     ))
     for i, url in enumerate(url_list, start=1):
         if i >= amount_to_search:
             break
         if verbose:
             lib.core.settings.logger.debug(lib.core.settings.set_color(
-                "checking '{}'...".format(url), level=10
+                "checking '{}'".format(url), level=10
             ))
         if i % 25 == 0:
             lib.core.settings.logger.info(lib.core.settings.set_color(
-                "currently checking PGP key #{}, {} left to check ({} total found)...".format(
+                "currently checking PGP key #{}, {} left to check ({} total found)".format(
                     i, amount_to_search - i, amount_left
                 )
             ))
@@ -140,7 +140,7 @@ def get_pgp_keys(url_list, query, attribute="pre", **kwargs):
                     extracted_keys.add(context)
         except ReadTimeout:
             lib.core.settings.logger.error(lib.core.settings.set_color(
-                "PGP key failed connection, assuming no good and skipping...", level=40
+                "PGP key failed connection, assuming no good and skipping", level=40
             ))
     for i, k in enumerate(extracted_keys):
         pgp_key = str(k).split("<{}>".format(attribute))  # split the string by the tag
@@ -164,7 +164,7 @@ def pgp_main(query, verbose=False):
         except Exception:
             query = query
         lib.core.settings.logger.info(lib.core.settings.set_color(
-            "searching public PGP files with given query '{}'...".format(query)
+            "searching public PGP files with given query '{}'".format(query)
         ))
         try:
             html = obtain_html(
@@ -172,25 +172,25 @@ def pgp_main(query, verbose=False):
             )
         except (Exception, ReadTimeout):
             lib.core.settings.logger.warning(lib.core.settings.set_color(
-                "connection failed, assuming no PGP keys...", level=30
+                "connection failed, assuming no PGP keys", level=30
             ))
             html = None
         if html is not None:
             urls = gather_urls(html)
             lib.core.settings.logger.info(lib.core.settings.set_color(
-                "found a total of {} URLs...".format(len(urls))
+                "found a total of {} URLs".format(len(urls))
             ))
             if verbose:
                 lib.core.settings.logger.debug(lib.core.settings.set_color(
-                    "found a '{}'...".format(urls), level=10
+                    "found a '{}'".format(urls), level=10
                 ))
             lib.core.settings.logger.info(lib.core.settings.set_color(
-                "gathering PGP key(s) and writing to a file...", level=25
+                "gathering PGP key(s) and writing to a file", level=25
             ))
             return get_pgp_keys(urls, query, verbose=verbose)
         else:
             lib.core.settings.logger.warning(lib.core.settings.set_color(
-                "did not find anything using query '{}'...".format(query), level=30
+                "did not find anything using query '{}'".format(query), level=30
             ))
     except KeyboardInterrupt:
         if not lib.core.common.pause():
