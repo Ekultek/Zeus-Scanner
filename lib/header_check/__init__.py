@@ -1,10 +1,14 @@
 import os
 import re
+import time
 import importlib
 import unicodedata
 
 from xml.dom import minidom
-from requests.exceptions import ConnectionError
+from requests.exceptions import (
+    ConnectionError,
+    ReadTimeout
+)
 
 from var.auto_issue.github import request_issue_creation
 from lib.core.common import (
@@ -113,7 +117,7 @@ def detect_protection(url, status, html, headers, **kwargs):
             return None
 
     except Exception as e:
-        if "Read timed out." or "Connection reset by peer" in str(e):
+        if any(err in str(e) for err in ["Read timed out.", "Connection reset by peer"]):
             logger.warning(set_color(
                 "detection request failed, assuming no protection and continuing...", level=30
             ))
@@ -248,6 +252,7 @@ def main_header_check(url, **kwargs):
     identify_plugins = kwargs.get("identify_plugins", True)
     show_description = kwargs.get("show_description", False)
 
+    default_sleep_time = 5
     protection = {"hostname": url}
     definition = {
         "x-xss": ("protection against XSS attacks", "XSS"),
@@ -260,9 +265,9 @@ def main_header_check(url, **kwargs):
         "content-security": ("header protection against multiple attack types", "ALL")
     }
 
-    req, status, html, headers = get_page(url, proxy=proxy, agent=agent, xforward=xforward)
-
     try:
+        req, status, html, headers = get_page(url, proxy=proxy, agent=agent, xforward=xforward)
+
         logger.info(set_color(
             "detecting target charset..."
         ))
@@ -356,6 +361,27 @@ def main_header_check(url, **kwargs):
             logger.error(set_color(
                 "unable to retrieve headers for site '{}'...".format(url.strip()), level=40
             ))
+    except ConnectionError:
+        logger.warning(set_color(
+            "target actively refused the connection, sleeping for {}s and retrying...".format(
+                default_sleep_time
+            ), level=30
+        ))
+        time.sleep(default_sleep_time)
+        main_header_check(
+            url, proxy=proxy, agent=agent, xforward=xforward, show_description=show_description,
+            identify_plugins=identify_plugins, identify_waf=identify_waf, verbose=verbose
+        )
+    except ReadTimeout:
+        logger.error(set_color(
+            "meta-data retrieval failed due to target URL timing out, skipping...", level=40
+        ))
     except KeyboardInterrupt:
         if not pause():
             shutdown()
+    except Exception as e:
+        logger.exception(set_color(
+            "meta-data retrieval failed with unexpected error '{}'...".format(
+                str(e)
+            ), level=50
+        ))

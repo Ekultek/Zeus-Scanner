@@ -113,7 +113,6 @@ def check_files_for_information(data_to_search, query):
             )
 
 
-# @lib.core.decorators.tail_call_optimized
 def github_gist_search_main(query, **kwargs):
     """
     main function for searching Gists
@@ -121,7 +120,7 @@ def github_gist_search_main(query, **kwargs):
     proxy = kwargs.get("proxy", None)
     agent = kwargs.get("agent", None)
     verbose = kwargs.get("verbose", False)
-    page_set = kwargs.get("page_set", 10)
+    page_set = kwargs.get("page_set", 5)
 
     # there seems to be a recursion issue in this function,
     # so until I get this figured out, we're going to change
