@@ -144,19 +144,17 @@ def github_gist_search_main(query, **kwargs):
         links = get_links(page_set, proxy=proxy, agent=agent)
         if verbose:
             lib.core.settings.logger.debug(lib.core.settings.set_color(
-                "found a total of {} links to search".format(
+                "found a total of {} links to search, attempting all of them".format(
                     len(links)
                 ), level=15
             ))
         for link in list(links):
             if link is not None:
-                gist, gist_link = get_raw_html(link, verbose=verbose)
-                check_files_for_information(gist, query)
-    except TypeError:
-        lib.core.settings.logger.warning(lib.core.settings.set_color(
-            "Gist URL appears to be malformed, skipping", level=30
-        ))
-        pass
+                try:
+                    gist, gist_link = get_raw_html(link, verbose=verbose)
+                    check_files_for_information(gist, query)
+                except TypeError:
+                    pass
     except KeyboardInterrupt:
         if not lib.core.common.pause():
             lib.core.common.shutdown()

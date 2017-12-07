@@ -91,7 +91,7 @@ c4ac50a3f3550c62219e7e4f38d4b496  ./lib/plugins/1024.py
 76a1d1decfb872bfafdf510c656f113a  ./lib/plugins/rssfeed.py
 320f0db977c85b477ba1ea78b140cb8a  ./lib/plugins/4images.py
 35dc8b7da4becb60662aab3c48a9210b  ./lib/plugins/openxchange.py
-6e2a1e74537869b1da3556d11bd44f56  ./lib/attacks/gist_lookup/__init__.py
+d86e1a55caaa3afda157da6c6c382964  ./lib/attacks/gist_lookup/__init__.py
 bdb7ff546787d38bbbd0aac9d4a4cdf8  ./lib/attacks/clickjacking_scan/__init__.py
 d41d8cd98f00b204e9800998ecf8427e  ./lib/attacks/__init__.py
 6e9e0a9e2c72e00d8690c0177b695d56  ./lib/attacks/sqlmap_scan/__init__.py
@@ -107,7 +107,7 @@ daab1cac629a5f59abfeb510d0cb9b67  ./lib/header_check/__init__.py
 de4254c5e40f7aa4fb81e0608f758a2c  ./lib/core/decorators.py
 4433353fb5c55578391d8b4006191ee8  ./lib/core/errors.py
 d41d8cd98f00b204e9800998ecf8427e  ./lib/core/__init__.py
-7c9b60a263a48003a94355cca05faf03  ./lib/core/settings.py
+997ea2baf988d4d91601f67fbc7f8898  ./lib/core/settings.py
 57a98c7d8c20a381dcd18ccdf5e0dc0d  ./lib/core/parse.py
 d41d8cd98f00b204e9800998ecf8427e  ./var/__init__.py
 d41d8cd98f00b204e9800998ecf8427e  ./var/auto_issue/__init__.py
