@@ -5,6 +5,7 @@ from bs4 import BeautifulSoup
 
 import lib.core.common
 import lib.core.settings
+import var.auto_issue.github
 
 
 def __create_url(redirect, template="https://gist.github.com{}"):
@@ -30,11 +31,14 @@ def get_raw_html(redirect, verbose=False):
                 url = __create_url(raw_gist_redirect)
                 if verbose:
                     lib.core.settings.logger.debug(lib.core.settings.set_color(
-                        "found raw Gist URL '{}'...".format(url), level=10
+                        "found raw Gist URL '{}'".format(url), level=10
                     ))
-                _, _, html, _ = lib.core.common.get_page(url)
-                raw_soup = BeautifulSoup(html, "html.parser")
-                return raw_soup, url
+                try:
+                    _, _, html, _ = lib.core.common.get_page(url)
+                    raw_soup = BeautifulSoup(html, "html.parser")
+                    return raw_soup, url
+                except Exception:
+                    return None, None
     else:
         return None, None
 
@@ -51,7 +55,7 @@ def get_links(page_set, proxy=None, agent=None):
 
     for i in range(page_set):
         lib.core.settings.logger.info(lib.core.settings.set_color(
-            "fetching all Gists on page #{}...".format(i+1)
+            "fetching all Gists on page #{}".format(i+1)
         ))
         _, status, html, _ = lib.core.common.get_page(
             gist_search_url.format(i+1), proxy=proxy, agent=agent
@@ -68,7 +72,7 @@ def get_links(page_set, proxy=None, agent=None):
                             redirects.add(redirect)
         else:
             lib.core.settings.logger.warning(lib.core.settings.set_color(
-                "page #{} failed to load with status code {} (reason '{}')...".format(
+                "page #{} failed to load with status code {} (reason '{}')".format(
                     i+1, status, lib.core.common.STATUS_CODES[int(status)]
                 ), level=30
             ))
@@ -102,7 +106,7 @@ def check_files_for_information(data_to_search, query):
     for regex in list(data_regex_schema):
         if regex.search(data_to_search) is not None:
             lib.core.settings.logger.info(lib.core.settings.set_color(
-                "found match with given specifics ('{}'), saving Gist to file...".format(
+                "found match with given specifics ('{}'), saving Gist to file".format(
                     regex.pattern
                 ), level=25
             ))
@@ -129,7 +133,7 @@ def github_gist_search_main(query, **kwargs):
 
     try:
         lib.core.settings.logger.info(lib.core.settings.set_color(
-            "searching a total of {} pages of Gists for '{}'...".format(
+            "searching a total of {} pages of Gists for '{}'".format(
                 page_set, query
             )
         ))
@@ -140,7 +144,7 @@ def github_gist_search_main(query, **kwargs):
         links = get_links(page_set, proxy=proxy, agent=agent)
         if verbose:
             lib.core.settings.logger.debug(lib.core.settings.set_color(
-                "found a total of {} links to search...".format(
+                "found a total of {} links to search".format(
                     len(links)
                 ), level=15
             ))
@@ -148,10 +152,16 @@ def github_gist_search_main(query, **kwargs):
             if link is not None:
                 gist, gist_link = get_raw_html(link, verbose=verbose)
                 check_files_for_information(gist, query)
+    except TypeError:
+        lib.core.settings.logger.warning(lib.core.settings.set_color(
+            "Gist URL appears to be malformed, skipping", level=30
+        ))
+        pass
     except KeyboardInterrupt:
         if not lib.core.common.pause():
             lib.core.common.shutdown()
     except Exception as e:
         lib.core.settings.logger.exception(lib.core.settings.set_color(
-            "Gist search has failed with error '{}'...".format(str(e)), level=50
+            "Gist search has failed with error '{}'".format(str(e)), level=50
         ))
+        var.auto_issue.github.request_issue_creation()
