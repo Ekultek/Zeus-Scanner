@@ -330,9 +330,6 @@ def get_page(url, **kwargs):
         proxies = {}
 
     if proxy is not None and "127.0.0.1" in proxy:
-        lib.core.settings.logger.warning(lib.core.settings.set_color(
-            "timeout has been set to 40s due to Tor being used"
-        ))
         req = requests.get(url, params=headers, proxies=proxies, verify=False, timeout=40)
     else:
         req = requests.get(url, params=headers, proxies=proxies, verify=False, timeout=20)
