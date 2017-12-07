@@ -103,12 +103,12 @@ c5b69617f040fef1d5930948905aa8d0  ./lib/attacks/whois_lookup/whois.py
 40ba04fb18dcbb81cb42376a825c238f  ./lib/attacks/nmap_scan/__init__.py
 216999fa0e84866d5c1d96d5676034e4  ./lib/attacks/nmap_scan/nmap_opts.py
 daab1cac629a5f59abfeb510d0cb9b67  ./lib/header_check/__init__.py
-7ead0f672d2e6a318f0179a3c1ddf3aa  ./lib/core/common.py
+2a8acb2191d80da75f0e4d09c00df9f6  ./lib/core/common.py
 de4254c5e40f7aa4fb81e0608f758a2c  ./lib/core/decorators.py
 4433353fb5c55578391d8b4006191ee8  ./lib/core/errors.py
 d41d8cd98f00b204e9800998ecf8427e  ./lib/core/__init__.py
-997ea2baf988d4d91601f67fbc7f8898  ./lib/core/settings.py
-57a98c7d8c20a381dcd18ccdf5e0dc0d  ./lib/core/parse.py
+93f0a11909b7baf0581e25d289721732  ./lib/core/settings.py
+afc8dc07dfdac4f70795ba718832f5a6  ./lib/core/parse.py
 d41d8cd98f00b204e9800998ecf8427e  ./var/__init__.py
 d41d8cd98f00b204e9800998ecf8427e  ./var/auto_issue/__init__.py
 8e9092a4783a2d82f49c2dd824f11950  ./var/auto_issue/github.py

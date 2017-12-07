@@ -45,7 +45,7 @@ CLONE = "https://github.com/ekultek/zeus-scanner.git"
 ISSUE_LINK = "https://github.com/ekultek/zeus-scanner/issues"
 
 # current version <major.minor.commit.patch ID>
-VERSION = "1.4.5.{}".format(PATCH_ID)
+VERSION = "1.4.6".format(PATCH_ID)
 
 # colors to output depending on the version
 VERSION_TYPE_COLORS = {"dev": 33, "stable": 92, "other": 30}
@@ -643,6 +643,10 @@ def config_headers(**kwargs):
     rand_agent = kwargs.get("rand_agent", None)
     verbose = kwargs.get("verbose", False)
     if proxy is not None:
+        if "127.0.0.1" in proxy:
+            logger.warning(set_color(
+                "timeout will be increased to 40s due to Tor being used", level=30
+            ))
         proxy_retval = proxy
     elif rand_proxy is not None:
         if verbose:
