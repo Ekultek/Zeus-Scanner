@@ -45,6 +45,9 @@ class ZeusParser(OptionParser):
         mandatory.add_option("-f", "--url-file", dest="fileToEnumerate", metavar="FILE-PATH",
                              help="Run an attack on URL's in a given file")
 
+        mandatory.add_option("-u", "--url", dest="singleTargetRecon", metavar="URL",
+                             help=SUPPRESS_HELP)
+
         # attack options
         attacks = OptionGroup(parser, "Attack arguments",
                               "These arguments will give you the choice on how you want to check the websites")
