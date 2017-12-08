@@ -37,6 +37,7 @@ d41d8cd98f00b204e9800998ecf8427e  ./lib/tamper_scripts/__init__.py
 9fd42d65993aa20d1bf5acbc4d042d2e  ./lib/tamper_scripts/base64_encode.py
 f77b7a9a19b94e26903eeecf5a787ea3  ./lib/tamper_scripts/space2null_encode.py
 3b8c95a6a3b7cecce5118f2fb1ccc6b8  ./lib/tamper_scripts/appendnull_encode.py
+8e8792e38649f18d90bb0084202bb59e  ./lib/tamper_scripts/obfuscateentity_encode.py
 d41d8cd98f00b204e9800998ecf8427e  ./lib/__init__.py
 6299b188a730844954044887f528435a  ./lib/firewall/cloudfront.py
 d41d8cd98f00b204e9800998ecf8427e  ./lib/firewall/__init__.py
@@ -107,7 +108,7 @@ daab1cac629a5f59abfeb510d0cb9b67  ./lib/header_check/__init__.py
 de4254c5e40f7aa4fb81e0608f758a2c  ./lib/core/decorators.py
 4433353fb5c55578391d8b4006191ee8  ./lib/core/errors.py
 d41d8cd98f00b204e9800998ecf8427e  ./lib/core/__init__.py
-93f0a11909b7baf0581e25d289721732  ./lib/core/settings.py
+6a6d454292a186599e37925975f8b656  ./lib/core/settings.py
 afc8dc07dfdac4f70795ba718832f5a6  ./lib/core/parse.py
 d41d8cd98f00b204e9800998ecf8427e  ./var/__init__.py
 d41d8cd98f00b204e9800998ecf8427e  ./var/auto_issue/__init__.py
