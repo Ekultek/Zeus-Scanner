@@ -1,7 +1,4 @@
 import os
-import sys
-reload(sys)
-sys.setdefaultencoding("utf-8")  # this will take care of most of the Unicode errors.
 
 from bs4 import BeautifulSoup
 
@@ -20,7 +17,7 @@ class Blackwidow(object):
     def __init__(self, url, user_agent=None, proxy=None, forward=None):
         self.url = url
         self.forward = forward or None
-        self.proxy = lib.core.settings.proxy_string_to_dict(proxy) or None
+        self.proxy = proxy
         self.user_agent = user_agent or lib.core.settings.DEFAULT_USER_AGENT
 
     @staticmethod
@@ -39,7 +36,8 @@ class Blackwidow(object):
         make sure the connection is good before you continue
         """
         try:
-            # verify=False will take care of SSLErrors
+            # we'll skip SSL verification to avoid any SSLErrors that might
+            # arise, we won't really need it with this anyways
             attempt, status, _, _ = lib.core.common.get_page(
                 self.url, agent=self.user_agent, xforward=self.forward, skip_verf=True,
                 proxy=self.proxy
