@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import io
+import sys
 import time
 import shlex
 import warnings
@@ -42,6 +43,11 @@ from lib.core.settings import (
 warnings.simplefilter("ignore")
 
 if __name__ == "__main__":
+
+    # this will take care of most of the Unicode errors.
+    reload(sys)
+    sys.setdefaultencoding("utf-8")
+    sys.setrecursionlimit(1500)
 
     opt = ZeusParser.cmd_parser()
 
