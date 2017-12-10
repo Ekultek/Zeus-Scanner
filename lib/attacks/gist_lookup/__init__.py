@@ -1,5 +1,4 @@
 import re
-import sys
 
 from bs4 import BeautifulSoup
 
@@ -125,11 +124,6 @@ def github_gist_search_main(query, **kwargs):
     agent = kwargs.get("agent", None)
     verbose = kwargs.get("verbose", False)
     page_set = kwargs.get("page_set", 5)
-
-    # there seems to be a recursion issue in this function,
-    # so until I get this figured out, we're going to change
-    # the maximum recursion of the system when we get here
-    sys.setrecursionlimit(1500)
 
     try:
         lib.core.settings.logger.info(lib.core.settings.set_color(
