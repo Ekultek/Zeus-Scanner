@@ -1,4 +1,4 @@
-5aefb2a3061ff01c215ef170b8832369  ./zeus.py
+c3ef86ef033a88aa00d016465eeeb339  ./zeus.py
 4b32db388e8acda35570c734d27c950c  ./etc/scripts/launch_sqlmap.sh
 6ad5f22ec4a6f8324bfb1b01ab6d51ec  ./etc/scripts/cleanup.sh
 74d7bee13890a9dd279bb857591647ce  ./etc/scripts/reinstall.sh
@@ -9,7 +9,7 @@
 d3ad89703575a712a0aeead2b176d8c5  ./etc/html/clickjacking_test_page.html
 642a77905d8bb4e5533e0e9c2137c0fa  ./etc/text_files/agents.txt
 82cc68f46539d0255f7ce14cd86cd49b  ./etc/text_files/link_ext.txt
-19eb1b4899140544ee5911f091e71710  ./etc/text_files/dorks.txt
+0f2c29a4bab9f626a4747b0fb3a388bb  ./etc/text_files/dorks.txt
 cf85d83da34d70720193d83950c31fdc  ./etc/text_files/xss_payloads.txt
 6cabeb9919d2301efc4ba3d8869282d6  ./etc/checksum/md5sum.md5
 5250f0aa13b8af4775efa506e77de1ce  ./etc/xml/headers.xml
@@ -92,7 +92,7 @@ c4ac50a3f3550c62219e7e4f38d4b496  ./lib/plugins/1024.py
 76a1d1decfb872bfafdf510c656f113a  ./lib/plugins/rssfeed.py
 320f0db977c85b477ba1ea78b140cb8a  ./lib/plugins/4images.py
 35dc8b7da4becb60662aab3c48a9210b  ./lib/plugins/openxchange.py
-d86e1a55caaa3afda157da6c6c382964  ./lib/attacks/gist_lookup/__init__.py
+637f2ba9a198c64452335abd3fd9df3d  ./lib/attacks/gist_lookup/__init__.py
 bdb7ff546787d38bbbd0aac9d4a4cdf8  ./lib/attacks/clickjacking_scan/__init__.py
 d41d8cd98f00b204e9800998ecf8427e  ./lib/attacks/__init__.py
 6e9e0a9e2c72e00d8690c0177b695d56  ./lib/attacks/sqlmap_scan/__init__.py
@@ -108,7 +108,7 @@ daab1cac629a5f59abfeb510d0cb9b67  ./lib/header_check/__init__.py
 de4254c5e40f7aa4fb81e0608f758a2c  ./lib/core/decorators.py
 4433353fb5c55578391d8b4006191ee8  ./lib/core/errors.py
 d41d8cd98f00b204e9800998ecf8427e  ./lib/core/__init__.py
-6a6d454292a186599e37925975f8b656  ./lib/core/settings.py
+dea39468fdc8d863cab459d03468b3a2  ./lib/core/settings.py
 afc8dc07dfdac4f70795ba718832f5a6  ./lib/core/parse.py
 d41d8cd98f00b204e9800998ecf8427e  ./var/__init__.py
 d41d8cd98f00b204e9800998ecf8427e  ./var/auto_issue/__init__.py
@@ -116,4 +116,4 @@ d41d8cd98f00b204e9800998ecf8427e  ./var/auto_issue/__init__.py
 503e44b36f0bcd81e20840be5b73320e  ./var/search/__init__.py
 16ddba4cae577df7264b3933accf4167  ./var/search/selenium_search.py
 12340de27a75273cd444f7257d354311  ./var/search/pgp_search.py
-9fb35fe53091eadcad3a21589c18a87c  ./var/blackwidow/__init__.py
+0af5ab455a535a2f141cfae4758a4bb4  ./var/blackwidow/__init__.py
