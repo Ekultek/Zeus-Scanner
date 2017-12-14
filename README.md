@@ -13,7 +13,7 @@
 - [Requirements and installation](https://github.com/Ekultek/Zeus-Scanner#requirements)
   - [Ubuntu/Debian](https://github.com/Ekultek/Zeus-Scanner#ubuntudebian)
   - [centOS](https://github.com/Ekultek/Zeus-Scanner#centos)
-  - [Backbox](https://github.com/Ekultek/Zeus-Scanner#Backbox)
+  - [Backbox](https://github.com/Ekultek/Zeus-Scanner#backbox)
   - [other](https://github.com/Ekultek/Zeus-Scanner#others)
 - [Screenshots](https://github.com/Ekultek/Zeus-Scanner#screenshots)
 - [Demo video](https://vimeo.com/239885768)
