@@ -13,6 +13,7 @@
 - [Requirements and installation](https://github.com/Ekultek/Zeus-Scanner#requirements)
   - [Ubuntu/Debian](https://github.com/Ekultek/Zeus-Scanner#ubuntudebian)
   - [centOS](https://github.com/Ekultek/Zeus-Scanner#centos)
+  - [Backbox](https://github.com/Ekultek/Zeus-Scanner#Backbox)
   - [other](https://github.com/Ekultek/Zeus-Scanner#others)
 - [Screenshots](https://github.com/Ekultek/Zeus-Scanner#screenshots)
 - [Demo video](https://vimeo.com/239885768)
@@ -114,6 +115,26 @@ sudo apt-get install libxml2-dev libxslt1-dev python-dev &&  git clone https://g
 ```
 sudo apt-get install gcc python-devel libxml2-dev libxslt1-dev python-dev && git clone https://github.com/ekultek/zeus-scanner.git && cd zeus-scanner && sudo pip2 install -r requirements.txt && sudo python zeus.py
 ```
+
+#### Backbox
+
+```
+sudo -s >> EOF
+aptitude purge firefox
+wget https://ftp.mozilla.org/…/linux-…/en-US/firefox-57.0.tar.bz2
+tar -xjf firefox-57.0.tar.bz2
+rm -rf /opt/firefox*
+mv firefox /opt/firefox57
+mv /usr/bin/firefox /usr/bin/firefoxold
+ln -s /opt/firefox57/firefox-bin /usr/bin/firefox
+EOF
+```
+
+ And after thats done:
+ 
+ ```
+ sudo apt-get install libxml2-dev libxslt1-dev python-dev && git clone https://github.com/ekultek/zeus-scanner.git && cd zeus-scanner && sudo pip2 install -r requirements.txt && sudo python zeus.py
+ ```
 
 ##### Others
 
