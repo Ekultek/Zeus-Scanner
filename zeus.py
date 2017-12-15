@@ -108,38 +108,43 @@ if __name__ == "__main__":
                         ))
                         current -= 1
                     else:
-                        logger.info(set_color(
-                            "currently running on '{}' (target #{})".format(
-                                url.strip(), current
-                            ), level=25
-                        ))
-                        logger.info(set_color(
-                            "fetching target meta-data"
-                        ))
-                        identified = main_header_check(
-                            url, verbose=opt.runInVerbose, agent=agent_to_use,
-                            proxy=proxy_to_use, xforward=opt.forwardedForRandomIP,
-                            identify_plugins=opt.identifyPlugin, identify_waf=opt.identifyProtection,
-                            show_description=opt.showPluginDescription
-                        )
-                        if not identified:
-                            logger.error(set_color(
-                                "target is refusing to allow meta-data dumping, skipping", level=40
+                        if not url.strip() == "http://" or url == "https://":
+                            logger.info(set_color(
+                                "currently running on '{}' (target #{})".format(
+                                    url.strip(), current
+                                ), level=25
                             ))
-                        run_attacks(
-                            url.strip(),
-                            sqlmap=opt.runSqliScan, nmap=opt.runPortScan, pgp=opt.pgpLookup,
-                            xss=opt.runXssScan, whois=opt.performWhoisLookup, admin=opt.adminPanelFinder,
-                            clickjacking=opt.performClickjackingScan, github=opt.searchGithub,
-                            verbose=opt.runInVerbose, batch=opt.runInBatch,
-                            auto_start=opt.autoStartSqlmap, xforward=opt.forwardedForRandomIP,
-                            sqlmap_args=opt.sqlmapArguments, nmap_args=opt.nmapArguments,
-                            show_all=opt.showAllConnections, do_threading=opt.threadPanels,
-                            tamper_script=opt.tamperXssPayloads, timeout=opt.controlTimeout,
-                            proxy=proxy_to_use, agent=agent_to_use, conf_file=opt.sqlmapConfigFile,
-                            threads=opt.amountOfThreads
-                        )
-                        print("\n")
+                            logger.info(set_color(
+                                "fetching target meta-data"
+                            ))
+                            identified = main_header_check(
+                                url, verbose=opt.runInVerbose, agent=agent_to_use,
+                                proxy=proxy_to_use, xforward=opt.forwardedForRandomIP,
+                                identify_plugins=opt.identifyPlugin, identify_waf=opt.identifyProtection,
+                                show_description=opt.showPluginDescription
+                            )
+                            if not identified:
+                                logger.error(set_color(
+                                    "target is refusing to allow meta-data dumping, skipping", level=40
+                                ))
+                            run_attacks(
+                                url.strip(),
+                                sqlmap=opt.runSqliScan, nmap=opt.runPortScan, pgp=opt.pgpLookup,
+                                xss=opt.runXssScan, whois=opt.performWhoisLookup, admin=opt.adminPanelFinder,
+                                clickjacking=opt.performClickjackingScan, github=opt.searchGithub,
+                                verbose=opt.runInVerbose, batch=opt.runInBatch,
+                                auto_start=opt.autoStartSqlmap, xforward=opt.forwardedForRandomIP,
+                                sqlmap_args=opt.sqlmapArguments, nmap_args=opt.nmapArguments,
+                                show_all=opt.showAllConnections, do_threading=opt.threadPanels,
+                                tamper_script=opt.tamperXssPayloads, timeout=opt.controlTimeout,
+                                proxy=proxy_to_use, agent=agent_to_use, conf_file=opt.sqlmapConfigFile,
+                                threads=opt.amountOfThreads
+                            )
+                            print("\n")
+                        else:
+                            logger.warning(set_color(
+                                "malformed URL discovered, skipping", level=30
+                            ))
 
 
     proxy_to_use, agent_to_use = config_headers(
