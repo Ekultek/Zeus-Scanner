@@ -359,10 +359,10 @@ if __name__ == "__main__":
             ))
             shutdown()
         elif "No such file or directory" in str(e):
-            logger.exception(e)
             logger.fatal(set_color(
                 "provided file does not exist, make sure you have the full path", level=50
             ))
+            shutdown()
         else:
             logger.exception(set_color(
                 "Zeus has hit an unexpected error and cannot continue, error code '{}'".format(e), level=50

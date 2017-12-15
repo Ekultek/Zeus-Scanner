@@ -1,4 +1,4 @@
-8a7f36f3ec9780769187778585494d6f  ./zeus.py
+1ad9b1b53231b6d64c8055e3162b8851  ./zeus.py
 4b32db388e8acda35570c734d27c950c  ./etc/scripts/launch_sqlmap.sh
 6ad5f22ec4a6f8324bfb1b01ab6d51ec  ./etc/scripts/cleanup.sh
 74d7bee13890a9dd279bb857591647ce  ./etc/scripts/reinstall.sh
@@ -107,7 +107,7 @@ c5b69617f040fef1d5930948905aa8d0  ./lib/attacks/whois_lookup/whois.py
 de4254c5e40f7aa4fb81e0608f758a2c  ./lib/core/decorators.py
 4433353fb5c55578391d8b4006191ee8  ./lib/core/errors.py
 d41d8cd98f00b204e9800998ecf8427e  ./lib/core/__init__.py
-b6a382ce221756f2ae0c2261e65d09bd  ./lib/core/settings.py
+19f98bf3830e61f2ca78549cb747a724  ./lib/core/settings.py
 28b94f316ad528cdfba77694b4e52c81  ./lib/core/parse.py
 d41d8cd98f00b204e9800998ecf8427e  ./var/__init__.py
 d41d8cd98f00b204e9800998ecf8427e  ./var/auto_issue/__init__.py
