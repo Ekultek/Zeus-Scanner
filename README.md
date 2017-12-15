@@ -118,10 +118,25 @@ sudo apt-get install gcc python-devel libxml2-dev libxslt1-dev python-dev && git
 
 #### Backbox
 
+64 bit installation:
 ```
 sudo -s << EOF
 aptitude purge firefox
-wget https://ftp.mozilla.org/…/linux-…/en-US/firefox-57.0.tar.bz2
+wget https://ftp.mozilla.org/pub/firefox/releases/57.0/linux-x86_64/en-US/firefox-57.0.tar.bz2
+tar -xjf firefox-57.0.tar.bz2
+rm -rf /opt/firefox*
+mv firefox /opt/firefox57
+mv /usr/bin/firefox /usr/bin/firefoxold
+ln -s /opt/firefox57/firefox-bin /usr/bin/firefox
+apt-get install libxml2-dev libxslt1-dev python-dev && git clone https://github.com/ekultek/zeus-scanner.git && cd zeus-scanner && pip2 install -r requirements.txt && python zeus.py
+EOF
+```
+
+32 bit installation:
+```
+sudo -s << EOF
+aptitude purge firefox
+wget https://ftp.mozilla.org/pub/firefox/releases/57.0/linux-i686/en-US/firefox-57.0.tar.bz2
 tar -xjf firefox-57.0.tar.bz2
 rm -rf /opt/firefox*
 mv firefox /opt/firefox57
