@@ -17,7 +17,6 @@ from lib.core.common import (
     pause,
     get_page,
     HTTP_HEADER,
-    STATUS_CODES
 )
 from lib.core.settings import (
     logger, set_color,

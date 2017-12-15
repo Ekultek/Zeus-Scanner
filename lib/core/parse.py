@@ -71,7 +71,7 @@ class ZeusParser(OptionParser):
                            help="Perform a clickjacking scan on a provided URL")
 
         attacks.add_option("-g", "--github-search", dest="searchGithub", action="store_true",
-                           help="Perform a Github Gist search for any information on the found websites")
+                           help=SUPPRESS_HELP)
 
         attacks.add_option("-P", "--pgp", dest="pgpLookup", action="store_true",
                            help="Perform a PGP public key lookup on the found URLs")

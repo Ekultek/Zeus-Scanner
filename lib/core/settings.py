@@ -284,13 +284,6 @@ AUTHORIZED_SEARCH_ENGINES = {
     "pgp": "https://pgp.mit.edu/pks/lookup?search={}&op=index"
 }
 
-# search page for Gists and rate checking URL
-GITHUB_GIST_SEARCH_URLS = {
-    "search": "https://api.github.com/gists/public?page={}&per_page=100",
-    "check_rate": "https://api.github.com/users/ZeusIssueReporter"
-
-}
-
 # extensions to exclude from the spider
 SPIDER_EXT_EXCLUDE = (
     "3ds", "3g2", "3gp", "7z", "DS_Store", "a", "aac", "adp", "ai", "aif", "aiff",
@@ -935,7 +928,7 @@ def run_attacks(url, **kwargs):
     verbose = kwargs.get("verbose", False)
     whois = kwargs.get("whois", False)
     clickjacking = kwargs.get("clickjacking", False)
-    github = kwargs.get("github", False)
+    # github = kwargs.get("github", False)
     pgp = kwargs.get("pgp", False)
     auto_start = kwargs.get("auto_start", False)
     sqlmap_arguments = kwargs.get("sqlmap_args", None)
@@ -1023,10 +1016,10 @@ def run_attacks(url, **kwargs):
             if check_for_protection(PROTECTED, "clickjacking"):
                 clickjacking_main(url, agent=agent, proxy=proxy,
                                   forward=forwarded, batch=batch)
-        elif github:
-            from lib.attacks.gist_lookup import github_gist_search_main
-            query = replace_http(url)
-            github_gist_search_main(query, agent=agent, proxy=proxy, verbose=verbose)
+        # elif github:
+        #    from lib.attacks.gist_lookup import github_gist_search_main
+        #    query = replace_http(url)
+        #    github_gist_search_main(query, agent=agent, proxy=proxy, verbose=verbose)
         elif pgp:
             from var.search.pgp_search import pgp_main
             pgp_main(url, verbose=verbose)

@@ -96,7 +96,7 @@ if __name__ == "__main__":
             opt.runSqliScan, opt.runPortScan,
             opt.adminPanelFinder, opt.runXssScan,
             opt.performWhoisLookup, opt.performClickjackingScan,
-            opt.searchGithub, opt.pgpLookup
+            opt.pgpLookup
         ]
         if any(options):
             with open(urls_to_use) as urls:
