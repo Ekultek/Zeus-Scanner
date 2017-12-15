@@ -9,11 +9,8 @@ inurl:"nacional.php?id="
 inurl:head.php?choix=
 inurl:"group.php?gid="
 inurl:/cgi-bin/wwwadmin.pl
-intitle:Novell intitle:WebAccess "Copyright *-* Novell, Inc"
-inurl:m2f/m2f_phpbb204.php?m2f_root_path=
 inurl:page.php?base_dir=
 inurl:main.php?mod=
-intitle:"PhpMyExplorer"   inurl:"index.php" -cvs
 intitle:"Remote Desktop Web Connection"
 filetype:cfg ks intext:rootpw -sample -test -howto
 inurl:blank.php?oldal=
@@ -22,7 +19,6 @@ inurl:enter.php?link=
 inurl:\"/axs/ax-admin.pl\" -script
 inurl:/index.php?babInstallPath=
 inurl:press.php?dir=
-inurl:profiles filetype:mdb
 inurl:info.php?op=
 inurl:"products.asp?ID="
 inurl:general.php?menu=
@@ -40,22 +36,17 @@ inurl:mod*.php?dir=
 intext:"The following report contains confidential information" vulnerability -search
 ext:nsf nsf -gov -mil
 inurl:chap-secrets -cvs
-inurl:akocomments.php?mosConfig_absolute_path=
 inurl:press.php?path=
-inurl:index.php?sub=index.php?id=index.php?t=
 inurl:msadcs.dll
 inurl:print.php?pre=
 intext:"You have an error in your SQL syntax near"
 filetype:cgi inurl:"fileman.cgi"
-intitle:"OnLine Recruitment Program - Login"
 inurl:pagina.php?ref=
 inurl:default.php?loader=
 inurl:print.php?module=
 inurl:blank.php?corpo=
 inurl:index2.php?f=
-inurl:/scripts/tools/getdrvrs.exe
 inurl:index1.php?pg=
-filetype:mdb inurl:users.mdb
 inurl:nota.php?eval=
 inurl:gallery.php?sivu=
 inurl:template.php?opcion=
@@ -63,8 +54,6 @@ inurl:path.php?category=
 inurl:news_display.php?getid=
 inurl:index.php?link=
 intitle:"welcome.to.squeezebox"
-inurl:components/com_forum/download.php?phpbb_root_path=
-intitle:\"Web Data Administrator - Login\"
 inurl:index1.php?tipo=
 inurl:/class.mysql.php?path_to_bt_dir=
 inurl:/jaf/index.php?show=
@@ -72,7 +61,6 @@ inurl:home.php?redirect=
 inurl:blank.php?mod=
 inurl:"faq_list.asp?id="
 inurl:"informacion.php?id="
-inurl:"checkout_confirmed.asp?order_id="
 inurl:modules/My_eGallery/index.php?basepath=
 inurl:newsitem.php?num=
 inurl:search.pl
@@ -89,22 +77,16 @@ inurl:page.php?ev=
 inurl:browser.inc
 inurl:include.php?x=
 intext:"liveice configuration file" ext:cfg
-inurl:components/com_artlinks/artlinks.dispnew.php?mosConfig_absolute_path=
 inurl:"details.asp?Product_ID="
-filetype:ini ServUDaemon
 inurl:include.php?play=
-inurl:"search.asp?CartID="
 inurl:print.php?cont=
-intext:"A syntax error has occurred" filetype:ihtml
 inurl:test.bat
 inurl:main.php?tipo=
 inurl:info2www
 inurl:index2.php?doshow=
 inurl:start.php?pageweb=
 inurl:press.php?abre=
-inurl:padrao.php?seccion=
 inurl:head.php?pageweb=
-inurl:principal.php?basepath=
 inurl:"cardinfo.asp?card="
 inurl:file.php?seccion=
 inurl:shop
@@ -117,36 +99,24 @@ inurl:/content.php?page=
 inurl:file.php?cmd=
 inurl:padrao.php?body=
 inurl:mod*.php?ev=
-inurl:webmail./index.pl "Interface"
 inurl:page.php?adresa=
-inurl:/include/write.php?dir=
 inurl:sub*.php?g=
 inurl:file.php?disp=
-inurl:ids5web
-filetype:log intext:"ConnectionManager2″
-inurl:include/new-visitor.inc.php?lvc_include_dir=
 inurl:"quem_somos.php?id="
-inurl:vbstats.php   "page generated"
 inurl:index3.php?x=
 inurl:index.php?pg=
 inurl:/mcf.php?content=
 inurl:"shprodde.asp?SKU="
 inurl:info.php?pagina=
-inurl:"storefronts.asp?title="
 inurl:sitio.php?abre=
 intext:"mySQL error with query"
 inurl:php
-inurl:historialeer.php?num=
 inurl:pagina.php?numero=
-intitle:"inc. vpn 3000 concentrator" intitle:asterisk.management.portal web-access
 inurl:print.php?basepath=
-inurl:/library/lib.php?root=
-
 inurl:layout.php?sekce=
 htpasswd / htgroup
 inurl:standard.php?pre=
 inurl:info.php?o=
-filetype:reg reg HKEY_ Windows Registry exports can reveal
 inurl:vtund.conf intext:pass -cvs s
 inurl:page.php?e=
 inurl:default.php?opcion=
@@ -161,8 +131,6 @@ intext:"Mecury Version" "Infastructure   Group"
 inurl:padrao.php?path=
 inurl:index.php?op=
 inurl:padrao.php?a=
-inurl:sitio.php?secao=
-inurl:/cgi-bin/tcsh
 inurl:show.php?d=
 inurl:finger
 filetype:wab wab
@@ -176,7 +144,6 @@ inurl:/cgi-bin/sendform.cgi
 inurl:print.php?pag=
 inurl:padrao.php?menue=
 inurl:"aktuelles.php?id="
-inurl:components/com_performs/performs.php?mosConfig_absolute_path=
 inurl:"template.php?pag="
 intitle:\"Index of\" cfide
 inurl:home.php?tipo=
@@ -185,16 +152,12 @@ filetype:sql "insert into" (pass|passwd|password)
 inurl:include.php?goFile=
 inurl:"agenda.php?o="
 inurl:/index.php?TWC=
-filetype:dat "password.dat"
 inurl:pagina.php?ir=
 inurl:pagina.php?secao=
 inurl:path.php?pname=
 filetypera orafiletypedb pdb backup (Pilot |   Pluckerdb)
 inurl:include.php?left=
-inurl:"shopwelcome.asp?title="
 inurl:pagina.php?recipe=
-inurl:/cgi-bin/dbmlparser.exe
-inurl:path.php?addr=
 inurl:sub*.php?load=
 inurl:home.php?body=
 inurl:base.php?*[*]*=
@@ -204,13 +167,10 @@ inurl:*db filetype:mdb
 inurl:show.php?redirect=
 inurl:/header.php?abspath=
 inurl:art.php?idm=
-inurl:/includes/functions_portal.php?phpbb_root_path=
 inurl:head.php?dir=
-inurl:big.php?pathtotemplate=
 inurl:"promo.asp?id="
 inurl:"index.php?KID="
 inurl:show.php?disp=
-intitle:Index.of etc shadow site:passwd
 inurl:blank.php?url=
 inurl:/cgi-bin/files.pl
 inurl:blank.php?link=
@@ -225,15 +185,12 @@ intitle:"Login to @Mail" (ext:pl | inurl:"index") -dwaffleman
 inurl:standard.php?secc=
 inurl:path.php?id=
 intitle:\"index of\" inurl:ftp (pub | incoming)
-inurl:"add-to-cart.asp?ID="
-intitle:"ITS System Information" "Please log on to the SAP System"
 inurl:forward filetype:forward -cvs
 inurl:/cgi-bin/www-sql
 intext:"Welcome to PHP-Nuke" congratulations
 inurl:general.php?body=
 inurl:mod*.php?goFile=
 inurl:nota.php?OpenPage=
-inurl:/modules/agendax/addevent.inc.php?agendax_path=
 filetype:sql password
 inurl:newsid=
 intext:"Web Wiz Journal"
@@ -1396,7 +1353,6 @@ inurl:home.php?menu=
 inurl:sitio.php?middlePart=
 inurl:main.php?goto=
 filetype:ctt Contact
-inurl:backup filetype:mdb
 intitle:"site administration: please log in" "site designed by emarketsouth"
 inurl:head.php?incl=
 inurl:lilo.conf filetype:conf password -tatercounter2000 -bootpwd -man
@@ -3230,7 +3186,6 @@ inurl:print.php?opcion=
 inurl:index.php?u=administrator/components/com_linkdirectory/toolbar.linkdirectory.html.php?mosConfig_absolute_path=
 inurl:path.php?sp=
 inurl:news.php?id=
-inurl:"/axs/ax-admin.pl" -script
 inurl:"store-details.asp?id="
 intitle:"Virtual Server Administration System"
 inurl:padrao.php?texto=

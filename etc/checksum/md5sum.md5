@@ -9,7 +9,7 @@ c3ef86ef033a88aa00d016465eeeb339  ./zeus.py
 d3ad89703575a712a0aeead2b176d8c5  ./etc/html/clickjacking_test_page.html
 642a77905d8bb4e5533e0e9c2137c0fa  ./etc/text_files/agents.txt
 82cc68f46539d0255f7ce14cd86cd49b  ./etc/text_files/link_ext.txt
-0f2c29a4bab9f626a4747b0fb3a388bb  ./etc/text_files/dorks.txt
+c57ac34fe965961917ac8a207df256d5  ./etc/text_files/dorks.txt
 cf85d83da34d70720193d83950c31fdc  ./etc/text_files/xss_payloads.txt
 6cabeb9919d2301efc4ba3d8869282d6  ./etc/checksum/md5sum.md5
 5250f0aa13b8af4775efa506e77de1ce  ./etc/xml/headers.xml
@@ -92,7 +92,6 @@ c4ac50a3f3550c62219e7e4f38d4b496  ./lib/plugins/1024.py
 76a1d1decfb872bfafdf510c656f113a  ./lib/plugins/rssfeed.py
 320f0db977c85b477ba1ea78b140cb8a  ./lib/plugins/4images.py
 35dc8b7da4becb60662aab3c48a9210b  ./lib/plugins/openxchange.py
-637f2ba9a198c64452335abd3fd9df3d  ./lib/attacks/gist_lookup/__init__.py
 bdb7ff546787d38bbbd0aac9d4a4cdf8  ./lib/attacks/clickjacking_scan/__init__.py
 d41d8cd98f00b204e9800998ecf8427e  ./lib/attacks/__init__.py
 6e9e0a9e2c72e00d8690c0177b695d56  ./lib/attacks/sqlmap_scan/__init__.py
