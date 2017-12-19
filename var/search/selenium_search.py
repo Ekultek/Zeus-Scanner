@@ -103,10 +103,14 @@ def get_urls(query, url, verbose=False, **kwargs):
             time.sleep(10)
     except ElementNotInteractableException:
         # get rid of the popup box and hit enter after entering the text to search
-        browser.execute_script("document.querySelectorAll('label.boxed')[1].click()")
-        search.send_keys(query)
-        search.send_keys(Keys.RETURN)
-        time.sleep(3)
+        try:
+            for _ in range(5):
+                browser.execute_script("document.querySelectorAll('label.boxed')[{}].click()".format(_))
+                search.send_keys(query)
+                search.send_keys(Keys.RETURN)
+                time.sleep(3)
+        except Exception:
+            pass
     except UnicodeDecodeError:
         logger.error(set_color(
             "your query '{}' appears to have unicode characters in it, selenium is not "

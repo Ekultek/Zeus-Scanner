@@ -107,12 +107,12 @@ c5b69617f040fef1d5930948905aa8d0  ./lib/attacks/whois_lookup/whois.py
 de4254c5e40f7aa4fb81e0608f758a2c  ./lib/core/decorators.py
 4433353fb5c55578391d8b4006191ee8  ./lib/core/errors.py
 d41d8cd98f00b204e9800998ecf8427e  ./lib/core/__init__.py
-bbf88de258c6cb72b74d2ef6bb50a6f6  ./lib/core/settings.py
+b4f922b1677b42d5ec2102b3f2f6f5a3  ./lib/core/settings.py
 a6608451e6d4df7f39d8a3c720d57f3d  ./lib/core/parse.py
 d41d8cd98f00b204e9800998ecf8427e  ./var/__init__.py
 d41d8cd98f00b204e9800998ecf8427e  ./var/auto_issue/__init__.py
 8e9092a4783a2d82f49c2dd824f11950  ./var/auto_issue/github.py
 503e44b36f0bcd81e20840be5b73320e  ./var/search/__init__.py
-16ddba4cae577df7264b3933accf4167  ./var/search/selenium_search.py
+c52867e57beeeeac2da57f597b644faf  ./var/search/selenium_search.py
 12340de27a75273cd444f7257d354311  ./var/search/pgp_search.py
 0af5ab455a535a2f141cfae4758a4bb4  ./var/blackwidow/__init__.py
