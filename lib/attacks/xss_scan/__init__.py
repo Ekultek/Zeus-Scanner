@@ -29,6 +29,19 @@ def list_tamper_scripts(path="{}/lib/tamper_scripts"):
     return retval
 
 
+def assign_protocol(url, force=False):
+    auto_assign = ("http://{}", "https://{}")
+    url_verification = re.compile(r"http(s)?", re.I)
+
+    if url_verification.search(url) is None:
+        if not force:
+            return auto_assign[0].format(url)
+        else:
+            return auto_assign[1].format(url)
+    else:
+        return url
+
+
 def __tamper_payload(payload, tamper_type, warning=True, **kwargs):
     """
     add the tamper to the payload from the given tamper type
@@ -58,7 +71,7 @@ def __load_payloads(filename="{}/etc/text_files/xss_payloads.txt"):
     with open(filename.format(os.getcwd())) as payloads: return payloads.readlines()
 
 
-def create_urls(url, payload_list, tamper=None, verbose=False):
+def create_urls(url, payload_list, tamper=None, verbose=False, force=False):
     """
     create the tampered URL's, write them to a temporary file and read them from there
     """
@@ -78,7 +91,7 @@ def create_urls(url, payload_list, tamper=None, verbose=False):
                             " | ".join(list_tamper_scripts()), level=40
                         )
                     ))
-            loaded_url = "{}{}\n".format(url.strip(), payload.strip())
+            loaded_url = "{}{}\n".format(assign_protocol(url.strip(), force=force), payload.strip())
             tmp.write(loaded_url)
     return tf_name
 
@@ -109,15 +122,6 @@ def scan_xss(url, agent=None, proxy=None):
     be tampered or encoded if the site is not vulnerable
     """
 
-    auto_assign = "http://{}"
-    url_verification = re.compile(r"http(s)?", re.I)
-
-    if url_verification.search(url) is None:
-        lib.core.settings.logger.warning(lib.core.settings.set_color(
-            "protocol missing from URL, automatically assigning protocol", level=30
-        ))
-        url = auto_assign.format(url)
-
     try:
         _, status, html_data, _ = lib.core.common.get_page(url, agent=agent, proxy=proxy)
         query = find_xss_script(url)
@@ -140,6 +144,7 @@ def main_xss(start_url, proxy=None, agent=None, **kwargs):
     tamper = kwargs.get("tamper", None)
     verbose = kwargs.get("verbose", False)
     batch = kwargs.get("batch", False)
+    force = kwargs.get("force_ssl", False)
 
     question_msg = (
         "it appears that heuristic tests have shown this URL may not be a good "
@@ -174,7 +179,7 @@ def main_xss(start_url, proxy=None, agent=None, **kwargs):
         lib.core.settings.logger.info(lib.core.settings.set_color(
             "payloads will be written to a temporary file and read from there"
         ))
-        filename = create_urls(start_url, payloads, tamper=tamper, verbose=verbose)
+        filename = create_urls(start_url, payloads, tamper=tamper, verbose=verbose, force=force)
         lib.core.settings.logger.info(lib.core.settings.set_color(
                 "loaded URL's have been saved to '{}'".format(filename), level=25
             ))
@@ -225,11 +230,13 @@ def main_xss(start_url, proxy=None, agent=None, **kwargs):
                 except (
                         requests.exceptions.ConnectionError,
                         requests.exceptions.TooManyRedirects,
-                        requests.exceptions.ReadTimeout
+                        requests.exceptions.ReadTimeout,
+                        requests.exceptions.InvalidURL
                 ):
-                    lib.core.settings.logger.error(lib.core.settings.set_color(
-                        "payload '{}' caused a connection error, assuming no good and continuing".format(payload), level=40
-                    ))
+                    if not payload == "":
+                        lib.core.settings.logger.error(lib.core.settings.set_color(
+                            "payload '{}' caused a connection error, assuming no good and continuing".format(payload), level=40
+                        ))
 
         if len(success) != 0:
             lib.core.settings.logger.info(lib.core.settings.set_color(

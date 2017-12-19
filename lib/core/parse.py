@@ -45,6 +45,8 @@ class ZeusParser(OptionParser):
         mandatory.add_option("-f", "--url-file", dest="fileToEnumerate", metavar="FILE-PATH",
                              help="Run an attack on URL's in a given file")
 
+        # being worked on
+        # TODO:/
         mandatory.add_option("-u", "--url", dest="singleTargetRecon", metavar="URL",
                              help=SUPPRESS_HELP)
 
@@ -70,6 +72,8 @@ class ZeusParser(OptionParser):
         attacks.add_option("-c", "--clickjacking", dest="performClickjackingScan", action="store_true",
                            help="Perform a clickjacking scan on a provided URL")
 
+        # being worked on
+        # TODO:/
         attacks.add_option("-g", "--github-search", dest="searchGithub", action="store_true",
                            help=SUPPRESS_HELP)
 
@@ -99,6 +103,8 @@ class ZeusParser(OptionParser):
         attacks.add_option("--tamper", dest="tamperXssPayloads", metavar="TAMPER-SCRIPT",
                            help="Send the XSS payloads through tampering before sending to the target")
 
+        # being worked on
+        # TODO:/
         attacks.add_option("--thread", dest="threadPanels", action="store_true",
                            help=SUPPRESS_HELP)
 
@@ -144,6 +150,11 @@ class ZeusParser(OptionParser):
                                 help="Attempt to identify if the target is protected by some kind of "
                                      "WAF/IDS/IPS")
 
+        # being worked on
+        # TODO:/
+        search_items.add_option("--force-ssl", dest="forceSSL", action="store_true",
+                                help=SUPPRESS_HELP)
+
         search_items.add_option("--identify-plugins", dest="identifyPlugin", action="store_true",
                                 help="Attempt to identify what plugins the target is using")
 
@@ -185,6 +196,8 @@ class ZeusParser(OptionParser):
         misc.add_option("--version", dest="showCurrentVersion", action="store_true",
                         help="Show the current version and exit")
 
+        # being worked on
+        # TODO:/
         misc.add_option("-T", "--x-threads", dest="amountOfThreads", metavar="THREAD-AMOUNT", type=int,
                         help=SUPPRESS_HELP)
 

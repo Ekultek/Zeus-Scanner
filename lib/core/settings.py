@@ -45,7 +45,7 @@ CLONE = "https://github.com/ekultek/zeus-scanner.git"
 ISSUE_LINK = "https://github.com/ekultek/zeus-scanner/issues"
 
 # current version <major.minor.commit.patch ID>
-VERSION = "1.4.11.{}".format(PATCH_ID)
+VERSION = "1.4.12.{}".format(PATCH_ID)
 
 # colors to output depending on the version
 VERSION_TYPE_COLORS = {"dev": 33, "stable": 92, "other": 30}
@@ -943,6 +943,7 @@ def run_attacks(url, **kwargs):
     agent = kwargs.get("agent", None)
     conf_file = kwargs.get("conf_file", None)
     threads = kwargs.get("threads", None)
+    force_ssl = kwargs.get("ssl", False)
 
     if threads > MAX_THREADS:
         threads = check_thread_num(threads, batch=batch)
@@ -1005,6 +1006,7 @@ def run_attacks(url, **kwargs):
                 main_xss(
                     url, verbose=verbose, proxy=proxy,
                     agent=agent, tamper=tamper_script, batch=batch,
+                    force_ssl=force_ssl
                 )
         elif whois:
             from lib.attacks.whois_lookup.whois import whois_lookup_main

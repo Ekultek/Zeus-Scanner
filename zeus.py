@@ -138,7 +138,7 @@ if __name__ == "__main__":
                                 show_all=opt.showAllConnections, do_threading=opt.threadPanels,
                                 tamper_script=opt.tamperXssPayloads, timeout=opt.controlTimeout,
                                 proxy=proxy_to_use, agent=agent_to_use, conf_file=opt.sqlmapConfigFile,
-                                threads=opt.amountOfThreads
+                                threads=opt.amountOfThreads, force_ssl=opt.forceSSL
                             )
                             print("\n")
                         else:
