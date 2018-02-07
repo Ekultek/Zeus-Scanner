@@ -1,7 +1,7 @@
 e46c781638861a5651a51a5a71f5d997  ./zeus.py
 4b32db388e8acda35570c734d27c950c  ./etc/scripts/launch_sqlmap.sh
 6ad5f22ec4a6f8324bfb1b01ab6d51ec  ./etc/scripts/cleanup.sh
-74d7bee13890a9dd279bb857591647ce  ./etc/scripts/reinstall.sh
+869025acb457dc881e53e440aa11dd7b  ./etc/scripts/reinstall.sh
 155c9482f690f1482f324a7ffd8b8098  ./etc/scripts/fix_pie.sh
 0e435c641bc636ac0b3d54e032d9cf6a  ./etc/scripts/install_nmap.sh
 66b11aa388ea909de7b212341259a318  ./etc/auths/git_auth
@@ -107,11 +107,11 @@ c5b69617f040fef1d5930948905aa8d0  ./lib/attacks/whois_lookup/whois.py
 de4254c5e40f7aa4fb81e0608f758a2c  ./lib/core/decorators.py
 4433353fb5c55578391d8b4006191ee8  ./lib/core/errors.py
 d41d8cd98f00b204e9800998ecf8427e  ./lib/core/__init__.py
-b4f922b1677b42d5ec2102b3f2f6f5a3  ./lib/core/settings.py
-a6608451e6d4df7f39d8a3c720d57f3d  ./lib/core/parse.py
+993a8df2025cfed6c0fa96cc1107f76b  ./lib/core/settings.py
+1db34403d9eed871a5c39baab6fe1efd  ./lib/core/parse.py
 d41d8cd98f00b204e9800998ecf8427e  ./var/__init__.py
 d41d8cd98f00b204e9800998ecf8427e  ./var/auto_issue/__init__.py
-8e9092a4783a2d82f49c2dd824f11950  ./var/auto_issue/github.py
+c58e73857e42a07fa6eb559433b32c1a  ./var/auto_issue/github.py
 503e44b36f0bcd81e20840be5b73320e  ./var/search/__init__.py
 c52867e57beeeeac2da57f597b644faf  ./var/search/selenium_search.py
 12340de27a75273cd444f7257d354311  ./var/search/pgp_search.py
