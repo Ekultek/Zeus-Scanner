@@ -24,7 +24,7 @@ class ZeusParser(OptionParser):
         """
         command line parser, parses all of Zeus's arguments and flags
         """
-        parser = OptionParser(usage="./zeus.py -d|r|l|f|b| DORK|FILE|URL [ATTACKS] [--OPTS]")
+        parser = OptionParser(usage="./zeus.py -d|r|l|f|b DORK|FILE|URL [ATTACKS] [--OPTS]")
 
         # mandatory options
         mandatory = OptionGroup(parser, "Mandatory Options",
