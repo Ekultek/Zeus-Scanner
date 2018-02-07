@@ -20,3 +20,6 @@ class InvalidTamperProvided(Exception): pass
 
 
 class PortScanTimeOutException(Exception): pass
+
+
+class ZeusArgumentException(Exception): pass

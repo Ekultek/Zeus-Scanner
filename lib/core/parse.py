@@ -1,3 +1,4 @@
+import sys
 from optparse import (
     OptionParser,
     OptionGroup,
@@ -6,6 +7,7 @@ from optparse import (
 
 import lib.core.settings
 import lib.core.common
+import lib.core.errors
 import lib.attacks.nmap_scan.nmap_opts
 import lib.attacks.sqlmap_scan.sqlmap_opts
 
@@ -269,3 +271,23 @@ class ZeusParser(OptionParser):
             ))
             lib.core.settings.update_zeus()
             lib.core.common.shutdown()
+
+    @staticmethod
+    def verify_args(args=sys.argv):
+        not_implemented_args = (
+            "-T", "--x-threads", "--force-ssl", "--thread",
+            "-g", "--github-search", "-u", "--url"
+        )
+        # check if any of the arguments are not implemented that have been passed
+        # via the command line
+        for arg in args:
+            for nia in not_implemented_args:
+                if arg == nia:
+                    raise lib.core.errors.ZeusArgumentException(
+                        "\n\nit appears that one of the arguments you have passed ('{}'), "
+                        "has not been implemented into Zeus production yet. This usually means "
+                        "that the option is still in testing and is not ready for use. Arguments "
+                        "that are still in testing are: {}\n".format(
+                            nia, ", ".join(["'{}'".format(a) for a in not_implemented_args])
+                        )
+                    )

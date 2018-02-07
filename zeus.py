@@ -15,7 +15,8 @@ from lib.header_check import main_header_check
 from lib.core.parse import ZeusParser
 from lib.core.errors import (
     InvalidInputProvided,
-    InvalidProxyType
+    InvalidProxyType,
+    ZeusArgumentException
 )
 from lib.core.common import (
     start_up,
@@ -52,6 +53,10 @@ if __name__ == "__main__":
     opt = ZeusParser.cmd_parser()
 
     ZeusParser().single_show_args(opt)
+
+    # verify all the arguments passed before we continue
+    # with the process
+    ZeusParser().verify_args()
 
     # run the setup on the program
     setup(verbose=opt.runInVerbose)
@@ -378,6 +383,8 @@ if __name__ == "__main__":
             "do not interrupt the browser when selenium is running, "
             "it will cause Zeus to crash", level=30
         ))
+    except ZeusArgumentException:
+        shutdown()
     except Exception as e:
         if "url did not match a true url" in str(e).lower():
             logger.error(set_color(
