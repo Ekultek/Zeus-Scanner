@@ -85,7 +85,7 @@ def request_issue_creation():
 
     current_log_file = lib.core.settings.get_latest_log_file(lib.core.settings.CURRENT_LOG_FILE_PATH)
     stacktrace = __extract_stacktrace(current_log_file)
-    identifier = lib.core.settings.create_identifier()
+    identifier = lib.core.settings.create_identifier(stacktrace)
     issue_title = "Unhandled exception ({})".format(identifier)
     ff_version = lib.core.settings.get_browser_version()
     log_file_information = lib.core.settings.tails(current_log_file)

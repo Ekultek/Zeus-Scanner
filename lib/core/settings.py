@@ -8,7 +8,6 @@ import shlex
 import difflib
 import logging
 import base64
-import string
 import random
 import socket
 import struct
@@ -45,7 +44,7 @@ CLONE = "https://github.com/ekultek/zeus-scanner.git"
 ISSUE_LINK = "https://github.com/ekultek/zeus-scanner/issues"
 
 # current version <major.minor.commit.patch ID>
-VERSION = "1.4.13.{}".format(PATCH_ID)
+VERSION = "1.5".format(PATCH_ID)
 
 # colors to output depending on the version
 VERSION_TYPE_COLORS = {"dev": 33, "stable": 92, "other": 30}
@@ -670,14 +669,14 @@ def get_md5sum(url="https://raw.githubusercontent.com/Ekultek/Zeus-Scanner/maste
         return True
 
 
-def create_identifier(chars=string.ascii_letters):
+def create_identifier(st):
     """
     create the identifier for your Github issue
     """
-    retval = []
-    for _ in range(0, 7):
-        retval.append(random.choice(chars))
-    return "".join(retval)
+    import hashlib
+    obj = hashlib.md5()
+    obj.update(st)
+    return obj.hexdigest()[1:9]
 
 
 def config_search_engine(**kwargs):
