@@ -44,7 +44,7 @@ CLONE = "https://github.com/ekultek/zeus-scanner.git"
 ISSUE_LINK = "https://github.com/ekultek/zeus-scanner/issues"
 
 # current version <major.minor.commit.patch ID>
-VERSION = "1.5.1".format(PATCH_ID)
+VERSION = "1.5.2".format(PATCH_ID)
 
 # colors to output depending on the version
 VERSION_TYPE_COLORS = {"dev": 33, "stable": 92, "other": 30}
@@ -600,28 +600,34 @@ def search_for_process(name):
     return False if not any(name in proc for proc in list(all_process_names)) else True
 
 
-def get_browser_version():
+def get_browser_version(output=True):
     """
     obtain the firefox browser version, this is necessary because zeus can only handle certain versions.
     """
-    logger.info(set_color(
-        "attempting to get firefox browser version"
-    ))
+    if output:
+        logger.info(set_color(
+            "attempting to get firefox browser version"
+        ))
     try:
         firefox_version_command = shlex.split("firefox --version")
         output = subprocess.check_output(firefox_version_command)
-    except (OSError, Exception):
+    except OSError:
         logger.error(set_color(
             "failed to run firefox", level=50
         ))
         return "failed to start"
     try:
         major, minor = map(int, re.search(r"(\d+).(\d+)", output).groups())
-    except (ValueError, Exception):
+    except ValueError:
         logger.error(set_color(
             "failed to parse '{}' for version number".format(output), level=50
         ))
-        return "failed to gather"
+        return output
+    except Exception as e:
+        logger.error(set_color(
+            "received and exception from firefox '{}'".format(str(e), level=50)
+        ))
+        return str(e)
     return major, minor
 
 
