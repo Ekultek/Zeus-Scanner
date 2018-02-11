@@ -280,6 +280,8 @@ class ZeusParser(OptionParser):
         )
         # check if any of the arguments are not implemented that have been passed
         # via the command line
+        # TODO:/
+        # need to create a way to parse all arguments for compatibility with one another
         for arg in args:
             for nia in not_implemented_args:
                 if arg == nia:
