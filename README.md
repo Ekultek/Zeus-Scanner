@@ -80,7 +80,7 @@ There are some requirements for this to be run successfully.
 ##### Basic requirements
 
  - `libxml2-dev`, `libxslt1-dev`, `python-dev` are required for the installation process
- - Firefox web browser is required as of now, you will need Firefox version `<=57 >=51` (between 51 and 57). Full functionality for other browsers will eventually be added.
+ - Firefox web browser is required as of now, you will need Firefox version `<=58 >=52` (between 52 and 58). Full functionality for other browsers will eventually be added.
  - If you want to run sqlmap through the URL's you will need sqlmap somewhere on your system.
  - If you want to run a port scan using nmap on the URL's IP addresses. You will need nmap on your system.
  - [Geckodriver](https://github.com/mozilla/geckodriver) is required to run the firefox web browser and will be installed the first time you run. It will be added to your `/usr/bin` so that it can be run in your ENV PATH.
