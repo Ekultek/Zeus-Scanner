@@ -1,5 +1,9 @@
 import os
+import sys
+import time
+import shlex
 import platform
+import threading
 import subprocess
 import tarfile
 try:
@@ -11,6 +15,27 @@ import whichcraft
 
 import lib.core.common
 import lib.core.settings
+
+
+stop_animation = False
+xvfb_path = "{}/etc/scripts/install_xvfb.sh".format(os.getcwd())
+
+
+def animation(text):
+    global stop_animation
+    i = 0
+    while not stop_animation:
+        temp_text = list(text)
+        if i >= len(temp_text):
+            i = 0
+        temp_text[i] = temp_text[i].upper()
+        temp_text = ''.join(temp_text)
+        sys.stdout.write("\033[92m{}\r\033[0m".format(temp_text))
+        sys.stdout.flush()
+        i += 1
+        time.sleep(0.1)
+    else:
+        print(text)
 
 
 def disclaimer():
@@ -46,6 +71,8 @@ def parse_hosts(filepath="/etc/hosts"):
 
 
 def find_tools(to_search=("sqlmap", "nmap"), directory="{}/bin/paths", filename="path_config.ini"):
+    global stop_animation
+
     lib.core.settings.create_dir(directory.format(os.getcwd()))
     full_path = "{}/{}".format(
         directory.format(os.getcwd()),
@@ -62,6 +89,7 @@ def find_tools(to_search=("sqlmap", "nmap"), directory="{}/bin/paths", filename=
             path_schema[item] = None
     for key, value in path_schema.iteritems():
         if value is None:
+            stop_animation = True
             provided_path = lib.core.common.prompt(
                 "what is the full path to {} on your system".format(key)
             )
@@ -78,9 +106,9 @@ def config_gecko_version(browser_version):
     figure out which gecko version you need
     """
     version_specs = {
-        (56, 57): 19,
-        (55, 54): 18,
-        (53, 52, 51): 17
+        (57, 58): 19,
+        (56, 55, 54): 18,
+        (53, 52): 17
     }
     if isinstance(browser_version, (tuple, list, set)):
         major = browser_version[0]
@@ -112,11 +140,14 @@ def check_xvfb(exc="Xvfb"):
     """
     test for xvfb on the users system
     """
+    global xvfb_path
+    global stop_animation
+
     if whichcraft.which(exc) is None:
-        lib.core.settings.logger.info(lib.core.settings.set_color(
-            "installing Xvfb, required by pyvirutaldisplay"
-        ))
-        subprocess.call(["sudo", "apt-get", "install", "xvfb"])
+        cmd = shlex.split("sudo sh {}".format(xvfb_path))
+        subprocess.call(cmd)
+        stop_animation = True
+
     else:
         return True
 
@@ -140,15 +171,19 @@ def untar_gecko(filename="{}/bin/drivers/geckodriver-v0.{}.0-linux{}.tar.gz", ve
     """
     untar the correct gecko driver for your computer architecture
     """
+    global stop_animation
+
     arch_info = {"64bit": "64", "32bit": "32"}
     file_arch = arch_info[platform.architecture()[0]]
-    ff_version = lib.core.settings.get_browser_version()
+    ff_version = lib.core.settings.get_browser_version(output=False)
     if isinstance(ff_version, str) or ff_version is None:
+        stop_animation = True
         ff_version = lib.core.common.prompt(
-            "enter your firefox browser version (if you don't know it run firefox --version"
+            "enter your firefox browser version (if you don't know it run firefox --version)"
         )
     gecko_version = config_gecko_version(ff_version)
     if gecko_version is None:
+        stop_animation = True
         lib.core.settings.logger.fatal(lib.core.settings.set_color(
             "your current firefox version is not supported by Zeus", level=50
         ))
@@ -157,22 +192,10 @@ def untar_gecko(filename="{}/bin/drivers/geckodriver-v0.{}.0-linux{}.tar.gz", ve
     with open(lib.core.settings.GECKO_VERSION_INFO_PATH, "a+") as log:
         log.write(gecko_full_filename.split("/")[-1])
     tar = tarfile.open(filename.format(os.getcwd(), gecko_version, file_arch), "r:gz")
-    if verbose:
-        lib.core.settings.logger.debug(lib.core.settings.set_color(
-            "extracting the correct driver for your architecture", level=10
-        ))
     try:
         tar.extractall("/usr/bin")
-        if verbose:
-            lib.core.settings.logger.debug(lib.core.settings.set_color(
-                "driver extracted into /usr/bin (you may change this, but ensure that it "
-                "is in your PATH)", level=10
-            ))
     except IOError as e:
         if "Text file busy" in str(e):
-            lib.core.settings.logger.info(lib.core.settings.set_color(
-                "the driver is already installed"
-            ))
             tar.close()
             pass
     except Exception as e:
@@ -192,10 +215,6 @@ def ensure_placed(item="geckodriver", verbose=False):
     """
     use whichcraft to ensure that the driver has been placed in your PATH variable
     """
-    if verbose:
-        lib.core.settings.logger.debug(lib.core.settings.set_color(
-            "ensuring that the driver exists in your system path", level=10
-        ))
     if not whichcraft.which(item):
         lib.core.settings.logger.fatal(lib.core.settings.set_color(
             "the executable '{}' does not appear to be in your /usr/bin PATH. "
@@ -204,10 +223,6 @@ def ensure_placed(item="geckodriver", verbose=False):
         ))
         exit(-1)
     else:
-        if verbose:
-            lib.core.settings.logger.debug(lib.core.settings.set_color(
-                "driver exists, continuing", level=10
-            ))
         return True
 
 
@@ -215,10 +230,6 @@ def main(rewrite="{}/bin/executed.txt", verbose=False):
     """
     main method
     """
-    if verbose:
-        lib.core.settings.logger.debug(lib.core.settings.set_color(
-            "verifying operating system", level=10
-        ))
     if not check_os():
         raise NotImplementedError(lib.core.settings.set_color(
             "as of now, Zeus requires Linux to run successfully "
@@ -228,14 +239,10 @@ def main(rewrite="{}/bin/executed.txt", verbose=False):
     if check_if_run():
         if not disclaimer():
             exit(1)
-        lib.core.settings.logger.info(lib.core.settings.set_color(
-            "seems this is your first time running the application, "
-            "doing setup please wait"
-        ))
-        if verbose:
-            lib.core.settings.logger.debug(lib.core.settings.set_color(
-                "checking if xvfb is on your system", level=10
-            ))
+        t = threading.Thread(target=animation, args=(
+            "seems this is your first time running the application, doing setup please wait..",))
+        t.daemon = True
+        t.start()
         find_tools()
         check_xvfb()
         untar_gecko(verbose=verbose)
@@ -247,7 +254,4 @@ def main(rewrite="{}/bin/executed.txt", verbose=False):
             "done, continuing process"
         ))
     else:
-        if verbose:
-            lib.core.settings.logger.debug(lib.core.settings.set_color(
-                "already ran, skipping", level=10
-            ))
+        pass
