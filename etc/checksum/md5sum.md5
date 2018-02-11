@@ -4,6 +4,7 @@
 869025acb457dc881e53e440aa11dd7b  ./etc/scripts/reinstall.sh
 155c9482f690f1482f324a7ffd8b8098  ./etc/scripts/fix_pie.sh
 0e435c641bc636ac0b3d54e032d9cf6a  ./etc/scripts/install_nmap.sh
+440431165b2db8a537c1a93cb2232f16  ./etc/scripts/install_xvfb.sh
 66b11aa388ea909de7b212341259a318  ./etc/auths/git_auth
 8f686b05c5c5dfc02f0fcaa7ebc8677c  ./etc/auths/whois_auth
 d3ad89703575a712a0aeead2b176d8c5  ./etc/html/clickjacking_test_page.html
@@ -15,7 +16,7 @@ cf85d83da34d70720193d83950c31fdc  ./etc/text_files/xss_payloads.txt
 5250f0aa13b8af4775efa506e77de1ce  ./etc/xml/headers.xml
 d41d8cd98f00b204e9800998ecf8427e  ./bin/__init__.py
 3be7ee6f4267e0d0cf2143b58792527b  ./bin/paths/path_config.ini
-a0e18eb30258bbab246f983b6af95d5c  ./bin/unzip_gecko.py
+0f4a2f74f1683172e1e6c7363d73e4a9  ./bin/unzip_gecko.py
 c0d83f0b82a6b30de8811e69e6d95c61  ./bin/executed.txt
 dc1eb4ebe0f372af48b5a9c107ebc68d  ./bin/drivers/geckodriver-v0.18.0-linux32.tar.gz
 be18faeea6e7db9db6990d8667e2298f  ./bin/drivers/geckodriver-v0.17.0-linux64.tar.gz
@@ -107,8 +108,8 @@ c5b69617f040fef1d5930948905aa8d0  ./lib/attacks/whois_lookup/whois.py
 de4254c5e40f7aa4fb81e0608f758a2c  ./lib/core/decorators.py
 3f045c64ef155a517b7a3f3b66905325  ./lib/core/errors.py
 d41d8cd98f00b204e9800998ecf8427e  ./lib/core/__init__.py
-445f23739acd35a11a38cb1688699741  ./lib/core/settings.py
-278847c51cdf7b4690c9ea6eb21e3d2b  ./lib/core/parse.py
+2768773e54a218462650848c58034f2a  ./lib/core/settings.py
+27bce5d5d1e7d01788c5273016b19370  ./lib/core/parse.py
 d41d8cd98f00b204e9800998ecf8427e  ./var/__init__.py
 d41d8cd98f00b204e9800998ecf8427e  ./var/auto_issue/__init__.py
 c58e73857e42a07fa6eb559433b32c1a  ./var/auto_issue/github.py
