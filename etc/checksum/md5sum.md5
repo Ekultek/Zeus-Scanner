@@ -16,7 +16,7 @@ cf85d83da34d70720193d83950c31fdc  ./etc/text_files/xss_payloads.txt
 5250f0aa13b8af4775efa506e77de1ce  ./etc/xml/headers.xml
 d41d8cd98f00b204e9800998ecf8427e  ./bin/__init__.py
 3be7ee6f4267e0d0cf2143b58792527b  ./bin/paths/path_config.ini
-0f4a2f74f1683172e1e6c7363d73e4a9  ./bin/unzip_gecko.py
+fa5084cc7ee56ff2df8631b76be5be4d  ./bin/unzip_gecko.py
 c0d83f0b82a6b30de8811e69e6d95c61  ./bin/executed.txt
 dc1eb4ebe0f372af48b5a9c107ebc68d  ./bin/drivers/geckodriver-v0.18.0-linux32.tar.gz
 be18faeea6e7db9db6990d8667e2298f  ./bin/drivers/geckodriver-v0.17.0-linux64.tar.gz
@@ -108,7 +108,7 @@ c5b69617f040fef1d5930948905aa8d0  ./lib/attacks/whois_lookup/whois.py
 de4254c5e40f7aa4fb81e0608f758a2c  ./lib/core/decorators.py
 3f045c64ef155a517b7a3f3b66905325  ./lib/core/errors.py
 d41d8cd98f00b204e9800998ecf8427e  ./lib/core/__init__.py
-2768773e54a218462650848c58034f2a  ./lib/core/settings.py
+0faeed8eac30526f3751dd67fe5c9f7e  ./lib/core/settings.py
 27bce5d5d1e7d01788c5273016b19370  ./lib/core/parse.py
 d41d8cd98f00b204e9800998ecf8427e  ./var/__init__.py
 d41d8cd98f00b204e9800998ecf8427e  ./var/auto_issue/__init__.py

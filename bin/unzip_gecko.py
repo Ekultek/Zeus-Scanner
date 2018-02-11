@@ -35,7 +35,7 @@ def animation(text):
         i += 1
         time.sleep(0.1)
     else:
-        print(text)
+        pass
 
 
 def disclaimer():
@@ -90,6 +90,7 @@ def find_tools(to_search=("sqlmap", "nmap"), directory="{}/bin/paths", filename=
     for key, value in path_schema.iteritems():
         if value is None:
             stop_animation = True
+            print("\n")
             provided_path = lib.core.common.prompt(
                 "what is the full path to {} on your system".format(key)
             )
@@ -142,7 +143,6 @@ def check_xvfb(exc="Xvfb"):
     """
     global xvfb_path
     global stop_animation
-
     if whichcraft.which(exc) is None:
         cmd = shlex.split("sudo sh {}".format(xvfb_path))
         subprocess.call(cmd)
@@ -167,7 +167,7 @@ def check_if_run(file_check="{}/bin/executed.txt"):
             return True
 
 
-def untar_gecko(filename="{}/bin/drivers/geckodriver-v0.{}.0-linux{}.tar.gz", verbose=False):
+def untar_gecko(filename="{}/bin/drivers/geckodriver-v0.{}.0-linux{}.tar.gz"):
     """
     untar the correct gecko driver for your computer architecture
     """
@@ -245,7 +245,7 @@ def main(rewrite="{}/bin/executed.txt", verbose=False):
         t.start()
         find_tools()
         check_xvfb()
-        untar_gecko(verbose=verbose)
+        untar_gecko()
         parse_hosts()
         if ensure_placed(verbose=verbose):
             with open(rewrite.format(os.getcwd()), "w") as rw:
