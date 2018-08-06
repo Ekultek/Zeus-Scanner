@@ -34,6 +34,8 @@ try:
 except NameError:
     raw_input = input  # Python 3
 
+# test branch commit
+
 # get the master patch ID when a patch is pushed to the program
 PATCH_ID = str(subprocess.check_output(["git", "rev-parse", "origin/master"]))[:6]
 
