@@ -1,4 +1,6 @@
-_NOTE: due to dumbass people, automatic issue creation has been turned off until further notice_
+**_NOTE: due to dumbass people, automatic issue creation has been turned off until further notice_**
+
+----
 
 [![GitHub stars](https://img.shields.io/github/stars/ekultek/zeus-scanner.svg?style=flat-square)](https://github.com/ekultek/zeus-scanner/stargazers)
 [![GitHub forks](https://img.shields.io/github/forks/ekultek/zeus-scanner.svg?style=flat-square)](https://github.com/ekultek/zeus-scanner/network) 
