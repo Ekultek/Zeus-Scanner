@@ -414,11 +414,15 @@ def parse_search_results(query, url_to_search, verbose=False, **kwargs):
             "did not find any URLs with given query '{}' writing query to blacklist".format(query), level=50
         ))
         write_to_log_file(query, BLACKLIST_FILE_PATH, BLACKLIST_FILENAME, blacklist=True)
-        shutdown()
-    logger.info(set_color(
-        "found a total of {} URLs with given query '{}'".format(len(true_retval), query)
-    ))
-    return list(true_retval) if len(true_retval) != 0 else None
+
+    if len(true_retval) == 0:
+        logger.warning("no URLs doscivered with provided query")
+        return None
+    else:
+        logger.info(set_color(
+            "found a total of {} URLs with given query '{}'".format(len(true_retval), query)
+        ))
+        return list(true_retval)
 
 
 def search_multiple_pages(query, link_amount, verbose=False, **kwargs):
