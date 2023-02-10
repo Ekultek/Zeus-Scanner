@@ -31,4 +31,3 @@ RUN curl -L https://ftp.mozilla.org/pub/firefox/releases/${FIREFOX_VERSION}/linu
 	ln -s /opt/firefox/firefox /usr/bin/firefox
 
 CMD ["python", "zeus.py"]
-
