@@ -10,7 +10,7 @@ import lib.core.settings
 
 def __create_url(ext):
     """
-    create the URL with the identifier, usually a hash
+    Create the URL with the identifier (usually a hash)
     """
     url = lib.core.settings.AUTHORIZED_SEARCH_ENGINES["pgp"]
     items = url.split("/")
@@ -25,7 +25,7 @@ def __create_url(ext):
 
 def __set_headers(**kwargs):
     """
-    set the HTTP headers
+    Set the HTTP headers
     """
     agent = kwargs.get("agent", None)
     xforward = kwargs.get("xforward", False)
@@ -52,7 +52,7 @@ def __set_headers(**kwargs):
 
 def obtain_html(url, query, **kwargs):
     """
-    obtain the HTML containing the URL redirects to the public PGP keys
+    Obtain the HTML containing the URL redirects to the public PGP keys
     """
     agent = kwargs.get("agent", None)
     xforward = kwargs.get("xforwad", False)
@@ -78,7 +78,7 @@ def obtain_html(url, query, **kwargs):
 
 def gather_urls(html, attribute="a", descriptor="href"):
     """
-    get the URLs within the HTML
+    Get the URLs within the HTML
     """
     redirects, retval = set(), set()
     soup = BeautifulSoup(html, "html.parser")
@@ -95,7 +95,7 @@ def gather_urls(html, attribute="a", descriptor="href"):
 
 def get_pgp_keys(url_list, query, attribute="pre", **kwargs):
     """
-    get the PGP keys by connecting to the URLs and pulling the information from the HTML
+    Get the PGP keys by connecting to the URLs and pulling the information from the HTML
     """
     agent = kwargs.get("agent", None)
     proxy = kwargs.get("proxy", None)
@@ -109,18 +109,18 @@ def get_pgp_keys(url_list, query, attribute="pre", **kwargs):
     identity_matcher = re.compile(r"\bbegin.pgp.public.key.block", re.I)
     amount_left = len(url_list)
     lib.core.settings.logger.info(lib.core.settings.set_color(
-        "checking a maximum of {} PGP keys".format(amount_to_search)
+        "Checking a maximum of {} PGP keys".format(amount_to_search)
     ))
     for i, url in enumerate(url_list, start=1):
         if i >= amount_to_search:
             break
         if verbose:
             lib.core.settings.logger.debug(lib.core.settings.set_color(
-                "checking '{}'".format(url), level=10
+                "Checking '{}'".format(url), level=10
             ))
         if i % 25 == 0:
             lib.core.settings.logger.info(lib.core.settings.set_color(
-                "currently checking PGP key #{}, {} left to check ({} total found)".format(
+                "Currently checking PGP key #{}, {} left to check ({} total found)".format(
                     i, amount_to_search - i, amount_left
                 )
             ))
@@ -147,7 +147,7 @@ def get_pgp_keys(url_list, query, attribute="pre", **kwargs):
         pgp_key = pgp_key[1].split("</{}>".format(attribute))[0]  # split it again by the end tag
         if verbose:
             lib.core.settings.logger.debug(lib.core.settings.set_color(
-                "found PGP:", level=10
+                "Found PGP:", level=10
             ))
             # output the found PGP key if you run in verbose
             print("{}\n{}\n{}".format(data_sep, pgp_key, data_sep))
@@ -164,7 +164,7 @@ def pgp_main(query, verbose=False):
         except Exception:
             query = query
         lib.core.settings.logger.info(lib.core.settings.set_color(
-            "searching public PGP files with given query '{}'".format(query)
+            "Searching public PGP files with given query '{}'".format(query)
         ))
         try:
             html = obtain_html(
@@ -172,25 +172,25 @@ def pgp_main(query, verbose=False):
             )
         except (Exception, ReadTimeout):
             lib.core.settings.logger.warning(lib.core.settings.set_color(
-                "connection failed, assuming no PGP keys", level=30
+                "Connection failed, assuming no PGP keys", level=30
             ))
             html = None
         if html is not None:
             urls = gather_urls(html)
             lib.core.settings.logger.info(lib.core.settings.set_color(
-                "found a total of {} URLs".format(len(urls))
+                "Found a total of {} URLs".format(len(urls))
             ))
             if verbose:
                 lib.core.settings.logger.debug(lib.core.settings.set_color(
-                    "found a '{}'".format(urls), level=10
+                    "Found a '{}'".format(urls), level=10
                 ))
             lib.core.settings.logger.info(lib.core.settings.set_color(
-                "gathering PGP key(s) and writing to a file", level=25
+                "Gathering PGP key(s) and writing to a file", level=25
             ))
             return get_pgp_keys(urls, query, verbose=verbose)
         else:
             lib.core.settings.logger.warning(lib.core.settings.set_color(
-                "did not find anything using query '{}'".format(query), level=30
+                "Did not find anything using query '{}'".format(query), level=30
             ))
     except KeyboardInterrupt:
         if not lib.core.common.pause():

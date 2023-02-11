@@ -61,11 +61,11 @@ DISCLAIMER = (
 
 # sexy banner
 BANNER = """\033[36m
-    __          __________                             __   
-   / /          \____    /____  __ __  ______          \ \  
-  / /    ______   /     // __ \|  |  \/  ___/  ______   \ \ 
-  \ \   /_____/  /     /\  ___/|  |  /\___ \  /_____/   / / 
-   \_\          /_______ \___  >____//____  >          /_/  
+    __          __________                             __
+   / /          \____    /____  __ __  ______          \ \\
+  / /    ______   /     // __ \|  |  \/  ___/  ______   \ \\
+  \ \   /_____/  /     /\  ___/|  |  /\___ \  /_____/   / /
+   \_\          /_______ \___  >____//____  >          /_/
                        \/   \/           \/  {}
 \t{}\n\t\t{}\033[0m\n\n\n{}""".format(VERSION_STRING, CLONE, SAYING, DISCLAIMER)
 
@@ -620,6 +620,7 @@ def get_browser_version(output=True):
         return output
     except Exception as e:
         logger.error(set_color(
+            # TODO: Fix this - 'cannot use a string pattern on a bytes-like object'
             "Received an exception from Firefox: '{}'".format(str(e), level=40)
         ))
         return str(e)

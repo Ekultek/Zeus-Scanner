@@ -252,7 +252,7 @@ def parse_search_results(query, url_to_search, verbose=False, **kwargs):
             HTTP_HEADER.USER_AGENT: user_agent
         }
     logger.info(set_color(
-        "attempting to gather query URL"
+        "Attempting to gather query URL"
     ))
     try:
         query_url = get_urls(
@@ -262,60 +262,60 @@ def parse_search_results(query, url_to_search, verbose=False, **kwargs):
     except Exception as e:
         if "'/usr/lib/firefoxdriver/webdriver.xpi'" in str(e):
             logger.fatal(set_color(
-                "firefox was not found in the default location on your system, "
-                "check your installation and make sure it is in /usr/lib, if you "
+                "Firefox was not found in the default location on your system, "
+                "check your installation and make sure it is in /usr/lib. If you "
                 "find it there, restart your system and try again", level=50
             ))
         elif "connection refused" in str(e).lower():
             logger.fatal(set_color(
-                "there are to many sessions of firefox opened and selenium cannot "
+                "There are to many sessions of Firefox open, Selenium cannot "
                 "create a new one", level=50
             ))
             run_fix(
-                "would you like to attempt to auto clean the open sessions",
+                "Would you like to attempt to auto clean the open sessions? >",
                 "sudo sh {}".format(CLEANUP_TOOL_PATH),
-                "kill off the open sessions of firefox and re-run Zeus",
+                "Kill off the open sessions of firefox and re-run Zeus",
                 exit_process=True
             )
         elif "Program install error!" in str(e):
             logger.error(set_color(
-                "seems the program is having some trouble installing would you like "
+                "Seems the program is having some trouble installing; would you like "
                 "to try and automatically fix this issue", level=40
             ))
             run_fix(
-                "would you like to attempt to fix this issue automatically",
+                "Would you like to attempt to fix this issue automatically? >",
                 "sudo sh {}".format(FIX_PROGRAM_INSTALL_PATH),
                 "you can manually try and re-install Xvfb to fix the problem",
                 exit_process=True
             )
         elif "Message: Reached error page:" in str(e):
             logger.fatal(set_color(
-                "geckodriver has hit an error that usually means it needs to be reinstalled", level=50
+                "geckodriver has hit an error; that usually means it needs to be reinstalled", level=50
             ))
             question = prompt(
-                "would you like to attempt a reinstallation of the geckodriver", opts="yN"
+                "Would you like to attempt a reinstallation of the geckodriver? >", opts="yN"
             )
             if question.lower().startswith("y"):
                 logger.warning(set_color(
-                    "rewriting all executed information, path information, and removing geckodriver", level=30
+                    "Rewriting all executed information, path information, and removing geckodriver", level=30
                 ))
                 rewrite_all_paths()
                 logger.info(set_color(
-                    "all paths rewritten, you will be forced to re-install everything next run of Zeus"
+                    "All paths rewritten, you will be forced to re-install everything next run of Zeus"
                 ))
             else:
                 logger.fatal(set_color(
-                    "you will need to remove the geckodriver from /usr/bin and reinstall it", level=50
+                    "You will need to remove the geckodriver from /usr/bin and reinstall it", level=50
                 ))
                 shutdown()
         elif "Unable to find a matching set of capabilities" in str(e):
             logger.fatal(set_color(
-                "it appears that firefox, selenium, and geckodriver are not playing nice with one another", level=50
+                "It appears that Firefox, Selenium, and geckodriver are not playing nice with one another", level=50
             ))
             run_fix(
-                "would you like to attempt to resolve this issue automatically",
+                "Would you like to attempt to resolve this issue automatically? >",
                 "sudo sh {}".format(REINSTALL_TOOL),
-                ("you will need to reinstall firefox to a later version, update selenium, and reinstall the "
+                ("You will need to reinstall firefox to a later version, update selenium, and reinstall the "
                  "geckodriver to continue using Zeus"),
                 exit_process=True
             )
@@ -337,7 +337,7 @@ def parse_search_results(query, url_to_search, verbose=False, **kwargs):
         req = requests.get(query_url, proxies=proxy_string, params=headers)
     except ConnectionError:
         logger.warning(set_color(
-            "target machine refused connection, delaying and trying again", level=30
+            "Target machine refused connection, delaying and trying again", level=30
         ))
         time.sleep(3)
         req = requests.get(query_url, proxies=proxy_string, params=headers)
@@ -380,12 +380,12 @@ def parse_search_results(query, url_to_search, verbose=False, **kwargs):
         if parse_webcache:
             if "webcache" in url:
                 logger.info(set_color(
-                    "found a webcache URL, extracting"
+                    "Found a webcache URL, extracting..."
                 ))
                 url = URLParser(url).extract_webcache_url()
                 if verbose:
                     logger.debug(set_color(
-                        "found '{}'".format(url), level=15
+                        "Found '{}'".format(url), level=15
                     ))
                 true_retval.add(url)
             else:
@@ -399,23 +399,23 @@ def parse_search_results(query, url_to_search, verbose=False, **kwargs):
             amount_of_urls = len(open(file_path).readlines())
             success_rate = calculate_success(amount_of_urls)
             logger.info(set_color(
-                "provided query has a {} success rate".format(success_rate)
+                "Provided query has a {} success rate".format(success_rate)
             ))
     else:
         logger.warning(set_color(
-            "did not find any URLs with given query '{}' writing query to blacklist".format(query), level=50
+            "Did not find any URLs with given query '{}' writing query to blacklist".format(query), level=50
         ))
         write_to_log_file(query, BLACKLIST_FILE_PATH, BLACKLIST_FILENAME, blacklist=True)
 
     logger.info(set_color(
-        "found a total of {} URLs with given query '{}'".format(len(true_retval), query)
+        "Found a total of {} URLs with given query '{}'".format(len(true_retval), query)
     ))
 
 
 
 def search_multiple_pages(query, link_amount, verbose=False, **kwargs):
     """
-    search multiple pages for a lot of links, this will not be done via Google
+    Search multiple pages for a lot of links, this will not be done via Google
     """
     proxy = kwargs.get("proxy", None)
     agent = kwargs.get("agent", None)
@@ -427,7 +427,7 @@ def search_multiple_pages(query, link_amount, verbose=False, **kwargs):
     search_engine = AUTHORIZED_SEARCH_ENGINES["search-results"]
 
     logger.warning(set_color(
-        "searching multiple pages will not be done on Google".format(search_engine), level=30
+        "Searching multiple pages will not be done on Google".format(search_engine), level=30
     ))
 
     if not parse_blacklist(query, BLACKLIST_FILE_PATH, batch=batch):
@@ -451,11 +451,11 @@ def search_multiple_pages(query, link_amount, verbose=False, **kwargs):
         while len(retval) <= link_amount:
             if verbose:
                 logger.debug(set_color(
-                    "searching page number {}".format(page_number), level=10
+                    "Searching page number {}".format(page_number), level=10
                 ))
             if page_number % 10 == 0:
                 logger.info(set_color(
-                    "currently on page {} of search results".format(
+                    "Currently on page {} of search results".format(
                         page_number
                     )
                 ))
@@ -482,16 +482,16 @@ def search_multiple_pages(query, link_amount, verbose=False, **kwargs):
                         break
                 else:
                     logger.warning(set_color(
-                        "no more results found for given query '{}'".format(query), level=30
+                        "No more results found for given query '{}'".format(query), level=30
                     ))
                     break
     except KeyboardInterrupt:
         logger.error(set_color(
-            "user aborted, dumping already found URL(s)", level=40
+            "User aborted, dumping already found URL(s)", level=40
         ))
         write_to_log_file(retval, URL_LOG_PATH, URL_FILENAME)
         logger.info(set_color(
-            "found a total of {} URL(s)".format(len(retval)), level=25
+            "Found a total of {} URL(s)".format(len(retval)), level=25
         ))
         shutdown()
     except Exception as e:
@@ -503,18 +503,18 @@ def search_multiple_pages(query, link_amount, verbose=False, **kwargs):
 
     if len(retval) > 0:
         logger.info(set_color(
-            "a total of {} URL(s) found out of the requested {}".format(len(retval), link_amount), level=25
+            "A total of {} URL(s) found out of the requested {}".format(len(retval), link_amount), level=25
         ))
         file_path = write_to_log_file(retval, URL_LOG_PATH, URL_FILENAME)
         if show_success:
             amount_of_urls = len(open(file_path).readlines())
             success_rate = calculate_success(amount_of_urls)
             logger.info(set_color(
-                "provided query has a {} success rate".format(success_rate)
+                "Provided query has a {} success rate".format(success_rate)
             ))
         return list(retval)
     else:
         logger.warning(set_color(
-            "did not find any links with given query '{}' writing to blacklist".format(query), level=30
+            "Did not find any links with given query '{}' writing to blacklist".format(query), level=30
         ))
         write_to_log_file(query, BLACKLIST_FILE_PATH, BLACKLIST_FILENAME)

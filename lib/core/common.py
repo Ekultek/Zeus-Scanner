@@ -86,7 +86,7 @@ class URLParser(object):
 
     def extract_webcache_url(self, splitter="+"):
         """
-        extract the URL from Google's webcache URL
+        Extract the URL from Google's webcache URL
         """
         url = self.url
         data = self.webcache_regex.split(url)
@@ -98,7 +98,7 @@ class URLParser(object):
 
     def extract_ip_ban_url(self):
         """
-        extract the true URL from Google's IP ban URL
+        Extract the true URL from Google's IP ban URL
         """
         url = unquote(self.url)
         to_use_separator = None
@@ -124,7 +124,7 @@ class URLParser(object):
 
 def write_to_log_file(data_to_write, path, filename, blacklist=False):
     """
-    write all found data to a log file
+    Write all found data to a log file
     """
     lib.core.settings.create_dir(path.format(os.getcwd()))
     full_file_path = "{}/{}".format(
@@ -173,14 +173,14 @@ def write_to_log_file(data_to_write, path, filename, blacklist=False):
             else:
                 log.write(data_to_write + "\n")
     lib.core.settings.logger.info(lib.core.settings.set_color(
-        "successfully wrote found items to '{}'".format(full_file_path)
+        "Successfully wrote found items to '{}'".format(full_file_path)
     ))
     return full_file_path
 
 
 def start_up():
     """
-    start the program and display the time it was started
+    Start the program and display the time it was started
     """
     print(
         "\n\n[*] starting up at {}..\n\n".format(time.strftime("%H:%M:%S"))
@@ -189,17 +189,17 @@ def start_up():
 
 def shutdown():
     """
-    shut down the program and the time it stopped
+    Shut down the program and the time it stopped
     """
     print(
-        "\n\n[*] shutting down at {}..\n\n".format(time.strftime("%H:%M:%S"))
+        "\n\n[*] shutting down at {}.\n\n".format(time.strftime("%H:%M:%S"))
     )
     exit(0)
 
 
 def prompt(question, opts=None, default=None, paused=False):
     """
-    ask a question
+    Ask a question
     """
     if opts is not None and default is None:
         options = '/'.join(opts)
@@ -247,10 +247,10 @@ def prompt(question, opts=None, default=None, paused=False):
 
 def pause():
     """
-    interactive pause function, as of now you are only able to skip and exit
+    Interactive pause function, as of now you are only able to skip and exit
     from this function
     """
-    message = "program has been paused, how do you want to proceed?"
+    message = "Program has been paused, how do you want to proceed?"
     return prompt(
         message, paused=True
     )
@@ -258,7 +258,7 @@ def pause():
 
 def run_fix(message, command, fail_message, exit_process=False):
     """
-    run the fix script for the program
+    Run the fix script for the program
     """
     do_fix = prompt(
         message, opts="yN"
@@ -268,7 +268,7 @@ def run_fix(message, command, fail_message, exit_process=False):
         subprocess.call(cmd)
         if exit_process:
             lib.core.settings.logger.info(lib.core.settings.set_color(
-                "command completed successfully, should be safe to re-run Zeus"
+                "Command completed successfully, should be safe to re-run Zeus"
             ))
     else:
         lib.core.settings.logger.fatal(lib.core.settings.set_color(
