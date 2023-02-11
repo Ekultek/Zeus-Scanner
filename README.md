@@ -185,7 +185,7 @@ Zeus is created by a small team of developers that have an aspiration for inform
 
  - Bitcoin(BTC): `3DAQGcAQ194NGVs16Mmv75ip45CVuE8cZy`
  - [PayPal](https://www.paypal.me/ZeusScanner)
- - Or you can [Buy us a coffee](https://ko-fi.com/A28355P5)
+ - Or you can [buy us a coffee](https://ko-fi.com/A28355P5)
 
 You can be assured that all donations will go towards Zeus funding to make it more reliable and even better, thank you from the Zeus development team.
 
