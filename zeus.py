@@ -94,7 +94,7 @@ if __name__ == "__main__":
 
         if urls_to_use is None:
             logger.error(set_color(
-                "unable to run attacks appears that no file was created for the retrieved data", level=40
+                "Unable to run attacks appears that no file was created for the retrieved data", level=40
             ))
             shutdown()
         options = [

@@ -78,7 +78,7 @@ class Blackwidow(object):
         )
         soup = BeautifulSoup(html_page, "html.parser")
         for link in soup.findAll(attribute):
-            found_redirect = str(link.get(descriptor)).decode("unicode_escape")
+            found_redirect = str(link.get(descriptor))
             if found_redirect is not None and lib.core.settings.URL_REGEX.match(found_redirect):
                 unique_links.add(found_redirect)
             else:

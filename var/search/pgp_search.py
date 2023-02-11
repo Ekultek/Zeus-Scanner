@@ -83,7 +83,7 @@ def gather_urls(html, attribute="a", descriptor="href"):
     redirects, retval = set(), set()
     soup = BeautifulSoup(html, "html.parser")
     for link in soup.findAll(attribute):
-        found_redirect = str(link.get(descriptor)).decode("unicode_escape")
+        found_redirect = str(link.get(descriptor))
         if lib.core.settings.PGP_IDENTIFIER_REGEX.search(found_redirect) is not None:
             redirects.add(found_redirect)
     for link in redirects:

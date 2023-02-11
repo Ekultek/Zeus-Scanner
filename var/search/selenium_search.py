@@ -61,7 +61,7 @@ def get_urls(query, url, verbose=False, **kwargs):
       the Google URL. This will open a robot controlled browser window and attempt
       to get a URL from Google that will be used for scraping afterwards.
     """
-    query = query.decode('unicode_escape').encode('utf-8')
+    query = query.encode('utf-8')
     proxy, user_agent = kwargs.get("proxy", None), kwargs.get("user_agent", None)
     tor, tor_port = kwargs.get("tor", False), kwargs.get("tor_port", None)
     batch = kwargs.get("batch", False)
