@@ -2,11 +2,7 @@ import os
 import re
 import tempfile
 import importlib
-try:
-    import urlparse  # python 2
-except ImportError:
-    import urllib.parse as urlparse  # python 3
-
+import urllib.parse as urlparse
 import requests
 
 import lib.core.common

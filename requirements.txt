@@ -1,8 +1,8 @@
-selenium==3.5.0
-requests==2.12.2
-python-nmap==0.6.1
-whichcraft==0.4.1
-pyvirtualdisplay==0.2.1
-lxml==3.7.3
-psutil==5.0.1
-beautifulsoup4==4.6.0
+selenium
+requests
+python-nmap
+whichcraft
+pyvirtualdisplay
+lxml
+psutil
+beautifulsoup4

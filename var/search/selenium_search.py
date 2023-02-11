@@ -1,14 +1,6 @@
 import os
 import time
-
-try:
-    from urllib import (  # python 2
-        unquote
-    )
-except ImportError:
-    from urllib.parse import (  # python 3
-        unquote
-    )
+from urllib.parse import (unquote)
 
 import requests
 from bs4 import BeautifulSoup
@@ -414,11 +406,11 @@ def parse_search_results(query, url_to_search, verbose=False, **kwargs):
             "did not find any URLs with given query '{}' writing query to blacklist".format(query), level=50
         ))
         write_to_log_file(query, BLACKLIST_FILE_PATH, BLACKLIST_FILENAME, blacklist=True)
-        
+
     logger.info(set_color(
         "found a total of {} URLs with given query '{}'".format(len(true_retval), query)
     ))
-    
+
 
 
 def search_multiple_pages(query, link_amount, verbose=False, **kwargs):

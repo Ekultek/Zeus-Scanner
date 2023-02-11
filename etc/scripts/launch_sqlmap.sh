@@ -2,4 +2,4 @@
 
 USR_PATH=$2
 
-python "$USR_PATH/sqlmapapi.py" -s
+python3 "$USR_PATH/sqlmapapi.py" -s

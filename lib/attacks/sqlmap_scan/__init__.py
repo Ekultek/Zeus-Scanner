@@ -2,12 +2,7 @@ import json
 import re
 import subprocess
 import shlex
-
-try:
-    import urllib2  # python 2
-except ImportError:
-    import urllib as urllib2  # python 3
-
+import urllib as urllib2
 import requests
 
 import lib.core.common
@@ -235,7 +230,7 @@ def sqlmap_scan_main(url, port=None, verbose=None, opts=None, auto_start=False):
             lib.core.settings.logger.error(lib.core.settings.set_color(
                 "sqlmap API is not started, did you forget to start it? "
                 "You will need to open a new terminal, cd into sqlmap, and "
-                "run `python sqlmapapi.py -s` otherwise pass the correct flags "
+                "run `python3 sqlmapapi.py -s` otherwise pass the correct flags "
                 "to auto start the API", level=40
             ))
             pass

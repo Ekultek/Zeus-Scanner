@@ -1,6 +1,6 @@
 [![GitHub stars](https://img.shields.io/github/stars/ekultek/zeus-scanner.svg?style=flat-square)](https://github.com/ekultek/zeus-scanner/stargazers)
-[![GitHub forks](https://img.shields.io/github/forks/ekultek/zeus-scanner.svg?style=flat-square)](https://github.com/ekultek/zeus-scanner/network) 
-[![GitHub issues](https://img.shields.io/github/issues/ekultek/zeus-scanner.svg?style=flat-square)](https://github.com/ekultek/zeus-scanner/issues) 
+[![GitHub forks](https://img.shields.io/github/forks/ekultek/zeus-scanner.svg?style=flat-square)](https://github.com/ekultek/zeus-scanner/network)
+[![GitHub issues](https://img.shields.io/github/issues/ekultek/zeus-scanner.svg?style=flat-square)](https://github.com/ekultek/zeus-scanner/issues)
 [![GitHub license](https://img.shields.io/badge/license-GPL-blue.svg?style=flat-square)](https://raw.githubusercontent.com/Ekultek/Zeus-Scanner/master/.github/LICENSE.md)
 [![Twitter](https://img.shields.io/twitter/url/https/github.com/ekultek/zeus-scanner.svg?style=social)](https://twitter.com/Zeus_Scanner)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://github.com/Ekultek/Zeus-Scanner#donations)
@@ -61,7 +61,7 @@ Si ejecuta sin opciones obligatorias o si ejecuta el indicador `--help`, se most
 ! [zeus-help](https://user-images.githubusercontent.com/14183473/30176257-63391c62-93c7-11e7-94d7-68fde7818381.png)
 Un escaneo de dork básico con la bandera `-d`, del dork dado lanzará un navegador automatizado y extraerá los resultados de la página de Google:
 ! [zeus-dork-scan](https://user-images.githubusercontent.com/14183473/30176252-618b191a-93c7-11e7-84d2-572c12994c4d.png)
-Llamar al indicador `-s` le pedirá que inicie el servidor de la API sqlmap` python sqlmapapi.py -s` desde sqlmap, luego se conectará a la API y realizará un análisis de sqlmap en la URL encontrada.
+Llamar al indicador `-s` le pedirá que inicie el servidor de la API sqlmap` python3 sqlmapapi.py -s` desde sqlmap, luego se conectará a la API y realizará un análisis de sqlmap en la URL encontrada.
 ! [zeus-sqlmap-api](https://user-images.githubusercontent.com/14183473/30176259-6657b304-93c7-11e7-81f8-0ed09a6c0268.png)
 
 Puede ver más capturas de pantalla [aquí](https://github.com/Ekultek/Zeus-Scanner/wiki/Screenshots)
@@ -84,7 +84,7 @@ Hay algunos requisitos para que esto se ejecute con éxito.
  - [Geckodriver](https://github.com/mozilla/geckodriver) es necesario para ejecutar el navegador web firefox y se instalará la primera vez que ejecute. Se agregará a su `/ usr / bin` para que pueda ejecutarse en su ENV PATH.
  - Debe ser `sudo` por primera vez ejecutando esto para que pueda agregar el controlador a su RUTA, también puede necesitar ejecutar como` sudo` dependiendo de sus permisos. _NOTA: _`Dependiendo de los permisos, puede que necesite sudo para cualquier ejecución que involucre al geckodriver`
  - `xvfb` es requerido por` pyvirtualdisplay`, se instalará si no está instalado en su primera ejecución
- 
+
 ##### Requisitos del paquete de Python
 
  - Se requiere el paquete [selenium-webdriver](http://www.seleniumhq.org/projects/webdriver/) para automatizar el navegador web y eludir las llamadas API.
@@ -95,7 +95,7 @@ Hay algunos requisitos para que esto se ejecute con éxito.
  - [lxml](https://lxml.readthedocs.io/en/latest/) es necesario para analizar los datos XML del mapa del sitio y guardarlo como tal
  - [psutil](https://github.com/giampaolo/psutil) es necesario para buscar ejecutar sesiones API de sqlmap
  - [beautifulsoup](https://www.crummy.com/software/BeautifulSoup/bs4/doc/) es necesario para extraer todas las etiquetas de descriptor HREF y analizar el HTML en una sintaxis fácil de usar
- 
+
 ### Instalación
 
 Puede descargar la última [tar.gz](https://github.com/ekultek/zeus-scanner/tarball/master), la última [zip](https://github.com/ekultek/zeus-scanner/zipball/master), o puede encontrar la versión estable actual [aquí](https://github.com/Ekultek/Zeus-Scanner/releases). Alternativamente, puede instalar la última versión de desarrollo siguiendo las instrucciones que mejor se adapten a su sistema operativo:
@@ -104,20 +104,32 @@ Puede descargar la última [tar.gz](https://github.com/ekultek/zeus-scanner/tarb
 
 ##### Ubuntu / Debian
 
+```shell
+sudo apt install libxml2-dev libxslt1-dev python-dev firefox && \
+git clone https://github.com/ekultek/zeus-scanner.git && \
+cd zeus-scanner && \
+sudo pip3 install -r requirements.txt && \
+sudo python3 zeus.py
 ```
-sudo apt-get install libxml2-dev libxslt1-dev python-dev && git clon https://github.com/ekultek/zeus-scanner.git y& cd zeus-scanner && sudo pip2 install -r requirements.txt && sudo python zeus .py
-```
- 
+
 ##### centOS
 
-```
-sudo apt-get install gcc python-devel libxml2-dev libxslt1-dev python-dev && git clon https://github.com/ekultek/zeus-scanner.git y& cd zeus-scanner && sudo pip2 install -r requirements.txt && sudo python zeus.py
+```shell
+sudo yum install gcc libxml2-dev libxslt1-dev python-devel firefox && \
+git clone https://github.com/ekultek/zeus-scanner.git && \
+cd zeus-scanner && \
+sudo pip3 install -r requirements.txt && \
+sudo python3 zeus.py
 ```
 
 ##### Otros
 
-```
-sudo apt-get install libxml2-dev libxslt1-dev python-dev && git clon https://github.com/ekultek/zeus-scanner.git y& cd zeus-scanner && sudo pip2 install -r requirements.txt && sudo python zeus .py
+```shell
+sudo apt install libxml2-dev libxslt1-dev python-dev firefox && \
+git clone https://github.com/ekultek/zeus-scanner.git && \
+cd zeus-scanner && \
+sudo pip3 install -r requirements.txt && \
+sudo python3 zeus.py
 ```
 
 Esto instalará todos los requisitos del paquete junto con el geckodriver
@@ -129,7 +141,7 @@ Zeus es creado por un pequeño equipo de desarrolladores que aspiran a la seguri
  - Bitcoin (BTC): `3DAQGcAQ194NGVs16Mmv75ip45CVuE8cZy`
  - [PayPal](https://www.paypal.me/ZeusScanner)
  - O puedes [Cómpranos un café](https://ko-fi.com/A28355P5)
- 
+
 Puede estar seguro de que todas las donaciones se destinarán a la financiación de Zeus para que sea más confiable e incluso mejor, gracias del equipo de desarrollo de Zeus.
 
 ### Shoutsouts

@@ -3,6 +3,7 @@ log/
 geckodriver.log
 *.pyc
 .idea/
+bin/drivers
 bin/executed.txt
 bin/paths
 bin/version_info

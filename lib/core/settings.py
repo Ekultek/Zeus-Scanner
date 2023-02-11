@@ -13,10 +13,7 @@ import socket
 import struct
 import platform
 import subprocess
-try:
-    import ConfigParser  # python 2
-except ImportError:
-    import configparser as ConfigParser  # python 3
+import configparser as ConfigParser
 
 import psutil
 import requests
@@ -28,11 +25,6 @@ import lib.core.common
 
 from lib.attacks.sqlmap_scan.sqlmap_opts import SQLMAP_API_OPTIONS
 from lib.attacks.nmap_scan.nmap_opts import NMAP_API_OPTS
-
-try:
-    raw_input  # Python 2
-except NameError:
-    raw_input = input  # Python 3
 
 # get the master patch ID when a patch is pushed to the program
 PATCH_ID = str(subprocess.check_output(["git", "rev-parse", "origin/master"]))[:6]
@@ -62,7 +54,7 @@ SAYING = "Advanced Reconnaissance..."
 
 # i had to create a banner because something not so good happened...
 DISCLAIMER = (
-    "[!] legal disclaimer: Usage of Zeus for attacking targets without prior mutual consent is illegal. "
+    "[!] Legal disclaimer: Usage of Zeus for attacking targets without prior mutual consent is illegal. "
     "It is the end user's responsibility to obey all applicable local, state and federal laws. "
     "Developers assume no liability and are not responsible for any misuse or damage caused by this program."
 )
@@ -337,7 +329,7 @@ DBMS_ERRORS = {
 # this has to be the first function so that I can use it in the logger settings below
 def create_log_name(log_path="{}/log", filename="zeus-log-{}.log", matcher="zeus"):
     """
-    create the current log file name by figuring out how many files are there
+    Create the current log file name by figuring out how many files are there
     """
     if not os.path.exists(log_path.format(os.getcwd())):
         os.mkdir(log_path.format(os.getcwd()))
@@ -371,7 +363,7 @@ logger.addHandler(file_handler)
 
 def create_dir(dirpath):
     """
-    create a directory if it doesn't exist
+    Create a directory if it doesn't exist
     """
     if not os.path.exists(dirpath):
         os.mkdir(dirpath)
@@ -379,10 +371,10 @@ def create_dir(dirpath):
 
 def find_running_opts(options):
     """
-    display the running options if verbose is used
+    Display the running options if verbose is used
     """
     opts_being_used = []
-    for o, v in options.__dict__.iteritems():
+    for o, v in options.__dict__.items():
         if v is not None:
             opts_being_used.append((o, v))
     return dict(opts_being_used)
@@ -390,7 +382,7 @@ def find_running_opts(options):
 
 def parse_conf_file(config_path):
     """
-    parse a sqlmap configuration file
+    Parse a sqlmap configuration file
     """
     set_options = []
     skip_opt_schema = ("", "False", "0")
@@ -407,7 +399,8 @@ def parse_conf_file(config_path):
 
 def set_color(org_string, level=None):
     """
-    set the console log color, this will kinda mess with the file log but whatever
+    Set the console log color. This will mess with the log file, but the trade-off
+    for usability is worth it.
     """
     color_levels = {
         10: "\033[36m{}\033[0m",         # DEBUG
@@ -427,7 +420,7 @@ def set_color(org_string, level=None):
 
 def get_proxy_type(proxy_string):
     """
-    get the type of proxy that is being used or output possible proxy types you're trying to use
+    Get the type of proxy that is being used, or output possible proxy types you're trying to use
     """
     acceptable = ("http", "https", "socks5", "socks4")
     prox_list = proxy_string.split("://")
@@ -442,7 +435,7 @@ def get_proxy_type(proxy_string):
 
 def proxy_string_to_dict(proxy_string):
     """
-    send the proxy string to a dict -> http://127.0.0.1:8080 -> {'http': '127.0.0.1:8080'}
+    Send the proxy string to a dict -> http://127.0.0.1:8080 -> {'http': '127.0.0.1:8080'}
     """
     if proxy_string is None:
         return None
@@ -453,7 +446,7 @@ def proxy_string_to_dict(proxy_string):
 
 def setup(verbose=False):
     """
-    setup the application if it has not been setup yet
+    Setup the application if it has not been setup yet
     """
     if verbose:
         logger.debug(set_color(
@@ -464,7 +457,7 @@ def setup(verbose=False):
 
 def get_latest_log_file(log_path):
     """
-    get the latest log file being used from the given path
+    Get the latest log file being used from the given path
     """
     file_list = glob.glob(log_path + "/*")
     try:
@@ -476,12 +469,12 @@ def get_latest_log_file(log_path):
 
 def replace_http(url, queries=True, complete=False):
     """
-    replace the http in the url so we can get the IP address
+    Replace the protocol ('http') in the URL so we can get the IP address
     """
 
     def __remove_queries(data):
         """
-        delete the queries from the URL
+        Delete the queries from the URL
         """
         return data.split("/")[0]
 
@@ -501,23 +494,23 @@ def replace_http(url, queries=True, complete=False):
 
 def grab_random_agent(agent_path="{}/etc/text_files/agents.txt", verbose=False):
     """
-    grab a random user agent from the agent file
+    Grab a random user agent from the agent file
     """
     if verbose:
         logger.debug(set_color(
-            "grabbing random user-agent from '{}'".format(agent_path.format(os.getcwd())), level=10
+            "Grabbing random user agent from '{}'".format(agent_path.format(os.getcwd())), level=10
         ))
     with open(agent_path.format(os.getcwd())) as agents:
         retval = random.choice(agents.readlines())
     logger.info(set_color(
-        "random agent being used '{}'".format(retval.strip())
+        "Random user agent being used: '{}'".format(retval.strip())
     ))
     return retval.strip()
 
 
 def find_application(application, opt="path"):
     """
-    find the given application on the users system by parsing the given configuration file
+    Find the given application on the users system by parsing the given configuration file
     """
     retval = []
     with open(TOOL_PATHS) as config:
@@ -532,7 +525,7 @@ def find_application(application, opt="path"):
 
 def get_random_dork(filename="{}/etc/text_files/dorks.txt"):
     """
-    grab a random dork from the file
+    Grab a random dork from the file
     """
     with open(filename.format(os.getcwd())) as dorks:
         return random.choice(dorks.readlines())
@@ -540,7 +533,7 @@ def get_random_dork(filename="{}/etc/text_files/dorks.txt"):
 
 def update_zeus():
     """
-    update zeus to the newest version
+    Update zeus to the newest version
     """
     can_update = True if ".git" in os.listdir(os.getcwd()) else False
     if can_update:
@@ -553,7 +546,7 @@ def update_zeus():
 
 def create_tree(start, conns, down="|", over="-", sep="-" * 40):
     """
-    create a tree of connections made, will be used for things like XSS and admin pages
+    Create a tree of connections made, will be used for things like XSS and admin pages
     """
     print("{}\nStarting URL: {}\n\nConnections:".format(sep, start))
     for con in conns:
@@ -567,7 +560,7 @@ def create_tree(start, conns, down="|", over="-", sep="-" * 40):
 
 def get_true_url(url):
     """
-    get the true URL of an otherwise messy URL
+    Get the true URL of an otherwise messy URL
     """
     data = url.split("/")
     return "{}//{}".format(data[0], data[2])
@@ -591,7 +584,7 @@ def fix_log_file(logfile=get_latest_log_file(CURRENT_LOG_FILE_PATH)):
 
 def search_for_process(name):
     """
-    search for a given process to see if it's started or not
+    Search for a given process to see if it's started or not
     """
     all_process_names = set()
     for pid in psutil.pids():
@@ -602,30 +595,32 @@ def search_for_process(name):
 
 def get_browser_version(output=True):
     """
-    obtain the firefox browser version, this is necessary because zeus can only handle certain versions.
+    Obtains the Firefox browser version.
     """
     if output:
         logger.info(set_color(
-            "attempting to get firefox browser version"
+            "Attempting to get firefox browser version..."
         ))
     try:
-        firefox_version_command = shlex.split("firefox --version")
+        # Run Firefox as non-root user
+        username = os.getlogin()
+        firefox_version_command = shlex.split("sudo -u {} firefox --version".format(username))
         output = subprocess.check_output(firefox_version_command)
     except OSError:
         logger.error(set_color(
-            "failed to run firefox", level=50
+            "Failed to run Firefox!", level=40
         ))
         return "failed to start"
     try:
         major, minor = map(int, re.search(r"(\d+).(\d+)", output).groups())
     except ValueError:
         logger.error(set_color(
-            "failed to parse '{}' for version number".format(output), level=50
+            "Failed to parse '{}' for version number".format(output), level=40
         ))
         return output
     except Exception as e:
         logger.error(set_color(
-            "received and exception from firefox '{}'".format(str(e), level=50)
+            "Received an exception from Firefox: '{}'".format(str(e), level=40)
         ))
         return str(e)
     return major, minor
@@ -633,7 +628,7 @@ def get_browser_version(output=True):
 
 def config_headers(**kwargs):
     """
-    configure the request headers, this will configure user agents and proxies
+    Configure the request headers, this will configure user agents and proxies
     """
     proxy = kwargs.get("proxy", None)
     rand_proxy = kwargs.get("proxy_file", None)
@@ -643,13 +638,13 @@ def config_headers(**kwargs):
     if proxy is not None:
         if "127.0.0.1" in proxy:
             logger.warning(set_color(
-                "timeout will be increased to 40s due to Tor being used", level=30
+                "Timeout will be increased to 40s due to Tor being used", level=30
             ))
         proxy_retval = proxy
     elif rand_proxy is not None:
         if verbose:
             logger.debug(set_color(
-                "loading random proxy from '{}'".format(rand_proxy), level=10
+                "Loading random proxy from '{}'".format(rand_proxy), level=10
             ))
         with open(rand_proxy) as proxies:
             possible = proxies.readlines()
@@ -667,7 +662,7 @@ def config_headers(**kwargs):
 
 def get_md5sum(url="https://raw.githubusercontent.com/Ekultek/Zeus-Scanner/master/etc/checksum/md5sum.md5"):
     """
-    compare the checksums to post an issue
+    Compare the checksums to post an issue
     """
     current_checksum = open(CHECKSUM_PATH).read()
     posted_checksum = requests.get(url).content
@@ -677,7 +672,7 @@ def get_md5sum(url="https://raw.githubusercontent.com/Ekultek/Zeus-Scanner/maste
 
 def create_identifier(st):
     """
-    create the identifier for your Github issue
+    Create the identifier for your Github issue
     """
     import hashlib
     obj = hashlib.md5()
@@ -687,7 +682,7 @@ def create_identifier(st):
 
 def config_search_engine(**kwargs):
     """
-    configure the search engine if a one different from google is given
+    Configure the search engine if a one different from Google is given
     """
     verbose = kwargs.get("verbose", False)
     aol = kwargs.get("aol", False)
@@ -696,7 +691,7 @@ def config_search_engine(**kwargs):
     enum = kwargs.get("enum", None)
 
     non_default_msg = "specified to use non-default search engine"
-    se_message = "using '{}' as the search engine"
+    se_message = "Using '{}' as the search engine"
     if ddg:
         if verbose:
             logger.debug(set_color(
@@ -729,16 +724,16 @@ def config_search_engine(**kwargs):
         se = AUTHORIZED_SEARCH_ENGINES["bing"]
     elif enum is not None:
         logger.info(set_color(
-            "running enumeration on given file '{}'".format(enum)
+            "Running enumeration on given file '{}'".format(enum)
         ))
         se = None
     else:
         if verbose:
             logger.debug(set_color(
-                "using default search engine (Google)", level=10
+                "Using default search engine (Google)", level=10
             ))
         logger.info(set_color(
-            "using default search engine"
+            "Using default search engine"
         ))
         se = AUTHORIZED_SEARCH_ENGINES["google"]
     return se
@@ -746,7 +741,7 @@ def config_search_engine(**kwargs):
 
 def create_arguments(**kwargs):
     """
-    create the arguments for sqlmap and nmap if arguments are passed
+    Create the arguments for sqlmap and nmap if arguments are passed
     """
     nmap = kwargs.get("nmap", False)
     sqlmap = kwargs.get("sqlmap", False)
@@ -755,7 +750,7 @@ def create_arguments(**kwargs):
     conf_file = kwargs.get("conf", None)
 
     logger.info(set_color(
-        "creating arguments for {}".format("sqlmap" if sqlmap else "nmap")
+        "Creating arguments for {}".format("sqlmap" if sqlmap else "nmap")
     ))
     retval = []
     splitter = {"sqlmap": ",", "nmap": "|"}
@@ -767,7 +762,7 @@ def create_arguments(**kwargs):
                     if o.lower() == opt[0]:
                         retval.append((o, opt[1]))
     elif sqlmap:
-        warn_msg = "option '{}' is not recognized by sqlmap API, skipping"
+        warn_msg = "Option '{}' is not recognized by sqlmap API, skipping"
         if sqlmap_args is not None:
             for line in sqlmap_args.split(splitter["sqlmap"]):
                 try:
@@ -790,7 +785,7 @@ def create_arguments(**kwargs):
                         ))
 
     elif nmap:
-        warning_msg = "option {} is not known by the nmap api, skipping"
+        warning_msg = "Option {} is not known by the nmap api, skipping"
         if nmap_args is not None:
             for line in nmap_args.split(splitter["nmap"]):
                 try:
@@ -818,7 +813,7 @@ def create_arguments(**kwargs):
 
 def create_random_ip():
     """
-    create a random IP address, no testing if it is valid or not
+    Create a random IP address without testing for validity
     """
 
     def __get_nodes():
@@ -828,15 +823,15 @@ def create_random_ip():
     if generated == "0.0.0.0" or "255.255.255.255":
         generated = __get_nodes()  # if it isn't a real IP regenerate it
     logger.info(set_color(
-        "random IP address generated for header '{}'".format(generated)
+        "Random IP address generated for header '{}'".format(generated)
     ))
     return generated
 
 
 def rewrite_all_paths():
     """
-    rewrite all the paths in case we hit a certain error, this will force a reinstall of the
-    geckodriver
+    Rewrite all the paths in case we hit a certain error. Rhis will force a reinstall of the
+    geckodriver.
     """
     gecko_path = whichcraft.which("geckodriver")
     os.remove(gecko_path)
@@ -849,14 +844,14 @@ def rewrite_all_paths():
 
 def check_for_protection(protected, attack_type):
     """
-    check if the provided target URL has header protection against an attack type
+    Check if the provided target URL has header protection against an attack type
     """
     if protected is not None:
         items = [item.lower() for item in protected]
 
         if attack_type in items or "all" in items:
             logger.warning(set_color(
-                "provided target seems to have protection against this attack type", level=30
+                "Provided target seems to have protection against this attack type", level=30
             ))
             protected.clear()  # clear the set
         return True
@@ -864,7 +859,7 @@ def check_for_protection(protected, attack_type):
 
 def deprecation(target_version, method, connect=True, *args, **kwargs):
     """
-    show a deprecation warning and return the function with the correct given arguments
+    Show a deprecation warning and return the function with the correct arguments given
     """
     if connect:
         print(
@@ -893,15 +888,15 @@ def deprecation(target_version, method, connect=True, *args, **kwargs):
 
 def check_thread_num(number, batch=False, default=5):
     """
-    if you specify more threads then the max number you will be prompted if not running batch
+    If you specify more threads than the max, you will be prompted if not running batch
     """
     logger.warning(set_color(
-        "you have specified {} threads, it is highly advised to not go over {} threads, "
+        "You have specified {} threads, it is highly advised to not go over {} threads, "
         "doing so will most likely not give a significant performance increase and also "
         "will most likely cause unforeseen issues".format(number, MAX_THREADS), level=30
     ))
-    question_msg = "would you like to continue anyways"
-    default_msg = "defaulting to 5 threads"
+    question_msg = "Would you like to continue anyways"
+    default_msg = "Defaulting to 5 threads"
     if not batch:
         question = lib.core.common.prompt(
             question_msg, opts="yN"
@@ -924,7 +919,7 @@ def check_thread_num(number, batch=False, default=5):
 
 def run_attacks(url, **kwargs):
     """
-    run the attacks if any are requested
+    Run the requested attacks (if any)
     """
     nmap = kwargs.get("nmap", False)
     sqlmap = kwargs.get("sqlmap", False)
@@ -968,7 +963,7 @@ def run_attacks(url, **kwargs):
             enabled.add(key)
         if len(enabled) > 1:
             logger.error(set_color(
-                "it appears that you have enabled multiple attack types, "
+                "It appears that you have enabled multiple attack types, "
                 "as of now only 1 attack is supported at a time, choose "
                 "your attack and try again. You can use the -f flag if "
                 "you do not want to complete an entire search again "
@@ -1040,13 +1035,13 @@ def run_attacks(url, **kwargs):
 
 def parse_blacklist(dork, path, batch=False):
     """
-    parse the built-in blacklist to see if your dork is already in there or not
+    Parse the built-in blacklist to see if your dork is already in there or not
     """
     create_dir(path)
     dork = dork.strip()
     full_path = "{}/.blacklist".format(path)
     prompt_msg = (
-        "it appears your query '{}' is blacklisted (no usable sites found with it) "
+        "It appears your query '{}' is blacklisted (no usable sites found with it) "
         "continuing will most likely result in finding no URL's, would you like to "
         "continue anyways".format(dork)
     )
@@ -1066,7 +1061,7 @@ def parse_blacklist(dork, path, batch=False):
 
 def calculate_success(amount_of_urls):
     """
-    calculate the success rate of the found links
+    Calculate the success rate of the found links
     """
     success_percentage = ((amount_of_urls // 10) + 1) * 10
     if success_percentage < 25:
@@ -1084,7 +1079,7 @@ def calculate_success(amount_of_urls):
 
 def __get_encoded_string(path):
     """
-    get the encoded authorization string
+    Get the encoded authorization string
     """
     with open(path.format(os.getcwd())) as log:
         return log.read()
@@ -1092,14 +1087,14 @@ def __get_encoded_string(path):
 
 def __get_n(encoded):
     """
-    get the n'th number for decoding
+    Get the nth number for decoding
     """
     return encoded.split(":")[-1]
 
 
 def __decode(encoded, n):
     """
-    decode the string
+    Decode the string
     """
     token = encoded.split(":")[0]
     for _ in range(0, n):
@@ -1109,7 +1104,7 @@ def __decode(encoded, n):
 
 def get_token(path):
     """
-    get the authorization token
+    Get the authorization token
     """
     encoded = __get_encoded_string(path)
     n = __get_n(encoded)
@@ -1119,8 +1114,7 @@ def get_token(path):
 
 def tails(file_object, last_lines=50):
     """
-    return the last `n` lines of a file, much like the Unix
-    tails command
+    Return the last `n` lines of a file, much like the Unix `tails` command
     """
     with open(file_object) as file_object:
         assert last_lines >= 0
@@ -1139,7 +1133,7 @@ def tails(file_object, last_lines=50):
 
 def convert_to_minutes(seconds):
     """
-    convert an amount of seconds to minutes and seconds
+    Convert an amount of seconds to minutes and seconds
     """
     import time
     return time.strftime("%M:%S", time.gmtime(seconds))

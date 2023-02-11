@@ -71,7 +71,7 @@ A basic dork scan with the `-d` flag, from the given dork will launch an automat
 
 ![zeus-dork-scan](https://user-images.githubusercontent.com/14183473/30176252-618b191a-93c7-11e7-84d2-572c12994c4d.png)
 
-Calling the `-s` flag will prompt for you to start the sqlmap API server `python sqlmapapi.py -s` from sqlmap, it will then connect to the API and perform a sqlmap scan on the found URLs:
+Calling the `-s` flag will prompt for you to start the sqlmap API server `python3 sqlmapapi.py -s` from sqlmap, it will then connect to the API and perform a sqlmap scan on the found URLs:
 
 ![zeus-sqlmap-api](https://user-images.githubusercontent.com/14183473/30176259-6657b304-93c7-11e7-81f8-0ed09a6c0268.png)
 
@@ -90,11 +90,12 @@ There are some requirements for this to be run successfully.
 
  - `libxml2-dev`, `libxslt1-dev`, `python-dev` are required for the installation process
  - Firefox web browser is required as of now, you will need Firefox version `<=58 >=52` (between 52 and 58). Full functionality for other browsers will eventually be added.
- - If you want to run sqlmap through the URL's you will need sqlmap somewhere on your system.
+ - If you want to run sqlmap through the URLs, you will need sqlmap somewhere on your system.
  - If you want to run a port scan using nmap on the URL's IP addresses. You will need nmap on your system.
- - [Geckodriver](https://github.com/mozilla/geckodriver) is required to run the firefox web browser and will be installed the first time you run. It will be added to your `/usr/bin` so that it can be run in your ENV PATH.
- - You must be `sudo` for the first time running this so that you can add the driver to your PATH, you also may need to run as `sudo` depending on your permissions. _NOTE:_ `Depending on permissions you may need to be sudo for any run involving the geckodriver`
+ - [Geckodriver](https://github.com/mozilla/geckodriver) is required to run the Firefox web browser and will be installed the first time you run. It will be added to your `/usr/bin` so that it can be run in your ENV PATH.
+ - You must be `sudo` to run this program with the required permissions
  - `xvfb` is required by `pyvirtualdisplay`, it will be installed if not installed on your first run
+ - Python 3 or higher is required to run this program
 
 ##### Python package requirements
 
@@ -116,13 +117,21 @@ You can download the latest [tar.gz](https://github.com/ekultek/zeus-scanner/tar
 ##### Ubuntu/Debian
 
 ```shell
-sudo apt-get install libxml2-dev libxslt1-dev python-dev &&  git clone https://github.com/ekultek/zeus-scanner.git && cd zeus-scanner && sudo pip2 install -r requirements.txt && sudo python zeus.py
+sudo apt install libxml2-dev libxslt1-dev python-dev firefox && \
+git clone https://github.com/ekultek/zeus-scanner.git && \
+cd zeus-scanner && \
+sudo pip3 install -r requirements.txt && \
+sudo python3 zeus.py
 ```
 
 ##### centOS
 
 ```shell
-sudo apt-get install gcc python-devel libxml2-dev libxslt1-dev python-dev && git clone https://github.com/ekultek/zeus-scanner.git && cd zeus-scanner && sudo pip2 install -r requirements.txt && sudo python zeus.py
+sudo yum install gcc libxml2-dev libxslt1-dev python-devel firefox && \
+git clone https://github.com/ekultek/zeus-scanner.git && \
+cd zeus-scanner && \
+sudo pip3 install -r requirements.txt && \
+sudo python3 zeus.py
 ```
 
 #### Backbox
@@ -138,7 +147,7 @@ rm -rf /opt/firefox*
 mv firefox /opt/firefox57
 mv /usr/bin/firefox /usr/bin/firefoxold
 ln -s /opt/firefox57/firefox-bin /usr/bin/firefox
-apt-get install libxml2-dev libxslt1-dev python-dev && git clone https://github.com/ekultek/zeus-scanner.git && cd zeus-scanner && pip2 install -r requirements.txt && python zeus.py
+apt install libxml2-dev libxslt1-dev python-dev && git clone https://github.com/ekultek/zeus-scanner.git && cd zeus-scanner && pip3 install -r requirements.txt && python3 zeus.py
 EOF
 ```
 
@@ -153,17 +162,21 @@ rm -rf /opt/firefox*
 mv firefox /opt/firefox57
 mv /usr/bin/firefox /usr/bin/firefoxold
 ln -s /opt/firefox57/firefox-bin /usr/bin/firefox
-apt-get install libxml2-dev libxslt1-dev python-dev && git clone https://github.com/ekultek/zeus-scanner.git && cd zeus-scanner && pip2 install -r requirements.txt && python zeus.py
+apt install libxml2-dev libxslt1-dev python-dev && git clone https://github.com/ekultek/zeus-scanner.git && cd zeus-scanner && pip3 install -r requirements.txt && python3 zeus.py
 EOF
 ```
 
 ##### Others
 
 ```shell
-sudo apt-get install libxml2-dev libxslt1-dev python-dev && git clone https://github.com/ekultek/zeus-scanner.git && cd zeus-scanner && sudo pip2 install -r requirements.txt && sudo python zeus.py
+sudo apt install libxml2-dev libxslt1-dev python-dev firefox && \
+git clone https://github.com/ekultek/zeus-scanner.git && \
+cd zeus-scanner && \
+sudo pip3 install -r requirements.txt && \
+sudo python3 zeus.py
 ```
 
-This will install all the package requirements along with the geckodriver
+This will install all the package requirements along with the geckodriver.
 
 
 ### Donations
@@ -174,7 +187,7 @@ Zeus is created by a small team of developers that have an aspiration for inform
  - [PayPal](https://www.paypal.me/ZeusScanner)
  - Or you can [Buy us a coffee](https://ko-fi.com/A28355P5)
 
-You can be assured that all donations will go towards Zeus funding to make it more reliable and even better, thank you from the Zeus development team
+You can be assured that all donations will go towards Zeus funding to make it more reliable and even better, thank you from the Zeus development team.
 
 ### Shoutouts
 

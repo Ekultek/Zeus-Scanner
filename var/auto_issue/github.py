@@ -1,9 +1,6 @@
 import re
 import sys
-try:
-    import urllib2  # python 2
-except ImportError:
-    import urllib.request as urllib2  # python 3
+import urllib.request as urllib2
 import json
 import platform
 

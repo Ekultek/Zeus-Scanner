@@ -4,15 +4,7 @@ import json
 import time
 import shlex
 import subprocess
-try:
-    from urllib import (  # python 2
-        unquote
-    )
-except ImportError:
-    from urllib.parse import (  # python 3
-        unquote
-    )
-
+from urllib.parse import (unquote)
 import requests
 from lxml import etree
 
@@ -211,7 +203,7 @@ def prompt(question, opts=None, default=None, paused=False):
     """
     if opts is not None and default is None:
         options = '/'.join(opts)
-        return raw_input(
+        return input(
             "[{} {}] {}[{}]: ".format(
                 time.strftime("%H:%M:%S"),
                 "PROMPT", question, options
@@ -237,7 +229,7 @@ def prompt(question, opts=None, default=None, paused=False):
             return default
     elif opts is None and default is None and paused:
         opts = "[(s)kip (e)xit]"
-        question_ = raw_input(
+        question_ = input(
             "[{} {}] {} {}: ".format(
                 time.strftime("%H:%M:%S"), "PROMPT", question, opts
             )
@@ -246,7 +238,7 @@ def prompt(question, opts=None, default=None, paused=False):
             return True
         return False
     else:
-        return raw_input(
+        return input(
             "[{} {}] {} ".format(
                 time.strftime("%H:%M:%S"), "PROMPT", question
             )
