@@ -132,10 +132,10 @@ def get_urls(query, url, verbose=False, **kwargs):
         try:
             retval = URLParser(retval).extract_ip_ban_url()
             question_msg = (
-                "zeus was able to successfully extract the URL from Google's ban URL "
-                "it is advised to shutdown zeus and attempt to extract the URL's manually. "
-                "failing to do so will most likely result in no results being found by zeus. "
-                "would you like to shutdown"
+                "Zeus was able to successfully extract the URL from Google's ban URL. "
+                "It is advised to shutdown zeus and attempt to extract the URL's manually. "
+                "Failing to do so will most likely result in no results being found by zeus. "
+                "Would you like to shutdown? >"
             )
             if not batch:
                 do_continue = prompt(
@@ -280,7 +280,7 @@ def parse_search_results(query, url_to_search, verbose=False, **kwargs):
         elif "Program install error!" in str(e):
             logger.error(set_color(
                 "Seems the program is having some trouble installing; would you like "
-                "to try and automatically fix this issue", level=40
+                "to try and automatically fix this issue? >", level=40
             ))
             run_fix(
                 "Would you like to attempt to fix this issue automatically? >",

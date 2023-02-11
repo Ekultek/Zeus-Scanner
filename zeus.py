@@ -313,8 +313,8 @@ if __name__ == "__main__":
             else:
                 if URL_QUERY_REGEX.match(opt.spiderWebSite):
                     question_msg = (
-                        "It is recommended to not use a URL that has a GET(query) parameter in it, "
-                        "would you like to continue"
+                        "It is recommended to not use a URL that has a GET (query) parameter in it, "
+                        "would you like to continue? > "
                     )
                     if not opt.runInBatch:
                         is_sure = prompt(

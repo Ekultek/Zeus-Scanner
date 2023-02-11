@@ -2,7 +2,7 @@ import json
 import re
 import subprocess
 import shlex
-import urllib as urllib2
+import urllib.request as urllib2
 import requests
 
 import lib.core.common
@@ -34,14 +34,14 @@ class SqlmapHook(object):
 
     def init_new_scan(self):
         """
-        create a new API scan
+        Create a new API scan
         """
         new_scan_url = "{}{}".format(self.connection, self.commands["init"])
         return requests.get(new_scan_url, params=self.headers)
 
     def get_scan_id(self, split_by=16):
         """
-        get the ID of the current API scan
+        Get the ID of the current API scan
         """
         current_scan_id = None
         id_re = re.compile(r"[a-fA-F0-9]{16}")
@@ -67,7 +67,7 @@ class SqlmapHook(object):
 
     def start_scan(self, api_id, opts=None):
         """
-        start the API scan
+        Start the API scan
         """
         start_scan_url = "{}{}".format(self.connection, self.commands["start"].format(api_id))
         data_dict = {"url": self.to_scan}
@@ -91,12 +91,12 @@ class SqlmapHook(object):
                 # }
                 data_dict[opts[i][0]] = opts[i][1]
         post_data = json.dumps(data_dict)
-        req = urllib2.Request(start_scan_url, data=post_data, headers=self.headers)
+        req = urllib2.Request(start_scan_url, data=str.encode(post_data), headers=self.headers)
         return urllib2.urlopen(req)
 
     def show_sqlmap_log(self, api_id):
         """
-        show the sqlmap log during the API scan
+        Show the sqlmap log during the API scan
         """
         running_status_url = "{}{}".format(self.connection, self.commands["status"].format(api_id))
         running_log_url = "{}{}".format(self.connection, self.commands["log"].format(api_id))
@@ -135,7 +135,7 @@ class SqlmapHook(object):
 
 def find_sqlmap(to_find="sqlmap"):
     """
-    find sqlmap on the users system
+    Find sqlmap on the users system
     """
     found_path = lib.core.settings.find_application(to_find)
     return found_path
@@ -143,7 +143,7 @@ def find_sqlmap(to_find="sqlmap"):
 
 def sqlmap_scan_main(url, port=None, verbose=None, opts=None, auto_start=False):
     """
-    the main function that will be called and initialize everything
+    The main function that will be called and initialize everything
     """
 
     is_started = lib.core.settings.search_for_process("sqlmapapi.py")
@@ -151,7 +151,7 @@ def sqlmap_scan_main(url, port=None, verbose=None, opts=None, auto_start=False):
 
     if auto_start:
         lib.core.settings.logger.info(lib.core.settings.set_color(
-            "attempting to launch sqlmap API"
+            "Attempting to launch sqlmap API"
         ))
         sqlmap_api_command = shlex.split("sudo sh {} p {}".format(
             lib.core.settings.LAUNCH_SQLMAP_API_TOOL, "".join(found_path)
@@ -163,10 +163,10 @@ def sqlmap_scan_main(url, port=None, verbose=None, opts=None, auto_start=False):
             ))
         else:
             lib.core.settings.logger.error(lib.core.settings.set_color(
-                "there was a problem starting sqlmap API", level=40
+                "There was a problem starting sqlmap API", level=40
             ))
             lib.core.common.prompt(
-                "manually start the API and press enter when ready"
+                "Manually start the API and press enter when ready"
             )
     else:
         if not is_started:
@@ -176,39 +176,39 @@ def sqlmap_scan_main(url, port=None, verbose=None, opts=None, auto_start=False):
     try:
         sqlmap_scan = SqlmapHook(url, port=port)
         lib.core.settings.logger.info(lib.core.settings.set_color(
-            "initializing new sqlmap scan with given URL '{}'".format(url)
+            "Initializing new sqlmap scan with given URL '{}'".format(url)
         ))
         sqlmap_scan.init_new_scan()
         if verbose:
             lib.core.settings.logger.debug(lib.core.settings.set_color(
-                "scan initialized", level=10
+                "Scan initialized", level=10
             ))
         lib.core.settings.logger.info(lib.core.settings.set_color(
-            "gathering sqlmap API scan ID"
+            "Fathering sqlmap API scan ID"
         ))
         api_id = sqlmap_scan.get_scan_id()
         if verbose:
             lib.core.settings.logger.debug(lib.core.settings.set_color(
-                "current sqlmap scan ID: '{}'".format(api_id), level=10
+                "Current sqlmap scan ID: '{}'".format(api_id), level=10
             ))
         lib.core.settings.logger.info(lib.core.settings.set_color(
-            "starting sqlmap scan on url: '{}'".format(url), level=25
+            "Starting sqlmap scan on url: '{}'".format(url), level=25
         ))
         if opts:
             if verbose:
                 lib.core.settings.logger.debug(lib.core.settings.set_color(
-                    "using arguments: '{}'".format(opts), level=10
+                    "Using arguments: '{}'".format(opts), level=10
                 ))
             lib.core.settings.logger.info(lib.core.settings.set_color(
-                "adding arguments to sqlmap API"
+                "Adding arguments to sqlmap API"
             ))
         else:
             if verbose:
                 lib.core.settings.logger.debug(lib.core.settings.set_color(
-                    "no arguments passed, skipping", level=10
+                    "No arguments passed, skipping", level=10
                 ))
         lib.core.settings.logger.warning(lib.core.settings.set_color(
-            "please keep in mind that this is the API, output will "
+            "Please keep in mind that this is the API, output will "
             "not be saved to log file, it may take a little longer "
             "to finish processing, launching sqlmap", level=30
         ))
@@ -218,7 +218,7 @@ def sqlmap_scan_main(url, port=None, verbose=None, opts=None, auto_start=False):
         print("-" * 30)
     except requests.exceptions.HTTPError as e:
         lib.core.settings.logger.exception(lib.core.settings.set_color(
-            "ran into error '{}', seems you didn't start the server, check "
+            "Ran into error '{}', seems you didn't start the server, check "
             "the server port and try again".format(e), level=50
         ))
         pass
@@ -236,7 +236,7 @@ def sqlmap_scan_main(url, port=None, verbose=None, opts=None, auto_start=False):
             pass
         else:
             lib.core.settings.logger.exception(lib.core.settings.set_color(
-                "ran into error '{}', seems something went wrong, error has "
+                "Ran into error '{}', seems something went wrong, error has "
                 "been saved to current log file.".format(e), level=50
             ))
             request_issue_creation()

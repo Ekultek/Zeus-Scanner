@@ -516,10 +516,12 @@ def find_application(application, opt="path"):
     with open(TOOL_PATHS) as config:
         read_conf = config.read()
     conf_parser = ConfigParser.RawConfigParser(allow_no_value=True)
-    conf_parser.readfp(io.BytesIO(read_conf))
+    conf_parser.read(read_conf)
+
     for section in conf_parser.sections():
         if str(section).lower() == str(application).lower():
             retval.append(conf_parser.get(section, opt))
+
     return retval
 
 
@@ -533,7 +535,7 @@ def get_random_dork(filename="{}/etc/text_files/dorks.txt"):
 
 def update_zeus():
     """
-    Update zeus to the newest version
+    Update Zeus to the newest version
     """
     can_update = True if ".git" in os.listdir(os.getcwd()) else False
     if can_update:
@@ -946,7 +948,7 @@ def run_attacks(url, **kwargs):
     threads = kwargs.get("threads", None)
     force_ssl = kwargs.get("ssl", False)
 
-    if threads > MAX_THREADS:
+    if threads and threads > MAX_THREADS:
         threads = check_thread_num(threads, batch=batch)
 
     __enabled_attacks = {
@@ -972,7 +974,7 @@ def run_attacks(url, **kwargs):
             ))
             lib.core.common.shutdown()
 
-    question_msg = "would you like to process found URL: '{}'".format(url)
+    question_msg = "Would you like to process found URL: '{}'".format(url)
     if not batch:
         question = lib.core.common.prompt(
             question_msg, opts="yN"
