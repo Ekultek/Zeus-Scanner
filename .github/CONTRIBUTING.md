@@ -8,7 +8,7 @@ Bug reports are welcome! Please report all bugs to the [Issue Tracker](https://g
 
  - Before you create a bug report, make sure that the bug has not already been reported by checking the [open](https://github.com/Ekultek/Zeus-Scanner/issues?q=is%3Aopen+is%3Aissue) and [closed](https://github.com/Ekultek/Zeus-Scanner/issues?q=is%3Aissue+is%3Aclosed) issues.
  - You can also check if you can answer your own question by looking at the [user manual](https://github.com/Ekultek/Zeus-Scanner/wiki/User-Guide)
- - Do a `python zeus.py --update` and try to reproduce the bug with the latest version
+ - Do a `python3 zeus.py --update` and try to reproduce the bug with the latest version
  - You will need to make sure that your report has detailed information, this includes (but not limited to):
    - The dork you used when you tried you received the error
    - Your running context (`clone`, `zip`, etc..)

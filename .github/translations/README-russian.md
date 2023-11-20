@@ -1,6 +1,6 @@
 [![GitHub stars](https://img.shields.io/github/stars/ekultek/zeus-scanner.svg?style=flat-square)](https://github.com/ekultek/zeus-scanner/stargazers)
-[![GitHub forks](https://img.shields.io/github/forks/ekultek/zeus-scanner.svg?style=flat-square)](https://github.com/ekultek/zeus-scanner/network) 
-[![GitHub issues](https://img.shields.io/github/issues/ekultek/zeus-scanner.svg?style=flat-square)](https://github.com/ekultek/zeus-scanner/issues) 
+[![GitHub forks](https://img.shields.io/github/forks/ekultek/zeus-scanner.svg?style=flat-square)](https://github.com/ekultek/zeus-scanner/network)
+[![GitHub issues](https://img.shields.io/github/issues/ekultek/zeus-scanner.svg?style=flat-square)](https://github.com/ekultek/zeus-scanner/issues)
 [![GitHub license](https://img.shields.io/badge/license-GPL-blue.svg?style=flat-square)](https://raw.githubusercontent.com/Ekultek/Zeus-Scanner/master/.github/LICENSE.md)
 [![Twitter](https://img.shields.io/twitter/url/https/github.com/ekultek/zeus-scanner.svg?style=social)](https://twitter.com/Zeus_Scanner)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://github.com/Ekultek/Zeus-Scanner#donations)
@@ -105,20 +105,31 @@
 
 ##### Ubuntu/Debian
 
+```shell
+sudo apt install libxml2-dev libxslt1-dev python-dev firefox && \
+git clone https://github.com/ekultek/zeus-scanner.git && \
+cd zeus-scanner && \
+sudo pip3 install -r requirements.txt && \
+sudo python3 zeus.py
 ```
-sudo apt-get install libxml2-dev libxslt1-dev python-dev &&  git clone https://github.com/ekultek/zeus-scanner.git && cd zeus-scanner && sudo pip2 install -r requirements.txt && sudo python zeus.py
-``` 
- 
 ##### centOS
 
-```
-sudo apt-get install gcc python-devel libxml2-dev libxslt1-dev python-dev && git clone https://github.com/ekultek/zeus-scanner.git && cd zeus-scanner && sudo pip2 install -r requirements.txt && sudo python zeus.py
+```shell
+sudo yum install gcc libxml2-dev libxslt1-dev python-devel firefox && \
+git clone https://github.com/ekultek/zeus-scanner.git && \
+cd zeus-scanner && \
+sudo pip3 install -r requirements.txt && \
+sudo python3 zeus.py
 ```
 
 ##### Others
 
-```
-sudo apt-get install libxml2-dev libxslt1-dev python-dev && git clone https://github.com/ekultek/zeus-scanner.git && cd zeus-scanner && sudo pip2 install -r requirements.txt && sudo python zeus.py
+```shell
+sudo apt install libxml2-dev libxslt1-dev python-dev firefox && \
+git clone https://github.com/ekultek/zeus-scanner.git && \
+cd zeus-scanner && \
+sudo pip3 install -r requirements.txt && \
+sudo python3 zeus.py
 ```
 
 Этоустановит всеM. Требования GE вместе с geckodriver

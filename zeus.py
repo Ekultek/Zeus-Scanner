@@ -6,6 +6,7 @@ import time
 import shlex
 import warnings
 import subprocess
+from importlib import reload
 
 from var import blackwidow
 from var.search import selenium_search
@@ -47,7 +48,6 @@ if __name__ == "__main__":
 
     # this will take care of most of the Unicode errors.
     reload(sys)
-    sys.setdefaultencoding("utf-8")
     sys.setrecursionlimit(1500)
 
     opt = ZeusParser.cmd_parser()
@@ -69,17 +69,17 @@ if __name__ == "__main__":
     if opt.runInVerbose:
         being_run = find_running_opts(opt)
         logger.debug(set_color(
-            "running with options '{}'".format(being_run), level=10
+            "Running with options '{}'".format(being_run), level=10
         ))
 
     logger.info(set_color(
-        "log file being saved to '{}'".format(get_latest_log_file(CURRENT_LOG_FILE_PATH))
+        "Log file being saved to '{}'".format(get_latest_log_file(CURRENT_LOG_FILE_PATH))
     ))
 
 
     def __run_attacks_main(**kwargs):
         """
-        main method to run the attacks
+        Main method to run the attacks
         """
         log_to_use = kwargs.get("log", None)
         if log_to_use is None:
@@ -94,7 +94,7 @@ if __name__ == "__main__":
 
         if urls_to_use is None:
             logger.error(set_color(
-                "unable to run attacks appears that no file was created for the retrieved data", level=40
+                "Unable to run attacks appears that no file was created for the retrieved data", level=40
             ))
             shutdown()
         options = [
@@ -109,18 +109,18 @@ if __name__ == "__main__":
                     current = i
                     if "webcache" in url:
                         logger.warning(set_color(
-                            "ran into unexpected webcache URL skipping", level=30
+                            "Ran into unexpected webcache URL skipping", level=30
                         ))
                         current -= 1
                     else:
                         if not url.strip() == "http://" or url == "https://":
                             logger.info(set_color(
-                                "currently running on '{}' (target #{})".format(
+                                "Currently running on '{}' (target #{})".format(
                                     url.strip(), current
                                 ), level=25
                             ))
                             logger.info(set_color(
-                                "fetching target meta-data"
+                                "Fetching target meta-data"
                             ))
                             identified = main_header_check(
                                 url, verbose=opt.runInVerbose, agent=agent_to_use,
@@ -130,7 +130,7 @@ if __name__ == "__main__":
                             )
                             if not identified:
                                 logger.error(set_color(
-                                    "target is refusing to allow meta-data dumping, skipping", level=40
+                                    "Target is refusing to allow meta-data dumping, skipping", level=40
                                 ))
                             run_attacks(
                                 url.strip(),
@@ -148,7 +148,7 @@ if __name__ == "__main__":
                             print("\n")
                         else:
                             logger.warning(set_color(
-                                "malformed URL discovered, skipping", level=30
+                                "Malformed URL discovered, skipping", level=30
                             ))
 
 
@@ -166,7 +166,7 @@ if __name__ == "__main__":
         # use a personal dork as the query
         if opt.dorkToUse is not None and not opt.searchMultiplePages:
             logger.info(set_color(
-                "starting dork scan with query '{}'".format(opt.dorkToUse)
+                "Starting dork scan with query '{}'".format(opt.dorkToUse)
             ))
             try:
                 selenium_search.parse_search_results(
@@ -178,20 +178,20 @@ if __name__ == "__main__":
             except InvalidProxyType:
                 supported_proxy_types = ("socks5", "socks4", "https", "http")
                 logger.fatal(set_color(
-                    "the provided proxy is not valid, specify the protocol and try again, supported "
-                    "proxy protocols are {} (IE socks5://127.0.0.1:9050)".format(
+                    "The provided proxy is not valid, please specify the protocol and try again. "
+                    "Supported proxy protocols are {} (IE socks5://127.0.0.1:9050)".format(
                         ", ".join(list(supported_proxy_types))), level=50
                 ))
             except Exception as e:
                 if "Permission denied:" in str(e):
                     logger.fatal(set_color(
-                        "your permissions are not allowing Zeus to run, "
+                        "Your permissions are not allowing Zeus to run, "
                         "try running Zeus with sudo", level=50
                     ))
                     shutdown()
                 else:
                     logger.exception(set_color(
-                        "ran into exception '{}'".format(e), level=50
+                        "Ran into exception '{}'".format(e), level=50
                     ))
                 request_issue_creation()
                 pass
@@ -209,7 +209,7 @@ if __name__ == "__main__":
 
             if dork_to_use is None:
                 logger.warning(set_color(
-                    "there has been no dork to specified to do the searching, defaulting to random dork", level=30
+                    "There has been no dork specified to do the searching, defaulting to random dork", level=30
                 ))
                 dork_to_use = get_random_dork()
 
@@ -217,14 +217,14 @@ if __name__ == "__main__":
 
             if opt.amountToSearch is None:
                 logger.warning(set_color(
-                    "did not specify amount of links to find defaulting to 75", level=30
+                    "Did not specify amount of links to find, defaulting to 75", level=30
                 ))
                 link_amount_to_search = 75
             else:
                 link_amount_to_search = opt.amountToSearch
 
             logger.info(set_color(
-                "searching Google using dork '{}' for a total of {} links".format(
+                "Searching Google using dork '{}' for a total of {} links".format(
                     dork_to_use, link_amount_to_search
                 )
             ))
@@ -238,11 +238,11 @@ if __name__ == "__main__":
             except Exception as e:
                 if "Error 400" in str(e):
                     logger.fatal(set_color(
-                        "failed to connect to search engine".format(e), level=50
+                        "Failed to connect to search engine".format(e), level=50
                     ))
                 else:
                     logger.exception(set_color(
-                        "failed with unexpected error '{}'".format(e), level=50
+                        "Failed with unexpected error '{}'".format(e), level=50
                     ))
                 shutdown()
 
@@ -254,7 +254,7 @@ if __name__ == "__main__":
                 for dork in dorks.readlines():
                     dork = dork.strip()
                     logger.info(set_color(
-                        "starting dork scan with query '{}'".format(dork)
+                        "Starting dork scan with query '{}'".format(dork)
                     ))
                     try:
                         selenium_search.parse_search_results(
@@ -264,7 +264,7 @@ if __name__ == "__main__":
                         )
                     except Exception as e:
                         logger.exception(set_color(
-                            "ran into exception '{}'".format(e), level=50
+                            "Ran into exception '{}'".format(e), level=50
                         ))
                         request_issue_creation()
                         pass
@@ -276,10 +276,10 @@ if __name__ == "__main__":
             random_dork = get_random_dork().strip()
             if opt.runInVerbose:
                 logger.debug(set_color(
-                    "choosing random dork from etc/dorks.txt", level=10
+                    "Choosing random dork from etc/dorks.txt", level=10
                 ))
             logger.info(set_color(
-                "using random dork '{}' as the search query".format(random_dork)
+                "Using random dork '{}' as the search query".format(random_dork)
             ))
             try:
                 selenium_search.parse_search_results(
@@ -291,7 +291,7 @@ if __name__ == "__main__":
 
             except Exception as e:
                 logger.exception(set_color(
-                    "ran into exception '{}' and cannot continue, saved to current log file".format(e),
+                    "Ran into exception '{}' and cannot continue, saved to current log file".format(e),
                     level=50
                 ))
                 request_issue_creation()
@@ -313,8 +313,8 @@ if __name__ == "__main__":
             else:
                 if URL_QUERY_REGEX.match(opt.spiderWebSite):
                     question_msg = (
-                        "it is recommended to not use a URL that has a GET(query) parameter in it, "
-                        "would you like to continue"
+                        "It is recommended to not use a URL that has a GET (query) parameter in it, "
+                        "would you like to continue? > "
                     )
                     if not opt.runInBatch:
                         is_sure = prompt(
@@ -337,18 +337,18 @@ if __name__ == "__main__":
         # enumerate a file and run attacks on the URL's provided
         elif opt.fileToEnumerate is not None:
             logger.info(set_color(
-                "found a total of {} URL's to enumerate in given file".format(
+                "Found a total of {} URLs to enumerate in given file".format(
                     len(open(opt.fileToEnumerate).readlines())
                 )
             ))
             __run_attacks_main(log=opt.fileToEnumerate)
 
         else:
-            logger.critical(set_color(
-                "failed to provide a mandatory argument, you will be redirected to the help menu", level=50
+            logger.warning(set_color(
+                "Failed to provide a mandatory argument, you will be redirected to the help menu\n", level=30
             ))
             time.sleep(2)
-            zeus_help_menu_command = shlex.split("python zeus.py --help")
+            zeus_help_menu_command = shlex.split("python3 zeus.py --help")
             subprocess.call(zeus_help_menu_command)
     except IOError as e:
         if "Invalid URL" in str(e):
@@ -365,7 +365,7 @@ if __name__ == "__main__":
             shutdown()
         elif "No such file or directory" in str(e):
             logger.fatal(set_color(
-                "provided file does not exist, make sure you have the full path", level=50
+                "Provided file does not exist, make sure you have the full path", level=50
             ))
             shutdown()
         else:
@@ -375,12 +375,12 @@ if __name__ == "__main__":
             request_issue_creation()
     except KeyboardInterrupt:
         logger.fatal(set_color(
-            "user aborted process", level=50
+            "User aborted process", level=50
         ))
         shutdown()
     except UnboundLocalError:
         logger.warning(set_color(
-            "do not interrupt the browser when selenium is running, "
+            "Do not interrupt the browser when selenium is running, "
             "it will cause Zeus to crash", level=30
         ))
     except ZeusArgumentException:
@@ -388,7 +388,7 @@ if __name__ == "__main__":
     except Exception as e:
         if "url did not match a true url" in str(e).lower():
             logger.error(set_color(
-                "you did not provide a URL that is capable of being processed, "
+                "You did not provide a URL that is capable of being processed, "
                 "the URL provided to the spider needs to contain protocol as well "
                 "ie. 'http://google.com' (it is advised not to add the GET parameter), "
                 "fix the URL you want to scan and try again", level=40
@@ -402,14 +402,14 @@ if __name__ == "__main__":
             shutdown()
         elif "Max retries exceeded with url" in str(e):
             logger.fatal(set_color(
-                "you have hit the max retries, to continue using Zeus "
+                "You have hit the max retries, to continue using Zeus "
                 "it is recommended to use a proxy (--proxy/--proxy-file) "
                 "along with a new user-agent (--random-agent/--agent).", level=50
             ))
             shutdown()
         else:
             logger.exception(set_color(
-                "ran into exception '{}' exception has been saved to log file".format(e), level=50
+                "Ran into exception '{}' exception has been saved to log file".format(e), level=50
             ))
             request_issue_creation()
 

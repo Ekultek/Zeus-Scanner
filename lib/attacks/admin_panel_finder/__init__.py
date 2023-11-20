@@ -1,11 +1,6 @@
 import os
 import threading
-
-try:                 # Python 2
-    from urllib.request import urlopen
-    from urllib.error import HTTPError
-except ImportError:  # Python 3
-    from urllib2 import urlopen, HTTPError
+from urllib2 import urlopen, HTTPError
 
 from requests.exceptions import (
     ConnectionError,

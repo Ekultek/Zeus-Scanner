@@ -163,7 +163,7 @@ def perform_port_scan(url, scanner=NmapHook, **kwargs):
                 "nmap was not found on your system", level=50
             ))
             lib.core.common.run_fix(
-                "would you like to automatically install it",
+                "Would you like to automatically install it?",
                 "sudo sh {}".format(lib.core.settings.NMAP_INSTALLER_TOOL),
                 "nmap is not installed, please install it in order to continue"
             )

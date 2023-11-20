@@ -40,10 +40,10 @@ from lib.core.settings import (
 
 def get_charset(html, headers, **kwargs):
     """
-    detect the target URL charset
+    Detect the target URL charset
     """
     charset_regex = re.compile(r'charset=[\"]?([a-zA-Z0-9_-]+)', re.I)
-    charset = charset_regex.search(html)
+    charset = charset_regex.search(str(html))
     if charset is not None:
         return charset.group(1)
     else:
@@ -62,7 +62,7 @@ def detect_protection(url, status, html, headers, **kwargs):
             for regex in DBMS_ERRORS[dbms]:
                 if re.compile(regex).search(html) is not None:
                     logger.warning(set_color(
-                        "it appears that the WAF/IDS/IPS check threw a DBMS error and may be vulnerable "
+                        "It appears that the WAF/IDS/IPS check threw a DBMS error and may be vulnerable "
                         "to SQL injection attacks. it appears the backend DBMS is '{}', site will be "
                         "saved for further processing".format(dbms), level=30
                     ))
@@ -75,7 +75,7 @@ def detect_protection(url, status, html, headers, **kwargs):
             item = item[:-3]
             if verbose:
                 logger.debug(set_color(
-                    "loading script '{}'".format(item), level=10
+                    "Loading script '{}'".format(item), level=10
                 ))
             detection_name = "lib.firewall.{}"
             detection_name = detection_name.format(item)
@@ -88,7 +88,7 @@ def detect_protection(url, status, html, headers, **kwargs):
                     del retval[retval.index("Generic (Unknown)")]
                 except (Exception, IndexError):
                     logger.warning(set_color(
-                        "multiple firewalls identified ({}), displaying most likely".format(
+                        "Multiple firewalls identified ({}), displaying most likely".format(
                             ", ".join([item.split("(")[0] for item in retval])
                         ), level=30
                     ))
@@ -97,7 +97,7 @@ def detect_protection(url, status, html, headers, **kwargs):
                         del retval[retval.index(retval[1])]
             if retval[0] == "Generic (Unknown)":
                 logger.warning(set_color(
-                    "discovered firewall is unknown to Zeus, saving fingerprint to file. "
+                    "Discovered firewall is unknown to Zeus, saving fingerprint to file. "
                     "if you know the details or the context of the firewall please create "
                     "an issue ({}) with the fingerprint, or a pull request with the script".format(
                         ISSUE_LINK
@@ -114,7 +114,7 @@ def detect_protection(url, status, html, headers, **kwargs):
     except Exception as e:
         if any(err in str(e) for err in ["Read timed out.", "Connection reset by peer"]):
             logger.warning(set_color(
-                "detection request failed, assuming no protection and continuing", level=30
+                "Detection request failed, assuming no protection and continuing", level=30
             ))
             return None
         else:
@@ -136,7 +136,7 @@ def detect_plugins(html, headers, **kwargs):
             plugin = plugin[:-3]
             if verbose:
                 logger.debug(set_color(
-                    "loading script '{}'".format(plugin), level=10
+                    "Loading script '{}'".format(plugin), level=10
                 ))
             plugin_detection = "lib.plugins.{}"
             plugin_detection = plugin_detection.format(plugin)
@@ -150,19 +150,19 @@ def detect_plugins(html, headers, **kwargs):
         logger.exception(str(e))
         if "Read timed out." or "Connection reset by peer" in str(e):
             logger.warning(set_color(
-                "plugin request failed, assuming no plugins and continuing", level=30
+                "Plugin request failed, assuming no plugins and continuing", level=30
             ))
             return None
         else:
             logger.exception(set_color(
-                "plugin detection has failed with error {}".format(str(e))
+                "Plugin detection has failed with error {}".format(str(e))
             ))
             request_issue_creation()
 
 
 def load_xml_data(path, start_node="header", search_node="name"):
     """
-    load the XML data
+    Load the XML data
     """
     retval = []
     fetched_xml = minidom.parse(path)
@@ -174,13 +174,13 @@ def load_xml_data(path, start_node="header", search_node="name"):
 
 def load_headers(url, req, **kwargs):
     """
-    load the HTTP headers
+    Load the HTTP headers
     """
     literal_match = re.compile(r"\\(\X(\d+)?\w+)?", re.I)
 
     if len(req.cookies) > 0:
         logger.info(set_color(
-            "found a request cookie, saving to file", level=25
+            "Found a request cookie, saving to file", level=25
         ))
         try:
             cookie_start = req.cookies.keys()
@@ -226,7 +226,7 @@ def load_headers(url, req, **kwargs):
 
 def compare_headers(found_headers, comparable_headers):
     """
-    compare the headers against one another
+    Compare the headers against one another
     """
     retval = set()
     for header in comparable_headers:
@@ -237,7 +237,7 @@ def compare_headers(found_headers, comparable_headers):
 
 def main_header_check(url, **kwargs):
     """
-    main function
+    Main function
     """
     verbose = kwargs.get("verbose", False)
     agent = kwargs.get("agent", None)
@@ -265,70 +265,70 @@ def main_header_check(url, **kwargs):
         req, status, html, headers = get_page(url, proxy=proxy, agent=agent, xforward=xforward)
 
         logger.info(set_color(
-            "detecting target charset"
+            "Detecting target charset"
         ))
         charset = get_charset(html, headers)
         if charset is not None:
             logger.info(set_color(
-                "target charset appears to be '{}'".format(charset), level=25
+                "Target charset appears to be '{}'".format(charset), level=25
             ))
         else:
             logger.warning(set_color(
-                "unable to detect target charset", level=30
+                "Unable to detect target charset", level=30
             ))
         if identify_waf:
             waf_url = "{} {}".format(url.strip(), PROTECTION_CHECK_PAYLOAD)
             _, waf_status, waf_html, waf_headers = get_page(waf_url, xforward=xforward, proxy=proxy, agent=agent)
             logger.info(set_color(
-                "checking if target URL is protected by some kind of WAF/IPS/IDS"
+                "Checking if target URL is protected by some kind of WAF/IPS/IDS"
             ))
             if verbose:
                 logger.debug(set_color(
-                    "attempting connection to '{}'".format(waf_url), level=10
+                    "Attempting connection to '{}'".format(waf_url), level=10
                 ))
 
             identified_waf = detect_protection(url, waf_status, waf_html, waf_headers, verbose=verbose)
 
             if identified_waf is None:
                 logger.info(set_color(
-                    "no WAF/IDS/IPS has been identified on target URL", level=25
+                    "No WAF/IDS/IPS has been identified on target URL", level=25
                 ))
             else:
                 logger.warning(set_color(
-                    "the target URL WAF/IDS/IPS has been identified as '{}'".format(identified_waf), level=35
+                    "The target URL WAF/IDS/IPS has been identified as '{}'".format(identified_waf), level=35
                 ))
 
         if identify_plugins:
             logger.info(set_color(
-                "attempting to identify plugins"
+                "Attempting to identify plugins"
             ))
             identified_plugin = detect_plugins(html, headers, verbose=verbose)
             if identified_plugin is not None:
                 for plugin in identified_plugin:
                     if show_description:
                         logger.info(set_color(
-                            "possible plugin identified as '{}' (description: '{}')".format(
+                            "Possible plugin identified as '{}' (description: '{}')".format(
                                 plugin[0], plugin[1]
                             ), level=25
                         ))
                     else:
                         logger.info(set_color(
-                            "possible plugin identified as '{}'".format(
+                            "Possible plugin identified as '{}'".format(
                                 plugin[0]
                             ), level=25
                         ))
             else:
                 logger.warning(set_color(
-                    "no known plugins identified on target", level=30
+                    "No known plugins identified on target", level=30
                 ))
 
         if verbose:
             logger.debug(set_color(
-                "loading XML data", level=10
+                "Loading XML data", level=10
             ))
         comparable_headers = load_xml_data(HEADER_XML_DATA)
         logger.info(set_color(
-            "attempting to get request headers for '{}'".format(url.strip())
+            "Attempting to get request headers for '{}'".format(url.strip())
         ))
         try:
             found_headers = load_headers(url, req)
@@ -344,30 +344,30 @@ def main_header_check(url, **kwargs):
         if found_headers is not None:
             if verbose:
                 logger.debug(set_color(
-                    "fetched {}".format(found_headers), level=10
+                    "Fetched {}".format(found_headers), level=10
                 ))
             headers_established = [str(h) for h in compare_headers(found_headers, comparable_headers)]
             for key in definition.iterkeys():
                 if any(key in h.lower() for h in headers_established):
                     logger.warning(set_color(
-                        "provided target has {}".format(definition[key][0]), level=30
+                        "Provided target has {}".format(definition[key][0]), level=30
                     ))
             for key in found_headers.iterkeys():
                 protection[key] = found_headers[key]
             logger.info(set_color(
-                "writing found headers to log file", level=25
+                "Writing found headers to log file", level=25
             ))
             return write_to_log_file(protection, HEADER_RESULT_PATH, HEADERS_FILENAME.format(replace_http(url)))
         else:
             logger.error(set_color(
-                "unable to retrieve headers for site '{}'".format(url.strip()), level=40
+                "Unable to retrieve headers for site '{}'".format(url.strip()), level=40
             ))
     except ConnectionError:
         attempts = attempts - 1
         if attempts == 0:
             return False
         logger.warning(set_color(
-            "target actively refused the connection, sleeping for {}s and retrying the request".format(
+            "Target actively refused the connection, sleeping for {}s and retrying the request".format(
                 default_sleep_time
             ), level=30
         ))
@@ -379,14 +379,14 @@ def main_header_check(url, **kwargs):
         )
     except ReadTimeout:
         logger.error(set_color(
-            "meta-data retrieval failed due to target URL timing out, skipping", level=40
+            "Metadata retrieval failed due to target URL timing out, skipping", level=40
         ))
     except KeyboardInterrupt:
         if not pause():
             shutdown()
     except Exception as e:
         logger.exception(set_color(
-            "meta-data retrieval failed with unexpected error '{}'".format(
+            "Metadata retrieval failed with unexpected error: '{}'".format(
                 str(e)
             ), level=50
         ))

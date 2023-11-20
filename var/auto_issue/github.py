@@ -1,9 +1,6 @@
 import re
 import sys
-try:
-    import urllib2  # python 2
-except ImportError:
-    import urllib.request as urllib2  # python 3
+import urllib.request as urllib2
 import json
 import platform
 
@@ -16,7 +13,7 @@ import lib.core.settings
 
 def find_url(params, search="https://github.com/ekultek/zeus-scanner/issues"):
     """
-    get the URL that your issue is created at
+    Get the URL that your issue is created at
     """
     retval = "https://github.com{}"
     href = None
@@ -39,13 +36,13 @@ def find_url(params, search="https://github.com/ekultek/zeus-scanner/issues"):
 def request_issue_creation():
     if not lib.core.settings.get_md5sum():
         lib.core.settings.logger.fatal(lib.core.settings.set_color(
-            "it appears that your checksums did not match, therefore it is assumed "
+            "It appears that your checksums did not match, therefore it is assumed "
             "that you have edited some of the code, issue request denied", level=50
         ))
         lib.core.common.shutdown()
 
     question = lib.core.common.prompt(
-        "would you like to create an anonymous issue and post it to Zeus's Github", opts="yN"
+        "Would you like to create an anonymous issue and post it to Zeus's Github? >", opts="yN"
     )
     if question.lower().startswith("n"):
         lib.core.settings.logger.error(lib.core.settings.set_color(
@@ -60,7 +57,7 @@ def request_issue_creation():
 
     def __extract_stacktrace(file_data):
         lib.core.settings.logger.info(lib.core.settings.set_color(
-            "extracting traceback from log file"
+            "Extracting traceback from log file"
         ))
         retval, buff_mode, _buffer = [], False, ""
         with open(file_data, "r+") as log:
@@ -78,7 +75,7 @@ def request_issue_creation():
         return "".join(retval)
 
     lib.core.settings.logger.info(lib.core.settings.set_color(
-        "getting authorization"
+        "Getting authorization..."
     ))
 
     token = lib.core.settings.get_token(lib.core.settings.GITHUB_AUTH_PATH)
@@ -120,13 +117,13 @@ def request_issue_creation():
         )
         urllib2.urlopen(req, timeout=10).read()
         lib.core.settings.logger.info(lib.core.settings.set_color(
-            "issue has been created successfully with the following name '{}', your unique identifier "
+            "Issue has been created successfully with the name '{}', your unique identifier "
             "for this issue is '{}' and the URL to your issue is '{}'".format(
                 issue_title, identifier, find_url(identifier)
             )
         ))
     except Exception as e:
         lib.core.settings.logger.exception(lib.core.settings.set_color(
-            "failed to auto create the issue, got exception '{}', "
-            "you may manually create an issue".format(e), level=50
+            "Failed to auto create the issue, got exception: '{}'. "
+            "You may manually create an issue".format(e), level=50
         ))
